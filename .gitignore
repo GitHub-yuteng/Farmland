@@ -1,0 +1,17 @@
+# Project exclude paths
+.idea
+.secret
+*.iml
+
+.metadata
+.settings
+**/.settings
+.classpath
+**/.classpath
+.project
+**/.project
+.recommenders
+
+target
+*.log
+*.pid

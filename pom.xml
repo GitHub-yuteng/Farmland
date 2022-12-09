@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>pom</packaging>
+  <parent>
+    <groupId>com.harvest</groupId>
+    <artifactId>harvest-parent</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath/>
+  </parent>
+  
+  <artifactId>farmland-harvest</artifactId>
+  
+  <modules>
+    <module>harvest-parent</module>
+    <module>harvest-core</module>
+    <module>harvest-basic-web</module>
+    <module>harvest-basic-service</module>
+    <module>harvest-basic-repository</module>
+    <module>harvest-finance-web</module>
+    <module>harvest-finance-service</module>
+    <module>harvest-finance-repository</module>
+    <module>harvest-goods-web</module>
+    <module>harvest-goods-service</module>
+    <module>harvest-goods-repository</module>
+    <module>harvest-inventory-web</module>
+    <module>harvest-inventory-service</module>
+    <module>harvest-inventory-repository</module>
+    <module>harvest-oms-web</module>
+    <module>harvest-oms-service</module>
+    <module>harvest-oms-repository</module>
+    <module>harvest-rule-service</module>
+    <module>harvest-rule-repository</module>
+    <module>harvest-logistics</module>
+    <module>harvest-logistics-SF</module>
+    <module>harvest-logistics-JD</module>
+    <module>harvest-platform</module>
+    <module>harvest-platform-taobao</module>
+    <module>harvest-platform-JD</module>
+    <module>harvest-platform-TMall</module>
+    <module>harvest-logistics-cainiao</module>
+    <module>harvest-purchase-web</module>
+    <module>harvest-purchase-service</module>
+    <module>harvest-purchase-repository</module>
+    <module>harvest-wms-web</module>
+    <module>harvest-wms-service</module>
+    <module>harvest-wms-repository</module>
+  </modules>
+
+</project>

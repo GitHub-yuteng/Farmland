@@ -1,0 +1,15 @@
+server:
+  port: 8910
+
+spring:
+  application:
+    name: harvest-oms-service
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+    lease-renewal-interval-in-seconds: 2
+    lease-expiration-duration-in-seconds: 10

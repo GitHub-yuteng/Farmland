@@ -1,0 +1,14 @@
+server:
+  port: 8000
+eureka:
+  server:
+    # 刷新数小于阈值时，为了安全起见不会剔除过期实例
+    enable-self-preservation: false
+  client:
+    service-url:
+      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka
+    register-with-eureka: false
+    fetch-registry: false
+  instance:
+    hostname: localhost
+
