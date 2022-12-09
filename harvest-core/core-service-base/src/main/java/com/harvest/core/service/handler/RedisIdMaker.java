@@ -10,8 +10,8 @@ import java.time.format.DateTimeFormatter;
 @Component
 public class RedisIdMaker {
 
-    @Autowired
-    private StringRedisTemplate stringRedisTemplate;
+//    @Autowired
+//    private StringRedisTemplate stringRedisTemplate;
 
     private final static String DATE_TIME_PATTERN = "yyyy:MM:dd:HH:mm";
 
@@ -28,38 +28,23 @@ public class RedisIdMaker {
     private static final String ORDER_COUNT_KEY = "order:";
 
 
-    /**
-     * 根据redis生成唯一订单号
-     *
-     * @return
-     */
-    public Long generateNextId() {
-        // 获取当前时间
-        LocalDateTime now = LocalDateTime.now();
-        long currentStamp = now.toEpochSecond(ZoneOffset.UTC);
-        // 获取当前时间戳（秒）
-        long timeStamp = currentStamp - START_TIME;
-        // 组装成key=order:2022:01:01(组装成这种形式方便日后根据日期统计当天的订单数量)
-        String date = now.format(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN));
-        String redisKey = ORDER_COUNT_KEY + date;
-        // 订单自增长
-        long orderCount = stringRedisTemplate.opsForValue().increment(redisKey);
-        // 返回唯一订单号（拼接而来的）
-        return timeStamp << COUNT_BITS | orderCount;
-    }
-
-    /**
-     * 获取2022年1月1号0点0时0分的时间戳
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        LocalDateTime startLocalTime = LocalDateTime.of(2022, 1, 1, 0, 0, 0);
-        long startTime = startLocalTime.toEpochSecond(ZoneOffset.UTC);
-        System.out.println(startTime);
-        LocalDateTime now = LocalDateTime.now();
-
-        String date = now.format(DateTimeFormatter.ofPattern("yyyy:MM:dd:HH:mm"));
-        System.out.println(date);
-    }
+//    /**
+//     * 根据redis生成唯一订单号
+//     *
+//     * @return
+//     */
+//    public Long generateNextId() {
+//        // 获取当前时间
+//        LocalDateTime now = LocalDateTime.now();
+//        long currentStamp = now.toEpochSecond(ZoneOffset.UTC);
+//        // 获取当前时间戳（秒）
+//        long timeStamp = currentStamp - START_TIME;
+//        // 组装成key=order:2022:01:01(组装成这种形式方便日后根据日期统计当天的订单数量)
+//        String date = now.format(DateTimeFormatter.ofPattern(DATE_TIME_PATTERN));
+//        String redisKey = ORDER_COUNT_KEY + date;
+//        // 订单自增长
+//        long orderCount = stringRedisTemplate.opsForValue().increment(redisKey);
+//        // 返回唯一订单号（拼接而来的）
+//        return timeStamp << COUNT_BITS | orderCount;
+//    }
 }
