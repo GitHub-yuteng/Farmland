@@ -1,9 +1,9 @@
 server:
-  port: 8911
+  port: 8910
 
 spring:
   application:
-    name: harvest-oms-service
+    name: harvest-oms-web
 
 eureka:
   client:
