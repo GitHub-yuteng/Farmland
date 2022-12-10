@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harvest.oms.repository.mapper.FarmlandOmsOrderRemarkMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.harvest.oms.repository.entity.FarmlandOmsOrderRemarkEntity">
+        <id column="id" property="id" />
+        <result column="COMPANY_ID" property="companyId" />
+        <result column="record_type" property="recordType" />
+        <result column="record_id" property="recordId" />
+        <result column="seller_remark" property="sellerRemark" />
+        <result column="buyer_remark" property="buyerRemark" />
+        <result column="system_remark" property="systemRemark" />
+        <result column="print_remark" property="printRemark" />
+        <result column="rc_time" property="rcTime" />
+        <result column="rm_time" property="rmTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, COMPANY_ID, record_type, record_id, seller_remark, buyer_remark, system_remark, print_remark, rc_time, rm_time
+    </sql>
+
+</mapper>

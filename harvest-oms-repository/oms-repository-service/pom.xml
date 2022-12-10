@@ -11,6 +11,19 @@
   
   <artifactId>oms-repository-service</artifactId>
   
+  <dependencies>
+    <dependency>
+      <groupId>com.harvest</groupId>
+      <artifactId>core-repository-base</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.harvest</groupId>
+      <artifactId>oms-repository-interface</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+  
   <properties>
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>

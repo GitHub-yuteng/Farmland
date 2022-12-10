@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harvest.oms.repository.mapper.FarmlandOmsOrderSensitiveDataMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.harvest.oms.repository.entity.FarmlandOmsOrderSensitiveDataEntity">
+        <id column="id" property="id" />
+        <result column="COMPANY_ID" property="companyId" />
+        <result column="order_id" property="orderId" />
+        <result column="data_type" property="dataType" />
+        <result column="encrypt_method" property="encryptMethod" />
+        <result column="data_text" property="dataText" />
+        <result column="fuzzy_text" property="fuzzyText" />
+        <result column="rc_time" property="rcTime" />
+        <result column="rm_time" property="rmTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, COMPANY_ID, order_id, data_type, encrypt_method, data_text, fuzzy_text, rc_time, rm_time
+    </sql>
+
+</mapper>

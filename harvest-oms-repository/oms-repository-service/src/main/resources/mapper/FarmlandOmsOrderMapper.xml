@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harvest.oms.repository.mapper.FarmlandOmsOrderMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.harvest.oms.repository.entity.FarmlandOmsOrderEntity">
+        <id column="id" property="id" />
+        <result column="COMPANY_ID" property="companyId" />
+        <result column="order_no" property="orderNo" />
+        <result column="source_type" property="sourceType" />
+        <result column="shop_id" property="shopId" />
+        <result column="ORDER_STATUS" property="orderStatus" />
+        <result column="amount" property="amount" />
+        <result column="spu_kind" property="spuKind" />
+        <result column="sku_kind" property="skuKind" />
+        <result column="total_quantity" property="totalQuantity" />
+        <result column="created_time" property="createdTime" />
+        <result column="paid_time" property="paidTime" />
+        <result column="send_time" property="sendTime" />
+        <result column="delivery_deadline_time" property="deliveryDeadlineTime" />
+        <result column="modify_time" property="modifyTime" />
+        <result column="print_time" property="printTime" />
+        <result column="audit_man_id" property="auditManId" />
+        <result column="audit_time" property="auditTime" />
+        <result column="end_time" property="endTime" />
+        <result column="warehouse_owner" property="warehouseOwner" />
+        <result column="warehouse_id" property="warehouseId" />
+        <result column="wave_no" property="waveNo" />
+        <result column="logistic_type" property="logisticType" />
+        <result column="carrier_id" property="carrierId" />
+        <result column="channel_id" property="channelId" />
+        <result column="delivery_no" property="deliveryNo" />
+        <result column="weight" property="weight" />
+        <result column="volume" property="volume" />
+        <result column="buyer_id" property="buyerId" />
+        <result column="business_man_id" property="businessManId" />
+        <result column="declare_status" property="declareStatus" />
+        <result column="ignore_outbound" property="ignoreOutbound" />
+        <result column="is_hang_up" property="isHangUp" />
+        <result column="hang_up_case_type" property="hangUpCaseType" />
+        <result column="hang_up_case_id" property="hangUpCaseId" />
+        <result column="empty_order" property="emptyOrder" />
+        <result column="is_abnormal" property="isAbnormal" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="rc_time" property="rcTime" />
+        <result column="rm_time" property="rmTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, COMPANY_ID, order_no, source_type, shop_id, ORDER_STATUS, amount, spu_kind, sku_kind, total_quantity, created_time, paid_time, send_time, delivery_deadline_time, modify_time, print_time, audit_man_id, audit_time, end_time, warehouse_owner, warehouse_id, wave_no, logistic_type, carrier_id, channel_id, delivery_no, weight, volume, buyer_id, business_man_id, declare_status, ignore_outbound, is_hang_up, hang_up_case_type, hang_up_case_id, empty_order, is_abnormal, is_deleted, rc_time, rm_time
+    </sql>
+
+</mapper>
