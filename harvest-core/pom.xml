@@ -13,6 +13,7 @@
     <module>core-base</module>
     <module>core-repository-base</module>
     <module>core-service-base</module>
+    <module>core-object-base</module>
   </modules>
   
   <artifactId>harvest-core</artifactId>
