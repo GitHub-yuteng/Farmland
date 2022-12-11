@@ -16,6 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface OrderReadRepositoryService extends GlobalMacroDefinition {
 
     @ApiOperation("查询订单信息")
-    @PostMapping(value = "/getOrderInfo")
+    @PostMapping(value = "/order/read/get")
     OrderInfoDO getOrderInfo(@RequestParam(OMS.ORDER_ID) Long orderId);
 }

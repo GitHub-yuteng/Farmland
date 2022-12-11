@@ -22,14 +22,9 @@ public class OrderReadController {
     @Autowired
     private OrderReadService orderReadService;
 
-    @RequestMapping(value = "/order/test")
-    public String test() {
-        return orderReadService.test();
-    }
-
     @ApiOperation("订单查询")
     @RequestMapping(value = "/order/read/get")
     public OrderInfoDO getOrderInfo(@RequestParam("orderId") Long orderId) {
-        return orderReadService.getOrderInfo();
+        return orderReadService.getOrderInfo(orderId);
     }
 }
