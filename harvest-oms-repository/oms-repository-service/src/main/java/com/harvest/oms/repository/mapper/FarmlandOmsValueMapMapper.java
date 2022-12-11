@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
- *  Mapper 接口
+ * 订单 value map 扩展信息 Mapper 接口
  * </p>
  *
  * @author Alodi
- * @since 2022-12-10 20:21:21
+ * @since 2022-12-11 18:57:05
  */
 @Mapper
 public interface FarmlandOmsValueMapMapper extends BaseMapper<FarmlandOmsValueMapEntity> {

@@ -5,8 +5,11 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.time.LocalDateTime;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -16,67 +19,50 @@ import lombok.Setter;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-10 20:21:20
+ * @since 2022-12-11 18:57:04
  */
 @Getter
 @Setter
 @TableName("farmland_oms_order_address")
+@ApiModel(value = "FarmlandOmsOrderAddressEntity对象", description = "订单地址信息")
 public class FarmlandOmsOrderAddressEntity {
 
     @TableId("id")
     private Long id;
 
-    /**
-     * 公司id
-     */
+    @ApiModelProperty("公司id")
     @TableField("COMPANY_ID")
     private Long companyId;
 
-    /**
-     * 地址类型
-     */
+    @ApiModelProperty("地址类型")
     @TableField("address_type")
     private Integer addressType;
 
-    /**
-     * 国家二字码
-     */
+    @ApiModelProperty("国家二字码")
     @TableField("country_code")
     private String countryCode;
 
-    /**
-     * 国家中文名称
-     */
+    @ApiModelProperty("国家中文名称")
     @TableField("country_cn")
     private String countryCn;
 
-    /**
-     * 邮政编码
-     */
+    @ApiModelProperty("邮政编码")
     @TableField("postal_code")
     private String postalCode;
 
-    /**
-     * 省
-     */
+    @ApiModelProperty("省")
     @TableField("region1")
     private String region1;
 
-    /**
-     * 市
-     */
+    @ApiModelProperty("市")
     @TableField("region2")
     private String region2;
 
-    /**
-     * 区/县
-     */
+    @ApiModelProperty("区/县")
     @TableField("region3")
     private String region3;
 
-    /**
-     * 街道/乡村
-     */
+    @ApiModelProperty("街道/乡村")
     @TableField("region4")
     private String region4;
 

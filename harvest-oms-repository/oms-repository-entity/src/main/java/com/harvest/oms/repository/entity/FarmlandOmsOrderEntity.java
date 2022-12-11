@@ -7,238 +7,169 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * <p>
- * 
+ * 订单表
  * </p>
  *
  * @author Alodi
- * @since 2022-12-10 20:21:20
+ * @since 2022-12-11 18:57:04
  */
 @Getter
 @Setter
 @TableName("farmland_oms_order")
+@ApiModel(value = "FarmlandOmsOrderEntity对象", description = "订单表")
 public class FarmlandOmsOrderEntity {
 
     @TableId("id")
     private Long id;
 
-    /**
-     * 公司id
-     */
+    @ApiModelProperty("公司id")
     @TableField("COMPANY_ID")
     private Long companyId;
 
-    /**
-     * 订单号
-     */
+    @ApiModelProperty("订单号")
     @TableField("order_no")
     private String orderNo;
 
-    /**
-     * 订单来源
-     */
-    @TableField("source_type")
-    private Integer sourceType;
+    @ApiModelProperty("订单来源")
+    @TableField("order_source")
+    private Integer orderSource;
 
-    /**
-     * 店铺id
-     */
+    @ApiModelProperty("店铺id")
     @TableField("shop_id")
     private Long shopId;
 
-    /**
-     * 订单状态
-     */
+    @ApiModelProperty("订单状态")
     @TableField("ORDER_STATUS")
     private Integer orderStatus;
 
-    /**
-     * 金额大字段 Json
-     */
+    @ApiModelProperty("金额大字段 Json")
     @TableField("amount")
     private String amount;
 
-    /**
-     * SPU种类数目
-     */
+    @ApiModelProperty("SPU种类数目")
     @TableField("spu_kind")
     private Integer spuKind;
 
-    /**
-     * SKU种类数目
-     */
+    @ApiModelProperty("SKU种类数目")
     @TableField("sku_kind")
     private Integer skuKind;
 
-    /**
-     * 商品总数
-     */
+    @ApiModelProperty("商品总数")
     @TableField("total_quantity")
     private BigDecimal totalQuantity;
 
-    /**
-     * 下单时间
-     */
+    @ApiModelProperty("下单时间")
     @TableField("created_time")
     private LocalDateTime createdTime;
 
-    /**
-     * 支付时间
-     */
+    @ApiModelProperty("支付时间")
     @TableField("paid_time")
     private LocalDateTime paidTime;
 
-    /**
-     * 发货时间
-     */
+    @ApiModelProperty("发货时间")
     @TableField("send_time")
     private LocalDateTime sendTime;
 
-    /**
-     * 发货截止时间
-     */
+    @ApiModelProperty("发货截止时间")
     @TableField("delivery_deadline_time")
     private LocalDateTime deliveryDeadlineTime;
 
-    /**
-     * 业务修改时间
-     */
+    @ApiModelProperty("业务修改时间")
     @TableField("modify_time")
     private LocalDateTime modifyTime;
 
-    /**
-     * 打单时间
-     */
+    @ApiModelProperty("打单时间")
     @TableField("print_time")
     private LocalDateTime printTime;
 
-    /**
-     * 审核人
-     */
+    @ApiModelProperty("审核人")
     @TableField("audit_man_id")
     private Long auditManId;
 
-    /**
-     * 审核时间
-     */
+    @ApiModelProperty("审核时间")
     @TableField("audit_time")
     private LocalDateTime auditTime;
 
-    /**
-     * 订单完成或结束时间
-     */
+    @ApiModelProperty("订单完成或结束时间")
     @TableField("end_time")
     private LocalDateTime endTime;
 
-    /**
-     * 仓库类型
-     */
+    @ApiModelProperty("仓库类型")
     @TableField("warehouse_owner")
     private Integer warehouseOwner;
 
-    /**
-     * 仓库id
-     */
+    @ApiModelProperty("仓库id")
     @TableField("warehouse_id")
     private Long warehouseId;
 
-    /**
-     * 波次号
-     */
+    @ApiModelProperty("波次号")
     @TableField("wave_no")
     private Integer waveNo;
 
-    /**
-     * 物流类型
-     */
+    @ApiModelProperty("物流类型")
     @TableField("logistic_type")
     private Integer logisticType;
 
-    /**
-     * 承运商id
-     */
+    @ApiModelProperty("承运商id")
     @TableField("carrier_id")
     private Long carrierId;
 
-    /**
-     * 渠道id
-     */
+    @ApiModelProperty("渠道id")
     @TableField("channel_id")
     private Long channelId;
 
-    /**
-     * 运单号
-     */
+    @ApiModelProperty("运单号")
     @TableField("delivery_no")
     private String deliveryNo;
 
-    /**
-     * 订单总重量
-     */
+    @ApiModelProperty("订单总重量")
     @TableField("weight")
     private BigDecimal weight;
 
-    /**
-     * 订单总体积
-     */
+    @ApiModelProperty("订单总体积")
     @TableField("volume")
     private BigDecimal volume;
 
-    /**
-     * 买家id
-     */
+    @ApiModelProperty("买家id")
     @TableField("buyer_id")
     private String buyerId;
 
-    /**
-     * 业务员id
-     */
+    @ApiModelProperty("业务员id")
     @TableField("business_man_id")
     private Long businessManId;
 
-    /**
-     * 申报状态
-     */
+    @ApiModelProperty("申报状态")
     @TableField("declare_status")
     private Integer declareStatus;
 
-    /**
-     * 忽略生成出库单
-     */
+    @ApiModelProperty("忽略生成出库单")
     @TableField("ignore_outbound")
     private Boolean ignoreOutbound;
 
-    /**
-     * 是否挂起
-     */
+    @ApiModelProperty("是否挂起")
     @TableField("is_hang_up")
     private Boolean isHangUp;
 
-    /**
-     * 挂起类型
-     */
+    @ApiModelProperty("挂起类型")
     @TableField("hang_up_case_type")
     private Integer hangUpCaseType;
 
-    /**
-     * 挂起原因id
-     */
+    @ApiModelProperty("挂起原因id")
     @TableField("hang_up_case_id")
     private Integer hangUpCaseId;
 
-    /**
-     * 1:测评订单
-     */
+    @ApiModelProperty("1:测评订单")
     @TableField("empty_order")
     private Boolean emptyOrder;
 
-    /**
-     * 异常订单
-     */
+    @ApiModelProperty("异常订单")
     @TableField("is_abnormal")
     private Boolean isAbnormal;
 

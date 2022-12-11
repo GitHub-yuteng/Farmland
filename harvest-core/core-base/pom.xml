@@ -42,7 +42,13 @@
       <artifactId>okhttp</artifactId>
       <version>4.10.0</version>
     </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-boot-starter</artifactId>
+      <version>3.0.0</version>
+    </dependency>
   </dependencies>
+  
   
   <properties>
     <maven.compiler.source>8</maven.compiler.source>

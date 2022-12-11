@@ -1,7 +1,9 @@
 package com.harvest.oms.service.order;
 
+import com.harvest.oms.repository.domain.order.OrderInfoDO;
+import com.harvest.oms.repository.service.order.OrderReadRepositoryService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * @Author: Alodi
@@ -9,11 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
  * @Description: TODO
  **/
 @Service
-@RestController
 public class OrderReadServiceImpl implements OrderReadService {
 
+    @Autowired
+    private OrderReadRepositoryService orderReadRepositoryService;
+
     @Override
-    public String getOrderInfo(long orderId) {
-        return orderId + ": 信息";
+    public OrderInfoDO getOrderInfo() {
+        return orderReadRepositoryService.getOrderInfo(1L);
+    }
+
+    @Override
+    public String test() {
+        return "test";
     }
 }

@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -14,11 +16,12 @@ import lombok.Setter;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-10 20:21:20
+ * @since 2022-12-11 18:57:05
  */
 @Getter
 @Setter
 @TableName("farmland_oms_order_sensitive_data")
+@ApiModel(value = "FarmlandOmsOrderSensitiveDataEntity对象", description = "订单敏感信息数据表")
 public class FarmlandOmsOrderSensitiveDataEntity {
 
     @TableId("id")

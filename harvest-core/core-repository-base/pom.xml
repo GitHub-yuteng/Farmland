@@ -38,6 +38,12 @@
     <dependency>
       <groupId>com.baomidou</groupId>
       <artifactId>mybatis-plus-boot-starter</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>com.baomidou</groupId>
+          <artifactId>mybatis-plus-annotation</artifactId>
+        </exclusion>
+      </exclusions>
       <version>3.5.2</version>
     </dependency>
     <dependency>

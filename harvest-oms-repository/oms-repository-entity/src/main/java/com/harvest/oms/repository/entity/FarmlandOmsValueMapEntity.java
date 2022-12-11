@@ -6,20 +6,23 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * <p>
- * 
+ * 订单 value map 扩展信息
  * </p>
  *
  * @author Alodi
- * @since 2022-12-10 20:21:21
+ * @since 2022-12-11 18:57:05
  */
 @Getter
 @Setter
 @TableName("farmland_oms_value_map")
+@ApiModel(value = "FarmlandOmsValueMapEntity对象", description = "订单 value map 扩展信息")
 public class FarmlandOmsValueMapEntity {
 
     @TableId("id")
@@ -28,12 +31,15 @@ public class FarmlandOmsValueMapEntity {
     @TableField("COMPANY_ID")
     private Long companyId;
 
+    @ApiModelProperty("value map 类型")
     @TableField("type")
     private Integer type;
 
+    @ApiModelProperty("定义值")
     @TableField("oms_key")
     private String omsKey;
 
+    @ApiModelProperty("Json")
     @TableField("oms_value")
     private String omsValue;
 

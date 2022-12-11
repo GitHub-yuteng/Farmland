@@ -5,64 +5,53 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * <p>
- * 
+ * 订单备注表
  * </p>
  *
  * @author Alodi
- * @since 2022-12-10 20:21:20
+ * @since 2022-12-11 18:57:05
  */
 @Getter
 @Setter
 @TableName("farmland_oms_order_remark")
+@ApiModel(value = "FarmlandOmsOrderRemarkEntity对象", description = "订单备注表")
 public class FarmlandOmsOrderRemarkEntity {
 
     @TableId("id")
     private Long id;
 
-    /**
-     * 公司id
-     */
+    @ApiModelProperty("公司id")
     @TableField("COMPANY_ID")
     private Long companyId;
 
-    /**
-     * 0:订单｜1:订单明细
-     */
+    @ApiModelProperty("0:订单｜1:订单明细")
     @TableField("record_type")
     private Integer recordType;
 
-    /**
-     * 记录id
-     */
+    @ApiModelProperty("记录id")
     @TableField("record_id")
     private Long recordId;
 
-    /**
-     * 卖家备注
-     */
+    @ApiModelProperty("卖家备注")
     @TableField("seller_remark")
     private String sellerRemark;
 
-    /**
-     * 买家备注
-     */
+    @ApiModelProperty("买家备注")
     @TableField("buyer_remark")
     private String buyerRemark;
 
-    /**
-     * 系统备注
-     */
+    @ApiModelProperty("系统备注")
     @TableField("system_remark")
     private String systemRemark;
 
-    /**
-     * 需要打印备注
-     */
+    @ApiModelProperty("需要打印备注")
     @TableField("print_remark")
     private String printRemark;
 

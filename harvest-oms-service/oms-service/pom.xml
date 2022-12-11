@@ -16,7 +16,11 @@
       <groupId>com.harvest</groupId>
       <artifactId>oms-service-interface</artifactId>
       <version>0.0.1-SNAPSHOT</version>
-      <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>com.harvest</groupId>
+      <artifactId>oms-repository-interface</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>
   

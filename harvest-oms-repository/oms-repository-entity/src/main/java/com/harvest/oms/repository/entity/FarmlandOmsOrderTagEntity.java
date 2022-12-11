@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,55 +17,42 @@ import lombok.Setter;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-10 20:21:20
+ * @since 2022-12-11 18:57:05
  */
 @Getter
 @Setter
 @TableName("farmland_oms_order_tag")
+@ApiModel(value = "FarmlandOmsOrderTagEntity对象", description = "订单标签")
 public class FarmlandOmsOrderTagEntity {
 
     @TableId("id")
     private Long id;
 
-    /**
-     * 公司id
-     */
+    @ApiModelProperty("公司id")
     @TableField("COMPANY_ID")
     private Long companyId;
 
-    /**
-     * 记录id
-     */
+    @ApiModelProperty("记录id")
     @TableField("record_id")
     private Long recordId;
 
-    /**
-     * 0:订单｜1:订单明细
-     */
+    @ApiModelProperty("0:订单｜1:订单明细")
     @TableField("record_type")
     private Boolean recordType;
 
-    /**
-     * eg:10001
-     */
+    @ApiModelProperty("eg:10001")
     @TableField("tag_value")
     private Integer tagValue;
 
-    /**
-     * 根据业务是否继续执行判断点
-     */
+    @ApiModelProperty("根据业务是否继续执行判断点")
     @TableField("processed")
     private Boolean processed;
 
-    /**
-     * 简单扩展｜添加索引
-     */
+    @ApiModelProperty("简单扩展｜添加索引")
     @TableField("simple_extension")
     private String simpleExtension;
 
-    /**
-     * 大字段扩展字段
-     */
+    @ApiModelProperty("大字段扩展字段")
     @TableField("extension")
     private String extension;
 

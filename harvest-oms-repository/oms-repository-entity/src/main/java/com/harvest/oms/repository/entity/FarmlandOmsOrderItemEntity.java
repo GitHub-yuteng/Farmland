@@ -7,172 +7,125 @@ import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
 
 /**
  * <p>
- * 
+ * 订单明细表
  * </p>
  *
  * @author Alodi
- * @since 2022-12-10 20:21:20
+ * @since 2022-12-11 18:57:05
  */
 @Getter
 @Setter
 @TableName("farmland_oms_order_item")
+@ApiModel(value = "FarmlandOmsOrderItemEntity对象", description = "订单明细表")
 public class FarmlandOmsOrderItemEntity {
 
     @TableId("id")
     private Long id;
 
-    /**
-     * 公司id
-     */
+    @ApiModelProperty("公司id")
     @TableField("COMPANY_ID")
     private Long companyId;
 
-    /**
-     * 店铺id｜与订单保持一致
-     */
+    @ApiModelProperty("店铺id｜与订单保持一致")
     @TableField("shop_id")
     private Integer shopId;
 
-    /**
-     * 订单id
-     */
+    @ApiModelProperty("订单id")
     @TableField("order_id")
     private Long orderId;
 
-    /**
-     * 订单来源｜与订单保持一致
-     */
+    @ApiModelProperty("订单来源｜与订单保持一致")
     @TableField("source_type")
     private Integer sourceType;
 
-    /**
-     * 订单明细状态
-     */
+    @ApiModelProperty("订单明细状态")
     @TableField("order_item_status")
     private Integer orderItemStatus;
 
-    /**
-     * 运单号
-     */
+    @ApiModelProperty("运单号")
     @TableField("delivery_no")
     private String deliveryNo;
 
-    /**
-     * 商品id
-     */
+    @ApiModelProperty("商品id")
     @TableField("spu_id")
     private Long spuId;
 
-    /**
-     * 商品编码
-     */
+    @ApiModelProperty("商品编码")
     @TableField("spu_code")
     private String spuCode;
 
-    /**
-     * 商品名称｜冗余
-     */
+    @ApiModelProperty("商品名称｜冗余")
     @TableField("spu_name")
     private String spuName;
 
-    /**
-     * 商品规格id
-     */
+    @ApiModelProperty("商品规格id")
     @TableField("sku_id")
     private Long skuId;
 
-    /**
-     * 商品规格编码
-     */
+    @ApiModelProperty("商品规格编码")
     @TableField("sku_code")
     private String skuCode;
 
-    /**
-     * 商品规格名称｜冗余
-     */
+    @ApiModelProperty("商品规格名称｜冗余")
     @TableField("sku_name")
     private String skuName;
 
-    /**
-     * 单价
-     */
+    @ApiModelProperty("单价")
     @TableField("unit_price")
     private BigDecimal unitPrice;
 
-    /**
-     * 折扣单价
-     */
+    @ApiModelProperty("折扣单价")
     @TableField("discounted_price")
     private BigDecimal discountedPrice;
 
-    /**
-     * 是否组合商品
-     */
+    @ApiModelProperty("是否组合商品")
     @TableField("is_package")
     private Integer isPackage;
 
-    /**
-     * 数量
-     */
+    @ApiModelProperty("数量")
     @TableField("quantity")
     private BigDecimal quantity;
 
-    /**
-     * 金额大字段｜Json
-     */
+    @ApiModelProperty("金额大字段｜Json")
     @TableField("amount")
     private String amount;
 
-    /**
-     * 下单时间
-     */
+    @ApiModelProperty("下单时间")
     @TableField("created_time")
     private LocalDateTime createdTime;
 
-    /**
-     * 支付时间
-     */
+    @ApiModelProperty("支付时间")
     @TableField("paid_time")
     private LocalDateTime paidTime;
 
-    /**
-     * 发货时间
-     */
+    @ApiModelProperty("发货时间")
     @TableField("send_time")
     private LocalDateTime sendTime;
 
-    /**
-     * 订单完成或结束时间
-     */
+    @ApiModelProperty("订单完成或结束时间")
     @TableField("end_time")
     private LocalDateTime endTime;
 
-    /**
-     * 业务修改时间
-     */
+    @ApiModelProperty("业务修改时间")
     @TableField("modify_time")
     private LocalDateTime modifyTime;
 
-    /**
-     * 缺货数量
-     */
+    @ApiModelProperty("缺货数量")
     @TableField("stock_lack")
     private BigDecimal stockLack;
 
-    /**
-     * 缺货更新时间
-     */
+    @ApiModelProperty("缺货更新时间")
     @TableField("stock_lack_time")
     private LocalDateTime stockLackTime;
 
-    /**
-     * 商品外部图片
-     */
+    @ApiModelProperty("商品外部图片")
     @TableField("picture_oss_url")
     private String pictureOssUrl;
 

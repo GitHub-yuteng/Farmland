@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
- *  Mapper 接口
+ * 订单备注表 Mapper 接口
  * </p>
  *
  * @author Alodi
- * @since 2022-12-10 20:21:20
+ * @since 2022-12-11 18:57:05
  */
 @Mapper
 public interface FarmlandOmsOrderRemarkMapper extends BaseMapper<FarmlandOmsOrderRemarkEntity> {

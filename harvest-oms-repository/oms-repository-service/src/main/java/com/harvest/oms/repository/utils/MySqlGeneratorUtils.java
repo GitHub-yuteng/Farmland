@@ -60,9 +60,9 @@ public class MySqlGeneratorUtils {
                 .globalConfig(builder -> {
                     builder.author("Alodi")
                             .disableOpenDir()
+                            .enableSwagger()
                             .commentDate("yyyy-MM-dd HH:mm:ss")
                             .dateType(DateType.TIME_PACK);
-//                            .outputDir(PROJECT_PATH + "/harvest-oms-repository");
                 })
                 .packageConfig(builder -> builder
                         .pathInfo(pathInfo())
@@ -81,6 +81,7 @@ public class MySqlGeneratorUtils {
                     builder.addInclude(table);
                     builder.entityBuilder()
                             .enableLombok()
+                            .enableFileOverride()
                             .logicDeleteColumnName("is_deleted")
                             .disableSerialVersionUID()
                             .enableTableFieldAnnotation()
