@@ -42,12 +42,6 @@ public @interface HarvestClient {
     String path() default "";
 
     /**
-     * Alias for {@link FeignClient#qualifier}
-     */
-    @AliasFor(annotation = FeignClient.class)
-    String qualifier() default "";
-
-    /**
      * Alias for {@link FeignClient#url}
      */
     @AliasFor(annotation = FeignClient.class)
