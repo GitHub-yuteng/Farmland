@@ -5,7 +5,7 @@
   <packaging>pom</packaging>
   <parent>
     <groupId>com.harvest</groupId>
-      <artifactId>farmland-harvest</artifactId>
+    <artifactId>farmland-harvest</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   
@@ -13,9 +13,15 @@
   <name>harvest-goods-repository</name>
   <description>harvest-goods-repository</description>
   
+  <modules>
+    <module>goods-repository-entity</module>
+    <module>goods-repository-interface</module>
+    <module>goods-repository-service</module>
+  </modules>
+  
   <properties>
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>
   </properties>
-  
+
 </project>

@@ -5,7 +5,7 @@
   <packaging>pom</packaging>
   <parent>
     <groupId>com.harvest</groupId>
-    <artifactId>harvest-parent</artifactId>
+    <artifactId>farmland-harvest</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <relativePath/>
   </parent>

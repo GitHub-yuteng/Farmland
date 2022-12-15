@@ -39,4 +39,17 @@ public class HarvestAddress implements Serializable {
     @ApiModelProperty(value = "四级行政区划，比如中国的街道/乡村", notes = "非中国地区，不要求模型标准")
     private String region4;
 
+    /**
+     * 判断基础地址是否有变更
+     *
+     * @param harvestAddress
+     * @return
+     */
+    public boolean isChange(HarvestAddress harvestAddress) {
+        return harvestAddress.getRegion1().equals(this.getRegion1()) &&
+                harvestAddress.getRegion2().equals(this.getRegion2()) &&
+                harvestAddress.getRegion3().equals(this.getRegion3()) &&
+                harvestAddress.getRegion4().equals(this.getRegion4());
+    }
+
 }

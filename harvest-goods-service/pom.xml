@@ -3,6 +3,11 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <packaging>pom</packaging>
+  <modules>
+    <module>goods-service</module>
+    <module>goods-service-domain</module>
+    <module>goods-service-interface</module>
+  </modules>
   <parent>
     <groupId>com.harvest</groupId>
       <artifactId>farmland-harvest</artifactId>

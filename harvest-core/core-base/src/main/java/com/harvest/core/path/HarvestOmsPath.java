@@ -7,14 +7,32 @@ package com.harvest.core.path;
  **/
 public interface HarvestOmsPath {
 
+    String OMS_PATH = "/oms/order";
+
     /**
      * 订单路径
      */
     interface OrderPath {
 
-        String OMS_BUSINESS_PATH = "/order/business";
-        String OMS_READ_PATH = "/order/read";
-        String OMS_WRITE_PATH = "/order/write";
-        
+        String OMS_BUSINESS_PATH = OMS_PATH + "/business";
+        String OMS_READ_PATH = OMS_PATH + "/read";
+        String OMS_WRITE_PATH = OMS_PATH + "/write";
+
+    }
+
+    /**
+     * 入库单路径
+     */
+    interface InboundOrderPath {
+
+
+    }
+
+    /**
+     * 出库单路径
+     */
+    interface OutboundOrderPath {
+
+
     }
 }

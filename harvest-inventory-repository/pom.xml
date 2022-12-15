@@ -5,13 +5,19 @@
   <packaging>pom</packaging>
   <parent>
     <groupId>com.harvest</groupId>
-      <artifactId>harvest-parent</artifactId>
+    <artifactId>farmland-harvest</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   
   <artifactId>harvest-inventory-repository</artifactId>
   <name>harvest-inventory-repository</name>
   <description>harvest-inventory-repository</description>
+  
+  <modules>
+    <module>inventory-repository-entity</module>
+    <module>inventory-repository-interface</module>
+    <module>inventory-repository-service</module>
+  </modules>
   
   <properties>
     <maven.compiler.source>8</maven.compiler.source>
