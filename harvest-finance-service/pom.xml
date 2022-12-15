@@ -2,14 +2,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <packaging>pom</packaging>
   <parent>
-      <artifactId>harvest-parent</artifactId>
     <groupId>com.harvest</groupId>
+    <artifactId>farmland-harvest</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <modelVersion>4.0.0</modelVersion>
   
   <artifactId>harvest-finance-service</artifactId>
+  
+  <modules>
+    <module>finance-service</module>
+    <module>finance-service-domain</module>
+    <module>finance-service-interface</module>
+  </modules>
   
   <properties>
     <maven.compiler.source>8</maven.compiler.source>

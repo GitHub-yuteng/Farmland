@@ -14,6 +14,12 @@
   <name>harvest-basic-repository</name>
   <description>harvest-basic-repository</description>
   
+  <modules>
+    <module>basic-repository-entity</module>
+    <module>basic-repository-interface</module>
+    <module>basic-repository-service</module>
+  </modules>
+  
   <properties>
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>
