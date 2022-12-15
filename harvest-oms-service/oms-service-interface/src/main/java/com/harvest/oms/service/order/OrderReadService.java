@@ -17,6 +17,6 @@ public interface OrderReadService extends GlobalMacroDefinition {
 
     @ApiOperation("查询订单信息")
     @RequestMapping(value = "/order/read/get")
-    OrderInfoDO getOrderInfo(@RequestParam(OMS.ORDER_ID) Long orderId);
+    OrderInfoDO get(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId);
 
 }

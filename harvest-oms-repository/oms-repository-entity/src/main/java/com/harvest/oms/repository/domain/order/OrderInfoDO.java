@@ -12,4 +12,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class OrderInfoDO extends OrderCore {
 
+    private static final long serialVersionUID = 2547095981099704006L;
+
+
 }

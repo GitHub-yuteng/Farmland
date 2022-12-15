@@ -17,7 +17,7 @@ public class OrderReadServiceImpl implements OrderReadService {
     private OrderReadRepositoryService orderReadRepositoryService;
 
     @Override
-    public OrderInfoDO getOrderInfo(Long orderId) {
+    public OrderInfoDO get(Long orderId, Long id) {
         return orderReadRepositoryService.getOrderInfo(orderId);
     }
 }

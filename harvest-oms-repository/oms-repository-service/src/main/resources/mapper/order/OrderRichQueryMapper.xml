@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harvest.oms.repository.mapper.order.OrderRichQueryMapper">
+  
+  <resultMap id="OrderInfoDOResultMap" type="com.harvest.oms.repository.domain.order.OrderInfoDO">
+  
+  </resultMap>
+  
+  <select id="pageQueryOrderWithRichCondition" resultMap="OrderInfoDOResultMap">
+  
+  </select>
+
+</mapper>

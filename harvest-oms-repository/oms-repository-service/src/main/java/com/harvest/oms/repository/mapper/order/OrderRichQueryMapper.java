@@ -1,6 +1,11 @@
 package com.harvest.oms.repository.mapper.order;
 
+import com.harvest.core.constants.GlobalMacroDefinition;
+import com.harvest.oms.repository.domain.order.OrderInfoDO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.Map;
 
 /**
  * @Author: Alodi
@@ -8,6 +13,8 @@ import org.apache.ibatis.annotations.Mapper;
  * @Description: TODO
  **/
 @Mapper
-public interface OrderRichQueryMapper {
+public interface OrderRichQueryMapper extends GlobalMacroDefinition {
+
+    OrderInfoDO pageQueryOrderWithRichCondition(@Param(COMPANY_ID) Long companyId, @Param("") Map<String, Object> params);
 
 }

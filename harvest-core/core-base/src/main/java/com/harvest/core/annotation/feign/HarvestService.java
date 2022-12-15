@@ -22,6 +22,9 @@ public @interface HarvestService {
     @AliasFor(annotation = RestController.class)
     String value() default "";
 
+    /**
+     * Alias for {@link RequestMapping#path}.
+     */
     @AliasFor(annotation = RequestMapping.class)
     String path() default "";
 }

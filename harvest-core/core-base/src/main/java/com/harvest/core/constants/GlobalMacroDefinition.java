@@ -7,6 +7,8 @@ package com.harvest.core.constants;
  **/
 public interface GlobalMacroDefinition {
 
+    String COMPANY_ID = "companyId";
+
     interface Switch {
         int ON = 1;
         int OFF = 0;
@@ -79,7 +81,6 @@ public interface GlobalMacroDefinition {
         String IDS = "ids";
         String NAME = "name";
 
-        String COMPANY_ID = "companyId";
         String ACCOUNT_ID = "accountId";
         String USER_ID = "userId";
         String APPLICATION_TYPE = "applicationType";
