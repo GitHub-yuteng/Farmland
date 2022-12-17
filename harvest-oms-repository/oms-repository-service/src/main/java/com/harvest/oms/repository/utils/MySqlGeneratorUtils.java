@@ -57,13 +57,12 @@ public class MySqlGeneratorUtils {
 
     private static void execute(String table) {
         FastAutoGenerator.create(MYSQL_IP, USERNAME, PASSWORD)
-                .globalConfig(builder -> {
-                    builder.author("Alodi")
-                            .disableOpenDir()
-                            .enableSwagger()
-                            .commentDate("yyyy-MM-dd HH:mm:ss")
-                            .dateType(DateType.TIME_PACK);
-                })
+                .globalConfig(builder -> builder
+                        .author("Alodi")
+                        .disableOpenDir()
+                        .enableSwagger()
+                        .commentDate("yyyy-MM-dd HH:mm:ss")
+                        .dateType(DateType.TIME_PACK))
                 .packageConfig(builder -> builder
                         .pathInfo(pathInfo())
                         .parent("")
