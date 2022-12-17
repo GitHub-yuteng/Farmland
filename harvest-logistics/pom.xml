@@ -12,6 +12,10 @@
   
   <artifactId>harvest-logistics</artifactId>
   
+  <modules>
+    <module>base-logistics</module>
+  </modules>
+  
   <properties>
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>

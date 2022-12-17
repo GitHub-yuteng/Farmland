@@ -5,17 +5,23 @@
   <packaging>pom</packaging>
   <parent>
     <groupId>com.harvest</groupId>
-      <artifactId>harvest-parent</artifactId>
+    <artifactId>farmland-harvest</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   
-  <artifactId>harvest-rule-web</artifactId>
-  <name>harvest-rule-web</name>
-  <description>harvest-rule-web</description>
+  <artifactId>harvest-rule-service</artifactId>
+  <name>harvest-rule-service</name>
+  <description>harvest-rule-service</description>
+  
+  <modules>
+    <module>rule-service</module>
+    <module>rule-service-domain</module>
+    <module>rule-service-interface</module>
+  </modules>
   
   <properties>
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>
   </properties>
-  
+
 </project>

@@ -11,6 +11,24 @@
   
   <artifactId>basic-service-domain</artifactId>
   
+  <dependencies>
+    <dependency>
+      <groupId>com.harvest</groupId>
+      <artifactId>finance-service-domain</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.harvest</groupId>
+      <artifactId>goods-service-domain</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.harvest</groupId>
+      <artifactId>oms-service-domain</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+  
   <properties>
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>

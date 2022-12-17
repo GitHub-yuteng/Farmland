@@ -31,22 +31,23 @@
     <module>harvest-oms-web</module>
     <module>harvest-oms-service</module>
     <module>harvest-oms-repository</module>
-    <module>harvest-rule-service</module>
-    <module>harvest-rule-repository</module>
-    <module>harvest-logistics</module>
-    <module>harvest-logistics-SF</module>
-    <module>harvest-logistics-JD</module>
-    <module>harvest-platform</module>
-    <module>harvest-platform-taobao</module>
-    <module>harvest-platform-JD</module>
-    <module>harvest-platform-TMall</module>
-    <module>harvest-logistics-cainiao</module>
     <module>harvest-purchase-web</module>
     <module>harvest-purchase-service</module>
     <module>harvest-purchase-repository</module>
     <module>harvest-wms-web</module>
     <module>harvest-wms-service</module>
     <module>harvest-wms-repository</module>
+    <module>harvest-rule-web</module>
+    <module>harvest-rule-service</module>
+    <module>harvest-rule-repository</module>
+    <module>harvest-logistics</module>
+    <module>harvest-logistics-SF</module>
+    <module>harvest-logistics-JD</module>
+    <module>harvest-logistics-cainiao</module>
+    <module>harvest-platform</module>
+    <module>harvest-platform-taobao</module>
+    <module>harvest-platform-JD</module>
+    <module>harvest-platform-TMall</module>
   </modules>
 
 </project>

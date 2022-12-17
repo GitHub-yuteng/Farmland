@@ -5,11 +5,11 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.harvest</groupId>
-    <artifactId>harvest-rule-repository</artifactId>
+    <artifactId>harvest-wms-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   
-  <artifactId>rule-repository-entity</artifactId>
+  <artifactId>wms-service-interface</artifactId>
   
   <properties>
     <maven.compiler.source>8</maven.compiler.source>
