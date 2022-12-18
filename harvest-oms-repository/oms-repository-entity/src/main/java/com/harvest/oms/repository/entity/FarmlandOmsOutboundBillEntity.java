@@ -1,4 +1,4 @@
-package com.harvest.rule.repository.entity;
+package com.harvest.oms.repository.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -9,17 +9,17 @@ import lombok.Setter;
 
 /**
  * <p>
- * 订单合并规则
+ * 
  * </p>
  *
  * @author Alodi
- * @since 2022-12-18 21:08:39
+ * @since 2022-12-18 21:08:53
  */
 @Getter
 @Setter
-@TableName("farmland_rule_order_merge")
-@ApiModel(value = "FarmlandRuleOrderMergeEntity对象", description = "订单合并规则")
-public class FarmlandRuleOrderMergeEntity {
+@TableName("farmland_oms_outbound_bill")
+@ApiModel(value = "FarmlandOmsOutboundBillEntity对象", description = "")
+public class FarmlandOmsOutboundBillEntity {
 
     @TableId("id")
     private Long id;

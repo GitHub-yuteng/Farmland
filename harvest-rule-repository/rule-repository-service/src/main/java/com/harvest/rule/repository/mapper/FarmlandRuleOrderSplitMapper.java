@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-18 20:52:06
+ * @since 2022-12-18 21:08:40
  */
 @Mapper
 public interface FarmlandRuleOrderSplitMapper extends BaseMapper<FarmlandRuleOrderSplitEntity> {

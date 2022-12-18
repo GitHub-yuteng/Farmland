@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-18 20:23:34
+ * @since 2022-12-18 21:08:53
  */
 @Mapper
 public interface FarmlandOmsOrderSensitiveDataMapper extends BaseMapper<FarmlandOmsOrderSensitiveDataEntity> {

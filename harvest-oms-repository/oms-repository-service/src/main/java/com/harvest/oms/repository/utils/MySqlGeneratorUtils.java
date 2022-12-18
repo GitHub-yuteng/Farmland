@@ -30,15 +30,22 @@ public class MySqlGeneratorUtils {
     public static void main(String[] args) {
 
         List<String> list = new ArrayList<>();
+        list.add("farmland_after_sale_bill");
+        list.add("farmland_after_sale_bill_item");
+        list.add("farmland_after_sale_bill_log");
+        list.add("farmland_oms_inbound_bill");
+        list.add("farmland_oms_inbound_bill_item");
         list.add("farmland_oms_order");
         list.add("farmland_oms_order_address");
         list.add("farmland_oms_order_item");
         list.add("farmland_oms_order_remark");
         list.add("farmland_oms_order_sensitive_data");
         list.add("farmland_oms_order_tag");
+        list.add("farmland_oms_order_template_export");
+        list.add("farmland_oms_order_template_import");
         list.add("farmland_oms_order_value_map");
-        list.add("farmland_oms_rule_order_merge");
-        list.add("farmland_oms_rule_order_split");
+        list.add("farmland_oms_outbound_bill");
+        list.add("farmland_oms_outbound_bill_item");
         list.forEach(MySqlGeneratorUtils::execute);
     }
 
