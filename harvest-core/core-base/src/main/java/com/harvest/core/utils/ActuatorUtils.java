@@ -2,7 +2,7 @@ package com.harvest.core.utils;
 
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.harvest.core.domain.BatchExecuteResult;
+import com.harvest.core.batch.BatchExecuteResult;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
@@ -10,7 +10,10 @@ import org.springframework.util.CollectionUtils;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.LinkedBlockingQueue;
+import java.util.concurrent.ThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -21,7 +24,6 @@ import java.util.stream.Collectors;
  * @Description: TODO
  **/
 public class ActuatorUtils {
-
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ActuatorUtils.class);
 

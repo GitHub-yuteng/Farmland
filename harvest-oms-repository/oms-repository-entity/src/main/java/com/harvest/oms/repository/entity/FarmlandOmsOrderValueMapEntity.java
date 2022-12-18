@@ -17,13 +17,13 @@ import lombok.Setter;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-11 18:57:05
+ * @since 2022-12-18 20:23:34
  */
 @Getter
 @Setter
-@TableName("farmland_oms_value_map")
-@ApiModel(value = "FarmlandOmsValueMapEntity对象", description = "订单 value map 扩展信息")
-public class FarmlandOmsValueMapEntity {
+@TableName("farmland_oms_order_value_map")
+@ApiModel(value = "FarmlandOmsOrderValueMapEntity对象", description = "订单 value map 扩展信息")
+public class FarmlandOmsOrderValueMapEntity {
 
     @TableId("id")
     private Long id;

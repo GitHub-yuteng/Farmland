@@ -1,6 +1,6 @@
 package com.harvest.oms.repository.domain.order.pack;
 
-import com.harvest.core.domain.HarvestAddress;
+import com.harvest.core.domain.address.HarvestAddress;
 import io.swagger.annotations.ApiModelProperty;
 
 /**

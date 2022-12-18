@@ -1,4 +1,4 @@
-package com.harvest.core.domain;
+package com.harvest.core.domain.address;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

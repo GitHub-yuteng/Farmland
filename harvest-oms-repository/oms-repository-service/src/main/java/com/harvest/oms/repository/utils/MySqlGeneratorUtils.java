@@ -36,7 +36,9 @@ public class MySqlGeneratorUtils {
         list.add("farmland_oms_order_remark");
         list.add("farmland_oms_order_sensitive_data");
         list.add("farmland_oms_order_tag");
-        list.add("farmland_oms_value_map");
+        list.add("farmland_oms_order_value_map");
+        list.add("farmland_oms_rule_order_merge");
+        list.add("farmland_oms_rule_order_split");
         list.forEach(MySqlGeneratorUtils::execute);
     }
 

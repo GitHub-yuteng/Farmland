@@ -1,4 +1,4 @@
-package com.harvest.core.domain;
+package com.harvest.core.batch;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Lists;
