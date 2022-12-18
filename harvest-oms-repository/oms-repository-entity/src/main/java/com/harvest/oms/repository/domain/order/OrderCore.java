@@ -1,6 +1,7 @@
 package com.harvest.oms.repository.domain.order;
 
 import com.harvest.oms.repository.domain.CompanyId;
+import com.harvest.oms.repository.domain.order.amount.OrderAmount;
 import com.harvest.oms.repository.domain.order.pack.*;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
