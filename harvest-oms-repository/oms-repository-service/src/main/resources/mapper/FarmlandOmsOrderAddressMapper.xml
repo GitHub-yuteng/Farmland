@@ -4,7 +4,7 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.harvest.oms.repository.entity.FarmlandOmsOrderAddressEntity">
-        <id column="id" property="id" />
+        <id column="order_id" property="orderId" />
         <result column="COMPANY_ID" property="companyId" />
         <result column="address_type" property="addressType" />
         <result column="country_code" property="countryCode" />
@@ -21,7 +21,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, COMPANY_ID, address_type, country_code, country_cn, postal_code, region1, region2, region3, region4, is_deleted, rc_time, rm_time
+        order_id, COMPANY_ID, address_type, country_code, country_cn, postal_code, region1, region2, region3, region4, is_deleted, rc_time, rm_time
     </sql>
 
 </mapper>

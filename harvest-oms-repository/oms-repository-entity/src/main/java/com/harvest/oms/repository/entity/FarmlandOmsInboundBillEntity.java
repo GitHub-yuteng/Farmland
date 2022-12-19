@@ -13,7 +13,7 @@ import lombok.Setter;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-18 21:08:52
+ * @since 2022-12-19 13:54:51
  */
 @Getter
 @Setter

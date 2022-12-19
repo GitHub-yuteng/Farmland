@@ -4,10 +4,8 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.harvest.oms.repository.entity.FarmlandOmsOrderRemarkEntity">
-        <id column="id" property="id" />
+        <id column="order_id" property="orderId" />
         <result column="COMPANY_ID" property="companyId" />
-        <result column="record_type" property="recordType" />
-        <result column="record_id" property="recordId" />
         <result column="seller_remark" property="sellerRemark" />
         <result column="buyer_remark" property="buyerRemark" />
         <result column="system_remark" property="systemRemark" />
@@ -18,7 +16,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, COMPANY_ID, record_type, record_id, seller_remark, buyer_remark, system_remark, print_remark, rc_time, rm_time
+        order_id, COMPANY_ID, seller_remark, buyer_remark, system_remark, print_remark, rc_time, rm_time
     </sql>
 
 </mapper>

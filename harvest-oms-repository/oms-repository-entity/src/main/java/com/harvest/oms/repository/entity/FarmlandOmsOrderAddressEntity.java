@@ -17,7 +17,7 @@ import lombok.Setter;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-18 21:08:52
+ * @since 2022-12-19 13:54:52
  */
 @Getter
 @Setter
@@ -25,8 +25,8 @@ import lombok.Setter;
 @ApiModel(value = "FarmlandOmsOrderAddressEntity对象", description = "订单地址信息 ｜ 地址信息只有特定环节会变更，大部分信息流转是固定的，因此单独分拆独立表；部分平台履约场景，可能获取不到地址信息；")
 public class FarmlandOmsOrderAddressEntity {
 
-    @TableId("id")
-    private Long id;
+    @TableId("order_id")
+    private Long orderId;
 
     @ApiModelProperty("公司id")
     @TableField("COMPANY_ID")

@@ -9,17 +9,17 @@ import lombok.Setter;
 
 /**
  * <p>
- * 售后单明细表
+ * 售后单表
  * </p>
  *
  * @author Alodi
- * @since 2022-12-18 21:08:52
+ * @since 2022-12-19 15:51:18
  */
 @Getter
 @Setter
-@TableName("farmland_after_sale_bill_item")
-@ApiModel(value = "FarmlandAfterSaleBillItemEntity对象", description = "售后单明细表")
-public class FarmlandAfterSaleBillItemEntity {
+@TableName("farmland_oms_after_sale_bill")
+@ApiModel(value = "FarmlandOmsAfterSaleBillEntity对象", description = "售后单表")
+public class FarmlandOmsAfterSaleBillEntity {
 
     @TableId("id")
     private Long id;

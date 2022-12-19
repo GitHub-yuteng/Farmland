@@ -16,7 +16,7 @@ import lombok.Setter;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-18 21:08:53
+ * @since 2022-12-19 13:54:52
  */
 @Getter
 @Setter
@@ -24,20 +24,12 @@ import lombok.Setter;
 @ApiModel(value = "FarmlandOmsOrderRemarkEntity对象", description = "订单备注表")
 public class FarmlandOmsOrderRemarkEntity {
 
-    @TableId("id")
-    private Long id;
+    @TableId("order_id")
+    private Long orderId;
 
-    @ApiModelProperty("公司id")
+    @ApiModelProperty("公司ID")
     @TableField("COMPANY_ID")
     private Long companyId;
-
-    @ApiModelProperty("0:订单｜1:订单明细")
-    @TableField("record_type")
-    private Integer recordType;
-
-    @ApiModelProperty("记录id")
-    @TableField("record_id")
-    private Long recordId;
 
     @ApiModelProperty("卖家备注")
     @TableField("seller_remark")
