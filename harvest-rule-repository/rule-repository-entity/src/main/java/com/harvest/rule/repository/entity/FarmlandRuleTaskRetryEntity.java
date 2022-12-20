@@ -9,17 +9,17 @@ import lombok.Setter;
 
 /**
  * <p>
- * 订单拆单规则
+ * 
  * </p>
  *
  * @author Alodi
- * @since 2022-12-19 17:42:01
+ * @since 2022-12-19 17:42:02
  */
 @Getter
 @Setter
-@TableName("farmland_rule_order_split")
-@ApiModel(value = "FarmlandRuleOrderSplitEntity对象", description = "订单拆单规则")
-public class FarmlandRuleOrderSplitEntity {
+@TableName("farmland_rule_task_retry")
+@ApiModel(value = "FarmlandRuleTaskRetryEntity对象", description = "")
+public class FarmlandRuleTaskRetryEntity {
 
     @TableId("id")
     private Long id;

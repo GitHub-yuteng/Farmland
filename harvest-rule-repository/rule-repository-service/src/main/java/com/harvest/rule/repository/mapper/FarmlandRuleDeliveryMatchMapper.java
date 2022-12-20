@@ -1,18 +1,18 @@
 package com.harvest.rule.repository.mapper;
 
-import com.harvest.rule.repository.entity.FarmlandRuleOrderMergeEntity;
+import com.harvest.rule.repository.entity.FarmlandRuleDeliveryMatchEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
- * 订单合并规则 Mapper 接口
+ * 物流匹配规则表 Mapper 接口
  * </p>
  *
  * @author Alodi
  * @since 2022-12-19 17:42:01
  */
 @Mapper
-public interface FarmlandRuleOrderMergeMapper extends BaseMapper<FarmlandRuleOrderMergeEntity> {
+public interface FarmlandRuleDeliveryMatchMapper extends BaseMapper<FarmlandRuleDeliveryMatchEntity> {
 
 }

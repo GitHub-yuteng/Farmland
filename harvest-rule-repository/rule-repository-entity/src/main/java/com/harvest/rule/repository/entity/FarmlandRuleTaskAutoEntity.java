@@ -9,7 +9,7 @@ import lombok.Setter;
 
 /**
  * <p>
- * 订单拆单规则
+ * 
  * </p>
  *
  * @author Alodi
@@ -17,9 +17,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("farmland_rule_order_split")
-@ApiModel(value = "FarmlandRuleOrderSplitEntity对象", description = "订单拆单规则")
-public class FarmlandRuleOrderSplitEntity {
+@TableName("farmland_rule_task_auto")
+@ApiModel(value = "FarmlandRuleTaskAutoEntity对象", description = "")
+public class FarmlandRuleTaskAutoEntity {
 
     @TableId("id")
     private Long id;

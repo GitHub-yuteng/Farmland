@@ -9,7 +9,7 @@ import lombok.Setter;
 
 /**
  * <p>
- * 订单拆单规则
+ * 物流匹配规则表
  * </p>
  *
  * @author Alodi
@@ -17,9 +17,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("farmland_rule_order_split")
-@ApiModel(value = "FarmlandRuleOrderSplitEntity对象", description = "订单拆单规则")
-public class FarmlandRuleOrderSplitEntity {
+@TableName("farmland_rule_delivery_match")
+@ApiModel(value = "FarmlandRuleDeliveryMatchEntity对象", description = "物流匹配规则表")
+public class FarmlandRuleDeliveryMatchEntity {
 
     @TableId("id")
     private Long id;

@@ -30,8 +30,11 @@ public class MySqlGeneratorUtils {
     public static void main(String[] args) {
 
         List<String> list = new ArrayList<>();
+        list.add("farmland_rule_delivery_match");
         list.add("farmland_rule_order_merge");
         list.add("farmland_rule_order_split");
+        list.add("farmland_rule_task_auto");
+        list.add("farmland_rule_task_retry");
         list.forEach(MySqlGeneratorUtils::execute);
     }
 
