@@ -13,7 +13,7 @@ import lombok.Setter;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-19 13:54:53
+ * @since 2022-12-21 18:15:57
  */
 @Getter
 @Setter
@@ -21,6 +21,7 @@ import lombok.Setter;
 @ApiModel(value = "FarmlandOmsOrderTemplateImportEntity对象", description = "订单导入模版表")
 public class FarmlandOmsOrderTemplateImportEntity {
 
+    @ApiModelProperty("primary key")
     @TableId("id")
     private Long id;
 }

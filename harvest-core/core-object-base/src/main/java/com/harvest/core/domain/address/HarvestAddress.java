@@ -2,6 +2,7 @@ package com.harvest.core.domain.address;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 
@@ -42,14 +43,14 @@ public class HarvestAddress implements Serializable {
     /**
      * 判断基础地址是否有变更
      *
-     * @param harvestAddress
+     * @param newHarvestAddress
      * @return
      */
-    public boolean isChange(HarvestAddress harvestAddress) {
-        return harvestAddress.getRegion1().equals(this.getRegion1()) &&
-                harvestAddress.getRegion2().equals(this.getRegion2()) &&
-                harvestAddress.getRegion3().equals(this.getRegion3()) &&
-                harvestAddress.getRegion4().equals(this.getRegion4());
+    public boolean equals(HarvestAddress newHarvestAddress) {
+        return StringUtils.equals(this.region1, newHarvestAddress.getRegion1()) &&
+                StringUtils.equals(this.region2, newHarvestAddress.getRegion2()) &&
+                StringUtils.equals(this.region3, newHarvestAddress.getRegion3()) &&
+                StringUtils.equals(this.region4, newHarvestAddress.getRegion4());
     }
 
 }

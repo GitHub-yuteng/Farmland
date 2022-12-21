@@ -1,5 +1,6 @@
-package com.harvest.core.domain.range;
+package com.harvest.core.domain.range.date;
 
+import com.harvest.core.domain.range.AbstractRange;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

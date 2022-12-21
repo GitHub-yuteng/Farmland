@@ -1,10 +1,10 @@
-package com.harvest.core.domain.range;
+package com.harvest.core.domain.range.number;
 
+import com.harvest.core.domain.range.AbstractRange;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * @Author: Alodi
@@ -13,7 +13,7 @@ import java.util.Date;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class IntegerRange extends AbstractRange<Date> implements Serializable {
+public class IntegerRange extends AbstractRange<Integer> implements Serializable {
 
     private static final long serialVersionUID = -6348328505906617029L;
 

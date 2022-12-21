@@ -16,9 +16,9 @@ public abstract class AbstractRange<T> implements Serializable {
 
     private static final long serialVersionUID = 2927654076965095700L;
 
-    @ApiModelProperty(value = "最小值", notes = "大于等于最小值，即左闭区间")
+    @ApiModelProperty(value = "最小值", notes = "根据业务决定 左开/闭 右开/闭")
     private T min;
-    @ApiModelProperty(value = "最大值", notes = "小于等于最大值，即右闭区间")
+    @ApiModelProperty(value = "最大值", notes = "根据业务决定 左开/闭 右开/闭")
     private T max;
 
     public boolean isEmpty() {

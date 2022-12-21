@@ -7,6 +7,8 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.List;
+
 /**
  * @Author: Alodi
  * @Date: 2022/12/10 8:56 PM
@@ -39,7 +41,7 @@ public class OrderCore extends CompanyId {
     private OrderAddress orderAddress;
 
     @ApiModelProperty("订单标签")
-    private OrderTag orderTag;
+    private List<OrderTag> orderTags;
 
     @ApiModelProperty("订单金额")
     private OrderAmount orderAmount;

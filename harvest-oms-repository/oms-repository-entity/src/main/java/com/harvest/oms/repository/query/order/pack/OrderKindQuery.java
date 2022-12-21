@@ -1,7 +1,7 @@
 package com.harvest.oms.repository.query.order.pack;
 
-import com.harvest.core.domain.range.BigDecimalRange;
-import com.harvest.core.domain.range.IntegerRange;
+import com.harvest.core.domain.range.number.BigDecimalRange;
+import com.harvest.core.domain.range.number.IntegerRange;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

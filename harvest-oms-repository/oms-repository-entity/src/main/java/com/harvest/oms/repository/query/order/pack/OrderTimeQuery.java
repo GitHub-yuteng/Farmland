@@ -1,6 +1,6 @@
 package com.harvest.oms.repository.query.order.pack;
 
-import com.harvest.core.domain.range.DataTimeRange;
+import com.harvest.core.domain.range.date.DataTimeRange;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 

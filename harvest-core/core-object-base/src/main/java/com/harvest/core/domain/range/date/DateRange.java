@@ -15,8 +15,9 @@
  *
  */
 
-package com.harvest.core.domain.range;
+package com.harvest.core.domain.range.date;
 
+import com.harvest.core.domain.range.AbstractRange;
 import com.harvest.core.utils.DateUtils;
 import io.swagger.annotations.ApiModel;
 import lombok.Data;

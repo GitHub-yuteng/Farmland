@@ -1,4 +1,6 @@
-package com.harvest.core.domain.range;
+package com.harvest.core.domain.range.number;
+
+import com.harvest.core.domain.range.AbstractRange;
 
 import java.math.BigDecimal;
 

@@ -8,6 +8,4 @@ package com.harvest.oms.repository.domain.order.amount.transaction;
 public class OrderTransactionAmount {
 
 
-
-
 }

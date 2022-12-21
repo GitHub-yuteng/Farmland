@@ -18,7 +18,7 @@ import lombok.Setter;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-19 13:54:52
+ * @since 2022-12-21 18:15:56
  */
 @Getter
 @Setter
@@ -26,6 +26,7 @@ import lombok.Setter;
 @ApiModel(value = "FarmlandOmsOrderEntity对象", description = "订单表")
 public class FarmlandOmsOrderEntity {
 
+    @ApiModelProperty("primary key")
     @TableId("id")
     private Long id;
 
@@ -173,13 +174,16 @@ public class FarmlandOmsOrderEntity {
     @TableField("is_abnormal")
     private Boolean isAbnormal;
 
+    @ApiModelProperty("逻辑删除标记")
     @TableField("is_deleted")
     @TableLogic
     private Boolean isDeleted;
 
+    @ApiModelProperty("记录创建时间")
     @TableField(value = "rc_time", fill = FieldFill.INSERT)
     private LocalDateTime rcTime;
 
+    @ApiModelProperty("记录修改时间")
     @TableField(value = "rm_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime rmTime;
 }

@@ -1,6 +1,7 @@
 package com.harvest.oms.repository.domain.order.amount;
 
 import com.harvest.oms.repository.domain.order.amount.cost.OrderCost;
+import com.harvest.oms.repository.domain.order.amount.transaction.OrderTransactionAmount;
 import lombok.Data;
 
 /**
@@ -11,7 +12,7 @@ import lombok.Data;
 @Data
 public class OrderAmount {
 
-
+    private OrderTransactionAmount transactionAmount;
 
     private OrderCost orderCost;
 

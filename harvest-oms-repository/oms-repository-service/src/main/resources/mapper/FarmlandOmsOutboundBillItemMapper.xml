@@ -5,11 +5,26 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.harvest.oms.repository.entity.FarmlandOmsOutboundBillItemEntity">
         <id column="id" property="id" />
+        <result column="COMPANY_ID" property="companyId" />
+        <result column="bill_id" property="billId" />
+        <result column="order_item_id" property="orderItemId" />
+        <result column="spu_id" property="spuId" />
+        <result column="spu_name" property="spuName" />
+        <result column="sku_id" property="skuId" />
+        <result column="sku_name" property="skuName" />
+        <result column="is_package" property="isPackage" />
+        <result column="quantity" property="quantity" />
+        <result column="amount" property="amount" />
+        <result column="batch_numbers" property="batchNumbers" />
+        <result column="snapshot_id" property="snapshotId" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="rc_time" property="rcTime" />
+        <result column="rm_time" property="rmTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id
+        id, COMPANY_ID, bill_id, order_item_id, spu_id, spu_name, sku_id, sku_name, is_package, quantity, amount, batch_numbers, snapshot_id, is_deleted, rc_time, rm_time
     </sql>
 
 </mapper>
