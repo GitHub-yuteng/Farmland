@@ -18,7 +18,7 @@ import lombok.Setter;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-21 18:15:56
+ * @since 2022-12-22 11:49:34
  */
 @Getter
 @Setter
@@ -36,7 +36,7 @@ public class FarmlandOmsOrderItemEntity {
 
     @ApiModelProperty("店铺id｜与订单保持一致")
     @TableField("shop_id")
-    private Integer shopId;
+    private Long shopId;
 
     @ApiModelProperty("订单id")
     @TableField("order_id")

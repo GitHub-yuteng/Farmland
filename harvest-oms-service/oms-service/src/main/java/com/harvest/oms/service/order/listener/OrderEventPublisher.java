@@ -2,7 +2,7 @@ package com.harvest.oms.service.order.listener;
 
 import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.repository.domain.order.OrderInfoDO;
-import com.harvest.oms.service.order.OrderReadService;
+import com.harvest.oms.service.order.OrderReadClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +20,11 @@ public class OrderEventPublisher {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderEventPublisher.class);
 
-    @Autowired
+    @Autowired(required = false)
     private List<OrderEventListener> orderEventListeners;
 
     @Autowired
-    private OrderReadService orderReadService;
+    private OrderReadClient orderReadClient;
 
     /**
      * 同步执行监听事件
@@ -34,7 +34,7 @@ public class OrderEventPublisher {
             return;
         }
         /*内存中的可能有脏数据，统一从数据库捞一遍数据*/
-        OrderInfoDO order = orderReadService.get(companyId, orderId);
+        OrderInfoDO order = orderReadClient.get(companyId, orderId);
         this.publish(companyId, order, type);
     }
 

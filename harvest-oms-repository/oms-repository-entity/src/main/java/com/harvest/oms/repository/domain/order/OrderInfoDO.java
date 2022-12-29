@@ -1,5 +1,6 @@
 package com.harvest.oms.repository.domain.order;
 
+import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -10,7 +11,7 @@ import lombok.EqualsAndHashCode;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class OrderInfoDO extends OrderCore {
+public class OrderInfoDO extends OrderSimplePO {
 
     private static final long serialVersionUID = 2547095981099704006L;
 

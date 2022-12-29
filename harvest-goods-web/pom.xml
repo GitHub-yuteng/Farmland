@@ -5,13 +5,21 @@
   <packaging>pom</packaging>
   <parent>
     <groupId>com.harvest</groupId>
-      <artifactId>farmland-harvest</artifactId>
+    <artifactId>farmland-harvest</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   
   <artifactId>harvest-goods-web</artifactId>
   <name>harvest-goods-web</name>
   <description>harvest-goods-web</description>
+  
+  <dependencies>
+    <dependency>
+      <groupId>com.harvest</groupId>
+      <artifactId>goods-service-interface</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
   
   <properties>
     <maven.compiler.source>8</maven.compiler.source>

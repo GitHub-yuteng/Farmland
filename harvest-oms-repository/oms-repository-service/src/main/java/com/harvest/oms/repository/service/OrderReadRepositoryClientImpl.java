@@ -3,7 +3,7 @@ package com.harvest.oms.repository.service;
 import com.harvest.oms.repository.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.entity.FarmlandOmsOrderEntity;
 import com.harvest.oms.repository.mapper.FarmlandOmsOrderMapper;
-import com.harvest.oms.repository.service.order.OrderReadRepositoryService;
+import com.harvest.oms.repository.service.order.OrderReadRepositoryClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,7 +15,7 @@ import java.util.Objects;
  * @Description: TODO
  **/
 @RestController
-public class OrderReadRepositoryServiceImpl implements OrderReadRepositoryService {
+public class OrderReadRepositoryClientImpl implements OrderReadRepositoryClient {
 
     @Autowired
     private FarmlandOmsOrderMapper farmlandOmsOrderMapper;
@@ -29,7 +29,6 @@ public class OrderReadRepositoryServiceImpl implements OrderReadRepositoryServic
         OrderInfoDO orderInfoDO = new OrderInfoDO();
         orderInfoDO.setOrderId(farmlandOmsOrderEntity.getId());
         orderInfoDO.setOrderNo(farmlandOmsOrderEntity.getOrderNo());
-        orderInfoDO.setOrderSource(farmlandOmsOrderEntity.getOrderSource());
         return orderInfoDO;
     }
 }

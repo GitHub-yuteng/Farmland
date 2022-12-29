@@ -7,7 +7,7 @@
         <id column="id" property="id" />
         <result column="COMPANY_ID" property="companyId" />
         <result column="order_no" property="orderNo" />
-        <result column="order_source" property="orderSource" />
+        <result column="source_type" property="sourceType" />
         <result column="shop_id" property="shopId" />
         <result column="ORDER_STATUS" property="orderStatus" />
         <result column="amount" property="amount" />
@@ -23,6 +23,7 @@
         <result column="audit_man_id" property="auditManId" />
         <result column="audit_time" property="auditTime" />
         <result column="end_time" property="endTime" />
+        <result column="create_type" property="createType" />
         <result column="warehouse_owner" property="warehouseOwner" />
         <result column="warehouse_id" property="warehouseId" />
         <result column="wave_no" property="waveNo" />
@@ -35,6 +36,7 @@
         <result column="buyer_id" property="buyerId" />
         <result column="business_man_id" property="businessManId" />
         <result column="declare_status" property="declareStatus" />
+        <result column="logistics_status" property="logisticsStatus" />
         <result column="ignore_outbound" property="ignoreOutbound" />
         <result column="is_hang_up" property="isHangUp" />
         <result column="hang_up_case_type" property="hangUpCaseType" />
@@ -48,7 +50,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, COMPANY_ID, order_no, order_source, shop_id, ORDER_STATUS, amount, spu_kind, sku_kind, total_quantity, created_time, paid_time, send_time, delivery_deadline_time, modify_time, print_time, audit_man_id, audit_time, end_time, warehouse_owner, warehouse_id, wave_no, logistic_type, carrier_id, channel_id, delivery_no, weight, volume, buyer_id, business_man_id, declare_status, ignore_outbound, is_hang_up, hang_up_case_type, hang_up_case_id, empty_order, is_abnormal, is_deleted, rc_time, rm_time
+        id, COMPANY_ID, order_no, source_type, shop_id, ORDER_STATUS, amount, spu_kind, sku_kind, total_quantity, created_time, paid_time, send_time, delivery_deadline_time, modify_time, print_time, audit_man_id, audit_time, end_time, create_type, warehouse_owner, warehouse_id, wave_no, logistic_type, carrier_id, channel_id, delivery_no, weight, volume, buyer_id, business_man_id, declare_status, logistics_status, ignore_outbound, is_hang_up, hang_up_case_type, hang_up_case_id, empty_order, is_abnormal, is_deleted, rc_time, rm_time
     </sql>
 
 </mapper>

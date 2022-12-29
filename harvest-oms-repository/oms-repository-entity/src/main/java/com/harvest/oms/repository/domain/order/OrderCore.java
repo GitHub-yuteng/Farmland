@@ -1,13 +1,14 @@
 package com.harvest.oms.repository.domain.order;
 
-import com.harvest.oms.repository.domain.CompanyId;
+import com.harvest.core.domain.CompanyId;
+import com.harvest.core.enums.oms.OrderSourceEnum;
 import com.harvest.oms.repository.domain.order.amount.OrderAmount;
-import com.harvest.oms.repository.domain.order.pack.*;
+import com.harvest.oms.repository.domain.order.pack.OrderAddress;
+import com.harvest.oms.repository.domain.order.pack.OrderRemark;
+import com.harvest.oms.repository.domain.order.pack.OrderTime;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.util.List;
 
 /**
  * @Author: Alodi
@@ -20,13 +21,14 @@ public class OrderCore extends CompanyId {
 
     private static final long serialVersionUID = -2926021609995331681L;
 
+    @ApiModelProperty("订单Id")
     private Long orderId;
 
     @ApiModelProperty("订单号")
     private String orderNo;
 
     @ApiModelProperty("订单来源")
-    private Integer orderSource;
+    private OrderSourceEnum orderSource;
 
     @ApiModelProperty("店铺id")
     private Long shopId;
@@ -37,11 +39,8 @@ public class OrderCore extends CompanyId {
     @ApiModelProperty("订单时间")
     private OrderTime orderTime;
 
-    @ApiModelProperty("订单时间")
+    @ApiModelProperty("订单地址")
     private OrderAddress orderAddress;
-
-    @ApiModelProperty("订单标签")
-    private List<OrderTag> orderTags;
 
     @ApiModelProperty("订单金额")
     private OrderAmount orderAmount;

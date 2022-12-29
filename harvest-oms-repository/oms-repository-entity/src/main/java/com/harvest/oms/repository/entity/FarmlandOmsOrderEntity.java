@@ -18,7 +18,7 @@ import lombok.Setter;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-21 18:15:56
+ * @since 2022-12-24 19:40:05
  */
 @Getter
 @Setter
@@ -39,8 +39,8 @@ public class FarmlandOmsOrderEntity {
     private String orderNo;
 
     @ApiModelProperty("订单来源")
-    @TableField("order_source")
-    private Integer orderSource;
+    @TableField("source_type")
+    private Integer sourceType;
 
     @ApiModelProperty("店铺id")
     @TableField("shop_id")
@@ -102,6 +102,10 @@ public class FarmlandOmsOrderEntity {
     @TableField("end_time")
     private LocalDateTime endTime;
 
+    @ApiModelProperty("0:正常下单;1:手动创建")
+    @TableField("create_type")
+    private Integer createType;
+
     @ApiModelProperty("仓库类型")
     @TableField("warehouse_owner")
     private Integer warehouseOwner;
@@ -112,7 +116,7 @@ public class FarmlandOmsOrderEntity {
 
     @ApiModelProperty("波次号")
     @TableField("wave_no")
-    private Integer waveNo;
+    private String waveNo;
 
     @ApiModelProperty("物流类型")
     @TableField("logistic_type")
@@ -149,6 +153,10 @@ public class FarmlandOmsOrderEntity {
     @ApiModelProperty("申报状态")
     @TableField("declare_status")
     private Integer declareStatus;
+
+    @ApiModelProperty("物流状态")
+    @TableField("logistics_status")
+    private Integer logisticsStatus;
 
     @ApiModelProperty("忽略生成出库单")
     @TableField("ignore_outbound")

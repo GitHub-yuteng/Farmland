@@ -9,16 +9,16 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   
+  <artifactId>harvest-core</artifactId>
+  <name>harvest-core</name>
+  <description>harvest-core</description>
+  
   <modules>
     <module>core-base</module>
     <module>core-repository-base</module>
     <module>core-service-base</module>
     <module>core-object-base</module>
   </modules>
-  
-  <artifactId>harvest-core</artifactId>
-  <name>harvest-core</name>
-  <description>harvest-core</description>
   
   <properties>
     <maven.compiler.source>8</maven.compiler.source>

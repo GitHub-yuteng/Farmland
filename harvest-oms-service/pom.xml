@@ -8,15 +8,16 @@
     <artifactId>farmland-harvest</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
+  
+  <artifactId>harvest-oms-service</artifactId>
+  <name>harvest-oms-service</name>
+  <description>harvest-oms-service</description>
+  
   <modules>
     <module>oms-service-domain</module>
     <module>oms-service-interface</module>
     <module>oms-service</module>
   </modules>
-  
-  <artifactId>harvest-oms-service</artifactId>
-  <name>harvest-oms-service</name>
-  <description>harvest-oms-service</description>
   
   <properties>
     <maven.compiler.source>8</maven.compiler.source>
