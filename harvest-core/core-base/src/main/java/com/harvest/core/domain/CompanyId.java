@@ -1,4 +1,4 @@
-package com.harvest.oms.repository.domain;
+package com.harvest.core.domain;
 
 import lombok.Data;
 

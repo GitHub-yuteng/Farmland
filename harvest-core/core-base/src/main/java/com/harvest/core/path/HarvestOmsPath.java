@@ -14,6 +14,7 @@ public interface HarvestOmsPath {
      */
     interface OrderPath {
 
+        String OMS_RICH_PATH = OMS_PATH + "/rich";
         String OMS_BUSINESS_PATH = OMS_PATH + "/business";
         String OMS_READ_PATH = OMS_PATH + "/read";
         String OMS_WRITE_PATH = OMS_PATH + "/write";
