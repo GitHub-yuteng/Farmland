@@ -1,13 +1,7 @@
 package com.harvest.oms.repository.create;
 
-import com.harvest.oms.repository.entity.FarmlandOmsOrderAddressEntity;
-import com.harvest.oms.repository.entity.FarmlandOmsOrderEntity;
-import com.harvest.oms.repository.entity.FarmlandOmsOrderItemEntity;
-import com.harvest.oms.repository.entity.FarmlandOmsOrderRemarkEntity;
-import com.harvest.oms.repository.mapper.FarmlandOmsOrderAddressMapper;
-import com.harvest.oms.repository.mapper.FarmlandOmsOrderItemMapper;
-import com.harvest.oms.repository.mapper.FarmlandOmsOrderMapper;
-import com.harvest.oms.repository.mapper.FarmlandOmsOrderRemarkMapper;
+import com.harvest.oms.repository.entity.*;
+import com.harvest.oms.repository.mapper.*;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +9,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
@@ -34,12 +30,16 @@ public class OrderDataCreateTest {
     private FarmlandOmsOrderAddressMapper farmlandOmsOrderAddressMapper;
     @Autowired
     private FarmlandOmsOrderRemarkMapper farmlandOmsOrderRemarkMapper;
+    @Autowired
+    private FarmlandOmsOrderTagMapper farmlandOmsOrderTagMapper;
 
     @Test
     public void createOrder() {
-        for (int i = 0; i < 1; i++) {
 
-            FarmlandOmsOrderEntity farmlandOmsOrderEntity = this.buildOrder();
+        long companyId = Math.abs(new Random().nextLong());
+        for (int i = 0; i < 20; i++) {
+
+            FarmlandOmsOrderEntity farmlandOmsOrderEntity = this.buildOrder(companyId);
             farmlandOmsOrderMapper.insert(farmlandOmsOrderEntity);
 
             List<FarmlandOmsOrderItemEntity> items = this.buildOrderItem(farmlandOmsOrderEntity);
@@ -50,7 +50,31 @@ public class OrderDataCreateTest {
 
             FarmlandOmsOrderRemarkEntity farmlandOmsOrderRemarkEntity = this.buildOrderRemark(farmlandOmsOrderEntity);
             farmlandOmsOrderRemarkMapper.insert(farmlandOmsOrderRemarkEntity);
+
+            this.buildOrderTag(farmlandOmsOrderEntity).forEach(tag -> farmlandOmsOrderTagMapper.insert(tag));
         }
+    }
+
+    private Collection<FarmlandOmsOrderTagEntity> buildOrderTag(FarmlandOmsOrderEntity farmlandOmsOrderEntity) {
+        Collection<FarmlandOmsOrderTagEntity> collection = new ArrayList<>();
+
+        for (int i = 0; i < 10; i++) {
+            FarmlandOmsOrderTagEntity tagEntity = new FarmlandOmsOrderTagEntity();
+            tagEntity.setId(Math.abs(new Random().nextLong()));
+            tagEntity.setCompanyId(farmlandOmsOrderEntity.getCompanyId());
+            tagEntity.setRecordId(farmlandOmsOrderEntity.getId());
+            tagEntity.setRecordType(1);
+            tagEntity.setTagValue(10000 + i);
+            tagEntity.setProcessed(Boolean.FALSE);
+            tagEntity.setSimpleExtension("123");
+            tagEntity.setExtension(null);
+            tagEntity.setIsDeleted(Boolean.FALSE);
+            tagEntity.setRcTime(LocalDateTime.now());
+            tagEntity.setRmTime(LocalDateTime.now());
+            collection.add(tagEntity);
+        }
+
+        return collection;
     }
 
     private FarmlandOmsOrderRemarkEntity buildOrderRemark(FarmlandOmsOrderEntity farmlandOmsOrderEntity) {
@@ -122,11 +146,11 @@ public class OrderDataCreateTest {
         return itemEntityList;
     }
 
-    private FarmlandOmsOrderEntity buildOrder() {
+    private FarmlandOmsOrderEntity buildOrder(long companyId) {
         long orderId = Math.abs(new Random().nextLong());
         FarmlandOmsOrderEntity farmlandOmsOrderEntity = new FarmlandOmsOrderEntity();
         farmlandOmsOrderEntity.setId(orderId);
-        farmlandOmsOrderEntity.setCompanyId(Math.abs(new Random().nextLong()));
+        farmlandOmsOrderEntity.setCompanyId(companyId);
         farmlandOmsOrderEntity.setOrderNo("OD" + Math.abs(new Random().nextLong()));
         farmlandOmsOrderEntity.setSourceType(1);
         farmlandOmsOrderEntity.setShopId(Math.abs(new Random().nextLong()));
@@ -144,6 +168,7 @@ public class OrderDataCreateTest {
         farmlandOmsOrderEntity.setAuditManId(0L);
         farmlandOmsOrderEntity.setAuditTime(LocalDateTime.now());
         farmlandOmsOrderEntity.setEndTime(LocalDateTime.now());
+        farmlandOmsOrderEntity.setCreateType(1);
         farmlandOmsOrderEntity.setWarehouseOwner(1);
         farmlandOmsOrderEntity.setWarehouseId(Math.abs(new Random().nextLong()));
         farmlandOmsOrderEntity.setWaveNo("123");

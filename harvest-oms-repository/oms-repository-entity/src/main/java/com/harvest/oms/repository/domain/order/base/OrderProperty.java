@@ -1,4 +1,4 @@
-package com.harvest.oms.repository.domain.order.pack;
+package com.harvest.oms.repository.domain.order.base;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

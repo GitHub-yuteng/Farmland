@@ -1,17 +1,13 @@
 package com.harvest.oms.repository.query.order;
 
 import com.harvest.core.domain.query.PageQuery;
-import com.harvest.oms.repository.query.order.pack.OrderDeliveryQuery;
-import com.harvest.oms.repository.query.order.pack.OrderKindQuery;
-import com.harvest.oms.repository.query.order.pack.OrderRemarkQuery;
-import com.harvest.oms.repository.query.order.pack.OrderTimeQuery;
+import com.harvest.oms.repository.query.order.pack.*;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @Author: Alodi
@@ -24,11 +20,11 @@ public class PageOrderConditionQuery extends PageQuery implements Serializable {
 
     private static final long serialVersionUID = 1413821848778222159L;
 
-    @ApiModelProperty("订单号")
-    private String orderNo;
+    @ApiModelProperty("订单Ids")
+    private Collection<Long> orderIds;
 
     @ApiModelProperty("订单号")
-    private List<String> orderNos;
+    private String orderNo;
 
     @ApiModelProperty("店铺ID集")
     private Collection<String> shopIds;
@@ -53,6 +49,9 @@ public class PageOrderConditionQuery extends PageQuery implements Serializable {
 
     @ApiModelProperty("订单物流相关条件")
     private OrderDeliveryQuery orderDelivery;
+
+    @ApiModelProperty("订单编号查询条件")
+    private OrderNoQuery nos;
 
     @ApiModelProperty("是否是异常订单 0否 1是")
     private Boolean abnormal;

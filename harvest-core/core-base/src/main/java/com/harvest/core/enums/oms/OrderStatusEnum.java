@@ -1,5 +1,6 @@
 package com.harvest.core.enums.oms;
 
+import com.harvest.core.enums.IEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,7 +11,7 @@ import lombok.Getter;
  **/
 @Getter
 @AllArgsConstructor
-public enum OrderStatusEnum {
+public enum OrderStatusEnum implements IEnum<Integer> {
 
     /**
      * 订单状态
@@ -57,4 +58,9 @@ public enum OrderStatusEnum {
      * 是否为WMS状态
      */
     private final boolean wms;
+
+    @Override
+    public Integer getKey() {
+        return this.status;
+    }
 }

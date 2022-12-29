@@ -2,7 +2,7 @@ package com.harvest.oms.service.order;
 
 import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.core.constants.GlobalMacroDefinition;
-import com.harvest.oms.repository.domain.order.OrderInfoDO;
+import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.service.constants.HarvestOmsApplications;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;

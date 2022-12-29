@@ -1,7 +1,7 @@
 package com.harvest.oms.service.order.listener;
 
 import com.harvest.oms.enums.OrderEventEnum;
-import com.harvest.oms.repository.domain.order.OrderInfoDO;
+import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.service.order.OrderReadClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

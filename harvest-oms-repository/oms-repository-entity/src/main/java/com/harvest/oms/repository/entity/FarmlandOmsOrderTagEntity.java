@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.models.auth.In;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -37,9 +38,9 @@ public class FarmlandOmsOrderTagEntity {
     @TableField("record_id")
     private Long recordId;
 
-    @ApiModelProperty("0:订单｜1:订单明细")
+    @ApiModelProperty("1:订单｜2:订单明细")
     @TableField("record_type")
-    private Boolean recordType;
+    private Integer recordType;
 
     @ApiModelProperty("eg:10001")
     @TableField("tag_value")

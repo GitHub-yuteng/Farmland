@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harvest.goods.repository.mapper.FarmlandGoodsSkuMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.harvest.goods.repository.entity.FarmlandGoodsSkuEntity">
+        <id column="id" property="id" />
+        <result column="spu_id" property="spuId" />
+        <result column="sku_code" property="skuCode" />
+        <result column="sku_name" property="skuName" />
+        <result column="barcode" property="barcode" />
+        <result column="purchase_price" property="purchasePrice" />
+        <result column="procurement_cycle" property="procurementCycle" />
+        <result column="production_cycle" property="productionCycle" />
+        <result column="volume" property="volume" />
+        <result column="max_volume" property="maxVolume" />
+        <result column="length" property="length" />
+        <result column="width" property="width" />
+        <result column="height" property="height" />
+        <result column="status" property="status" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="rc_time" property="rcTime" />
+        <result column="rm_time" property="rmTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, spu_id, sku_code, sku_name, barcode, purchase_price, procurement_cycle, production_cycle, volume, max_volume, length, width, height, status, is_deleted, rc_time, rm_time
+    </sql>
+
+</mapper>

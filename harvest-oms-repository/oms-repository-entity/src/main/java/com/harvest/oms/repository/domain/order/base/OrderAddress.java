@@ -1,4 +1,4 @@
-package com.harvest.oms.repository.domain.order.pack;
+package com.harvest.oms.repository.domain.order.base;
 
 import com.harvest.core.domain.address.HarvestAddress;
 import lombok.Data;
@@ -16,4 +16,5 @@ public class OrderAddress extends HarvestAddress {
     private static final long serialVersionUID = -5650677554760895170L;
 
     private Long orderId;
+
 }

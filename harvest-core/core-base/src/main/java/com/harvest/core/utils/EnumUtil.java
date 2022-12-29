@@ -7,9 +7,6 @@ import org.springframework.util.Assert;
 
 import java.util.*;
 
-/**
- * @author: 朱方涛(Ivan) 2021/6/7
- */
 public class EnumUtil {
 
     /**

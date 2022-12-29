@@ -1,7 +1,7 @@
-package com.harvest.oms.repository.domain.order.amount;
+package com.harvest.oms.repository.domain.amount;
 
-import com.harvest.oms.repository.domain.order.amount.cost.OrderCost;
-import com.harvest.oms.repository.domain.order.amount.transaction.OrderTransactionAmount;
+import com.harvest.oms.repository.domain.amount.cost.OrderCost;
+import com.harvest.oms.repository.domain.amount.transaction.OrderTransactionAmount;
 import lombok.Data;
 
 /**

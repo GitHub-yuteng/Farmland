@@ -1,5 +1,6 @@
 package com.harvest.core.enums.oms;
 
+import com.harvest.core.enums.IEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,7 +11,27 @@ import lombok.Getter;
  **/
 @Getter
 @AllArgsConstructor
-public enum OrderSourceEnum {
+public enum OrderSourceEnum implements IEnum<Integer> {
 
+    /**
+     *
+     */
+    JD(10, "京东"),
 
+    ;
+
+    /**
+     * 状态值
+     */
+    private final int type;
+
+    /**
+     * 描述
+     */
+    private final String value;
+
+    @Override
+    public Integer getKey() {
+        return this.type;
+    }
 }

@@ -2,14 +2,33 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.harvest.oms.repository.mapper.order.OrderRichConditionQueryMapper">
   
-  <resultMap id="ResultMap" extends="ORDER_CORE.OrderCoreMap" type="com.harvest.oms.repository.domain.order.simple.OrderSimplePO">
-    <id column="id" property="orderId"/>
+  <resultMap id="ResultMap" type="com.harvest.oms.repository.domain.order.simple.OrderSimplePO" extends="ORDER_CORE.OrderCoreMap">
+    <!--订单时间-->
     <result column="created_time" property="orderTime.createdTime"/>
     <result column="paid_time" property="orderTime.paidTime"/>
     <result column="send_time" property="orderTime.sendTime"/>
     <result column="delivery_deadline_time" property="orderTime.deliveryDeadlineTime"/>
     <result column="modify_time" property="orderTime.modifyTime"/>
     <result column="print_time" property="orderTime.printTime"/>
+    <result column="audit_time" property="orderTime.auditTime"/>
+    <result column="end_time" property="orderTime.endTime"/>
+    <!--地址-->
+    <result column="id" property="orderAddress.orderId"/>
+    <result column="address_type" property="orderAddress.addressType"/>
+    <result column="country_code" property="orderAddress.countryCode"/>
+    <result column="country_cn" property="orderAddress.countryCn"/>
+    <result column="postal_code" property="orderAddress.postalCode"/>
+    <result column="region1" property="orderAddress.region1"/>
+    <result column="region2" property="orderAddress.region2"/>
+    <result column="region3" property="orderAddress.region3"/>
+    <result column="region4" property="orderAddress.region4"/>
+    <result column="detail" property="orderAddress.detail"/>
+    <!--备注-->
+    <result column="id" property="orderRemark.orderId"/>
+    <result column="seller_remark" property="orderRemark.sellerRemark"/>
+    <result column="buyer_remark" property="orderRemark.buyerRemark"/>
+    <result column="system_remark" property="orderRemark.systemRemark"/>
+    <result column="print_remark" property="orderRemark.printRemark"/>
   </resultMap>
   
   <sql id="field">
@@ -19,7 +38,6 @@
     o.order_no,
     o.source_type,
     o.shop_id,
-    o.ORDER_STATUS,
     <!-- 状态及标识 -->
     o.ORDER_STATUS,
     o.create_type,
@@ -42,8 +60,22 @@
     o.modify_time,
     o.print_time,
     o.audit_time,
-    o.end_time
-  
+    o.end_time,
+    <!-- 地址 -->
+    address.address_type,
+    address.country_code,
+    address.country_cn,
+    address.postal_code,
+    address.region1,
+    address.region2,
+    address.region3,
+    address.region4,
+    address.detail,
+    <!-- 备注 -->
+    remark.seller_remark,
+    remark.buyer_remark,
+    remark.system_remark,
+    remark.print_remark
   </sql>
   
   <select id="pageQueryOrderWithRichCondition" resultMap="ResultMap">

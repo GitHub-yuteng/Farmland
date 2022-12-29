@@ -1,4 +1,4 @@
-package com.harvest.oms.repository.domain.order.pack;
+package com.harvest.oms.repository.domain.order.base;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -15,7 +15,7 @@ public class OrderRemark implements Serializable {
 
     private static final long serialVersionUID = -2059042170117558561L;
 
-    @ApiModelProperty("订单ID")
+    @ApiModelProperty("订单Id")
     private Long orderId;
 
     @ApiModelProperty("卖家备注")

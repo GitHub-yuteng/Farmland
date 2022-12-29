@@ -1,6 +1,6 @@
 package com.harvest.oms.service.order.listener;
 
-import com.harvest.oms.repository.domain.order.OrderInfoDO;
+import com.harvest.oms.domain.order.OrderInfoDO;
 
 /**
  * @Author: Alodi
@@ -8,7 +8,6 @@ import com.harvest.oms.repository.domain.order.OrderInfoDO;
  * @Description: 订单事件监听处理器
  **/
 public interface OrderEventListener {
-
 
     /**
      * 订单下单

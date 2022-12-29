@@ -17,6 +17,11 @@
       <artifactId>core-object-base</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
+    <dependency>
+      <groupId>com.harvest</groupId>
+      <artifactId>oms-repository-entity</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
   
   <properties>

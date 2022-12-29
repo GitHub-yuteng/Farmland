@@ -1,7 +1,7 @@
 package com.harvest.oms.service.order.read;
 
 import com.harvest.core.annotation.feign.HarvestService;
-import com.harvest.oms.repository.domain.order.OrderInfoDO;
+import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.service.constants.HarvestOmsApplications;
 import com.harvest.oms.service.order.OrderReadClient;
 

@@ -1,4 +1,4 @@
-package com.harvest.oms.repository.domain.order.amount.transaction;
+package com.harvest.oms.repository.domain.amount.transaction;
 
 /**
  * @Author: Alodi

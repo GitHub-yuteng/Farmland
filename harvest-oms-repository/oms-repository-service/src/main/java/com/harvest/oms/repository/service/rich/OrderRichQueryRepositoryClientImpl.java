@@ -4,7 +4,6 @@ import com.google.common.collect.Maps;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.domain.Page;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;
-import com.harvest.oms.repository.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.mapper.order.OrderRichConditionQueryMapper;
 import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
@@ -15,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StopWatch;
 
-import java.util.Collection;
 import java.util.Map;
 
 /**
@@ -47,13 +45,13 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
         stopWatch.stop();
 
         Page<OrderSimplePO> page = new Page<>(condition.getPageNo(), condition.getPageSize());
+        page.setCount(count);
         if (count == 0) {
             return page;
         }
 
         stopWatch.start("订单查询");
-        Collection<OrderSimplePO> data = orderRichConditionQueryMapper.pageQueryOrderWithRichCondition(paramsMap);
-        page.setData(data);
+        page.setData(orderRichConditionQueryMapper.pageQueryOrderWithRichCondition(paramsMap));
         stopWatch.stop();
 
         if (stopWatch.getTotalTimeMillis() > TIME_OUT) {
@@ -63,10 +61,16 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
         return page;
     }
 
+    /**
+     * 简化查询结构
+     *
+     * @param condition
+     * @return
+     */
     private Map<String, Object> conventParams(PageOrderConditionQuery condition) {
         Map<String, Object> paramsMap = Maps.newHashMap();
 
-        if(StringUtils.isNotEmpty(condition.getOrderNo())){
+        if (StringUtils.isNotEmpty(condition.getOrderNo())) {
             paramsMap.put("orderNo", condition.getOrderNo());
         }
 

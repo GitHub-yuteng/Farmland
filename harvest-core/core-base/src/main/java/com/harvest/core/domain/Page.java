@@ -32,7 +32,7 @@ public class Page<T> implements Serializable {
     private Collection<T> data;
 
     @ApiModelProperty("总数")
-    private int count;
+    private long count;
 
     @ApiModelProperty("是否还有下一页")
     private boolean hasMore;
@@ -42,6 +42,9 @@ public class Page<T> implements Serializable {
         limit = pageSize;
     }
 
+    public Page() {
+    }
+
     /**
      * @param pageSize 总记录数
      * @param pageNo   当前页数据
@@ -49,6 +52,17 @@ public class Page<T> implements Serializable {
     public Page(int pageNo, int pageSize) {
         this.setPageSize(pageSize);
         this.setPageNo(pageNo);
+    }
+
+    /**
+     * @param pageSize 总记录数
+     * @param pageNo   当前页数据
+     */
+    public Page(int pageNo, int pageSize, Collection<T> data, long count) {
+        this.setPageNo(pageNo);
+        this.setPageSize(pageSize);
+        this.setData(data);
+        this.setCount(count);
     }
 
     public void setPageSize(int pageSize) {
@@ -79,7 +93,7 @@ public class Page<T> implements Serializable {
         this.data = data;
     }
 
-    public void setCount(int count) {
+    public void setCount(long count) {
         this.count = count;
     }
 
@@ -107,7 +121,7 @@ public class Page<T> implements Serializable {
         return Objects.nonNull(data) ? data : Collections.EMPTY_LIST;
     }
 
-    public int getCount() {
+    public long getCount() {
         return count;
     }
 

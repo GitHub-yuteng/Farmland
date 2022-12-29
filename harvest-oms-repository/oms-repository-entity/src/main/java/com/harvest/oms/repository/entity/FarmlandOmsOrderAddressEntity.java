@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
+
 import java.time.LocalDateTime;
+
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -64,6 +66,10 @@ public class FarmlandOmsOrderAddressEntity {
     @ApiModelProperty("街道/乡村")
     @TableField("region4")
     private String region4;
+
+    @ApiModelProperty("详细地址 region1 | region2 | region3 | region4 | address")
+    @TableField("detail")
+    private String detail;
 
     @ApiModelProperty("逻辑删除标记")
     @TableField("is_deleted")

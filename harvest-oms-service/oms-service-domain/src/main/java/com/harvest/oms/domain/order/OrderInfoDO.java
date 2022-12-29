@@ -1,8 +1,10 @@
-package com.harvest.oms.repository.domain.order;
+package com.harvest.oms.domain.order;
 
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.util.Collection;
 
 /**
  * @Author: Alodi
@@ -15,5 +17,6 @@ public class OrderInfoDO extends OrderSimplePO {
 
     private static final long serialVersionUID = 2547095981099704006L;
 
+    private Collection<OrderItemDO> orderItems;
 
 }
