@@ -2,7 +2,7 @@ package com.harvest.oms.web.controller.order;
 
 import com.harvest.core.path.HarvestOmsPath;
 import com.harvest.oms.domain.order.OrderInfoDO;
-import com.harvest.oms.service.order.OrderReadClient;
+import com.harvest.oms.client.order.OrderReadClient;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

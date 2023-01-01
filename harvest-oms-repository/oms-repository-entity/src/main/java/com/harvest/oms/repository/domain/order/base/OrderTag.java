@@ -24,4 +24,7 @@ public class OrderTag implements Serializable {
     @ApiModelProperty("订单标记扩展信息")
     private String simpleExtension;
 
+    @ApiModelProperty("额外信息")
+    private Object extension;
+
 }

@@ -14,6 +14,7 @@
   <artifactId>farmland-harvest</artifactId>
   
   <modules>
+    <module>harvest-all-starter</module>
     <module>harvest-parent</module>
     <module>harvest-core</module>
     <module>harvest-basic-web</module>
@@ -48,6 +49,7 @@
     <module>harvest-platform-taobao</module>
     <module>harvest-platform-JD</module>
     <module>harvest-platform-TMall</module>
+    <module>harvest-cloud-NLP</module>
   </modules>
 
 </project>

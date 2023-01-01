@@ -1,6 +1,6 @@
 package com.harvest.core.domain;
 
-import com.harvest.core.enums.ResponseStatusEnum;
+import com.harvest.core.enums.response.ResponseStatusEnum;
 import lombok.Data;
 
 import java.io.Serializable;

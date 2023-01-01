@@ -12,6 +12,7 @@ public interface HarvestOmsRepositoryApplications {
     interface Path {
 
         String ORDER_RICH = "/OrderRichQueryRepositoryClient";
+        String ORDER_READ = "/OrderReadRepositoryClient";
 
     }
 }

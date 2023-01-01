@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harvest.goods.repository.mapper.goods.couplet.GoodsCoupletReadMapper">
+  
+  <resultMap id="GoodsCoupletBaseMap" type="com.harvest.goods.repository.domain.goods.simple.GoodsSimplePO" extends="GOODS_CORE.GoodsCoreMap">
+    <result column="product_no" property="productNo"/>
+    <collection property="skuSimples" ofType="com.harvest.goods.repository.domain.goods.simple.SkuSimplePO">
+      <result column="sku_id" property="skuId"/>
+      <result column="spu_id" property="spuId"/>
+      <result column="sku_code" property="skuCode"/>
+      <result column="sku_name" property="skuName"/>
+      <result column="barcode" property="barcode"/>
+    </collection>
+  </resultMap>
+  
+  <sql id="spu-field">
+    spu.id, spu.COMPANY_ID, spu.GOODS_CODE, spu.goods_name, spu.category_id, spu.brand_id, spu.product_no, spu.is_package, spu.status,
+  </sql>
+  
+  <sql id="sku-field">
+    sku.id AS sku_id, sku.spu_id, sku.sku_code, sku.sku_name, sku.barcode,
+    sku.purchase_price, sku.procurement_cycle, sku.production_cycle,
+    sku.volume, sku.max_volume, sku.length, sku.width, sku.height,
+    sku.status AS sku_status
+  </sql>
+  
+  <select id="coupletGoods" resultMap="GoodsCoupletBaseMap">
+    SELECT
+    <include refid="spu-field"/>
+    <include refid="sku-field"/>
+    FROM farmland_goods_spu spu
+    LEFT JOIN farmland_goods_sku sku ON sku.spu_id = spu.id
+    WHERE COMPANY_ID = #{companyId}
+    AND
+    <foreach collection="collection" item="item" open="(" close=")" separator="or">
+      spu.id = #{item.spuId} AND sku.id = #{item.skuId}
+    </foreach>
+  </select>
+
+</mapper>

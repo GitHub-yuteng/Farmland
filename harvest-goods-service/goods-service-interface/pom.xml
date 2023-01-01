@@ -19,7 +19,7 @@
     </dependency>
     <dependency>
       <groupId>com.harvest</groupId>
-      <artifactId>goods-repository-entity</artifactId>
+      <artifactId>goods-repository-interface</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>

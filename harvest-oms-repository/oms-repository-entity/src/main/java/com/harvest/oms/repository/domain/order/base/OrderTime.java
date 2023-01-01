@@ -49,4 +49,8 @@ public class OrderTime implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime endTime;
 
+    @ApiModelProperty("缺货时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime stockLackTime;
+
 }

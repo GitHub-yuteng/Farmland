@@ -13,6 +13,10 @@ import java.util.Collection;
 @Data
 public class OrderNoQuery {
 
+    /**
+     * ================== 全匹配查询 ==================
+     */
+
     @ApiModelProperty("订单号")
     private Collection<String> orderNos;
 
@@ -23,16 +27,16 @@ public class OrderNoQuery {
     private Collection<String> waveNos;
 
     /**
-     * ============ ⬇️全匹配查询========== ⬆️模糊查询==================
+     * ================== 模糊查询 ==================
      */
 
     @ApiModelProperty("订单号")
-    private Collection<String> orderNosAllMatch;
+    private Collection<String> orderNosFilter;
 
     @ApiModelProperty("发货号")
-    private Collection<String> deliveryNosAllMatch;
+    private Collection<String> deliveryNosFilter;
 
     @ApiModelProperty("波次号")
-    private Collection<String> waveNosAllMatch;
+    private Collection<String> waveNosFilter;
 
 }

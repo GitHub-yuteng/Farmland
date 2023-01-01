@@ -15,7 +15,6 @@
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-lang3</artifactId>
-      <version>3.12.0</version>
     </dependency>
     <dependency>
       <groupId>commons-beanutils</groupId>
@@ -27,10 +26,16 @@
       <artifactId>commons-text</artifactId>
       <version>1.10.0</version>
     </dependency>
+    <!--
+    commons-collections 和 commons-collections4
+    commons-collections  最新版本是3.2.2，不支持泛型，目前官方已不在维护。
+    commons-collections4 最新版本是4.4，最低要求 Java8 以上。
+    相对于 collections 来说完全支持 Java8 的特性并且支持泛型，该版本无法兼容旧有版本，于是为了避免冲突改名为 collections4。
+    推荐直接使用该版本。（注：两个版本可以共存，使用时需要注意）
+    -->
     <dependency>
-      <groupId>commons-collections</groupId>
-      <artifactId>commons-collections</artifactId>
-      <version>3.2.2</version>
+      <groupId>org.apache.commons</groupId>
+      <artifactId>commons-collections4</artifactId>
     </dependency>
     <dependency>
       <groupId>com.google.guava</groupId>
