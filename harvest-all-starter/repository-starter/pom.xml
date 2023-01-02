@@ -3,20 +3,26 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <packaging>pom</packaging>
   <parent>
+    <artifactId>harvest-all-starter</artifactId>
     <groupId>com.harvest</groupId>
-    <artifactId>farmland-harvest</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   
-  <artifactId>harvest-all-starter</artifactId>
+  <artifactId>repository-starter</artifactId>
   
-  <modules>
-    <module>web-starter</module>
-    <module>service-starter</module>
-    <module>repository-starter</module>
-  </modules>
+  <dependencies>
+    <dependency>
+      <groupId>com.harvest</groupId>
+      <artifactId>oms-repository-service</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.harvest</groupId>
+      <artifactId>goods-repository-service</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
   
   <properties>
     <maven.compiler.source>8</maven.compiler.source>
