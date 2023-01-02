@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * @Author: Alodi
  * @Date: 2022/12/24 4:42 PM
- * @Description: TODO
+ * @Description: 订单丰富查询服务
  **/
 @HarvestClient(value = HarvestOmsRepositoryApplications.SERVICE_NAME, path = HarvestOmsRepositoryApplications.Path.ORDER_RICH)
 public interface OrderRichQueryRepositoryClient extends GlobalMacroDefinition {

@@ -33,11 +33,12 @@ public class OrderDataCreateTest {
     @Autowired
     private FarmlandOmsOrderTagMapper farmlandOmsOrderTagMapper;
 
+
     @Test
     public void createOrder() {
 
         long companyId = Math.abs(new Random().nextLong());
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < 1; i++) {
 
             FarmlandOmsOrderEntity farmlandOmsOrderEntity = this.buildOrder(companyId);
             farmlandOmsOrderMapper.insert(farmlandOmsOrderEntity);
@@ -110,7 +111,7 @@ public class OrderDataCreateTest {
 
     private List<FarmlandOmsOrderItemEntity> buildOrderItem(FarmlandOmsOrderEntity farmlandOmsOrderEntity) {
         List<FarmlandOmsOrderItemEntity> itemEntityList = Lists.newArrayList();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 1; i++) {
             FarmlandOmsOrderItemEntity farmlandOmsOrderItemEntity = new FarmlandOmsOrderItemEntity();
             itemEntityList.add(farmlandOmsOrderItemEntity);
             farmlandOmsOrderItemEntity.setId(Math.abs(new Random().nextLong()));
@@ -120,10 +121,10 @@ public class OrderDataCreateTest {
             farmlandOmsOrderItemEntity.setSourceType(farmlandOmsOrderEntity.getSourceType());
             farmlandOmsOrderItemEntity.setOrderItemStatus(10);
             farmlandOmsOrderItemEntity.setDeliveryNo("123213213");
-            farmlandOmsOrderItemEntity.setSpuId(Math.abs(new Random().nextLong()));
+            farmlandOmsOrderItemEntity.setSpuId(3595878066695591602L);
             farmlandOmsOrderItemEntity.setSpuCode("123123");
             farmlandOmsOrderItemEntity.setSpuName("21321");
-            farmlandOmsOrderItemEntity.setSkuId(Math.abs(new Random().nextLong()) + 1);
+            farmlandOmsOrderItemEntity.setSkuId(1445375173629411139L);
             farmlandOmsOrderItemEntity.setSkuCode("3232");
             farmlandOmsOrderItemEntity.setSkuName("123");
             farmlandOmsOrderItemEntity.setUnitPrice(new BigDecimal("3"));

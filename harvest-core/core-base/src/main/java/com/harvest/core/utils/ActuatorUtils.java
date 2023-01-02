@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
 /**
  * @Author: Alodi
  * @Date: 2022/12/12 9:30 PM
- * @Description: TODO
+ * @Description: 并发执行工具集
  **/
 public class ActuatorUtils {
 

@@ -4,6 +4,7 @@ import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.domain.Page;
+import com.harvest.core.domain.range.date.DataTimeRange;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.repository.client.order.rich.OrderRichQueryRepositoryClient;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;
@@ -11,22 +12,26 @@ import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.handler.order.OrderSectionRepositoryHandler;
 import com.harvest.oms.repository.mapper.order.rich.OrderRichConditionQueryMapper;
 import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
+import com.harvest.oms.repository.query.order.pack.OrderNoQuery;
+import com.harvest.oms.repository.query.order.pack.OrderRemarkQuery;
+import com.harvest.oms.repository.query.order.pack.OrderTimeQuery;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StopWatch;
 
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.*;
 
 /**
  * @Author: Alodi
  * @Date: 2022/12/24 4:48 PM
- * @Description: TODO
+ * @Description: 订单丰富查询服务
  **/
 @HarvestService(value = HarvestOmsRepositoryApplications.SERVICE_NAME, path = HarvestOmsRepositoryApplications.Path.ORDER_RICH)
 public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryRepositoryClient {
@@ -50,7 +55,7 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
             new ThreadPoolExecutor(100, 100, 2000, TimeUnit.MILLISECONDS,
                     new SynchronousQueue<>(),
                     new ThreadFactoryBuilder()
-                            .setNameFormat("harvest-oms-section-reading-%d")
+                            .setNameFormat("harvest-oms-section-repository-reading-%d")
                             .setUncaughtExceptionHandler((thread, e) -> LOGGER.error("ThreadPool:{} 发生异常", thread, e))
                             .build(),
                     new ThreadPoolExecutor.CallerRunsPolicy()
@@ -114,8 +119,9 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
                 CompletableFuture<?>[] futures = new CompletableFuture<?>[orderSectionRepositoryHandlers.size() + 1];
                 for (int i = 0; i < orderSectionRepositoryHandlers.size(); i++) {
                     int finalI = i;
-                    futures[i] = CompletableFuture.runAsync(() -> orderSectionRepositoryHandlers.get(finalI).batchFill(companyId, orders),
-                            OMS_SECTION_READ_EXECUTOR);
+                    futures[i] = CompletableFuture.runAsync(() ->
+                            orderSectionRepositoryHandlers.get(finalI).batchFill(companyId, orders), OMS_SECTION_READ_EXECUTOR
+                    );
                 }
                 futures[orderSectionRepositoryHandlers.size()] =
                         CompletableFuture.runAsync(() -> {
@@ -138,8 +144,63 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
     private Map<String, Object> conventParams(PageOrderConditionQuery condition) {
         Map<String, Object> paramsMap = Maps.newHashMap();
 
+        if (CollectionUtils.isNotEmpty(condition.getOrderIds())) {
+            paramsMap.put("orderIds", condition.getOrderIds());
+        }
+
         if (StringUtils.isNotEmpty(condition.getOrderNo())) {
             paramsMap.put("orderNo", condition.getOrderNo());
+        }
+
+        if (CollectionUtils.isNotEmpty(condition.getShopIds())) {
+            paramsMap.put("shopIds", condition.getShopIds());
+        }
+
+        if (CollectionUtils.isNotEmpty(condition.getStatuses())) {
+            paramsMap.put("statuses", condition.getStatuses());
+        }
+
+        if (CollectionUtils.isNotEmpty(condition.getIncludeTags())) {
+            paramsMap.put("includeTags", condition.getIncludeTags());
+        }
+
+        if (CollectionUtils.isNotEmpty(condition.getExcludeTags())) {
+            paramsMap.put("excludeTags", condition.getExcludeTags());
+        }
+
+        //TODO 订单时间
+        OrderTimeQuery orderTime = condition.getOrderTime();
+        if (Objects.nonNull(orderTime)) {
+            DataTimeRange createdTime = orderTime.getCreatedTime();
+            if (Objects.nonNull(createdTime)) {
+                paramsMap.put("createdTimeStart", createdTime.getMin());
+                paramsMap.put("createdTimeEnd", createdTime.getMax());
+            }
+            // 后续补充
+        }
+
+        //TODO 订单备注
+        OrderRemarkQuery orderRemark = condition.getOrderRemark();
+        if (Objects.nonNull(orderRemark)) {
+            OrderRemarkQuery.OrderRemark buyerRemark = orderRemark.getBuyer();
+            if (Objects.nonNull(buyerRemark) && !buyerRemark.isEmpty()) {
+                paramsMap.put("buyerRemark", buyerRemark.getRemark());
+            }
+            // 后续补充
+        }
+
+        //TODO 订单级别单号查询
+        OrderNoQuery nos = condition.getNos();
+        if (Objects.nonNull(nos)) {
+            Collection<String> orderNos = nos.getOrderNos();
+            if (CollectionUtils.isNotEmpty(orderNos)) {
+                paramsMap.put("orderNos", orderNos);
+            }
+            // 后续补充
+        }
+
+        if (Objects.nonNull(condition.getAbnormal())) {
+            paramsMap.put("abnormal", condition.getAbnormal());
         }
 
         return paramsMap;

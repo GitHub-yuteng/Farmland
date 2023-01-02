@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 /**
  * @Author: Alodi
  * @Date: 2022/12/24 4:37 PM
- * @Description: TODO
+ * @Description: 订单丰富查询服务
  **/
 @HarvestService(path = HarvestOmsApplications.Path.ORDER_RICH)
 public class OrderRichQueryClientImpl implements OrderRichQueryClient {

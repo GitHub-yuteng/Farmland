@@ -31,7 +31,7 @@ public class JdbcDataSource {
     private final static String USERNAME = "root";
     private final static String PASSWORD = "123456";
 
-    @Bean(name = "default_dataSource")
+    @Bean(name = "oms_dataSource")
     public DataSource dataSource() throws SQLException {
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setName("node-oms-mysql");

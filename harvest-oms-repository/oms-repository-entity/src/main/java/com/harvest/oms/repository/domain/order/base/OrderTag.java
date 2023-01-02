@@ -18,8 +18,14 @@ public class OrderTag implements Serializable {
     @ApiModelProperty("订单标记Id")
     private Long tagId;
 
+    @ApiModelProperty("订单Id")
+    private Long orderId;
+
     @ApiModelProperty("订单标记值")
     private Integer tagValue;
+
+    @ApiModelProperty("根据业务是否继续执行判断点")
+    private Boolean processed;
 
     @ApiModelProperty("订单标记扩展信息")
     private String simpleExtension;
