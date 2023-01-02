@@ -17,7 +17,7 @@ public interface OrderSectionRepositoryHandler<T> {
      * @param companyId 公司id
      * @param order     订单
      */
-    void save(long companyId, OrderSimplePO order);
+    void save(Long companyId, OrderSimplePO order);
 
     /**
      * 补充订单信息
@@ -25,7 +25,7 @@ public interface OrderSectionRepositoryHandler<T> {
      * @param companyId 公司id
      * @param order     订单
      */
-    void fill(long companyId, OrderSimplePO order);
+    void fill(Long companyId, OrderSimplePO order);
 
     /**
      * 批量补充
@@ -33,7 +33,7 @@ public interface OrderSectionRepositoryHandler<T> {
      * @param companyId 公司id
      * @param orders    订单集合
      */
-    void batchFill(long companyId, Collection<OrderSimplePO> orders);
+    void batchFill(Long companyId, Collection<OrderSimplePO> orders);
 
     /**
      * 更新
@@ -42,5 +42,5 @@ public interface OrderSectionRepositoryHandler<T> {
      * @param orderId   订单id
      * @param entity    订单相关实体
      */
-    void update(long companyId, long orderId, T entity);
+    void update(Long companyId, Long orderId, T entity);
 }

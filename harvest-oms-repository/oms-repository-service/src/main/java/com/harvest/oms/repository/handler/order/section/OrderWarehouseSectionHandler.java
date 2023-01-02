@@ -15,22 +15,22 @@ import java.util.Collection;
 public class OrderWarehouseSectionHandler implements OrderSectionRepositoryHandler<OrderSimplePO> {
 
     @Override
-    public void save(long companyId, OrderSimplePO order) {
+    public void save(Long companyId, OrderSimplePO order) {
 
     }
 
     @Override
-    public void fill(long companyId, OrderSimplePO order) {
+    public void fill(Long companyId, OrderSimplePO order) {
 
     }
 
     @Override
-    public void batchFill(long companyId, Collection<OrderSimplePO> orders) {
+    public void batchFill(Long companyId, Collection<OrderSimplePO> orders) {
 
     }
 
     @Override
-    public void update(long companyId, long orderId, OrderSimplePO entity) {
+    public void update(Long companyId, Long orderId, OrderSimplePO entity) {
 
     }
 }
