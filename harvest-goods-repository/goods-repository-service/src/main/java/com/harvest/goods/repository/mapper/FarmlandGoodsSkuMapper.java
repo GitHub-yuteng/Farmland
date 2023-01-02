@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-29 14:26:04
+ * @since 2023-01-02 22:52:59
  */
 @Mapper
 public interface FarmlandGoodsSkuMapper extends BaseMapper<FarmlandGoodsSkuEntity> {

@@ -1,18 +1,18 @@
 package com.harvest.goods.repository.mapper;
 
-import com.harvest.goods.repository.entity.FarmlandGoodsBrandEntity;
+import com.harvest.goods.repository.entity.FarmlandGoodsLogEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
- *  Mapper 接口
+ * 商品操作日志流水表 Mapper 接口
  * </p>
  *
  * @author Alodi
  * @since 2023-01-02 22:52:58
  */
 @Mapper
-public interface FarmlandGoodsBrandMapper extends BaseMapper<FarmlandGoodsBrandEntity> {
+public interface FarmlandGoodsLogMapper extends BaseMapper<FarmlandGoodsLogEntity> {
 
 }

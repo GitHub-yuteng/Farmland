@@ -5,11 +5,20 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.harvest.goods.repository.entity.FarmlandGoodsPackageRelationEntity">
         <id column="id" property="id" />
+        <result column="spu_id" property="spuId" />
+        <result column="sku_id" property="skuId" />
+        <result column="pkg_spu_id" property="pkgSpuId" />
+        <result column="pkg_sku_id" property="pkgSkuId" />
+        <result column="quantity" property="quantity" />
+        <result column="status" property="status" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="rc_time" property="rcTime" />
+        <result column="rm_time" property="rmTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id
+        id, spu_id, sku_id, pkg_spu_id, pkg_sku_id, quantity, status, is_deleted, rc_time, rm_time
     </sql>
 
 </mapper>

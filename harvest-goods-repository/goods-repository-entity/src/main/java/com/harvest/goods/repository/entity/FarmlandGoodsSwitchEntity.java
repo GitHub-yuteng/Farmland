@@ -12,28 +12,35 @@ import lombok.Setter;
 
 /**
  * <p>
- * 
+ * 商品配置开关表
  * </p>
  *
  * @author Alodi
- * @since 2023-01-02 22:52:58
+ * @since 2023-01-02 22:52:59
  */
 @Getter
 @Setter
-@TableName("farmland_goods_brand")
-@ApiModel(value = "FarmlandGoodsBrandEntity对象", description = "")
-public class FarmlandGoodsBrandEntity {
+@TableName("farmland_goods_switch")
+@ApiModel(value = "FarmlandGoodsSwitchEntity对象", description = "商品配置开关表")
+public class FarmlandGoodsSwitchEntity {
 
-    @TableId("id")
-    private Long id;
+    @ApiModelProperty("商品ID")
+    @TableId("goods_id")
+    private Long goodsId;
 
-    @ApiModelProperty("品牌名称")
-    @TableField("brand_name")
-    private String brandName;
+    @ApiModelProperty("批次管理")
+    @TableField("open_batch")
+    private Boolean openBatch;
 
+    @ApiModelProperty("效期管理")
+    @TableField("open_validity")
+    private Boolean openValidity;
+
+    @ApiModelProperty("记录创建时间")
     @TableField(value = "rc_time", fill = FieldFill.INSERT)
     private LocalDateTime rcTime;
 
+    @ApiModelProperty("记录修改时间")
     @TableField(value = "rm_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime rmTime;
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harvest.goods.repository.mapper.FarmlandGoodsSwitchMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.harvest.goods.repository.entity.FarmlandGoodsSwitchEntity">
+        <id column="goods_id" property="goodsId" />
+        <result column="open_batch" property="openBatch" />
+        <result column="open_validity" property="openValidity" />
+        <result column="rc_time" property="rcTime" />
+        <result column="rm_time" property="rmTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        goods_id, open_batch, open_validity, rc_time, rm_time
+    </sql>
+
+</mapper>

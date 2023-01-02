@@ -5,11 +5,15 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.harvest.goods.repository.entity.FarmlandGoodsSkuEntity">
         <id column="id" property="id" />
+        <result column="COMPANY_ID" property="companyId" />
         <result column="spu_id" property="spuId" />
         <result column="sku_code" property="skuCode" />
         <result column="sku_name" property="skuName" />
         <result column="barcode" property="barcode" />
         <result column="purchase_price" property="purchasePrice" />
+        <result column="wholesale_price" property="wholesalePrice" />
+        <result column="sale_price" property="salePrice" />
+        <result column="tag_price" property="tagPrice" />
         <result column="procurement_cycle" property="procurementCycle" />
         <result column="production_cycle" property="productionCycle" />
         <result column="volume" property="volume" />
@@ -17,6 +21,8 @@
         <result column="length" property="length" />
         <result column="width" property="width" />
         <result column="height" property="height" />
+        <result column="production_cost" property="productionCost" />
+        <result column="key_word" property="keyWord" />
         <result column="status" property="status" />
         <result column="is_deleted" property="isDeleted" />
         <result column="rc_time" property="rcTime" />
@@ -25,7 +31,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, spu_id, sku_code, sku_name, barcode, purchase_price, procurement_cycle, production_cycle, volume, max_volume, length, width, height, status, is_deleted, rc_time, rm_time
+        id, COMPANY_ID, spu_id, sku_code, sku_name, barcode, purchase_price, wholesale_price, sale_price, tag_price, procurement_cycle, production_cycle, volume, max_volume, length, width, height, production_cost, key_word, status, is_deleted, rc_time, rm_time
     </sql>
 
 </mapper>

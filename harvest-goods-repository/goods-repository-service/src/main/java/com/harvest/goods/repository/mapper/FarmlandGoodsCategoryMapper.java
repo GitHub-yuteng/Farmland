@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-29 14:26:03
+ * @since 2023-01-02 22:52:58
  */
 @Mapper
 public interface FarmlandGoodsCategoryMapper extends BaseMapper<FarmlandGoodsCategoryEntity> {

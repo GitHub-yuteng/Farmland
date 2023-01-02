@@ -6,11 +6,11 @@ import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
- *  Mapper 接口
+ * 组合商品关联关系表 Mapper 接口
  * </p>
  *
  * @author Alodi
- * @since 2022-12-29 14:26:04
+ * @since 2023-01-02 22:52:58
  */
 @Mapper
 public interface FarmlandGoodsPackageRelationMapper extends BaseMapper<FarmlandGoodsPackageRelationEntity> {
