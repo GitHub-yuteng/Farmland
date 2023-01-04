@@ -16,8 +16,8 @@ public class TestCloud {
         //下方第二项和第三项需要替换为您的accessKeyId和accessKeySecret，获取或创建方式详见文档《获取AccessKey》
         DefaultProfile defaultProfile = DefaultProfile.getProfile(
                 "cn-hangzhou",
-                "LTAI4FjLMmdz1UoVQeg3GHHg",
-                "uCLsM6Jx72Ctz4bIE31dyoYBVNOKvG");
+                "xxx",
+                "xxx");
         IAcsClient client = new DefaultAcsClient(defaultProfile);
         //构造请求参数，其中GetSaChGeneral是算法的actionName, 请查找对应的《API基础信息参考》文档并替换为您需要的算法的ActionName，示例详见下方文档中的：更换API请求
         GetSaChGeneralRequest request = new GetSaChGeneralRequest();
