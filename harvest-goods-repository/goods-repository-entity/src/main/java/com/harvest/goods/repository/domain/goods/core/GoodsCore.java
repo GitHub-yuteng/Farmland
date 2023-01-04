@@ -33,12 +33,18 @@ public class GoodsCore extends CompanyId implements Serializable {
     private GoodsStatusEnum status;
 
     @ApiModelProperty("商品类型")
-    private GoodsTypeEnum goodsTypeEnum;
+    private GoodsTypeEnum goodsType;
+
+    @ApiModelProperty("1:普通商品 | 2:组合商品")
+    private Boolean isPackage;
 
     @ApiModelProperty("商品分类Id")
     private Long categoryId;
 
     @ApiModelProperty("商品品牌Id")
     private Long brandId;
+
+    @ApiModelProperty("商品单位Id")
+    private Long unitId;
 
 }

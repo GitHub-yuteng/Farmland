@@ -28,14 +28,13 @@ public class JsonUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(JsonUtils.class);
 
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-
     private static final String OBJECT_JSON_START = "{";
     private static final String OBJECT_JSON_END = "}";
 
     private static final String ARRAY_JSON_START = "[";
     private static final String ARRAY_JSON_END = "]";
 
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
     static {
         //序列化时候统一日期格式

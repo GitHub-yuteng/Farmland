@@ -14,6 +14,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -44,7 +45,12 @@ public class OrderReadClientImpl implements OrderReadClient {
 
     @Override
     public Collection<OrderItemDO> listOrderItemByOrderIds(Long companyId, Long orderId) {
-        return null;
+        Collection<OrderItemSimplePO> orderItemSimplePOList = orderReadRepositoryClient.listOrderItemByOrderIds(companyId, Collections.singletonList(orderId));
+        return orderItemSimplePOList.stream().map(orderSimplePO -> {
+            OrderItemDO orderItemDO = new OrderItemDO();
+            BeanUtils.copyProperties(orderSimplePO, orderItemDO);
+            return orderItemDO;
+        }).collect(Collectors.toList());
     }
 
     @Override

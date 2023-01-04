@@ -7,11 +7,9 @@
     <result column="COMPANY_ID" property="companyId"/>
     <result column="order_no" property="orderNo"/>
     <result column="shop_id" property="shopId"/>
-    <result column="source_type" property="orderSource"
-            javaType="com.harvest.core.enums.oms.OrderSourceEnum"
+    <result column="source_type" property="orderSource" javaType="com.harvest.core.enums.oms.OrderSourceEnum"
             typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
-    <result column="ORDER_STATUS" property="orderStatus"
-            javaType="com.harvest.core.enums.oms.OrderStatusEnum"
+    <result column="ORDER_STATUS" property="orderStatus" javaType="com.harvest.core.enums.oms.OrderStatusEnum"
             typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
   </resultMap>
 

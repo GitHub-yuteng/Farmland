@@ -16,7 +16,7 @@ public enum OrderSourceEnum implements IEnum<Integer> {
     /**
      *
      */
-    JD(10, "京东"),
+    JD(1, "京东"),
 
     ;
 

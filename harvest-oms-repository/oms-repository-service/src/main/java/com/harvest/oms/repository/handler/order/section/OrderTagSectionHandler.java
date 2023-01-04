@@ -2,6 +2,7 @@ package com.harvest.oms.repository.handler.order.section;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.google.common.collect.Lists;
+import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.core.enums.oms.OrderAssistEnums;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.core.utils.QueryUtils;
@@ -98,7 +99,7 @@ public class OrderTagSectionHandler implements OrderSectionRepositoryHandler<Ord
      * @return
      */
     private List<FarmlandOmsOrderTagEntity> partitionBatch(Long companyId, List<Long> orderIds) {
-        // extension 大字段 影响IO 在丰富查询时考虑查询效率则延迟查出，判断存在对应的 tagValue 单独取对应的 扩展信息进行处理
+        //TODO extension 大字段 影响IO 在丰富查询时考虑查询效率则延迟查出，判断存在对应的 tagValue 单独取对应的 扩展信息进行处理
         return QueryUtils.partitionExecute(orderIds, TAG_PARTITION_SIZE, f -> farmlandOmsOrderTagMapper.selectList(
                 new QueryWrapper<FarmlandOmsOrderTagEntity>().lambda()
                         .select(FarmlandOmsOrderTagEntity::getId,
@@ -108,8 +109,10 @@ public class OrderTagSectionHandler implements OrderSectionRepositoryHandler<Ord
                                 FarmlandOmsOrderTagEntity::getProcessed,
                                 FarmlandOmsOrderTagEntity::getSimpleExtension
                         )
-                        .eq(FarmlandOmsOrderTagEntity::getRecordType, OrderAssistEnums.OrderTagRelationEnum.ORDER)
-                        .in(FarmlandOmsOrderTagEntity::getRecordId, orderIds))
+                        .eq(FarmlandOmsOrderTagEntity::getCompanyId,companyId)
+                        .eq(FarmlandOmsOrderTagEntity::getRecordType, OrderAssistEnums.OrderTagRelationEnum.ORDER.getKey())
+                        .in(FarmlandOmsOrderTagEntity::getRecordId, orderIds)
+                        .eq(FarmlandOmsOrderTagEntity::getIsDeleted, GlobalMacroDefinition.Switch.ON))
         );
     }
 

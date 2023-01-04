@@ -11,12 +11,12 @@
         <result column="category_id" property="categoryId" />
         <result column="brand_id" property="brandId" />
         <result column="unit_id" property="unitId" />
-        <result column="product_no" property="productNo" />
         <result column="goods_type" property="goodsType" />
         <result column="is_package" property="isPackage" />
         <result column="length_unit" property="lengthUnit" />
         <result column="weight_unit" property="weightUnit" />
         <result column="volume_unit" property="volumeUnit" />
+        <result column="product_no" property="productNo" />
         <result column="quality_period" property="qualityPeriod" />
         <result column="forbid_receive_period" property="forbidReceivePeriod" />
         <result column="forbid_sale_period" property="forbidSalePeriod" />
@@ -30,7 +30,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, COMPANY_ID, GOODS_CODE, goods_name, category_id, brand_id, unit_id, product_no, goods_type, is_package, length_unit, weight_unit, volume_unit, quality_period, forbid_receive_period, forbid_sale_period, allow_accept_period, life_cycle, status, is_deleted, rc_time, rm_time
+        id, COMPANY_ID, GOODS_CODE, goods_name, category_id, brand_id, unit_id, goods_type, is_package, length_unit, weight_unit, volume_unit, product_no, quality_period, forbid_receive_period, forbid_sale_period, allow_accept_period, life_cycle, status, is_deleted, rc_time, rm_time
     </sql>
 
 </mapper>

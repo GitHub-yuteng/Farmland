@@ -7,8 +7,14 @@
     <result column="COMPANY_ID" property="companyId"/>
     <result column="GOODS_CODE" property="spuCode"/>
     <result column="goods_name" property="spuName"/>
+    <result column="status" property="status" javaType="com.harvest.core.enums.goods.GoodsStatusEnum"
+            typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
+    <result column="goods_type" property="goodsType" javaType="com.harvest.core.enums.goods.GoodsTypeEnum"
+            typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
+    <result column="is_package" property="isPackage"/>
     <result column="category_id" property="categoryId"/>
     <result column="brand_id" property="brandId"/>
+    <result column="unit_id" property="unitId"/>
   </resultMap>
 
 </mapper>

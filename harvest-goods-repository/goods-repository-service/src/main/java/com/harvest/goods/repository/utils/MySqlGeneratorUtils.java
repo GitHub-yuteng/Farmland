@@ -30,13 +30,13 @@ public class MySqlGeneratorUtils {
     public static void main(String[] args) {
 
         List<String> list = new ArrayList<>();
-        list.add("farmland_goods_brand");
-        list.add("farmland_goods_category");
-        list.add("farmland_goods_log");
-        list.add("farmland_goods_package_relation");
-        list.add("farmland_goods_sku");
+//        list.add("farmland_goods_brand");
+//        list.add("farmland_goods_category");
+//        list.add("farmland_goods_log");
+//        list.add("farmland_goods_package_relation");
+//        list.add("farmland_goods_sku");
         list.add("farmland_goods_spu");
-        list.add("farmland_goods_switch");
+//        list.add("farmland_goods_switch");
         list.forEach(MySqlGeneratorUtils::execute);
     }
 

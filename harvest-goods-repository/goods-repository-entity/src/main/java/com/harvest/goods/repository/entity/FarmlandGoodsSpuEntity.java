@@ -17,7 +17,7 @@ import lombok.Setter;
  * </p>
  *
  * @author Alodi
- * @since 2023-01-02 22:52:59
+ * @since 2023-01-04 14:41:53
  */
 @Getter
 @Setter
@@ -53,10 +53,6 @@ public class FarmlandGoodsSpuEntity {
     @TableField("unit_id")
     private Long unitId;
 
-    @ApiModelProperty("货号/产品编号")
-    @TableField("product_no")
-    private String productNo;
-
     @ApiModelProperty("1:单规格商品 | 2:多规格商品")
     @TableField("goods_type")
     private Integer goodsType;
@@ -76,6 +72,10 @@ public class FarmlandGoodsSpuEntity {
     @ApiModelProperty("体积单位")
     @TableField("volume_unit")
     private Integer volumeUnit;
+
+    @ApiModelProperty("货号/产品编号")
+    @TableField("product_no")
+    private String productNo;
 
     @ApiModelProperty("保质期")
     @TableField("quality_period")

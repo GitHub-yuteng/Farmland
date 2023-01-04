@@ -2,6 +2,8 @@ package com.harvest.oms.client.handler.order.section;
 
 import com.harvest.goods.client.goods.couplet.GoodsCoupletClient;
 import com.harvest.goods.domain.GoodsInfoDO;
+import com.harvest.goods.domain.SkuInfoDO;
+import com.harvest.goods.repository.domain.goods.simple.SkuSimplePO;
 import com.harvest.goods.repository.query.GoodsBaseQuery;
 import com.harvest.oms.client.handler.order.OrderSectionHandler;
 import com.harvest.oms.domain.order.OrderInfoDO;
@@ -56,12 +58,34 @@ public class OrderItemGoodsSectionHandler implements OrderSectionHandler {
                             if (Objects.isNull(goodsCoupletDO)) {
                                 return;
                             }
+                            Collection<SkuSimplePO> skuSimples = goodsCoupletDO.getSkuSimples();
+
                             // copy 真实使用的商品信息
                             GoodsInfoDO goodsInfoDO = new GoodsInfoDO();
-                            BeanUtils.copyProperties(goodsCoupletDO, goodsInfoDO);
-                            // 剔除不是该明细的其余sku
-                            goodsInfoDO.getSkus().removeIf(sku -> !sku.getSkuId().equals(skuId));
                             orderItemDO.setGoodsInfo(goodsInfoDO);
-                        }));
+                            // 设置商品信息
+                            goodsInfoDO.setSkus(skuSimples.stream()
+                                    .filter(skuSimplePO -> skuSimplePO.getSkuId().equals(skuId))
+                                    .map(skuSimplePO -> {
+                                        SkuInfoDO sku = new SkuInfoDO();
+                                        BeanUtils.copyProperties(skuSimplePO, sku);
+                                        return sku;
+                                    }).collect(Collectors.toList())
+                            );
+                            goodsInfoDO.setSkuSimples(skuSimples.stream()
+                                    .filter(skuSimplePO -> skuSimplePO.getSkuId().equals(skuId))
+                                    .collect(Collectors.toList())
+                            );
+                            goodsInfoDO.setProductNo(goodsCoupletDO.getProductNo());
+                            goodsInfoDO.setSpuId(goodsCoupletDO.getSpuId());
+                            goodsInfoDO.setSpuCode(goodsCoupletDO.getSpuCode());
+                            goodsInfoDO.setSpuName(goodsCoupletDO.getSpuName());
+                            goodsInfoDO.setStatus(goodsCoupletDO.getStatus());
+                            goodsInfoDO.setGoodsType(goodsCoupletDO.getGoodsType());
+                            goodsInfoDO.setCategoryId(goodsCoupletDO.getCategoryId());
+                            goodsInfoDO.setBrandId(goodsCoupletDO.getBrandId());
+                            goodsInfoDO.setCompanyId(companyId);
+                        })
+                );
     }
 }

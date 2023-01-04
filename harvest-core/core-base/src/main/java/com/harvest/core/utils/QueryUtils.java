@@ -46,8 +46,9 @@ public class QueryUtils {
 
     /**
      * 分批执行器: 比如需要查询1w条数据。如果一次性查询的话可能导致查询效率低或者直接报错（ sql 中in条件可能存在条数限制 ）
-     * 可以使用这个分批查询，比如一次查询 [partitionSize] 条
+     * 可以使用分批查询，比如一次查询 [partitionSize] 条
      * 并且每个Id都查询出了一组数据进行Map分组
+     * 订单 -> 订单明细
      *
      * @param list          原集合
      * @param partitionSize 分区大小

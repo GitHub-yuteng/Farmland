@@ -4,23 +4,96 @@
   
   <resultMap id="GoodsCoupletBaseMap" type="com.harvest.goods.repository.domain.goods.simple.GoodsSimplePO" extends="GOODS_CORE.GoodsCoreMap">
     <result column="product_no" property="productNo"/>
+    <result column="is_package" property="isPackage"/>
+    <result column="length_unit" property="lengthUnit"/>
+    <result column="weight_unit" property="weightUnit"/>
+    <result column="volume_unit" property="volumeUnit"/>
+    <result column="quality_period" property="qualityPeriod"/>
+    <result column="forbid_receive_period" property="forbidReceivePeriod"/>
+    <result column="forbid_sale_period" property="forbidSalePeriod"/>
+    <result column="allow_accept_period" property="allowAcceptPeriod"/>
+    <result column="life_cycle" property="lifeCycle"/>
+    
+    <!--商品规格级联查询-->
     <collection property="skuSimples" ofType="com.harvest.goods.repository.domain.goods.simple.SkuSimplePO">
+      <id column="id" property="spuId"/>
+      <result column="COMPANY_ID" property="companyId"/>
+      <result column="GOODS_CODE" property="spuCode"/>
+      <result column="goods_name" property="spuName"/>
+      <result column="status" property="status" javaType="com.harvest.core.enums.goods.GoodsStatusEnum"
+              typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
+      <result column="goods_type" property="goodsType" javaType="com.harvest.core.enums.goods.GoodsTypeEnum"
+              typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
+      <result column="is_package" property="isPackage"/>
+      <result column="category_id" property="categoryId"/>
+      <result column="brand_id" property="brandId"/>
+      <result column="unit_id" property="unitId"/>
+      
       <result column="sku_id" property="skuId"/>
+      <result column="COMPANY_ID" property="companyId"/>
       <result column="spu_id" property="spuId"/>
       <result column="sku_code" property="skuCode"/>
       <result column="sku_name" property="skuName"/>
       <result column="barcode" property="barcode"/>
+      <result column="purchase_price" property="goodsPrice.purchasePrice"/>
+      <result column="wholesale_price" property="goodsPrice.wholesalePrice"/>
+      <result column="sale_price" property="goodsPrice.salePrice"/>
+      <result column="tag_price" property="goodsPrice.tagPrice"/>
+      <result column="procurement_cycle" property="procurementCycle"/>
+      <result column="production_cycle" property="productionCycle"/>
+      <result column="volume" property="volume"/>
+      <result column="max_volume" property="maxVolume"/>
+      <result column="length" property="length"/>
+      <result column="width" property="width"/>
+      <result column="height" property="height"/>
+      <result column="production_cost" property="productionCost"/>
+      <result column="key_word" property="keyWord"/>
+      <result column="status" property="skuStatus" javaType="com.harvest.core.enums.goods.GoodsStatusEnum"
+              typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
     </collection>
   </resultMap>
   
   <sql id="spu-field">
-    spu.id, spu.COMPANY_ID, spu.GOODS_CODE, spu.goods_name, spu.category_id, spu.brand_id, spu.product_no, spu.is_package, spu.status,
+    spu.id,
+    spu.COMPANY_ID,
+    spu.GOODS_CODE,
+    spu.goods_name,
+    spu.category_id,
+    spu.brand_id,
+    spu.unit_id,
+    spu.product_no,
+    spu.goods_type,
+    spu.is_package,
+    spu.length_unit,
+    spu.weight_unit,
+    spu.volume_unit,
+    spu.quality_period,
+    spu.forbid_receive_period,
+    spu.forbid_sale_period,
+    spu.allow_accept_period,
+    spu.life_cycle,
+    spu.status,
   </sql>
   
   <sql id="sku-field">
-    sku.id AS sku_id, sku.spu_id, sku.sku_code, sku.sku_name, sku.barcode,
-    sku.purchase_price, sku.procurement_cycle, sku.production_cycle,
-    sku.volume, sku.max_volume, sku.length, sku.width, sku.height,
+    sku.id AS sku_id,
+    sku.spu_id,
+    sku.sku_code,
+    sku.sku_name,
+    sku.barcode,
+    sku.purchase_price,
+    sku.wholesale_price,
+    sku.sale_price,
+    sku.tag_price,
+    sku.procurement_cycle,
+    sku.production_cycle,
+    sku.volume,
+    sku.max_volume,
+    sku.`length`,
+    sku.width,
+    sku.height,
+    sku.production_cost,
+    sku.key_word,
     sku.status AS sku_status
   </sql>
   

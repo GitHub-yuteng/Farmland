@@ -15,10 +15,12 @@ public class GoodsPrice implements Serializable {
 
     private static final long serialVersionUID = 8783710053887298282L;
 
+    private BigDecimal purchasePrice;
+
     private BigDecimal wholesalePrice;
 
-    private BigDecimal tagPrice;
+    private BigDecimal salePrice;
 
-    private BigDecimal purchasePrice;
+    private BigDecimal tagPrice;
 
 }

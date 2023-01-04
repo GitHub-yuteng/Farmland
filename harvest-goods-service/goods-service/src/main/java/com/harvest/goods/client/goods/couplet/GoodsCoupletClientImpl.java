@@ -7,9 +7,11 @@ import com.harvest.goods.repository.client.couplet.GoodsCoupletReadRepositoryCli
 import com.harvest.goods.repository.domain.goods.simple.GoodsSimplePO;
 import com.harvest.goods.repository.query.GoodsBaseQuery;
 import com.harvest.goods.service.AbstractGoodsService;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
+import java.util.Collections;
 
 /**
  * @Author: Alodi
@@ -24,6 +26,9 @@ public class GoodsCoupletClientImpl extends AbstractGoodsService implements Good
 
     @Override
     public Collection<GoodsInfoDO> coupletGoods(Long companyId, Collection<GoodsBaseQuery> baseQueries) {
+        if (CollectionUtils.isEmpty(baseQueries)) {
+            return Collections.emptyList();
+        }
         Collection<GoodsSimplePO> goodsSimples = goodsCoupletReadRepositoryClient.coupletGoods(companyId, baseQueries);
         return super.convent(goodsSimples);
     }
