@@ -68,7 +68,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
 
         if (orders.size() >= ORDER_NUMS) {
             try {
-                CompletableFuture<?>[] futures = new CompletableFuture<?>[orderSectionHandlers.size() + 1];
+                CompletableFuture<?>[] futures = new CompletableFuture<?>[orderSectionHandlers.size()];
                 for (int i = 0; i < orderSectionHandlers.size(); i++) {
                     int finalI = i;
                     futures[i] = CompletableFuture.runAsync(

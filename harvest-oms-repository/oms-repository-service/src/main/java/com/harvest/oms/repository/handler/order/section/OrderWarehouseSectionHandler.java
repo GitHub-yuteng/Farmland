@@ -9,7 +9,7 @@ import java.util.Collection;
 /**
  * @Author: Alodi
  * @Date: 2022/12/31 3:28 PM
- * @Description: TODO
+ * @Description: 订单仓库基本信息
  **/
 @Component
 public class OrderWarehouseSectionHandler implements OrderSectionRepositoryHandler<OrderSimplePO> {
@@ -24,6 +24,12 @@ public class OrderWarehouseSectionHandler implements OrderSectionRepositoryHandl
 
     }
 
+    /**
+     * 只查询仓库基础信息, 不含业务信息, 为丰富查询提供订单仓库信息简要
+     *
+     * @param companyId 公司id
+     * @param orders    订单集合
+     */
     @Override
     public void batchFill(Long companyId, Collection<OrderSimplePO> orders) {
 

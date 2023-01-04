@@ -16,22 +16,22 @@ public interface Context {
         /**
          * 当前线程上下文中存放的会话属性清单 当客户端调用Service时都出现在头信息中
          */
-        companyID,
-        userID,
-        sessionID,
-        accountID,
+        companyId,
+        userId,
+        sessionId,
+        accountId,
         remoteIP,
-        requestID,
-        transactionID,
+        requestId,
+        transactionId,
         language,
         applicationType
     }
 
-    Long getCompanyID();
+    Long getCompanyId();
 
-    Long getUserID();
+    Long getUserId();
 
-    Long getAccountID();
+    Long getAccountId();
 
     int getApplicationType();
 

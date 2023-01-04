@@ -73,7 +73,6 @@
     spu.allow_accept_period,
     spu.life_cycle,
     spu.status,
-    spu.is_deleted,
   </sql>
   
   <sql id="sku-field">
@@ -95,8 +94,7 @@
     sku.height,
     sku.production_cost,
     sku.key_word,
-    sku.status AS sku_status,
-    sku.is_deleted
+    sku.status AS sku_status
   </sql>
   
   <select id="coupletGoods" resultMap="GoodsCoupletBaseMap">

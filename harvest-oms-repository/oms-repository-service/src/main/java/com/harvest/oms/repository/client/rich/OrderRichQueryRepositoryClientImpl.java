@@ -114,7 +114,7 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
 
         if (orders.size() >= ORDER_NUMS) {
             try {
-                CompletableFuture<?>[] futures = new CompletableFuture<?>[orderSectionRepositoryHandlers.size() + 1];
+                CompletableFuture<?>[] futures = new CompletableFuture<?>[orderSectionRepositoryHandlers.size()];
                 for (int i = 0; i < orderSectionRepositoryHandlers.size(); i++) {
                     int finalI = i;
                     futures[i] = CompletableFuture.runAsync(

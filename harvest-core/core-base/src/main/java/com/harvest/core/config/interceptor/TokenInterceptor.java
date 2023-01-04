@@ -1,5 +1,7 @@
 package com.harvest.core.config.interceptor;
 
+import com.harvest.core.context.Context;
+import com.harvest.core.context.ContextHolder;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
@@ -20,7 +22,8 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler) throws Exception {
-        return HandlerInterceptor.super.preHandle(request, response, handler);
+        Context context = ContextHolder.getContext();
+        return true;
     }
 
     @Override
@@ -30,6 +33,6 @@ public class TokenInterceptor implements HandlerInterceptor {
 
     @Override
     public void afterCompletion(@NotNull HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull Object handler, Exception ex) throws Exception {
-        HandlerInterceptor.super.afterCompletion(request, response, handler, ex);
+        ContextHolder.remove();
     }
 }

@@ -20,4 +20,8 @@ public class ContextHolder extends CompanyId {
     public static Context getContext() {
         return CONTEXT.get();
     }
+
+    public static void remove() {
+        CONTEXT.remove();
+    }
 }

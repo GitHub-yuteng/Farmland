@@ -19,33 +19,18 @@ import java.util.Map;
 public class MySqlGeneratorUtils {
 
     private static final String PARENT_DIR = System.getProperty("user.dir");
-    private static final String ENTITY_PATH = PARENT_DIR + "/harvest-oms-repository/oms-repository-entity/src/main/java/com/harvest/oms/repository/entity";
-    private static final String MAPPER_PATH = PARENT_DIR + "/harvest-oms-repository/oms-repository-service/src/main/java/com/harvest/oms/repository/mapper";
-    private static final String XML_PATH = PARENT_DIR + "/harvest-oms-repository/oms-repository-service/src/main/resources/mapper";
+    private static final String ENTITY_PATH = PARENT_DIR + "/harvest-wms-repository/wms-repository-entity/src/main/java/com/harvest/wms/repository/entity";
+    private static final String MAPPER_PATH = PARENT_DIR + "/harvest-wms-repository/wms-repository-service/src/main/java/com/harvest/wms/repository/mapper";
+    private static final String XML_PATH = PARENT_DIR + "/harvest-wms-repository/wms-repository-service/src/main/resources/mapper";
 
-    private final static String MYSQL_IP = "jdbc:mysql://localhost:3306/farmland_oms";
+    private final static String MYSQL_IP = "jdbc:mysql://localhost:3306/farmland_wms";
     private final static String USERNAME = "root";
     private final static String PASSWORD = "123456";
 
     public static void main(String[] args) {
 
         List<String> list = new ArrayList<>();
-//        list.add("farmland_oms_after_sale_bill");
-//        list.add("farmland_oms_after_sale_bill_item");
-//        list.add("farmland_oms_after_sale_bill_log");
-//        list.add("farmland_oms_inbound_bill");
-//        list.add("farmland_oms_inbound_bill_item");
-        list.add("farmland_oms_order");
-//        list.add("farmland_oms_order_address");
-//        list.add("farmland_oms_order_item");
-//        list.add("farmland_oms_order_remark");
-//        list.add("farmland_oms_order_sensitive_data");
-//        list.add("farmland_oms_order_tag");
-//        list.add("farmland_oms_order_template_export");
-//        list.add("farmland_oms_order_template_import");
-//        list.add("farmland_oms_order_value_map");
-//        list.add("farmland_oms_outbound_bill");
-//        list.add("farmland_oms_outbound_bill_item");
+        list.add("farmland_wms_warehouse");
         list.forEach(MySqlGeneratorUtils::execute);
     }
 
@@ -78,9 +63,9 @@ public class MySqlGeneratorUtils {
                         .controller("")
                         .serviceImpl("")
                         .service("")
-                        .entity("com.harvest.oms.repository.entity")
-                        .mapper("com.harvest.oms.repository.mapper")
-                        .xml("com.harvest.oms.repository.mapper"))
+                        .entity("com.harvest.wms.repository.entity")
+                        .mapper("com.harvest.wms.repository.mapper")
+                        .xml("com.harvest.wms.repository.mapper"))
 
                 .templateConfig(template -> {
                     //template.entity("/src/main/com/scaffolding/pojo/entity/");

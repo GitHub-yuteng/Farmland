@@ -1,5 +1,7 @@
 package com.harvest.oms.web.controller.order.rich;
 
+import com.harvest.core.context.Context;
+import com.harvest.core.context.ContextHolder;
 import com.harvest.core.domain.Page;
 import com.harvest.core.domain.ResponseResult;
 import com.harvest.core.path.HarvestOmsPath;
@@ -28,6 +30,7 @@ public class OrderRichQueryController {
 
     @PostMapping(value = "/page/query")
     public ResponseResult<Page<OrderInfoDO>> pageQueryOrderRich(@RequestBody PageOrderConditionQuery pageOrderConditionQuery) {
+        Context context = ContextHolder.getContext();
         Long companyId = 8510380986999420205L;
         Page<OrderInfoDO> result = orderRichQueryClient.pageQueryOrderRich(companyId, pageOrderConditionQuery);
         return ResponseResult.success(result);
