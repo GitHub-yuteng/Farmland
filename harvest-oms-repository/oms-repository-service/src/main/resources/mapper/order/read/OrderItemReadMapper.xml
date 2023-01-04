@@ -37,7 +37,7 @@
     id , COMPANY_ID, shop_id, order_id, source_type, order_item_status, delivery_no,
     spu_id, spu_code, spu_name, sku_id, sku_code, sku_name,
     unit_price, discounted_price, is_package, quantity, amount,
-    created_time, paid_time, send_time, end_time, modify_time, stock_lack, stock_lack_time, picture_oss_url
+    created_time, paid_time, send_time, end_time, modify_time, stock_lack, stock_lack_time, picture_oss_url, is_deleted
   </sql>
   
   <select id="listOrderItemByOrderIds" resultMap="BaseResultMap">
@@ -45,6 +45,7 @@
     <include refid="field"/>
     FROM farmland_oms_order_item
     WHERE COMPANY_ID = #{companyId}
+    AND is_deleted = 0
     AND order_id IN
     <foreach collection="orderIds" item="id" open="(" close=")" separator=",">
       #{id}

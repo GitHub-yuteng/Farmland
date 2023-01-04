@@ -103,10 +103,12 @@
   <sql id="where">
     WHERE o.COMPANY_ID = #{companyId}
     AND o.is_deleted = 0
-    AND o.id IN
-    <foreach collection="orderIds" item="orderId" open="(" close=")" separator=",">
+    <if test="orderIds != null and orderIds.size() > 0">
+      AND o.id IN
+      <foreach collection="orderIds" item="orderId" open="(" close=")" separator=",">
         #{orderId}
-    </foreach>
+      </foreach>
+    </if>
   </sql>
 
 </mapper>

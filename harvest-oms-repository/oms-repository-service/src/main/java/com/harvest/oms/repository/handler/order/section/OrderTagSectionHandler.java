@@ -112,7 +112,7 @@ public class OrderTagSectionHandler implements OrderSectionRepositoryHandler<Ord
                         .eq(FarmlandOmsOrderTagEntity::getCompanyId,companyId)
                         .eq(FarmlandOmsOrderTagEntity::getRecordType, OrderAssistEnums.OrderTagRelationEnum.ORDER.getKey())
                         .in(FarmlandOmsOrderTagEntity::getRecordId, orderIds)
-                        .eq(FarmlandOmsOrderTagEntity::getIsDeleted, GlobalMacroDefinition.Switch.ON))
+                        .eq(FarmlandOmsOrderTagEntity::getIsDeleted, GlobalMacroDefinition.Switch.OFF))
         );
     }
 

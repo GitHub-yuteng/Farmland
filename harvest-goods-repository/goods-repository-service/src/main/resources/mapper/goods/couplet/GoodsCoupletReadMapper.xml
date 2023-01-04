@@ -73,6 +73,7 @@
     spu.allow_accept_period,
     spu.life_cycle,
     spu.status,
+    spu.is_deleted,
   </sql>
   
   <sql id="sku-field">
@@ -94,7 +95,8 @@
     sku.height,
     sku.production_cost,
     sku.key_word,
-    sku.status AS sku_status
+    sku.status AS sku_status,
+    sku.is_deleted
   </sql>
   
   <select id="coupletGoods" resultMap="GoodsCoupletBaseMap">
@@ -102,10 +104,10 @@
     <include refid="spu-field"/>
     <include refid="sku-field"/>
     FROM farmland_goods_spu spu
-    LEFT JOIN farmland_goods_sku sku ON sku.spu_id = spu.id
+    LEFT JOIN farmland_goods_sku sku ON sku.spu_id = spu.id AND sku.is_deleted = 0
     WHERE spu.COMPANY_ID = #{companyId}
     AND sku.COMPANY_ID = #{companyId}
-    AND
+    AND spu.is_deleted = 0
     <foreach collection="collection" item="item" open="(" close=")" separator="or">
       spu.id = #{item.spuId} AND sku.id = #{item.skuId}
     </foreach>
