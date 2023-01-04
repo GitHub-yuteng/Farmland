@@ -14,20 +14,20 @@ import java.util.Collection;
 public class OrderNoQuery {
 
     /**
-     * ================== 全匹配查询 ==================
+     * ================== 精准匹配查询 ==================
      */
 
     @ApiModelProperty("订单号")
     private Collection<String> orderNos;
 
-    @ApiModelProperty("发货号")
+    @ApiModelProperty("运单号")
     private Collection<String> deliveryNos;
 
     @ApiModelProperty("波次号")
     private Collection<String> waveNos;
 
     /**
-     * ================== 模糊查询 ==================
+     * ================== 模糊匹配查询 ==================
      */
 
     @ApiModelProperty("订单号")

@@ -106,6 +106,7 @@
     WHERE spu.COMPANY_ID = #{companyId}
     AND sku.COMPANY_ID = #{companyId}
     AND spu.is_deleted = 0
+    AND
     <foreach collection="collection" item="item" open="(" close=")" separator="or">
       spu.id = #{item.spuId} AND sku.id = #{item.skuId}
     </foreach>

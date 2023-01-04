@@ -5,9 +5,11 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.domain.Page;
 import com.harvest.core.domain.range.date.DataTimeRange;
+import com.harvest.core.utils.FieldUtils;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.repository.client.order.rich.OrderRichQueryRepositoryClient;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;
+import com.harvest.oms.repository.convert.OrderOptimizeQueryConvertor;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.handler.order.OrderSectionRepositoryHandler;
 import com.harvest.oms.repository.mapper.order.rich.OrderRichConditionQueryMapper;
@@ -22,10 +24,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StopWatch;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.*;
 
 /**
@@ -65,8 +64,13 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
     @Autowired
     private List<OrderSectionRepositoryHandler<?>> orderSectionRepositoryHandlers;
 
+    @Autowired
+    private List<OrderOptimizeQueryConvertor> orderOptimizeQueryConvertors;
+
     @Override
     public Page<OrderSimplePO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
+
+        Page<OrderSimplePO> page = new Page<>(condition.getPageNo(), condition.getPageSize());
 
         StopWatch stopWatch = new StopWatch();
 
@@ -74,16 +78,29 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
         Map<String, Object> paramsMap = this.conventParams(companyId, condition);
         stopWatch.stop();
 
+        stopWatch.start("拆分查询");
+        Optional<OrderOptimizeQueryConvertor> optimizeConvertor = orderOptimizeQueryConvertors.stream()
+                .filter(convertor -> convertor.precess(companyId, condition, paramsMap))
+                .findAny();
+        stopWatch.stop();
+
+        List<Long> orderIds = (List<Long>) paramsMap.get("orderIds");
+        if (CollectionUtils.isNotEmpty(orderIds) && orderIds.contains(0L)) {
+            LOGGER.warn("Rich#订单拆分查询为空, companyId:{}, optimizeConvertor:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(optimizeConvertor.getClass().getSimpleName()), stopWatch.prettyPrint());
+            return page;
+        }
+
         stopWatch.start("订单总数查询");
         Long count = orderRichConditionQueryMapper.countQueryOrderWithRichCondition(paramsMap);
         stopWatch.stop();
 
-        Page<OrderSimplePO> page = new Page<>(condition.getPageNo(), condition.getPageSize());
-        page.setCount(count);
         if (count == 0) {
-            LOGGER.warn("订单查询为空, companyId:{}, condition:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
+            LOGGER.warn("Rich#订单查询为空, companyId:{}, condition:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
             return page;
         }
+
+        // 总数
+        page.setCount(count);
 
         stopWatch.start("订单查询");
         Collection<OrderSimplePO> orders = orderRichConditionQueryMapper.pageQueryOrderWithRichCondition(paramsMap);
@@ -95,7 +112,7 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
         stopWatch.stop();
 
         if (stopWatch.getTotalTimeMillis() > TIME_OUT) {
-            LOGGER.warn("订单查询超时, companyId:{}, condition:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
+            LOGGER.warn("Rich#订单查询超时, companyId:{}, condition:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
         }
 
         return page;

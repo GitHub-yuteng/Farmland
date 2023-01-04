@@ -5,9 +5,9 @@ import com.harvest.core.context.ContextHolder;
 import com.harvest.core.domain.Page;
 import com.harvest.core.domain.ResponseResult;
 import com.harvest.core.path.HarvestOmsPath;
-import com.harvest.oms.domain.order.OrderInfoDO;
-import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
 import com.harvest.oms.client.order.rich.OrderRichQueryClient;
+import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
+import com.harvest.oms.vo.order.OrderInfoVO;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,10 +29,10 @@ public class OrderRichQueryController {
     private OrderRichQueryClient orderRichQueryClient;
 
     @PostMapping(value = "/page/query")
-    public ResponseResult<Page<OrderInfoDO>> pageQueryOrderRich(@RequestBody PageOrderConditionQuery pageOrderConditionQuery) {
+    public ResponseResult<Page<OrderInfoVO>> pageQueryOrderRich(@RequestBody PageOrderConditionQuery pageOrderConditionQuery) {
         Context context = ContextHolder.getContext();
         Long companyId = 8510380986999420205L;
-        Page<OrderInfoDO> result = orderRichQueryClient.pageQueryOrderRich(companyId, pageOrderConditionQuery);
+        Page<OrderInfoVO> result = orderRichQueryClient.pageQueryOrderRich(companyId, pageOrderConditionQuery);
         return ResponseResult.success(result);
     }
 

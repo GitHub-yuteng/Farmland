@@ -1,4 +1,4 @@
-package com.harvest.oms.client.handler.order;
+package com.harvest.oms.service.order.handler;
 
 import com.harvest.oms.domain.order.OrderInfoDO;
 

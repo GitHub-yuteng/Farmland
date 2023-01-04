@@ -37,6 +37,10 @@ public class Page<T> implements Serializable {
     @ApiModelProperty("是否还有下一页")
     private boolean hasMore;
 
+    public static <T> Page<T> build(int pageNo, int pageSize, Collection<T> data, long count) {
+        return new Page<>(pageNo, pageSize, data, count);
+    }
+
     private void computeFromLimit() {
         from = (pageNo - 1) * pageSize;
         limit = pageSize;

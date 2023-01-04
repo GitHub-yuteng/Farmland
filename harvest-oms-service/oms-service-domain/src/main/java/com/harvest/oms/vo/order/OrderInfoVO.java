@@ -1,6 +1,8 @@
 package com.harvest.oms.vo.order;
 
+import com.harvest.core.domain.CompanyId;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 
@@ -10,8 +12,12 @@ import java.io.Serializable;
  * @Description: TODO
  **/
 @Data
-public class OrderInfoVO implements Serializable {
+@EqualsAndHashCode(callSuper = true)
+public class OrderInfoVO extends CompanyId implements Serializable {
 
     private static final long serialVersionUID = -1629744239248440566L;
 
+    private Long orderId;
+
+    private String orderNo;
 }

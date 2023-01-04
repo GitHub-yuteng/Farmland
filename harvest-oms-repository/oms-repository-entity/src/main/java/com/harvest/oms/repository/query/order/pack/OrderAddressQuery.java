@@ -1,7 +1,8 @@
 package com.harvest.oms.repository.query.order.pack;
 
-import io.swagger.annotations.ApiModelProperty;
+import com.harvest.core.domain.address.HarvestAddress;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 /**
  * @Author: Alodi
@@ -9,8 +10,9 @@ import lombok.Data;
  * @Description: TODO
  **/
 @Data
-public class OrderAddressQuery {
+@EqualsAndHashCode(callSuper = true)
+public class OrderAddressQuery extends HarvestAddress {
 
-    @ApiModelProperty("邮政编码")
-    private String postalCode;
+    private static final long serialVersionUID = 6771380426807520453L;
+
 }

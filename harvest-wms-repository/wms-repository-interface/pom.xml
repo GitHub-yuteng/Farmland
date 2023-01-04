@@ -11,6 +11,14 @@
   
   <artifactId>wms-repository-interface</artifactId>
   
+  <dependencies>
+    <dependency>
+      <groupId>com.harvest</groupId>
+      <artifactId>wms-repository-entity</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+  
   <properties>
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>

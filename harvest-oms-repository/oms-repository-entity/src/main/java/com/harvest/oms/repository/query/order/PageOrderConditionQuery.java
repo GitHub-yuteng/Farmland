@@ -53,6 +53,9 @@ public class PageOrderConditionQuery extends PageQuery implements Serializable {
     @ApiModelProperty("订单编号查询条件")
     private OrderNoQuery nos;
 
+    @ApiModelProperty("订单地址查询条件")
+    private OrderAddressQuery orderAddress;
+
     @ApiModelProperty("是否是异常订单 0否 1是")
     private Boolean abnormal;
 }

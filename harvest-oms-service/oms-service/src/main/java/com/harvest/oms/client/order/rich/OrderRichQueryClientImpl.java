@@ -4,11 +4,13 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.domain.Page;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
-import com.harvest.oms.client.handler.order.OrderSectionHandler;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.client.order.rich.OrderRichQueryRepositoryClient;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
+import com.harvest.oms.service.order.convert.OrderConvertor;
+import com.harvest.oms.service.order.handler.OrderSectionHandler;
+import com.harvest.oms.vo.order.OrderInfoVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -52,13 +54,17 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     @Autowired
     private List<OrderSectionHandler> orderSectionHandlers;
 
+    @Autowired
+    private OrderConvertor orderConvertor;
+
 
     @Override
-    public Page<OrderInfoDO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery pageOrderConditionQuery) {
+    public Page<OrderInfoVO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery pageOrderConditionQuery) {
         Page<OrderSimplePO> orderSimplePage = orderRichQueryRepositoryClient.pageQueryOrderRich(companyId, pageOrderConditionQuery);
-        Page<OrderInfoDO> result = this.convent(orderSimplePage);
-        this.sectionBatchFill(companyId, result.getData());
-        return result;
+        Page<OrderInfoDO> orderInfoPage = this.convent(orderSimplePage);
+        this.sectionBatchFill(companyId, orderInfoPage.getData());
+        Collection<OrderInfoVO> data = orderConvertor.convert(orderInfoPage.getData());
+        return Page.build(orderInfoPage.getPageNo(), orderInfoPage.getPageSize(), data, orderInfoPage.getCount());
     }
 
     private void sectionBatchFill(Long companyId, Collection<OrderInfoDO> orders) {
