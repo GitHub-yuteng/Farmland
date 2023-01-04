@@ -51,15 +51,13 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
     /**
      * 订单扩展信息查询线程池
      */
-    private final static Executor OMS_SECTION_READ_EXECUTOR =
-            new ThreadPoolExecutor(100, 100, 2000, TimeUnit.MILLISECONDS,
-                    new SynchronousQueue<>(),
-                    new ThreadFactoryBuilder()
-                            .setNameFormat("harvest-oms-section-repository-reading-%d")
-                            .setUncaughtExceptionHandler((thread, e) -> LOGGER.error("ThreadPool:{} 发生异常", thread, e))
-                            .build(),
-                    new ThreadPoolExecutor.CallerRunsPolicy()
-            );
+    private final static Executor OMS_SECTION_READ_EXECUTOR = new ThreadPoolExecutor(100, 100, 2000, TimeUnit.MILLISECONDS,
+            new SynchronousQueue<>(),
+            new ThreadFactoryBuilder()
+                    .setNameFormat("harvest-oms-section-repository-reading-%d")
+                    .setUncaughtExceptionHandler((thread, e) -> LOGGER.error("ThreadPool:{} 发生异常", thread, e))
+                    .build(),
+            new ThreadPoolExecutor.CallerRunsPolicy());
 
     @Autowired
     private OrderRichConditionQueryMapper orderRichConditionQueryMapper;
@@ -73,7 +71,7 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
         StopWatch stopWatch = new StopWatch();
 
         stopWatch.start("简化查询结构");
-        Map<String, Object> paramsMap = this.conventParams(condition);
+        Map<String, Object> paramsMap = this.conventParams(companyId, condition);
         stopWatch.stop();
 
         stopWatch.start("订单总数查询");
@@ -119,13 +117,11 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
                 CompletableFuture<?>[] futures = new CompletableFuture<?>[orderSectionRepositoryHandlers.size() + 1];
                 for (int i = 0; i < orderSectionRepositoryHandlers.size(); i++) {
                     int finalI = i;
-                    futures[i] = CompletableFuture.runAsync(() ->
-                            orderSectionRepositoryHandlers.get(finalI).batchFill(companyId, orders), OMS_SECTION_READ_EXECUTOR
+                    futures[i] = CompletableFuture.runAsync(
+                            () -> orderSectionRepositoryHandlers.get(finalI).batchFill(companyId, orders),
+                            OMS_SECTION_READ_EXECUTOR
                     );
                 }
-                futures[orderSectionRepositoryHandlers.size()] =
-                        CompletableFuture.runAsync(() -> {
-                        }, OMS_SECTION_READ_EXECUTOR);
                 CompletableFuture.allOf(futures).get();
             } catch (Exception e) {
                 LOGGER.error("并发补充订单信息失败", e);
@@ -138,11 +134,16 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
     /**
      * 简化查询结构
      *
+     * @param companyId
      * @param condition
      * @return
      */
-    private Map<String, Object> conventParams(PageOrderConditionQuery condition) {
+    private Map<String, Object> conventParams(Long companyId, PageOrderConditionQuery condition) {
         Map<String, Object> paramsMap = Maps.newHashMap();
+
+        paramsMap.put("companyId", companyId);
+        paramsMap.put("from", condition.getFrom());
+        paramsMap.put("limit", condition.getLimit());
 
         if (CollectionUtils.isNotEmpty(condition.getOrderIds())) {
             paramsMap.put("orderIds", condition.getOrderIds());

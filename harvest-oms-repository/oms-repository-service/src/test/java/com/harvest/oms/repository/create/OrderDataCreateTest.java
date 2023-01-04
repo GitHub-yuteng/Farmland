@@ -1,11 +1,14 @@
 package com.harvest.oms.repository.create;
 
+import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.harvest.core.generator.IdGenerator;
 import com.harvest.oms.repository.entity.*;
 import com.harvest.oms.repository.mapper.*;
 import org.assertj.core.util.Lists;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.util.StopWatch;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -13,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.*;
 
 /**
  * @Author: Alodi
@@ -21,6 +25,11 @@ import java.util.Random;
  **/
 @SpringBootTest
 public class OrderDataCreateTest {
+
+    private final static Executor EXECUTOR = new ThreadPoolExecutor(10, 10, 2000, TimeUnit.MILLISECONDS,
+            new SynchronousQueue<>(),
+            new ThreadFactoryBuilder().setNameFormat("harvest-oms-create-order-%d").build(),
+            new ThreadPoolExecutor.CallerRunsPolicy());
 
     @Autowired
     private FarmlandOmsOrderMapper farmlandOmsOrderMapper;
@@ -35,12 +44,33 @@ public class OrderDataCreateTest {
 
 
     @Test
-    public void createOrder() {
+    public void createOrder() throws InterruptedException {
 
-        long companyId = Math.abs(new Random().nextLong());
-        for (int i = 0; i < 1; i++) {
+        long companyId = 8510380986999420205L;
+        long shopId = 8110380986999420205L;
 
-            FarmlandOmsOrderEntity farmlandOmsOrderEntity = this.buildOrder(companyId);
+        StopWatch stopWatch = new StopWatch("创建测试订单");
+        stopWatch.start("创建");
+        CountDownLatch countDownLatch = new CountDownLatch(10);
+        for (int i = 0; i < 10; i++) {
+            EXECUTOR.execute(() -> {
+                this.create(companyId, shopId);
+                countDownLatch.countDown();
+            });
+        }
+        countDownLatch.await();
+        System.out.println("结束了！");
+        stopWatch.stop();
+        System.out.println(stopWatch.prettyPrint());
+
+    }
+
+    private void create(long companyId, long shopId) {
+        for (int i = 0; i < 1000; i++) {
+            Thread currentThread = Thread.currentThread();
+            System.out.println(currentThread.getId() + ":" + currentThread.getName() + " | " + i);
+
+            FarmlandOmsOrderEntity farmlandOmsOrderEntity = this.buildOrder(companyId, shopId);
             farmlandOmsOrderMapper.insert(farmlandOmsOrderEntity);
 
             List<FarmlandOmsOrderItemEntity> items = this.buildOrderItem(farmlandOmsOrderEntity);
@@ -61,7 +91,7 @@ public class OrderDataCreateTest {
 
         for (int i = 0; i < 10; i++) {
             FarmlandOmsOrderTagEntity tagEntity = new FarmlandOmsOrderTagEntity();
-            tagEntity.setId(Math.abs(new Random().nextLong()));
+            tagEntity.setId(IdGenerator.generate());
             tagEntity.setCompanyId(farmlandOmsOrderEntity.getCompanyId());
             tagEntity.setRecordId(farmlandOmsOrderEntity.getId());
             tagEntity.setRecordType(1);
@@ -114,7 +144,7 @@ public class OrderDataCreateTest {
         for (int i = 0; i < 1; i++) {
             FarmlandOmsOrderItemEntity farmlandOmsOrderItemEntity = new FarmlandOmsOrderItemEntity();
             itemEntityList.add(farmlandOmsOrderItemEntity);
-            farmlandOmsOrderItemEntity.setId(Math.abs(new Random().nextLong()));
+            farmlandOmsOrderItemEntity.setId(IdGenerator.generate());
             farmlandOmsOrderItemEntity.setCompanyId(farmlandOmsOrderEntity.getCompanyId());
             farmlandOmsOrderItemEntity.setShopId(farmlandOmsOrderEntity.getShopId());
             farmlandOmsOrderItemEntity.setOrderId(farmlandOmsOrderEntity.getId());
@@ -147,14 +177,13 @@ public class OrderDataCreateTest {
         return itemEntityList;
     }
 
-    private FarmlandOmsOrderEntity buildOrder(long companyId) {
-        long orderId = Math.abs(new Random().nextLong());
+    private FarmlandOmsOrderEntity buildOrder(long companyId, long shopId) {
         FarmlandOmsOrderEntity farmlandOmsOrderEntity = new FarmlandOmsOrderEntity();
-        farmlandOmsOrderEntity.setId(orderId);
+        farmlandOmsOrderEntity.setId(IdGenerator.generate());
         farmlandOmsOrderEntity.setCompanyId(companyId);
         farmlandOmsOrderEntity.setOrderNo("OD" + Math.abs(new Random().nextLong()));
         farmlandOmsOrderEntity.setSourceType(1);
-        farmlandOmsOrderEntity.setShopId(Math.abs(new Random().nextLong()));
+        farmlandOmsOrderEntity.setShopId(shopId);
         farmlandOmsOrderEntity.setOrderStatus(10);
         farmlandOmsOrderEntity.setAmount("{}");
         farmlandOmsOrderEntity.setSpuKind(1);

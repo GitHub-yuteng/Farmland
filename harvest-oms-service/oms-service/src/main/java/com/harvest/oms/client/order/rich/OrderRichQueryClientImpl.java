@@ -38,15 +38,13 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     /**
      * 订单扩展信息查询线程池
      */
-    private final static Executor OMS_SECTION_READ_EXECUTOR =
-            new ThreadPoolExecutor(100, 100, 2000, TimeUnit.MILLISECONDS,
-                    new SynchronousQueue<>(),
-                    new ThreadFactoryBuilder()
-                            .setNameFormat("harvest-oms-section-reading-%d")
-                            .setUncaughtExceptionHandler((thread, e) -> LOGGER.error("ThreadPool:{} 发生异常", thread, e))
-                            .build(),
-                    new ThreadPoolExecutor.CallerRunsPolicy()
-            );
+    private final static Executor OMS_SECTION_READ_EXECUTOR = new ThreadPoolExecutor(100, 100, 2000, TimeUnit.MILLISECONDS,
+            new SynchronousQueue<>(),
+            new ThreadFactoryBuilder()
+                    .setNameFormat("harvest-oms-section-reading-%d")
+                    .setUncaughtExceptionHandler((thread, e) -> LOGGER.error("ThreadPool:{} 发生异常", thread, e))
+                    .build(),
+            new ThreadPoolExecutor.CallerRunsPolicy());
 
     @Autowired
     private OrderRichQueryRepositoryClient orderRichQueryRepositoryClient;
@@ -73,11 +71,11 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
                 CompletableFuture<?>[] futures = new CompletableFuture<?>[orderSectionHandlers.size() + 1];
                 for (int i = 0; i < orderSectionHandlers.size(); i++) {
                     int finalI = i;
-                    futures[i] = CompletableFuture.runAsync(() -> orderSectionHandlers.get(finalI).batchFill(companyId, orders), OMS_SECTION_READ_EXECUTOR);
+                    futures[i] = CompletableFuture.runAsync(
+                            () -> orderSectionHandlers.get(finalI).batchFill(companyId, orders),
+                            OMS_SECTION_READ_EXECUTOR
+                    );
                 }
-                futures[orderSectionHandlers.size()] =
-                        CompletableFuture.runAsync(() -> {
-                        }, OMS_SECTION_READ_EXECUTOR);
                 CompletableFuture.allOf(futures).get();
             } catch (Exception e) {
                 LOGGER.error("并发补充订单信息失败", e);

@@ -30,7 +30,8 @@
     <include refid="sku-field"/>
     FROM farmland_goods_spu spu
     LEFT JOIN farmland_goods_sku sku ON sku.spu_id = spu.id
-    WHERE COMPANY_ID = #{companyId}
+    WHERE spu.COMPANY_ID = #{companyId}
+    AND sku.COMPANY_ID = #{companyId}
     AND
     <foreach collection="collection" item="item" open="(" close=")" separator="or">
       spu.id = #{item.spuId} AND sku.id = #{item.skuId}

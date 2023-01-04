@@ -78,22 +78,29 @@
     remark.print_remark
   </sql>
   
-  <select id="pageQueryOrderWithRichCondition" resultMap="ResultMap">
+  <select id="pageQueryOrderWithRichCondition" parameterType="hashmap" resultMap="ResultMap">
     SELECT
     <include refid="field"/>
     FROM farmland_oms_order o
     <include refid="joinExtends"/>
+    <include refid="where"/>
+    LIMIT #{limit} OFFSET #{from}
   </select>
   
-  <select id="countQueryOrderWithRichCondition" resultType="java.lang.Long">
+  <select id="countQueryOrderWithRichCondition" parameterType="hashmap" resultType="java.lang.Long">
     SELECT count(1)
     FROM farmland_oms_order o
     <include refid="joinExtends"/>
+    <include refid="where"/>
   </select>
   
   <sql id="joinExtends">
     LEFT JOIN farmland_oms_order_address address on address.order_id = o.id
-    LEFT JOIN farmland_oms_order_remark remark on remark.order_id = o.id;
+    LEFT JOIN farmland_oms_order_remark remark on remark.order_id = o.id
+  </sql>
+  
+  <sql id="where">
+    WHERE o.COMPANY_ID = #{companyId}
   </sql>
 
 </mapper>

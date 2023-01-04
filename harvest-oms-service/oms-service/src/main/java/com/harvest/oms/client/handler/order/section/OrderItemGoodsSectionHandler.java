@@ -11,10 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -31,8 +28,8 @@ public class OrderItemGoodsSectionHandler implements OrderSectionHandler {
     private GoodsCoupletClient goodsCoupletClient;
 
     @Override
-    public void fill(Long companyId, OrderInfoDO entity) {
-
+    public void fill(Long companyId, OrderInfoDO order) {
+        this.batchFill(companyId, Collections.singleton(order));
     }
 
     @Override

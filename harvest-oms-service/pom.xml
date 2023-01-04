@@ -14,9 +14,9 @@
   <description>harvest-oms-service</description>
   
   <modules>
+    <module>oms-service</module>
     <module>oms-service-domain</module>
     <module>oms-service-interface</module>
-    <module>oms-service</module>
   </modules>
   
   <properties>
