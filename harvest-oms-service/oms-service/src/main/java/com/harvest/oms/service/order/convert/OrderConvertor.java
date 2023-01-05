@@ -2,6 +2,7 @@ package com.harvest.oms.service.order.convert;
 
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.vo.order.OrderInfoVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -18,9 +19,7 @@ public class OrderConvertor {
     public Collection<OrderInfoVO> convert(Collection<OrderInfoDO> collection) {
         return collection.stream().map(orderInfoDO -> {
             OrderInfoVO orderInfoVO = new OrderInfoVO();
-            orderInfoVO.setCompanyId(orderInfoDO.getCompanyId());
-            orderInfoVO.setOrderId(orderInfoDO.getOrderId());
-            orderInfoVO.setOrderNo(orderInfoDO.getOrderNo());
+            BeanUtils.copyProperties(orderInfoDO, orderInfoVO);
             return orderInfoVO;
         }).collect(Collectors.toList());
     }
