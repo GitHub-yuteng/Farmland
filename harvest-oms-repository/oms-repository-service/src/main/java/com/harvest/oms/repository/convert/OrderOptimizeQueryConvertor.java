@@ -1,5 +1,6 @@
 package com.harvest.oms.repository.convert;
 
+import com.harvest.core.utils.FieldUtils;
 import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -25,18 +26,22 @@ public interface OrderOptimizeQueryConvertor {
 
     /**
      * 处理查询订单Ids
+     * 1、return Collections.singletonList(0L); 作为查询标记位 如果查询为空则返回 0L
+     * 2、如果返回为 Collections.emptyList(); 则代表该 skip convert
+     * 3、如果返回具体 orderIds; 则处理 orderIds 交集处理
      *
      * @param companyId
      * @param condition
      * @param params
      * @return
      */
-    default boolean precess(Long companyId, PageOrderConditionQuery condition, Map<String, Object> params) {
+    default boolean process(Long companyId, PageOrderConditionQuery condition, Map<String, Object> params) {
         Collection<Long> orderIds = this.convert(companyId, condition, params);
-        if (orderIds.contains(0L)) {
+        if (CollectionUtils.isNotEmpty(orderIds) && orderIds.contains(0L)) {
+            params.put(FieldUtils.getFieldName(PageOrderConditionQuery::getOrderIds), orderIds);
             return true;
         }
-        List<Long> paramOrderIds = (List<Long>) params.get("orderIds");
+        List<Long> paramOrderIds = (List<Long>) params.get(FieldUtils.getFieldName(PageOrderConditionQuery::getOrderIds));
         this.handleOrderIds(paramOrderIds, orderIds, params);
         return false;
     }
@@ -50,7 +55,7 @@ public interface OrderOptimizeQueryConvertor {
      */
     default void handleOrderIds(List<Long> paramOrderIds, Collection<Long> orderIds, Map<String, Object> params) {
         if (CollectionUtils.isEmpty(paramOrderIds)) {
-            params.put("orderIds", orderIds);
+            params.put(FieldUtils.getFieldName(PageOrderConditionQuery::getOrderIds), orderIds);
             return;
         }
 
@@ -62,7 +67,7 @@ public interface OrderOptimizeQueryConvertor {
                 orderIds = Collections.singletonList(0L);
             }
         }
-        params.put("orderIds", orderIds);
+        params.put(FieldUtils.getFieldName(PageOrderConditionQuery::getOrderIds), orderIds);
     }
 
 }

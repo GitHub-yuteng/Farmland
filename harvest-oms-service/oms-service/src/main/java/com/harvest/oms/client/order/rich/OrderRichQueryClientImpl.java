@@ -1,13 +1,15 @@
 package com.harvest.oms.client.order.rich;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.harvest.core.annotation.feign.HarvestService;
+import com.harvest.core.feign.annotation.HarvestService;
 import com.harvest.core.domain.Page;
+import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.client.order.rich.OrderRichQueryRepositoryClient;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
+import com.harvest.oms.service.order.check.OrderPermissionsVerifier;
 import com.harvest.oms.service.order.convert.OrderConvertor;
 import com.harvest.oms.service.order.handler.OrderSectionHandler;
 import com.harvest.oms.vo.order.OrderInfoVO;
@@ -16,6 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StopWatch;
 
 import java.util.Collection;
 import java.util.List;
@@ -31,6 +34,11 @@ import java.util.stream.Collectors;
 public class OrderRichQueryClientImpl implements OrderRichQueryClient {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(OrderRichQueryClientImpl.class);
+
+    /**
+     * 查询超时警告
+     */
+    private final static long TIME_OUT = 1000L * 3;
 
     /**
      * 如果订单数超过200则采用并发查询，提高查询效率
@@ -52,6 +60,9 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     private OrderRichQueryRepositoryClient orderRichQueryRepositoryClient;
 
     @Autowired
+    private List<OrderPermissionsVerifier> orderPermissionsVerifiers;
+
+    @Autowired
     private List<OrderSectionHandler> orderSectionHandlers;
 
     @Autowired
@@ -59,14 +70,51 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
 
 
     @Override
-    public Page<OrderInfoVO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery pageOrderConditionQuery) {
-        Page<OrderSimplePO> orderSimplePage = orderRichQueryRepositoryClient.pageQueryOrderRich(companyId, pageOrderConditionQuery);
+    public Page<OrderInfoVO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
+
+        StopWatch stopWatch = new StopWatch();
+
+        stopWatch.start("权限校验");
+        this.verification(companyId, condition);
+        stopWatch.stop();
+
+        stopWatch.start("订单查询");
+        Page<OrderSimplePO> orderSimplePage = orderRichQueryRepositoryClient.pageQueryOrderRich(companyId, condition);
+        stopWatch.stop();
+
+        stopWatch.start("领域模型转换");
         Page<OrderInfoDO> orderInfoPage = this.convent(orderSimplePage);
+        stopWatch.stop();
+
+        stopWatch.start("领域模型信息填充");
         this.sectionBatchFill(companyId, orderInfoPage.getData());
+        stopWatch.stop();
+
         Collection<OrderInfoVO> data = orderConvertor.convert(orderInfoPage.getData());
+
+        if (stopWatch.getTotalTimeMillis() > TIME_OUT) {
+            LOGGER.warn("Service#Rich#订单查询超时, companyId:{}, condition:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
+        }
+
         return Page.build(orderInfoPage.getPageNo(), orderInfoPage.getPageSize(), data, orderInfoPage.getCount());
     }
 
+    /**
+     * 权限校验
+     *
+     * @param companyId
+     * @param condition
+     */
+    private void verification(Long companyId, PageOrderConditionQuery condition) {
+        orderPermissionsVerifiers.forEach(v -> v.check(companyId, condition));
+    }
+
+    /**
+     * 订单领域模型部分信息填充器
+     *
+     * @param companyId
+     * @param orders
+     */
     private void sectionBatchFill(Long companyId, Collection<OrderInfoDO> orders) {
         if (CollectionUtils.isEmpty(orders)) {
             return;
@@ -92,7 +140,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     }
 
     /**
-     * 转换DO
+     * 转换领域模型
      *
      * @param orderSimplePage
      * @return

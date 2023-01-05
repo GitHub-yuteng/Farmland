@@ -1,11 +1,10 @@
 package com.harvest.oms.client.order.read;
 
 import com.google.common.collect.Maps;
-import com.harvest.core.annotation.feign.HarvestService;
+import com.harvest.core.feign.annotation.HarvestService;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.client.order.OrderReadClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
-import com.harvest.oms.domain.order.OrderItemDO;
 import com.harvest.oms.repository.client.order.OrderReadRepositoryClient;
 import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
@@ -44,25 +43,16 @@ public class OrderReadClientImpl implements OrderReadClient {
     }
 
     @Override
-    public Collection<OrderItemDO> listOrderItemByOrderIds(Long companyId, Long orderId) {
-        Collection<OrderItemSimplePO> orderItemSimplePOList = orderReadRepositoryClient.listOrderItemByOrderIds(companyId, Collections.singletonList(orderId));
-        return orderItemSimplePOList.stream().map(orderSimplePO -> {
-            OrderItemDO orderItemDO = new OrderItemDO();
-            BeanUtils.copyProperties(orderSimplePO, orderItemDO);
-            return orderItemDO;
-        }).collect(Collectors.toList());
+    public Collection<OrderItemSimplePO> listOrderItemByOrderIds(Long companyId, Long orderId) {
+        return orderReadRepositoryClient.listOrderItemByOrderIds(companyId, Collections.singletonList(orderId));
     }
 
     @Override
-    public Map<Long, List<OrderItemDO>> mapOrderItemByOrderIds(Long companyId, List<Long> orderIds) {
+    public Map<Long, List<OrderItemSimplePO>> mapOrderItemByOrderIds(Long companyId, List<Long> orderIds) {
         Collection<OrderItemSimplePO> orderItemSimplePOList = orderReadRepositoryClient.listOrderItemByOrderIds(companyId, orderIds);
         if (CollectionUtils.isEmpty(orderItemSimplePOList)) {
             return Maps.newHashMap();
         }
-        return orderItemSimplePOList.stream().map(orderSimplePO -> {
-            OrderItemDO orderItemDO = new OrderItemDO();
-            BeanUtils.copyProperties(orderSimplePO, orderItemDO);
-            return orderItemDO;
-        }).collect(Collectors.groupingBy(OrderItemDO::getOrderId));
+        return orderItemSimplePOList.stream().collect(Collectors.groupingBy(OrderItemSimplePO::getOrderId));
     }
 }

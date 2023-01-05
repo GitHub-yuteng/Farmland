@@ -20,9 +20,15 @@ public class OrderNoQuery {
     @ApiModelProperty("订单号")
     private Collection<String> orderNos;
 
+    /**
+     * {@link com.harvest.oms.repository.convert.OrderOptimizeQueryConvertor}
+     */
     @ApiModelProperty("运单号")
     private Collection<String> deliveryNos;
 
+    /**
+     * {@link com.harvest.oms.repository.convert.OrderOptimizeQueryConvertor}
+     */
     @ApiModelProperty("波次号")
     private Collection<String> waveNos;
 

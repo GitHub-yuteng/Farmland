@@ -7,7 +7,7 @@ import java.util.Collection;
 /**
  * @Author: Alodi
  * @Date: 2023/1/1 6:19 PM
- * @Description: 订单部分信息处理器
+ * @Description: 订单领域模型部分信息填充处理器
  **/
 public interface OrderSectionHandler {
 

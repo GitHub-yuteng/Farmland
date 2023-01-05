@@ -14,12 +14,12 @@
   <dependencies>
     <dependency>
       <groupId>com.harvest</groupId>
-      <artifactId>oms-repository-entity</artifactId>
+      <artifactId>core-client</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
       <groupId>com.harvest</groupId>
-      <artifactId>wms-repository-interface</artifactId>
+      <artifactId>oms-repository-entity</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>

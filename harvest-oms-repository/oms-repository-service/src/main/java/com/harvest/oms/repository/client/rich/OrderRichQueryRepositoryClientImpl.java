@@ -2,7 +2,7 @@ package com.harvest.oms.repository.client.rich;
 
 import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.harvest.core.annotation.feign.HarvestService;
+import com.harvest.core.feign.annotation.HarvestService;
 import com.harvest.core.domain.Page;
 import com.harvest.core.domain.range.date.DataTimeRange;
 import com.harvest.core.utils.FieldUtils;
@@ -40,7 +40,7 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
     /**
      * 查询超时时常警告
      */
-    private final static long TIME_OUT = 1000L * 5;
+    private final static long TIME_OUT = 1000L;
 
     /**
      * 如果订单数超过200则采用并发查询，提高查询效率
@@ -80,13 +80,13 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
 
         stopWatch.start("拆分查询");
         Optional<OrderOptimizeQueryConvertor> optimizeConvertor = orderOptimizeQueryConvertors.stream()
-                .filter(convertor -> convertor.precess(companyId, condition, paramsMap))
+                .filter(convertor -> convertor.process(companyId, condition, paramsMap))
                 .findAny();
         stopWatch.stop();
 
-        List<Long> orderIds = (List<Long>) paramsMap.get("orderIds");
+        List<Long> orderIds = (List<Long>) paramsMap.get(FieldUtils.getFieldName(PageOrderConditionQuery::getOrderIds));
         if (CollectionUtils.isNotEmpty(orderIds) && orderIds.contains(0L)) {
-            LOGGER.warn("Rich#订单拆分查询为空, companyId:{}, optimizeConvertor:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(optimizeConvertor.getClass().getSimpleName()), stopWatch.prettyPrint());
+            LOGGER.warn("Repository#Rich#订单拆分查询为空, companyId:{}, optimizeConvertor:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(optimizeConvertor.getClass().getSimpleName()), stopWatch.prettyPrint());
             return page;
         }
 
@@ -102,7 +102,7 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
         // 总数
         page.setCount(count);
 
-        stopWatch.start("订单查询");
+        stopWatch.start("订单信息查询");
         Collection<OrderSimplePO> orders = orderRichConditionQueryMapper.pageQueryOrderWithRichCondition(paramsMap);
         page.setData(orders);
         stopWatch.stop();
@@ -191,9 +191,16 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
         if (Objects.nonNull(orderTime)) {
             DataTimeRange createdTime = orderTime.getCreatedTime();
             if (Objects.nonNull(createdTime)) {
-                paramsMap.put("createdTimeStart", createdTime.getMin());
-                paramsMap.put("createdTimeEnd", createdTime.getMax());
+                paramsMap.put("createdTimeMin", createdTime.getMin());
+                paramsMap.put("createdTimeMax", createdTime.getMax());
             }
+
+            DataTimeRange paidTime = orderTime.getPaidTime();
+            if (Objects.nonNull(createdTime)) {
+                paramsMap.put("paidTimeMin", createdTime.getMin());
+                paramsMap.put("paidTimeMax", createdTime.getMax());
+            }
+
             // 后续补充
         }
 

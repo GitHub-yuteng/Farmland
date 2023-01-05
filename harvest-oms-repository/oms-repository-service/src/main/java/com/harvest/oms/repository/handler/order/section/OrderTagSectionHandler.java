@@ -100,7 +100,7 @@ public class OrderTagSectionHandler implements OrderSectionRepositoryHandler<Ord
      */
     private List<FarmlandOmsOrderTagEntity> partitionBatch(Long companyId, List<Long> orderIds) {
         //TODO extension 大字段 影响IO 在丰富查询时考虑查询效率则延迟查出，判断存在对应的 tagValue 单独取对应的 扩展信息进行处理
-        return QueryUtils.partitionExecute(orderIds, TAG_PARTITION_SIZE, f -> farmlandOmsOrderTagMapper.selectList(
+        return QueryUtils.partitionExecute(orderIds, TAG_PARTITION_SIZE, partition -> farmlandOmsOrderTagMapper.selectList(
                 new QueryWrapper<FarmlandOmsOrderTagEntity>().lambda()
                         .select(FarmlandOmsOrderTagEntity::getId,
                                 FarmlandOmsOrderTagEntity::getRecordId,
@@ -111,7 +111,7 @@ public class OrderTagSectionHandler implements OrderSectionRepositoryHandler<Ord
                         )
                         .eq(FarmlandOmsOrderTagEntity::getCompanyId,companyId)
                         .eq(FarmlandOmsOrderTagEntity::getRecordType, OrderAssistEnums.OrderTagRelationEnum.ORDER.getKey())
-                        .in(FarmlandOmsOrderTagEntity::getRecordId, orderIds)
+                        .in(FarmlandOmsOrderTagEntity::getRecordId, partition)
                         .eq(FarmlandOmsOrderTagEntity::getIsDeleted, GlobalMacroDefinition.Switch.OFF))
         );
     }

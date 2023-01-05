@@ -24,3 +24,11 @@ feign:
     enabled: false
   okhttp:
     enabled: true
+
+logging:
+  level:
+    com: debug
+
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

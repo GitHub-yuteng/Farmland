@@ -3,6 +3,7 @@ package com.harvest.oms.service.order.handler.section;
 import com.harvest.goods.client.goods.couplet.GoodsCoupletClient;
 import com.harvest.goods.domain.GoodsInfoDO;
 import com.harvest.goods.domain.SkuInfoDO;
+import com.harvest.goods.repository.domain.goods.simple.GoodsSimplePO;
 import com.harvest.goods.repository.domain.goods.simple.SkuSimplePO;
 import com.harvest.goods.repository.query.GoodsBaseQuery;
 import com.harvest.oms.domain.order.OrderInfoDO;
@@ -46,18 +47,18 @@ public class OrderItemGoodsSectionHandler implements OrderSectionHandler {
                     return baseQuery;
                 }).distinct().collect(Collectors.toList());
 
-        Collection<GoodsInfoDO> goodsCoupletList = goodsCoupletClient.coupletGoods(companyId, baseQueries);
-        Map<Long, GoodsInfoDO> goodsIdCoupletMap = goodsCoupletList.stream().collect(Collectors.toMap(GoodsInfoDO::getSpuId, Function.identity()));
+        Collection<GoodsSimplePO> goodsCoupletList = goodsCoupletClient.coupletGoods(companyId, baseQueries);
+        Map<Long, GoodsSimplePO> goodsIdCoupletMap = goodsCoupletList.stream().collect(Collectors.toMap(GoodsSimplePO::getSpuId, Function.identity()));
         orders.stream().filter(orderInfoDO -> CollectionUtils.isNotEmpty(orderInfoDO.getOrderItems()))
                 .forEach(orderInfoDO -> orderInfoDO.getOrderItems()
                         .forEach(orderItemDO -> {
                             Long spuId = orderItemDO.getSpuId();
                             Long skuId = orderItemDO.getSkuId();
-                            GoodsInfoDO goodsCoupletDO = goodsIdCoupletMap.get(spuId);
-                            if (Objects.isNull(goodsCoupletDO)) {
+                            GoodsSimplePO goodsSimplePO = goodsIdCoupletMap.get(spuId);
+                            if (Objects.isNull(goodsSimplePO)) {
                                 return;
                             }
-                            Collection<SkuSimplePO> skuSimples = goodsCoupletDO.getSkuSimples();
+                            Collection<SkuSimplePO> skuSimples = goodsSimplePO.getSkuSimples();
                             // copy 真实使用的商品信息
                             GoodsInfoDO goodsInfoDO = new GoodsInfoDO();
                             orderItemDO.setGoodsInfo(goodsInfoDO);
@@ -74,24 +75,24 @@ public class OrderItemGoodsSectionHandler implements OrderSectionHandler {
                                     .filter(skuSimplePO -> skuSimplePO.getSkuId().equals(skuId))
                                     .collect(Collectors.toList())
                             );
-                            goodsInfoDO.setProductNo(goodsCoupletDO.getProductNo());
-                            goodsInfoDO.setLengthUnit(goodsCoupletDO.getLengthUnit());
-                            goodsInfoDO.setWeightUnit(goodsCoupletDO.getWeightUnit());
-                            goodsInfoDO.setVolumeUnit(goodsCoupletDO.getVolumeUnit());
-                            goodsInfoDO.setQualityPeriod(goodsCoupletDO.getQualityPeriod());
-                            goodsInfoDO.setForbidReceivePeriod(goodsCoupletDO.getForbidReceivePeriod());
-                            goodsInfoDO.setForbidSalePeriod(goodsCoupletDO.getForbidSalePeriod());
-                            goodsInfoDO.setAllowAcceptPeriod(goodsCoupletDO.getAllowAcceptPeriod());
-                            goodsInfoDO.setLifeCycle(goodsCoupletDO.getLifeCycle());
-                            goodsInfoDO.setSpuId(goodsCoupletDO.getSpuId());
-                            goodsInfoDO.setSpuCode(goodsCoupletDO.getSpuCode());
-                            goodsInfoDO.setSpuName(goodsCoupletDO.getSpuName());
-                            goodsInfoDO.setStatus(goodsCoupletDO.getStatus());
-                            goodsInfoDO.setGoodsType(goodsCoupletDO.getGoodsType());
-                            goodsInfoDO.setIsPackage(goodsCoupletDO.getIsPackage());
-                            goodsInfoDO.setCategoryId(goodsCoupletDO.getCategoryId());
-                            goodsInfoDO.setBrandId(goodsCoupletDO.getBrandId());
-                            goodsInfoDO.setUnitId(goodsCoupletDO.getUnitId());
+                            goodsInfoDO.setProductNo(goodsSimplePO.getProductNo());
+                            goodsInfoDO.setLengthUnit(goodsSimplePO.getLengthUnit());
+                            goodsInfoDO.setWeightUnit(goodsSimplePO.getWeightUnit());
+                            goodsInfoDO.setVolumeUnit(goodsSimplePO.getVolumeUnit());
+                            goodsInfoDO.setQualityPeriod(goodsSimplePO.getQualityPeriod());
+                            goodsInfoDO.setForbidReceivePeriod(goodsSimplePO.getForbidReceivePeriod());
+                            goodsInfoDO.setForbidSalePeriod(goodsSimplePO.getForbidSalePeriod());
+                            goodsInfoDO.setAllowAcceptPeriod(goodsSimplePO.getAllowAcceptPeriod());
+                            goodsInfoDO.setLifeCycle(goodsSimplePO.getLifeCycle());
+                            goodsInfoDO.setSpuId(goodsSimplePO.getSpuId());
+                            goodsInfoDO.setSpuCode(goodsSimplePO.getSpuCode());
+                            goodsInfoDO.setSpuName(goodsSimplePO.getSpuName());
+                            goodsInfoDO.setStatus(goodsSimplePO.getStatus());
+                            goodsInfoDO.setGoodsType(goodsSimplePO.getGoodsType());
+                            goodsInfoDO.setIsPackage(goodsSimplePO.getIsPackage());
+                            goodsInfoDO.setCategoryId(goodsSimplePO.getCategoryId());
+                            goodsInfoDO.setBrandId(goodsSimplePO.getBrandId());
+                            goodsInfoDO.setUnitId(goodsSimplePO.getUnitId());
                             goodsInfoDO.setCompanyId(companyId);
 
                         })

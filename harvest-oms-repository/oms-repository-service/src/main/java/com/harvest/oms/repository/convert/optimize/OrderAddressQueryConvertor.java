@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 /**
  * @Author: Alodi
  * @Date: 2023/1/4 10:01 PM
- * @Description: 订单地址优化查询
+ * @Description: 订单地址优化查询 省市区县详情精准查询
  **/
 @Component
 public class OrderAddressQueryConvertor implements OrderOptimizeQueryConvertor {

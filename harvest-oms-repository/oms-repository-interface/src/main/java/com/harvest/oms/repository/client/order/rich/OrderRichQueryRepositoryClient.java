@@ -1,6 +1,6 @@
 package com.harvest.oms.repository.client.order.rich;
 
-import com.harvest.core.annotation.feign.HarvestClient;
+import com.harvest.core.feign.annotation.HarvestClient;
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.core.domain.Page;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;
@@ -23,11 +23,11 @@ public interface OrderRichQueryRepositoryClient extends GlobalMacroDefinition {
      * 一次查询, 查询出所有简要信息
      *
      * @param companyId
-     * @param pageOrderConditionQuery
+     * @param condition
      * @return
      */
     @ApiOperation("订单信息查询")
     @PostMapping(value = "/pageQueryOrderRich")
-    Page<OrderSimplePO> pageQueryOrderRich(@RequestParam(COMPANY_ID) Long companyId, @RequestBody PageOrderConditionQuery pageOrderConditionQuery);
+    Page<OrderSimplePO> pageQueryOrderRich(@RequestParam(COMPANY_ID) Long companyId, @RequestBody PageOrderConditionQuery condition);
 
 }
