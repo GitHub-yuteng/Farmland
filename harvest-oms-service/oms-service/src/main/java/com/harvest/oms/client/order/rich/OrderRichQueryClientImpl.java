@@ -83,7 +83,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         stopWatch.stop();
 
         stopWatch.start("领域模型转换");
-        Page<OrderInfoDO> orderInfoPage = this.convent(orderSimplePage);
+        Page<OrderInfoDO> orderInfoPage = this.convert(orderSimplePage);
         stopWatch.stop();
 
         stopWatch.start("领域模型信息填充");
@@ -145,7 +145,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
      * @param orderSimplePage
      * @return
      */
-    private Page<OrderInfoDO> convent(Page<OrderSimplePO> orderSimplePage) {
+    private Page<OrderInfoDO> convert(Page<OrderSimplePO> orderSimplePage) {
         Collection<OrderSimplePO> orderSimpleList = orderSimplePage.getData();
         List<OrderInfoDO> orderInfoList = orderSimpleList.stream().map(orderSimplePO -> {
             OrderInfoDO orderInfoDO = new OrderInfoDO();

@@ -3,16 +3,17 @@
 <mapper namespace="com.harvest.goods.repository.mapper.goods.couplet.GoodsCoupletReadMapper">
   
   <resultMap id="GoodsCoupletBaseMap" type="com.harvest.goods.repository.domain.goods.simple.GoodsSimplePO" extends="GOODS_CORE.GoodsCoreMap">
+    <result column="category_id" property="categoryId"/>
+    <result column="brand_id" property="brandId"/>
+    <result column="unit_id" property="unitId"/>
+    <result column="quality_period" property="goodsBusiness.qualityPeriod"/>
+    <result column="forbid_receive_period" property="goodsBusiness.forbidReceivePeriod"/>
+    <result column="forbid_sale_period" property="goodsBusiness.forbidSalePeriod"/>
+    <result column="allow_accept_period" property="goodsBusiness.allowAcceptPeriod"/>
+    <result column="life_cycle" property="goodsBusiness.lifeCycle"/>
+    <result column="open_batch" property="goodsSwitch.openBatch"/>
+    <result column="open_validity" property="goodsSwitch.openValidity"/>
     <result column="product_no" property="productNo"/>
-    <result column="is_package" property="isPackage"/>
-    <result column="length_unit" property="lengthUnit"/>
-    <result column="weight_unit" property="weightUnit"/>
-    <result column="volume_unit" property="volumeUnit"/>
-    <result column="quality_period" property="qualityPeriod"/>
-    <result column="forbid_receive_period" property="forbidReceivePeriod"/>
-    <result column="forbid_sale_period" property="forbidSalePeriod"/>
-    <result column="allow_accept_period" property="allowAcceptPeriod"/>
-    <result column="life_cycle" property="lifeCycle"/>
     
     <!--商品规格级联查询-->
     <collection property="skuSimples" ofType="com.harvest.goods.repository.domain.goods.simple.SkuSimplePO">
@@ -25,9 +26,9 @@
       <result column="goods_type" property="goodsType" javaType="com.harvest.core.enums.goods.GoodsTypeEnum"
               typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
       <result column="is_package" property="isPackage"/>
-      <result column="category_id" property="categoryId"/>
-      <result column="brand_id" property="brandId"/>
-      <result column="unit_id" property="unitId"/>
+      <result column="length_unit" property="lengthUnit"/>
+      <result column="weight_unit" property="weightUnit"/>
+      <result column="volume_unit" property="volumeUnit"/>
       
       <result column="sku_id" property="skuId"/>
       <result column="COMPANY_ID" property="companyId"/>
@@ -73,6 +74,8 @@
     spu.allow_accept_period,
     spu.life_cycle,
     spu.status,
+    switch.open_batch,
+    switch.open_validity,
   </sql>
   
   <sql id="sku-field">
@@ -102,6 +105,7 @@
     <include refid="spu-field"/>
     <include refid="sku-field"/>
     FROM farmland_goods_spu spu
+    LEFT JOIN farmland_goods_switch switch ON switch.goods_id = spu.id
     LEFT JOIN farmland_goods_sku sku ON sku.spu_id = spu.id AND sku.is_deleted = 0
     WHERE spu.COMPANY_ID = #{companyId}
     AND sku.COMPANY_ID = #{companyId}

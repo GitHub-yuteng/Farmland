@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="GOODS_CORE">
   
-  <resultMap id="GoodsCoreMap" type="com.harvest.goods.repository.domain.goods.core.GoodsCore">
+  <resultMap id="GoodsCoreMap" type="com.harvest.goods.repository.domain.goods.GoodsCore">
     <id column="id" property="spuId"/>
     <result column="COMPANY_ID" property="companyId"/>
     <result column="GOODS_CODE" property="spuCode"/>
@@ -11,10 +11,10 @@
             typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
     <result column="goods_type" property="goodsType" javaType="com.harvest.core.enums.goods.GoodsTypeEnum"
             typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
+    <result column="length_unit" property="lengthUnit"/>
+    <result column="weight_unit" property="weightUnit"/>
+    <result column="volume_unit" property="volumeUnit"/>
     <result column="is_package" property="isPackage"/>
-    <result column="category_id" property="categoryId"/>
-    <result column="brand_id" property="brandId"/>
-    <result column="unit_id" property="unitId"/>
   </resultMap>
 
 </mapper>

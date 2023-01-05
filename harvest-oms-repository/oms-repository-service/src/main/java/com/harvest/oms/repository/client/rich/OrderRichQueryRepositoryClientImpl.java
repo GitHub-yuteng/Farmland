@@ -2,6 +2,7 @@ package com.harvest.oms.repository.client.rich;
 
 import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.harvest.core.exception.StandardRuntimeException;
 import com.harvest.core.feign.annotation.HarvestService;
 import com.harvest.core.domain.Page;
 import com.harvest.core.domain.range.date.DataTimeRange;
@@ -69,7 +70,6 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
 
     @Override
     public Page<OrderSimplePO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
-
         Page<OrderSimplePO> page = new Page<>(condition.getPageNo(), condition.getPageSize());
 
         StopWatch stopWatch = new StopWatch();

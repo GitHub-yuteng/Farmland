@@ -3,10 +3,9 @@
 <mapper namespace="com.harvest.oms.repository.mapper.order.read.OrderItemReadMapper">
   
   <resultMap id="BaseResultMap" type="com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO" extends="ORDER_CORE.OrderCoreMap">
-    <id column="id" property="orderItemId"/>
+    <id column="order_item_id" property="orderItemId"/>
     <result column="COMPANY_ID" property="companyId"/>
     <result column="shop_id" property="shopId"/>
-    <result column="order_id" property="orderId"/>
     <result column="source_type" property="orderSource" javaType="com.harvest.core.enums.oms.OrderSourceEnum"
             typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
     <result column="order_item_status" property="orderItemStatus" javaType="com.harvest.core.enums.oms.OrderStatusEnum"
@@ -34,7 +33,7 @@
   </resultMap>
   
   <sql id="field">
-    id , COMPANY_ID, shop_id, order_id, source_type, order_item_status, delivery_no,
+    id AS order_item_id, COMPANY_ID, shop_id, order_id, source_type, order_item_status, delivery_no,
     spu_id, spu_code, spu_name, sku_id, sku_code, sku_name,
     unit_price, discounted_price, is_package, quantity, amount,
     created_time, paid_time, send_time, end_time, modify_time, stock_lack, stock_lack_time, picture_oss_url

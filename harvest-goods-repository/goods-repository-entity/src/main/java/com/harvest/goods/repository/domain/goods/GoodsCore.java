@@ -1,4 +1,4 @@
-package com.harvest.goods.repository.domain.goods.core;
+package com.harvest.goods.repository.domain.goods;
 
 import com.harvest.core.domain.CompanyId;
 import com.harvest.core.enums.goods.GoodsStatusEnum;
@@ -38,13 +38,13 @@ public class GoodsCore extends CompanyId implements Serializable {
     @ApiModelProperty("1:普通商品 | 2:组合商品")
     private Boolean isPackage;
 
-    @ApiModelProperty("商品分类Id")
-    private Long categoryId;
+    @ApiModelProperty("长度单位")
+    private Integer lengthUnit;
 
-    @ApiModelProperty("商品品牌Id")
-    private Long brandId;
+    @ApiModelProperty("宽度单位")
+    private Integer weightUnit;
 
-    @ApiModelProperty("商品单位Id")
-    private Long unitId;
+    @ApiModelProperty("体积单位")
+    private Integer volumeUnit;
 
 }

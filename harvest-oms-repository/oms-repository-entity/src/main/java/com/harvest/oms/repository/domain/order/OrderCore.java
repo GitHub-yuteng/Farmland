@@ -1,8 +1,7 @@
-package com.harvest.oms.repository.domain.order.core;
+package com.harvest.oms.repository.domain.order;
 
 import com.harvest.core.domain.CompanyId;
 import com.harvest.core.enums.oms.OrderSourceEnum;
-import com.harvest.core.enums.oms.OrderStatusEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -21,16 +20,10 @@ public class OrderCore extends CompanyId {
     @ApiModelProperty("订单Id")
     private Long orderId;
 
-    @ApiModelProperty("订单号")
-    private String orderNo;
-
     @ApiModelProperty("店铺id")
     private Long shopId;
 
     @ApiModelProperty("订单来源")
     private OrderSourceEnum orderSource;
-
-    @ApiModelProperty("订单状态")
-    private OrderStatusEnum orderStatus;
 
 }

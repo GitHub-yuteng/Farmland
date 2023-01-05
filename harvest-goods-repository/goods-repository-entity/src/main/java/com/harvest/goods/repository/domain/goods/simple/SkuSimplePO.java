@@ -2,7 +2,7 @@ package com.harvest.goods.repository.domain.goods.simple;
 
 import com.harvest.core.enums.goods.GoodsStatusEnum;
 import com.harvest.goods.repository.domain.goods.base.GoodsPrice;
-import com.harvest.goods.repository.domain.goods.core.GoodsCore;
+import com.harvest.goods.repository.domain.goods.GoodsCore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,6 +22,9 @@ public class SkuSimplePO extends GoodsCore {
 
     @ApiModelProperty("商品规格Id")
     private Long skuId;
+
+    @ApiModelProperty("商品规格状态")
+    private GoodsStatusEnum skuStatus;
 
     @ApiModelProperty("商品规格编码")
     private String skuCode;
@@ -62,6 +65,4 @@ public class SkuSimplePO extends GoodsCore {
     @ApiModelProperty("关键字")
     private String keyWord;
 
-    @ApiModelProperty("商品规格状态")
-    private GoodsStatusEnum skuStatus;
 }

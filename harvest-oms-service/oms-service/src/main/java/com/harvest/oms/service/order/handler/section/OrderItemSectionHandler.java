@@ -50,7 +50,7 @@ public class OrderItemSectionHandler implements OrderSectionHandler {
         }
         orders.forEach(orderInfoDO -> {
             Long orderId = orderInfoDO.getOrderId();
-            List<OrderItemSimplePO> orderItemSimplePOList = orderIdItemMap.get(orderId);
+            Collection<OrderItemSimplePO> orderItemSimplePOList = orderIdItemMap.get(orderId);
             orderInfoDO.setOrderItems(orderItemSimplePOList.stream()
                     .map(orderItemSimplePO -> {
                         OrderItemDO orderItemDO = new OrderItemDO();

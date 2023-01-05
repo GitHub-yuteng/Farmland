@@ -1,8 +1,9 @@
 package com.harvest.oms.repository.domain.order.simple;
 
+import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.oms.repository.domain.amount.OrderAmount;
 import com.harvest.oms.repository.domain.order.base.*;
-import com.harvest.oms.repository.domain.order.core.OrderCore;
+import com.harvest.oms.repository.domain.order.OrderCore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -19,6 +20,12 @@ import java.util.List;
 public class OrderSimplePO extends OrderCore {
 
     private static final long serialVersionUID = 2547095981099704006L;
+
+    @ApiModelProperty("订单号")
+    private String orderNo;
+
+    @ApiModelProperty("订单状态")
+    private OrderStatusEnum orderStatus;
 
     @ApiModelProperty("订单时间")
     private OrderTime orderTime;

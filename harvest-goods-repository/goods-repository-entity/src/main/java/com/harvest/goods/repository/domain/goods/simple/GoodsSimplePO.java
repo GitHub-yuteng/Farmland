@@ -1,7 +1,8 @@
 package com.harvest.goods.repository.domain.goods.simple;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.harvest.goods.repository.domain.goods.core.GoodsCore;
+import com.harvest.goods.repository.domain.goods.GoodsCore;
+import com.harvest.goods.repository.domain.goods.base.GoodsBusiness;
+import com.harvest.goods.repository.domain.goods.base.GoodsSwitch;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,31 +23,22 @@ public class GoodsSimplePO extends GoodsCore {
     @ApiModelProperty("商品规格简要")
     private Collection<SkuSimplePO> skuSimples;
 
+    @ApiModelProperty("商品分类Id")
+    private Long categoryId;
+
+    @ApiModelProperty("商品品牌Id")
+    private Long brandId;
+
+    @ApiModelProperty("商品单位Id")
+    private Long unitId;
+
+    @ApiModelProperty("商品业务属性字段")
+    private GoodsBusiness goodsBusiness;
+
+    @ApiModelProperty("商品管理开关")
+    private GoodsSwitch goodsSwitch;
+
     @ApiModelProperty("货号/产品编号")
     private String productNo;
-
-    @ApiModelProperty("长度单位")
-    private Integer lengthUnit;
-
-    @ApiModelProperty("宽度单位")
-    private Integer weightUnit;
-
-    @ApiModelProperty("体积单位")
-    private Integer volumeUnit;
-
-    @ApiModelProperty("保质期")
-    private Integer qualityPeriod;
-
-    @ApiModelProperty("禁收期")
-    private Integer forbidReceivePeriod;
-
-    @ApiModelProperty("禁售期")
-    private Integer forbidSalePeriod;
-
-    @ApiModelProperty("允收期")
-    private Integer allowAcceptPeriod;
-
-    @ApiModelProperty("生命周期(天)")
-    private Integer lifeCycle;
 
 }

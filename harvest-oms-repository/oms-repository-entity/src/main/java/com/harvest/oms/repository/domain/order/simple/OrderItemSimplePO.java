@@ -2,7 +2,7 @@ package com.harvest.oms.repository.domain.order.simple;
 
 import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.oms.repository.domain.order.base.OrderTime;
-import com.harvest.oms.repository.domain.order.core.OrderCore;
+import com.harvest.oms.repository.domain.order.OrderCore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

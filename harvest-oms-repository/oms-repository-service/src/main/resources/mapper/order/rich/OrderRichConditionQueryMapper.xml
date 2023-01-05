@@ -3,6 +3,16 @@
 <mapper namespace="com.harvest.oms.repository.mapper.order.rich.OrderRichConditionQueryMapper">
   
   <resultMap id="ResultMap" type="com.harvest.oms.repository.domain.order.simple.OrderSimplePO" extends="ORDER_CORE.OrderCoreMap">
+    <result column="order_no" property="orderNo"/>
+    <result column="ORDER_STATUS" property="orderStatus" javaType="com.harvest.core.enums.oms.OrderStatusEnum"
+            typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
+    <!-- 仓库 -->
+    <result column="warehouse_owner" property="orderWarehouse.warehouseOwner" javaType="com.harvest.core.enums.wms.WarehouseOwnerEnum"
+            typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
+    <result column="warehouse_id" property="orderWarehouse.warehouseId"/>
+    <!-- 金额 -->
+    <result column="amount" property="orderAmount" javaType="com.harvest.oms.repository.domain.amount.OrderAmount"
+            typeHandler="com.harvest.core.repository.mybatis.handler.ObjectJsonHandler"/>
     <!--订单时间-->
     <result column="created_time" property="orderTime.createdTime"/>
     <result column="paid_time" property="orderTime.paidTime"/>
@@ -13,7 +23,7 @@
     <result column="audit_time" property="orderTime.auditTime"/>
     <result column="end_time" property="orderTime.endTime"/>
     <!--地址-->
-    <result column="id" property="orderAddress.orderId"/>
+    <result column="order_id" property="orderAddress.orderId"/>
     <result column="address_type" property="orderAddress.addressType"/>
     <result column="country_code" property="orderAddress.countryCode"/>
     <result column="country_cn" property="orderAddress.countryCn"/>
@@ -24,7 +34,7 @@
     <result column="region4" property="orderAddress.region4"/>
     <result column="detail" property="orderAddress.detail"/>
     <!--备注-->
-    <result column="id" property="orderRemark.orderId"/>
+    <result column="order_id" property="orderRemark.orderId"/>
     <result column="seller_remark" property="orderRemark.sellerRemark"/>
     <result column="buyer_remark" property="orderRemark.buyerRemark"/>
     <result column="system_remark" property="orderRemark.systemRemark"/>
@@ -33,11 +43,11 @@
   
   <sql id="field">
     <!-- 天然带来的信息 -->
-    o.id,
+    o.id AS order_id,
     o.COMPANY_ID,
-    o.order_no,
-    o.source_type,
     o.shop_id,
+    o.source_type,
+    o.order_no,
     <!-- 状态及标识 -->
     o.ORDER_STATUS,
     o.create_type,
@@ -45,7 +55,9 @@
     o.is_abnormal,
     o.is_hang_up,
     o.empty_order,
-    o.is_deleted,
+    <!-- 仓库 -->
+    o.warehouse_owner,
+    o.warehouse_id,
     <!-- 订单金额 -->
     o.amount,
     <!-- 商品种类数量 -->

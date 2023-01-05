@@ -70,7 +70,7 @@ public class OrderTagSectionHandler implements OrderSectionRepositoryHandler<Ord
         }
 
         List<Long> orderIds = orders.stream().map(OrderSimplePO::getOrderId).distinct().collect(Collectors.toList());
-        List<FarmlandOmsOrderTagEntity> orderTagsDB = this.partitionBatch(companyId, orderIds);
+        Collection<FarmlandOmsOrderTagEntity> orderTagsDB = this.partitionBatch(companyId, orderIds);
         Map<Long, List<FarmlandOmsOrderTagEntity>> orderIdTagMap = orderTagsDB.stream().collect(Collectors.groupingBy(FarmlandOmsOrderTagEntity::getRecordId));
         orders.forEach(orderSimplePO -> {
             List<FarmlandOmsOrderTagEntity> orderTags = orderIdTagMap.get(orderSimplePO.getOrderId());
@@ -98,7 +98,7 @@ public class OrderTagSectionHandler implements OrderSectionRepositoryHandler<Ord
      * @param orderIds
      * @return
      */
-    private List<FarmlandOmsOrderTagEntity> partitionBatch(Long companyId, List<Long> orderIds) {
+    private Collection<FarmlandOmsOrderTagEntity> partitionBatch(Long companyId, List<Long> orderIds) {
         //TODO extension 大字段 影响IO 在丰富查询时考虑查询效率则延迟查出，判断存在对应的 tagValue 单独取对应的 扩展信息进行处理
         return QueryUtils.partitionExecute(orderIds, TAG_PARTITION_SIZE, partition -> farmlandOmsOrderTagMapper.selectList(
                 new QueryWrapper<FarmlandOmsOrderTagEntity>().lambda()

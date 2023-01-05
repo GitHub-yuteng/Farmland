@@ -1,5 +1,6 @@
 package com.harvest.core.enums.wms;
 
+import com.harvest.core.enums.IEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,7 +11,7 @@ import lombok.Getter;
  **/
 @Getter
 @AllArgsConstructor
-public enum WarehouseOwnerEnum {
+public enum WarehouseOwnerEnum implements IEnum<Integer> {
 
     /**
      * 仓库所属类型
@@ -22,4 +23,8 @@ public enum WarehouseOwnerEnum {
     private final Integer type;
     private final String value;
 
+    @Override
+    public Integer getKey() {
+        return this.type;
+    }
 }

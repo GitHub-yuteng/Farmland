@@ -2,14 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="ORDER_CORE">
   
-  <resultMap id="OrderCoreMap" type="com.harvest.oms.repository.domain.order.core.OrderCore">
-    <id column="id" property="orderId"/>
+  <resultMap id="OrderCoreMap" type="com.harvest.oms.repository.domain.order.OrderCore">
+    <id column="order_id" property="orderId"/>
     <result column="COMPANY_ID" property="companyId"/>
-    <result column="order_no" property="orderNo"/>
     <result column="shop_id" property="shopId"/>
     <result column="source_type" property="orderSource" javaType="com.harvest.core.enums.oms.OrderSourceEnum"
-            typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
-    <result column="ORDER_STATUS" property="orderStatus" javaType="com.harvest.core.enums.oms.OrderStatusEnum"
             typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
   </resultMap>
 
