@@ -12,7 +12,6 @@
   <artifactId>core-repository-base</artifactId>
   
   <dependencies>
-    
     <dependency>
       <groupId>com.harvest</groupId>
       <artifactId>core-base</artifactId>
@@ -44,12 +43,12 @@
           <artifactId>mybatis-plus-annotation</artifactId>
         </exclusion>
       </exclusions>
-      <version>3.5.2</version>
+      <version>3.5.3.1</version>
     </dependency>
     <dependency>
       <groupId>com.baomidou</groupId>
       <artifactId>mybatis-plus-generator</artifactId>
-      <version>3.5.3</version>
+      <version>3.5.3.1</version>
     </dependency>
     <dependency>
       <groupId>org.freemarker</groupId>

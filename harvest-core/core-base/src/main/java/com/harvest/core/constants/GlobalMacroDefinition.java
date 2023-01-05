@@ -25,6 +25,12 @@ public interface GlobalMacroDefinition {
         String USER_NAME = "系统自动化";
     }
 
+    interface Shop {
+        String SHOP_ID = "shopId";
+        String SHOP_IDS = "shopIds";
+        String SHOP_SOURCE = "shopSource";
+    }
+
     interface OMS {
         String ORDER_ID = "orderId";
         String ORDER_IDS = "orderIds";
@@ -91,11 +97,6 @@ public interface GlobalMacroDefinition {
         String IS_DELETED = "isDeleted";
         String REMARK = "remark";
         String FAIL_REASON = "failReason";
-
-        String SHOP_ID = "shopId";
-        String SHOP_IDS = "shopIds";
-        String SHOP_SOURCE = "shopSource";
-        String SHOP_NICK = "shopNick";
 
         String BILL_ID = "billId";
         String BILL_IDS = "billIds";

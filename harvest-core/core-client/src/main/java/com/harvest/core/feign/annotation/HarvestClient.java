@@ -1,4 +1,4 @@
-package com.harvest.core.annotation.feign;
+package com.harvest.core.feign.annotation;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.core.annotation.AliasFor;

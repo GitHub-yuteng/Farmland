@@ -15,9 +15,10 @@
   
   <modules>
     <module>core-base</module>
+    <module>core-client</module>
+    <module>core-object-base</module>
     <module>core-repository-base</module>
     <module>core-service-base</module>
-    <module>core-object-base</module>
   </modules>
   
   <properties>

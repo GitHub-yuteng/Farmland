@@ -1,6 +1,6 @@
 package com.harvest.goods.repository.client.read;
 
-import com.harvest.core.annotation.feign.HarvestService;
+import com.harvest.core.feign.annotation.HarvestService;
 import com.harvest.goods.repository.constants.HarvestGoodsRepositoryApplications;
 
 /**

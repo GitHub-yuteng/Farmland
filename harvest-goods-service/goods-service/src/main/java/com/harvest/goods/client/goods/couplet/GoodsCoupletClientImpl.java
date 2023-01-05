@@ -1,8 +1,7 @@
 package com.harvest.goods.client.goods.couplet;
 
-import com.harvest.core.annotation.feign.HarvestService;
+import com.harvest.core.feign.annotation.HarvestService;
 import com.harvest.goods.client.constants.HarvestGoodsApplications;
-import com.harvest.goods.domain.GoodsInfoDO;
 import com.harvest.goods.repository.client.couplet.GoodsCoupletReadRepositoryClient;
 import com.harvest.goods.repository.domain.goods.simple.GoodsSimplePO;
 import com.harvest.goods.repository.query.GoodsBaseQuery;
@@ -25,11 +24,10 @@ public class GoodsCoupletClientImpl extends AbstractGoodsService implements Good
     private GoodsCoupletReadRepositoryClient goodsCoupletReadRepositoryClient;
 
     @Override
-    public Collection<GoodsInfoDO> coupletGoods(Long companyId, Collection<GoodsBaseQuery> baseQueries) {
+    public Collection<GoodsSimplePO> coupletGoods(Long companyId, Collection<GoodsBaseQuery> baseQueries) {
         if (CollectionUtils.isEmpty(baseQueries)) {
             return Collections.emptyList();
         }
-        Collection<GoodsSimplePO> goodsSimples = goodsCoupletReadRepositoryClient.coupletGoods(companyId, baseQueries);
-        return super.convent(goodsSimples);
+        return goodsCoupletReadRepositoryClient.coupletGoods(companyId, baseQueries);
     }
 }

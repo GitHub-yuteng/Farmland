@@ -8,7 +8,6 @@
     <groupId>com.harvest</groupId>
     <artifactId>harvest-parent</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <relativePath/>
   </parent>
   
   <artifactId>farmland-harvest</artifactId>

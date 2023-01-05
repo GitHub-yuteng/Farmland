@@ -15,6 +15,15 @@ public class StandardRuntimeException extends RuntimeException {
 
     private String stack;
 
+    public StandardRuntimeException(int code, String stack) {
+        this.code = code;
+        this.stack = stack;
+    }
+
+    public StandardRuntimeException(String message) {
+        super(message);
+    }
+
     public int getCode() {
         return code;
     }
@@ -30,5 +39,4 @@ public class StandardRuntimeException extends RuntimeException {
     public void setStack(String stack) {
         this.stack = stack;
     }
-
 }

@@ -29,10 +29,10 @@ public class OrderRichQueryController {
     private OrderRichQueryClient orderRichQueryClient;
 
     @PostMapping(value = "/page/query")
-    public ResponseResult<Page<OrderInfoVO>> pageQueryOrderRich(@RequestBody PageOrderConditionQuery pageOrderConditionQuery) {
+    public ResponseResult<Page<OrderInfoVO>> pageQueryOrderRich(@RequestBody PageOrderConditionQuery condition) {
         Context context = ContextHolder.getContext();
         Long companyId = 8510380986999420205L;
-        Page<OrderInfoVO> result = orderRichQueryClient.pageQueryOrderRich(companyId, pageOrderConditionQuery);
+        Page<OrderInfoVO> result = orderRichQueryClient.pageQueryOrderRich(companyId, condition);
         return ResponseResult.success(result);
     }
 
