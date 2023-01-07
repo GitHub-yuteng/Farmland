@@ -15,13 +15,14 @@ public class StandardRuntimeException extends RuntimeException {
 
     private String stack;
 
-    public StandardRuntimeException(int code, String stack) {
-        this.code = code;
-        this.stack = stack;
-    }
-
     public StandardRuntimeException(String message) {
         super(message);
+        this.code = RESPONSE_STATUS_CODE;
+    }
+
+    public StandardRuntimeException(int code, String message) {
+        super(message);
+        this.code = code;
     }
 
     public int getCode() {

@@ -9,16 +9,13 @@
     <version>2.7.6</version>
     <relativePath/>
   </parent>
-  <groupId>com.harvest</groupId>
-  <artifactId>harvest-parent</artifactId>
-  <version>0.0.1-SNAPSHOT</version>
+  
   <name>harvest-parent</name>
   <description>harvest-parent</description>
   
-  <properties>
-    <java.version>1.8</java.version>
-    <spring-cloud.version>2021.0.5</spring-cloud.version>
-  </properties>
+  <groupId>com.harvest</groupId>
+  <artifactId>harvest-parent</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
   
   <dependencies>
     <dependency>
@@ -26,19 +23,23 @@
       <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-openfeign</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>io.springfox</groupId>
+      <artifactId>springfox-boot-starter</artifactId>
+      <version>3.0.0</version>
+    </dependency>
   </dependencies>
+  
+  <properties>
+    <maven.compiler.source>8</maven.compiler.source>
+    <maven.compiler.target>8</maven.compiler.target>
+    <java.version>1.8</java.version>
+    <spring-cloud.version>2021.0.5</spring-cloud.version>
+  </properties>
   
   <dependencyManagement>
     <dependencies>

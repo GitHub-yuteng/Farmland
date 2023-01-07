@@ -73,6 +73,14 @@ public class ResponseResult<T> implements Serializable {
         return responseResult;
     }
 
+    public static <T> ResponseResult<T> fail(int code, String describe) {
+        ResponseResult<T> responseResult = new ResponseResult<>();
+        responseResult.setSuccess(false);
+        responseResult.setStatus(code);
+        responseResult.setMessage(describe);
+        return responseResult;
+    }
+
     public static <T> ResponseResult<T> fail(int code, String describe, T data) {
         ResponseResult<T> responseResult = new ResponseResult<>();
         responseResult.setSuccess(false);

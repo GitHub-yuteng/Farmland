@@ -1,8 +1,8 @@
 package com.harvest.oms.client.order.rich;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.harvest.core.feign.annotation.HarvestService;
 import com.harvest.core.domain.Page;
+import com.harvest.core.feign.annotation.HarvestService;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.domain.order.OrderInfoDO;
