@@ -25,12 +25,18 @@ public class GoodsSimplePO extends GoodsCore {
 
     @ApiModelProperty("商品分类Id")
     private Long categoryId;
+    @ApiModelProperty("商品Id")
+    private String category;
 
     @ApiModelProperty("商品品牌Id")
     private Long brandId;
+    @ApiModelProperty("商品品牌")
+    private String brand;
 
     @ApiModelProperty("商品单位Id")
     private Long unitId;
+    @ApiModelProperty("商品单位")
+    private String unit;
 
     @ApiModelProperty("商品业务属性字段")
     private GoodsBusiness goodsBusiness;

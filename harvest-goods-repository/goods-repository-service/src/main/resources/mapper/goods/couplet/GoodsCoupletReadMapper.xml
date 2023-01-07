@@ -4,7 +4,9 @@
   
   <resultMap id="GoodsCoupletBaseMap" type="com.harvest.goods.repository.domain.goods.simple.GoodsSimplePO" extends="GOODS_CORE.GoodsCoreMap">
     <result column="category_id" property="categoryId"/>
+    <result column="category_name" property="category"/>
     <result column="brand_id" property="brandId"/>
+    <result column="brand_name" property="brand"/>
     <result column="unit_id" property="unitId"/>
     <result column="quality_period" property="goodsBusiness.qualityPeriod"/>
     <result column="forbid_receive_period" property="goodsBusiness.forbidReceivePeriod"/>
@@ -76,6 +78,8 @@
     spu.status,
     switch.open_batch,
     switch.open_validity,
+    category.category_name,
+    brand.brand_name,
   </sql>
   
   <sql id="sku-field">
@@ -106,6 +110,8 @@
     <include refid="sku-field"/>
     FROM farmland_goods_spu spu
     LEFT JOIN farmland_goods_switch switch ON switch.goods_id = spu.id
+    LEFT JOIN farmland_goods_category category ON category.id = spu.category_id
+    LEFT JOIN farmland_goods_brand brand ON brand.id = spu.brand_id
     LEFT JOIN farmland_goods_sku sku ON sku.spu_id = spu.id AND sku.is_deleted = 0
     WHERE spu.COMPANY_ID = #{companyId}
     AND sku.COMPANY_ID = #{companyId}
