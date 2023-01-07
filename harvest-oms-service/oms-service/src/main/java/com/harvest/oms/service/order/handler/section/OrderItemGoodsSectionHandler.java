@@ -118,7 +118,9 @@ public class OrderItemGoodsSectionHandler implements OrderSectionHandler {
         goodsInfoDO.setGoodsType(goodsSimplePO.getGoodsType());
         goodsInfoDO.setIsPackage(goodsSimplePO.getIsPackage());
         goodsInfoDO.setCategoryId(goodsSimplePO.getCategoryId());
+        goodsInfoDO.setCategory(goodsSimplePO.getCategory());
         goodsInfoDO.setBrandId(goodsSimplePO.getBrandId());
+        goodsInfoDO.setBrand(goodsSimplePO.getBrand());
         goodsInfoDO.setUnitId(goodsSimplePO.getUnitId());
         goodsInfoDO.setCompanyId(companyId);
     }
