@@ -9,6 +9,7 @@ import com.harvest.oms.repository.mapper.order.read.OrderItemReadMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -28,7 +29,13 @@ public class OrderReadRepositoryClientImpl implements OrderReadRepositoryClient 
     }
 
     @Override
+    public Collection<OrderItemSimplePO> getOrderItemByOrderId(Long companyId, Long orderId) {
+        return orderItemReadMapper.listOrderItemByOrderIds(companyId, Collections.singletonList(orderId));
+    }
+
+    @Override
     public Collection<OrderItemSimplePO> listOrderItemByOrderIds(Long companyId, List<Long> orderIds) {
         return orderItemReadMapper.listOrderItemByOrderIds(companyId, orderIds);
     }
+
 }

@@ -9,6 +9,7 @@ import com.harvest.oms.repository.client.order.OrderReadRepositoryClient;
 import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -43,8 +44,12 @@ public class OrderReadClientImpl implements OrderReadClient {
     }
 
     @Override
-    public Collection<OrderItemSimplePO> listOrderItemByOrderIds(Long companyId, Long orderId) {
-        return orderReadRepositoryClient.listOrderItemByOrderIds(companyId, Collections.singletonList(orderId));
+    public Collection<OrderItemSimplePO> listOrderItemByOrderId(Long companyId, Long orderId) {
+        Map<Long, List<OrderItemSimplePO>> map = this.mapOrderItemByOrderIds(companyId, Collections.singletonList(orderId));
+        if (MapUtils.isEmpty(map)) {
+            return Collections.emptyList();
+        }
+        return map.get(orderId);
     }
 
     @Override

@@ -1,6 +1,12 @@
 package com.harvest.oms.service.order.handler;
 
 import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.service.order.handler.section.OrderItemGoodsSectionHandler;
+import com.harvest.oms.service.order.handler.section.OrderItemSectionHandler;
+import com.harvest.oms.service.order.handler.section.OrderLogisticsSectionHandler;
+import com.harvest.oms.service.order.handler.section.OrderWareHouseSectionHandler;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
 
 import java.util.Collection;
 
@@ -22,5 +28,25 @@ public interface OrderSectionHandler {
      * @param orders
      */
     void batchFill(Long companyId, Collection<OrderInfoDO> orders);
+
+
+    @Getter
+    @AllArgsConstructor
+    enum Order {
+
+        /**
+         * 订单部分信息查询排序
+         */
+        A(1, OrderItemSectionHandler.class),
+        B(2, OrderItemGoodsSectionHandler.class),
+        C(3, OrderWareHouseSectionHandler.class),
+        D(4, OrderLogisticsSectionHandler.class),
+
+        ;
+
+        public final int order;
+        public final Class<?> clazz;
+
+    }
 
 }

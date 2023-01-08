@@ -1,4 +1,4 @@
-package com.harvest.oms.web.controller.order;
+package com.harvest.oms.web.controller;
 
 import io.swagger.annotations.Api;
 import org.springframework.web.bind.annotation.RequestMapping;

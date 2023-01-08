@@ -11,6 +11,7 @@ import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.repository.client.order.rich.OrderRichQueryRepositoryClient;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;
 import com.harvest.oms.repository.convert.OrderOptimizeQueryConvertor;
+import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.handler.order.OrderSectionRepositoryHandler;
 import com.harvest.oms.repository.mapper.order.rich.OrderRichConditionQueryMapper;
@@ -67,6 +68,8 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
 
     @Autowired
     private List<OrderOptimizeQueryConvertor> orderOptimizeQueryConvertors;
+
+
 
     @Override
     public Page<OrderSimplePO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {

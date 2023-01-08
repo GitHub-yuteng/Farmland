@@ -32,7 +32,7 @@ public interface OrderReadClient extends GlobalMacroDefinition {
 
     @ApiOperation("订单明细信息查询")
     @PostMapping(value = "/listOrderItemByOrderIds")
-    Collection<OrderItemSimplePO> listOrderItemByOrderIds(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId);
+    Collection<OrderItemSimplePO> listOrderItemByOrderId(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId);
 
     @ApiOperation("订单明细信息查询")
     @PostMapping(value = "/mapOrderItemByOrderIds")

@@ -6,7 +6,10 @@ import com.harvest.core.feign.annotation.HarvestService;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.domain.order.OrderItemDO;
+import com.harvest.oms.repository.client.order.OrderReadRepositoryClient;
 import com.harvest.oms.repository.client.order.rich.OrderRichQueryRepositoryClient;
+import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
 import com.harvest.oms.service.order.check.OrderPermissionsVerifier;
@@ -60,6 +63,9 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     private OrderRichQueryRepositoryClient orderRichQueryRepositoryClient;
 
     @Autowired
+    private OrderReadRepositoryClient orderReadRepositoryClient;
+
+    @Autowired
     private List<OrderPermissionsVerifier> orderPermissionsVerifiers;
 
     @Autowired
@@ -95,6 +101,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         if (stopWatch.getTotalTimeMillis() > TIME_OUT) {
             LOGGER.warn("Service#Rich#订单查询超时, companyId:{}, condition:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
         }
+
 
         return Page.build(orderInfoPage.getPageNo(), orderInfoPage.getPageSize(), data, orderInfoPage.getCount());
     }
@@ -159,6 +166,27 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
                 orderInfoList,
                 orderSimplePage.getCount()
         );
-
     }
+
+    @Override
+    public Collection<OrderItemDO> queryOrderItemsRich(Long companyId, Long orderId) {
+        Collection<OrderItemSimplePO> orderItemSimplePOList = orderReadRepositoryClient.getOrderItemByOrderId(companyId, orderId);
+        Collection<OrderItemDO> orderItemDOList = this.convert(orderItemSimplePOList);
+        return orderItemDOList;
+    }
+
+    /**
+     * 转换订单明细领域模型
+     *
+     * @param collection
+     * @return
+     */
+    private Collection<OrderItemDO> convert(Collection<OrderItemSimplePO> collection) {
+        return collection.stream().map(item -> {
+            OrderItemDO orderItemDO = new OrderItemDO();
+            BeanUtils.copyProperties(item, orderItemDO);
+            return orderItemDO;
+        }).collect(Collectors.toList());
+    }
+
 }

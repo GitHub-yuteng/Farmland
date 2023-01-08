@@ -14,6 +14,5 @@ public class OrderShopPermissionsVerifier implements OrderPermissionsVerifier {
 
     @Override
     public void check(Long companyId, PageOrderConditionQuery condition) {
-
     }
 }

@@ -17,4 +17,10 @@ public class WarehouseCore extends CompanyId implements Serializable {
 
     private static final long serialVersionUID = 1835434980908009662L;
 
+    private Long warehouseId;
+
+    private Long warehouseCode;
+
+    private String warehouse;
+
 }

@@ -10,6 +10,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -22,9 +23,10 @@ import java.util.stream.Collectors;
 /**
  * @Author: Alodi
  * @Date: 2023/1/1 6:24 PM
- * @Description: TODO
+ * @Description:
+ * {@link OrderSectionHandler.Order#A}
  **/
-@Order(1)
+@Order(Ordered.HIGHEST_PRECEDENCE)
 @Component
 public class OrderItemSectionHandler implements OrderSectionHandler {
 

@@ -1,4 +1,4 @@
-package com.harvest.oms.web.controller.order;
+package com.harvest.oms.web.controller;
 
 import com.harvest.core.path.HarvestOmsPath;
 import com.harvest.oms.domain.order.OrderInfoDO;
