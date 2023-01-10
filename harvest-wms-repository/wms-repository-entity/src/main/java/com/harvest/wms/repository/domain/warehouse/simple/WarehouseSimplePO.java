@@ -1,6 +1,8 @@
 package com.harvest.wms.repository.domain.warehouse.simple;
 
-import com.harvest.wms.repository.domain.warehouse.core.WarehouseCore;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.harvest.wms.repository.domain.warehouse.WarehouseCore;
+import com.harvest.wms.repository.domain.warehouse.base.WarehouseAddress;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -14,5 +16,16 @@ import lombok.EqualsAndHashCode;
 public class WarehouseSimplePO extends WarehouseCore {
 
     private static final long serialVersionUID = -2805112155380766528L;
+
+    private Integer mainType;
+
+    private Boolean isDelivery;
+
+    private WarehouseAddress warehouseAddress;
+
+    private Integer status;
+
+    @TableLogic
+    private Boolean isDeleted;
 
 }

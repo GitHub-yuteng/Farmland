@@ -1,5 +1,7 @@
 package com.harvest.core.enums.wms;
 
+import com.harvest.core.enums.IEnum;
+import io.swagger.models.auth.In;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -10,7 +12,7 @@ import lombok.Getter;
  **/
 @Getter
 @AllArgsConstructor
-public enum WarehouseTypeEnum {
+public enum WarehouseTypeEnum implements IEnum<Integer> {
 
     /**
      * 仓库类型
@@ -20,6 +22,21 @@ public enum WarehouseTypeEnum {
     STOCK       (3, "存货仓"),
     STORE       (4, "门店仓");
 
-    public final int type;
+    public final Integer type;
     public final String value;
+
+
+    public static WarehouseTypeEnum getEnumByType(int type) {
+        for (WarehouseTypeEnum warehouseTypeEnum : WarehouseTypeEnum.values()) {
+            if (warehouseTypeEnum.type.equals(type)) {
+                return warehouseTypeEnum;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public Integer getKey() {
+        return null;
+    }
 }

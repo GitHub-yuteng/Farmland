@@ -5,7 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * @Author: Alodi
  * @Date: 2023/1/2 9:10 PM
- * @Description: TODO
+ * @Description: 请求上下文
  **/
 public interface Context {
 

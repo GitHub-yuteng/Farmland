@@ -7,6 +7,7 @@
     <groupId>com.harvest</groupId>
     <artifactId>harvest-logistics</artifactId>
     <version>0.0.1-SNAPSHOT</version>
+    <relativePath/>
   </parent>
   
   <artifactId>harvest-logistics-SF</artifactId>

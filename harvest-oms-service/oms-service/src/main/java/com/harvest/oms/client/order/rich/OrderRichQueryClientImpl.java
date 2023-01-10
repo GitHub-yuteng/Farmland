@@ -102,7 +102,6 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
             LOGGER.warn("Service#Rich#订单查询超时, companyId:{}, condition:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
         }
 
-
         return Page.build(orderInfoPage.getPageNo(), orderInfoPage.getPageSize(), data, orderInfoPage.getCount());
     }
 

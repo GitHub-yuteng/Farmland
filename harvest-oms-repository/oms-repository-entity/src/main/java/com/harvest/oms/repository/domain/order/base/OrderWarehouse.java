@@ -20,6 +20,6 @@ public class OrderWarehouse implements Serializable {
     private WarehouseOwnerEnum warehouseOwner;
 
     @ApiModelProperty(value = "仓库ID")
-    private String warehouseId;
+    private Long warehouseId;
 
 }
