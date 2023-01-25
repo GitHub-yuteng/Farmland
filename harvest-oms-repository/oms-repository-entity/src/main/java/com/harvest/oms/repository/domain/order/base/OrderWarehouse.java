@@ -16,10 +16,11 @@ public class OrderWarehouse implements Serializable {
 
     private static final long serialVersionUID = -8467402012599950766L;
 
+    @ApiModelProperty(value = "仓库ID")
+    private Long warehouseId;
+
     @ApiModelProperty(value = "履约仓库所有者", notes = "影响最终的履约流程")
     private WarehouseOwnerEnum warehouseOwner;
 
-    @ApiModelProperty(value = "仓库ID")
-    private Long warehouseId;
 
 }

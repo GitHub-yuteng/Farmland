@@ -1,4 +1,4 @@
-package com.harvest.wms.repository.domain;
+package com.harvest.wms.repository.repository.domain;
 
 import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
 import lombok.Data;

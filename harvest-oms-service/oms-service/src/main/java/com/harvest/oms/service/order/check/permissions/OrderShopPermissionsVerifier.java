@@ -7,12 +7,13 @@ import org.springframework.stereotype.Component;
 /**
  * @Author: Alodi
  * @Date: 2023/1/5 11:12 AM
- * @Description: TODO
+ * @Description: 店铺权限校验
  **/
 @Component
 public class OrderShopPermissionsVerifier implements OrderPermissionsVerifier {
 
     @Override
     public void check(Long companyId, PageOrderConditionQuery condition) {
+
     }
 }

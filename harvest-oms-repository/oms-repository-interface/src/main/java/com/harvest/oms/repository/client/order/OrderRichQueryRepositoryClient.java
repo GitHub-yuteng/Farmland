@@ -1,4 +1,4 @@
-package com.harvest.oms.repository.client.order.rich;
+package com.harvest.oms.repository.client.order;
 
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.core.domain.Page;

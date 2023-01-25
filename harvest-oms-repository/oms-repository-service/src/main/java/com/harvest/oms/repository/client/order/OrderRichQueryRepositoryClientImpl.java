@@ -1,4 +1,4 @@
-package com.harvest.oms.repository.client.rich;
+package com.harvest.oms.repository.client.order;
 
 import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
@@ -7,7 +7,6 @@ import com.harvest.core.domain.range.date.DataTimeRange;
 import com.harvest.core.feign.annotation.HarvestService;
 import com.harvest.core.utils.FieldUtils;
 import com.harvest.core.utils.JsonUtils;
-import com.harvest.oms.repository.client.order.rich.OrderRichQueryRepositoryClient;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;
 import com.harvest.oms.repository.convert.OrderOptimizeQueryConvertor;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;

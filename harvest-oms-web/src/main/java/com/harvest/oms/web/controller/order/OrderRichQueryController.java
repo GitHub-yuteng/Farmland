@@ -1,4 +1,4 @@
-package com.harvest.oms.web.controller.rich;
+package com.harvest.oms.web.controller.order;
 
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.core.context.Context;

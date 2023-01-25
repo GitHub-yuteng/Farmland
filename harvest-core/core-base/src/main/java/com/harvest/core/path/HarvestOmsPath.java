@@ -7,8 +7,12 @@ package com.harvest.core.path;
  **/
 public interface HarvestOmsPath {
 
-    String BASIC_PATH = "/harvest/basic";
-    String OMS_PATH = "/harvest/oms/order";
+    String BASIC_PATH           = "/harvest/basic";
+    String GOODS_PATH           = "/harvest/goods";
+    String FINANCE_PATH         = "/harvest/finance";
+    String OMS_PATH             = "/harvest/oms/order";
+    String OMS_INBOUND_PATH     = "/harvest/oms/inbound";
+    String OMS_OUTBOUND_PATH    = "/harvest/oms/outbound";
 
     /**
      * 基础模块路径
@@ -16,6 +20,15 @@ public interface HarvestOmsPath {
     interface BasicPath {
 
         String WEB_CONFIG = BASIC_PATH + "/webConfig";
+    }
+
+    /**
+     * 基础模块路径
+     */
+    interface GoodsPath {
+
+        String GOODS_READ_PATH = GOODS_PATH + "/read";
+        String GOODS_WRITE_PATH = GOODS_PATH + "/write";
     }
 
     /**

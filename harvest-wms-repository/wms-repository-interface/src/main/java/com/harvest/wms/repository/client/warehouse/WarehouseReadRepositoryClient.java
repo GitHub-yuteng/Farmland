@@ -6,6 +6,7 @@ import com.harvest.wms.repository.constants.HarvestWmsRepositoryApplications;
 import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -19,7 +20,9 @@ public interface WarehouseReadRepositoryClient extends GlobalMacroDefinition {
 
     @ApiOperation("查询公司下所有仓库")
     @PostMapping(value = "/getByCompanyId")
-    List<WarehouseSimplePO> getByCompanyId(Long companyId);
+    List<WarehouseSimplePO> getByCompanyId(@RequestParam(COMPANY_ID) Long companyId);
 
-    WarehouseSimplePO get(Long companyId, Long warehouseId);
+    @ApiOperation("查询公司下所有仓库")
+    @PostMapping(value = "/get")
+    WarehouseSimplePO get(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(WMS.WAREHOUSE_ID) Long warehouseId);
 }

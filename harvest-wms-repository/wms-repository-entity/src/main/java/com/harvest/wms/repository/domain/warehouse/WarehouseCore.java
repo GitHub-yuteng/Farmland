@@ -21,12 +21,16 @@ public class WarehouseCore extends CompanyId {
     @ApiModelProperty("仓库Id")
     private Long warehouseId;
 
+    @ApiModelProperty("仓库编码")
     private String warehouseCode;
 
+    @ApiModelProperty("仓库名称")
     private String warehouse;
 
+    @ApiModelProperty("仓库所属")
     private WarehouseOwnerEnum warehouseOwner;
 
+    @ApiModelProperty("仓库类型")
     private WarehouseTypeEnum warehouseType;
 
 }

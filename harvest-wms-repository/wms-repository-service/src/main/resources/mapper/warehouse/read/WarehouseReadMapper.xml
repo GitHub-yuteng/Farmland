@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harvest.wms.repository.mapper.warehouse.read.WarehouseReadMapper">
+  
+  <!-- 通用查询映射结果 -->
+  <resultMap id="BaseResultMap" type="com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO" extends="WAREHOUSE_CORE.WarehouseCoreMap">
+    <!--仓库信息-->
+    <result column="COMPANY_ID" property="companyId"/>
+    <result column="main_type" property="mainType"/>
+    <result column="is_delivery" property="isDelivery"/>
+    <result column="status" property="status"/>
+    <!--仓库地址-->
+    <result column="warehouse_id" property="warehouseAddress.warehouseId"/>
+    <result column="address_type" property="warehouseAddress.addressType"/>
+    <result column="country_code" property="warehouseAddress.countryCode"/>
+    <result column="country_cn" property="warehouseAddress.countryCn"/>
+    <result column="postal_code" property="warehouseAddress.postalCode"/>
+    <result column="region1" property="warehouseAddress.region1"/>
+    <result column="region2" property="warehouseAddress.region2"/>
+    <result column="region3" property="warehouseAddress.region3"/>
+    <result column="region4" property="warehouseAddress.region4"/>
+    <result column="detail" property="warehouseAddress.detail"/>
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    <!-- 仓库信息 -->
+    warehouse.id,
+    warehouse.COMPANY_ID,
+    warehouse.warehouse_name,
+    warehouse.warehouse_code,
+    warehouse.warehouse_owner,
+    warehouse.warehouse_type,
+    warehouse.main_type,
+    warehouse.is_delivery,
+    warehouse.status,
+    warehouse.is_deleted,
+    <!-- 仓库地址 -->
+    address.warehouse_id,
+    address.COMPANY_ID,
+    address.address_type,
+    address.country_code,
+    address.country_cn,
+    address.postal_code,
+    address.region1,
+    address.region2,
+    address.region3,
+    address.region4,
+    address.detail,
+    address.is_deleted
+  </sql>
+  
+  <select id="getByCompanyId" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Base_Column_List"/>
+    FROM farmland_wms_warehouse warehouse
+    LEFT JOIN farmland_wms_warehouse_address address ON address.warehouse_id = warehouse.id AND address.is_deleted = 0
+    WHERE COMPANY_ID = #{companyId}
+    AND warehouse.is_deleted = 0
+  </select>
+
+</mapper>

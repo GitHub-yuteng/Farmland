@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="WAREHOUSE_CORE">
+  
+  <resultMap id="WarehouseCoreMap" type="com.harvest.wms.repository.domain.warehouse.WarehouseCore">
+    <id column="id" property="warehouseId"/>
+    <result column="warehouse_name" property="warehouseName"/>
+    <result column="warehouse_code" property="warehouseCode"/>
+    <result column="warehouse_owner" property="warehouseOwner" javaType="com.harvest.core.enums.wms.WarehouseOwnerEnum"
+            typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
+    <result column="warehouse_type" property="warehouseType" javaType="com.harvest.core.enums.wms.WarehouseTypeEnum"
+            typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
+  </resultMap>
+
+</mapper>

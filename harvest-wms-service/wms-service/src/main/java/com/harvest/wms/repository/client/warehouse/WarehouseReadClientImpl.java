@@ -1,11 +1,9 @@
-package com.harvest.wms.repository.wms;
+package com.harvest.wms.repository.client.warehouse;
 
 import com.harvest.core.feign.annotation.HarvestService;
-import com.harvest.wms.repository.client.warehouse.WarehouseReadClient;
-import com.harvest.wms.repository.client.warehouse.WarehouseReadRepositoryClient;
 import com.harvest.wms.repository.constants.HarvestWmsApplications;
-import com.harvest.wms.repository.domain.WarehouseDO;
 import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
+import com.harvest.wms.repository.repository.domain.WarehouseDO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -22,9 +20,8 @@ public class WarehouseReadClientImpl implements WarehouseReadClient {
     private WarehouseReadRepositoryClient warehouseReadRepositoryClient;
 
     @Override
-    public List<WarehouseDO> getByCompanyId(Long companyId) {
-        List<WarehouseSimplePO> warehouseSimpleList = warehouseReadRepositoryClient.getByCompanyId(companyId);
-        return null;
+    public List<WarehouseSimplePO> getByCompanyId(Long companyId) {
+        return warehouseReadRepositoryClient.getByCompanyId(companyId);
     }
 
     @Override

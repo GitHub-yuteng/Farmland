@@ -1,14 +1,15 @@
 package com.harvest.oms.service.order.handler.section;
 
 import com.harvest.oms.domain.order.OrderInfoDO;
-import com.harvest.oms.domain.wms.WarehouseKey;
 import com.harvest.oms.repository.domain.order.base.OrderWarehouse;
 import com.harvest.oms.service.cache.CacheLoader;
 import com.harvest.oms.service.order.handler.OrderSectionHandler;
-import com.harvest.wms.repository.domain.WarehouseDO;
+import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
+import com.harvest.wms.repository.repository.domain.WarehouseDO;
 import org.apache.commons.collections.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
@@ -47,30 +48,44 @@ public class OrderWareHouseSectionHandler implements OrderSectionHandler {
         List<Long> warehouseIds = orders.stream()
                 .map(OrderInfoDO::getOrderWarehouse)
                 .filter(Objects::nonNull)
-                .map(OrderWarehouse::getWarehouseId).distinct()
+                .map(OrderWarehouse::getWarehouseId)
+                .distinct()
                 .collect(Collectors.toList());
         if (CollectionUtils.isEmpty(warehouseIds)) {
             return;
         }
 
-        List<WarehouseDO> warehouseList = warehouseIds.stream().map(warehouseId -> {
-            WarehouseKey warehouseKey = new WarehouseKey(companyId, warehouseId);
-            WarehouseDO warehouseDO = CacheLoader.COMPANY_WAREHOUSE_CACHE.getIfPresent(warehouseKey);
-            if (Objects.isNull(warehouseDO)) {
-                LOGGER.error("OrderWareHouseSectionHandler#batchFill#该公司仓库不存在, companyId:{} ,warehouseId:{}", companyId, warehouseId);
-            }
-            return warehouseDO;
-        }).filter(Objects::nonNull).collect(Collectors.toList());
+        Collection<WarehouseSimplePO> warehouseList = CacheLoader.COMPANY_ALL_WAREHOUSE_CACHE.getIfPresent(companyId);
+        if (CollectionUtils.isEmpty(warehouseList)) {
+            LOGGER.error("OrderWareHouseSectionHandler#batchFill#该公司仓库为空, 请检查数据！, companyId:{}", companyId);
+            orders.forEach(order -> {
+                OrderWarehouse orderWarehouse = order.getOrderWarehouse();
+                if (Objects.isNull(orderWarehouse)) {
+                    return;
+                }
+                WarehouseDO warehouseDO = new WarehouseDO();
+                warehouseDO.setWarehouse("[仓库数据异常]");
+                order.setWarehouse(warehouseDO);
+            });
+            return;
+        }
 
-        Map<Long, WarehouseDO> warehouseIdMap = warehouseList.stream().collect(Collectors.toMap(WarehouseDO::getWarehouseId, Function.identity()));
-
+        Map<Long, WarehouseSimplePO> warehouseIdMap = warehouseList.stream().collect(Collectors.toMap(WarehouseSimplePO::getWarehouseId, Function.identity()));
         orders.forEach(order -> {
             OrderWarehouse orderWarehouse = order.getOrderWarehouse();
             if (Objects.isNull(orderWarehouse)) {
                 return;
             }
             Long warehouseId = orderWarehouse.getWarehouseId();
-            order.setWarehouse(warehouseIdMap.get(warehouseId));
+            WarehouseSimplePO warehouseSimplePO = warehouseIdMap.get(warehouseId);
+            if (Objects.isNull(warehouseSimplePO)) {
+                LOGGER.error("OrderWareHouseSectionHandler#batchFill#该公司仓库不存在, 请检查数据！, companyId:{}, warehouseId:{}", companyId, warehouseId);
+                return;
+            }
+
+            WarehouseDO warehouseDO = new WarehouseDO();
+            BeanUtils.copyProperties(warehouseSimplePO, warehouseDO);
+            order.setWarehouse(warehouseDO);
         });
     }
 

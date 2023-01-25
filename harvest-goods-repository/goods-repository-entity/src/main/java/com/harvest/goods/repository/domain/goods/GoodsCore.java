@@ -1,6 +1,6 @@
 package com.harvest.goods.repository.domain.goods;
 
-import com.harvest.core.domain.CompanyId;
+import com.harvest.core.domain.OperationType;
 import com.harvest.core.enums.goods.GoodsStatusEnum;
 import com.harvest.core.enums.goods.GoodsTypeEnum;
 import io.swagger.annotations.ApiModelProperty;
@@ -16,7 +16,7 @@ import java.io.Serializable;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class GoodsCore extends CompanyId implements Serializable {
+public class GoodsCore extends OperationType implements Serializable {
 
     private static final long serialVersionUID = 6874153447161690288L;
 

@@ -2,7 +2,7 @@ package com.harvest.oms.domain.order;
 
 import com.harvest.oms.domain.logistics.LogisticsDO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
-import com.harvest.wms.repository.domain.WarehouseDO;
+import com.harvest.wms.repository.repository.domain.WarehouseDO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

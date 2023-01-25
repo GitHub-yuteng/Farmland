@@ -1,8 +1,8 @@
-package com.harvest.oms.web.controller;
+package com.harvest.oms.web.controller.order;
 
 import com.harvest.core.path.HarvestOmsPath;
-import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.client.order.OrderReadClient;
+import com.harvest.oms.domain.order.OrderInfoDO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,4 +29,5 @@ public class OrderReadController {
     public OrderInfoDO getOrderInfo(@RequestParam("orderId") Long orderId) {
         return orderReadClient.get(1L, orderId);
     }
+
 }

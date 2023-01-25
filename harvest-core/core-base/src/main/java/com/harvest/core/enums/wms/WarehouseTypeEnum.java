@@ -22,9 +22,8 @@ public enum WarehouseTypeEnum implements IEnum<Integer> {
     STOCK       (3, "存货仓"),
     STORE       (4, "门店仓");
 
-    public final Integer type;
-    public final String value;
-
+    private final Integer type;
+    private final String value;
 
     public static WarehouseTypeEnum getEnumByType(int type) {
         for (WarehouseTypeEnum warehouseTypeEnum : WarehouseTypeEnum.values()) {

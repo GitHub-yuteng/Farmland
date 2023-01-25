@@ -13,6 +13,7 @@
   <artifactId>farmland-harvest</artifactId>
   
   <modules>
+    <module>harvest-eureka-server</module>
     <module>harvest-all-starter</module>
     <module>harvest-parent</module>
     <module>harvest-core</module>

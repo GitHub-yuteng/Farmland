@@ -30,7 +30,10 @@ public class MySqlGeneratorUtils {
     public static void main(String[] args) {
 
         List<String> list = new ArrayList<>();
+        list.add("farmland_wms_inbound_bill");
+        list.add("farmland_wms_inbound_bill_item");
         list.add("farmland_wms_warehouse");
+        list.add("farmland_wms_warehouse_address");
         list.forEach(MySqlGeneratorUtils::execute);
     }
 

@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author Alodi
- * @since 2023-01-04 15:35:04
+ * @since 2023-01-15 16:55:09
  */
 @Mapper
 public interface FarmlandWmsWarehouseMapper extends BaseMapper<FarmlandWmsWarehouseEntity> {

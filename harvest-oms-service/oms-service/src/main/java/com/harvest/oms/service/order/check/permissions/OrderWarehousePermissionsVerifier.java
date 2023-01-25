@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 /**
  * @Author: Alodi
  * @Date: 2023/1/5 11:12 AM
- * @Description: TODO
+ * @Description: 仓库权限校验
  **/
 @Component
 public class OrderWarehousePermissionsVerifier implements OrderPermissionsVerifier {

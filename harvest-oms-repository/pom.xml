@@ -7,7 +7,6 @@
     <groupId>com.harvest</groupId>
     <artifactId>farmland-harvest</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <relativePath/>
   </parent>
   
   <artifactId>harvest-oms-repository</artifactId>

@@ -101,10 +101,6 @@ public class Page<T> implements Serializable {
         this.count = count;
     }
 
-    public void setHasMore(boolean hasMore) {
-        this.hasMore = hasMore;
-    }
-
     public int getPageSize() {
         return pageSize;
     }
@@ -129,7 +125,11 @@ public class Page<T> implements Serializable {
         return count;
     }
 
+    public void setHasMore(boolean hasMore) {
+        this.hasMore = hasMore;
+    }
+
     public boolean isHasMore() {
-        return hasMore;
+        return this.count > (long) this.pageNo * this.pageSize;
     }
 }

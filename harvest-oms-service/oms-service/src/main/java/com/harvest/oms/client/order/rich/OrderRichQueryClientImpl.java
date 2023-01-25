@@ -8,7 +8,7 @@ import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.OrderItemDO;
 import com.harvest.oms.repository.client.order.OrderReadRepositoryClient;
-import com.harvest.oms.repository.client.order.rich.OrderRichQueryRepositoryClient;
+import com.harvest.oms.repository.client.order.OrderRichQueryRepositoryClient;
 import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
@@ -96,10 +96,12 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         this.sectionBatchFill(companyId, orderInfoPage.getData());
         stopWatch.stop();
 
+        stopWatch.start("视图模型转换");
         Collection<OrderInfoVO> data = orderConvertor.convert(orderInfoPage.getData());
+        stopWatch.stop();
 
         if (stopWatch.getTotalTimeMillis() > TIME_OUT) {
-            LOGGER.warn("Service#Rich#订单查询超时, companyId:{}, condition:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
+            LOGGER.warn("OrderService#Rich#订单查询超时, companyId:{}, condition:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
         }
 
         return Page.build(orderInfoPage.getPageNo(), orderInfoPage.getPageSize(), data, orderInfoPage.getCount());
