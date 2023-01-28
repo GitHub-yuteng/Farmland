@@ -54,7 +54,7 @@
     <include refid="Base_Column_List"/>
     FROM farmland_wms_warehouse warehouse
     LEFT JOIN farmland_wms_warehouse_address address ON address.warehouse_id = warehouse.id AND address.is_deleted = 0
-    WHERE COMPANY_ID = #{companyId}
+    WHERE warehouse.COMPANY_ID = #{companyId}
     AND warehouse.is_deleted = 0
   </select>
 

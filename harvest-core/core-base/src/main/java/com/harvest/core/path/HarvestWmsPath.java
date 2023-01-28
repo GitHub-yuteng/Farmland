@@ -15,7 +15,7 @@ public interface HarvestWmsPath {
      */
     interface WarehousePath {
 
-        String WAREHOUSE_READ_PATH = WMS_PATH + "/read/warehouse";
+        String WAREHOUSE_READ_PATH = WMS_PATH + "/warehouse/read";
 
     }
 

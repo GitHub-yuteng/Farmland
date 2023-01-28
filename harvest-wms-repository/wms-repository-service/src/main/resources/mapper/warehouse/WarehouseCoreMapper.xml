@@ -4,7 +4,7 @@
   
   <resultMap id="WarehouseCoreMap" type="com.harvest.wms.repository.domain.warehouse.WarehouseCore">
     <id column="id" property="warehouseId"/>
-    <result column="warehouse_name" property="warehouseName"/>
+    <result column="warehouse_name" property="warehouse"/>
     <result column="warehouse_code" property="warehouseCode"/>
     <result column="warehouse_owner" property="warehouseOwner" javaType="com.harvest.core.enums.wms.WarehouseOwnerEnum"
             typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>

@@ -36,6 +36,6 @@ public enum WarehouseTypeEnum implements IEnum<Integer> {
 
     @Override
     public Integer getKey() {
-        return null;
+        return this.type;
     }
 }
