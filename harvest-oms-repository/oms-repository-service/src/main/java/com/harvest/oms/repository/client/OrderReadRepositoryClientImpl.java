@@ -17,7 +17,7 @@ import java.util.List;
  * @Date: 2022/12/11 8:03 PM
  * @Description: TODO
  **/
-@HarvestService(path = HarvestOmsRepositoryApplications.Path.ORDER_RICH)
+@HarvestService(path = HarvestOmsRepositoryApplications.Path.ORDER_READ)
 public class OrderReadRepositoryClientImpl implements OrderReadRepositoryClient {
 
     @Autowired

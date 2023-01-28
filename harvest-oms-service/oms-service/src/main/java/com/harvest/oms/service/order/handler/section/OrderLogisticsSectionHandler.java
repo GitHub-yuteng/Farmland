@@ -11,7 +11,7 @@ import java.util.Collection;
  * @Author: Alodi
  * @Date: 2023/1/8 1:34 AM
  * @Description: 订单物流信息
- * {@link OrderSectionHandler.Order#D}
+ * {@link OrderSectionHandler.Order#C}
  **/
 @Order(4)
 @Component

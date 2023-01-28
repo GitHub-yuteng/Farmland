@@ -10,14 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
  * @Date: 2022/12/9 9:51 PM
  * @Description: 订单业务服务
  **/
-@Api(value = "订单读服务", tags = "订单读服务")
+@Api(value = "订单业务服务", tags = "订单业务服务")
 @RestController
-@RequestMapping(value = HarvestOmsPath.OrderPath.OMS_BUSINESS_PATH)
+@RequestMapping(value = HarvestOmsPath.OrderPath.ORDER_BUSINESS_PATH)
 public class OrderBusinessController {
-
-
-
-
 
 
 }

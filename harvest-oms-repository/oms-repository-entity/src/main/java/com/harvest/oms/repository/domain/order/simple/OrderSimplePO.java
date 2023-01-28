@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * @Author: Alodi
  * @Date: 2022/12/11 1:25 AM
- * @Description: 订单信息简要 ｜ 一次查询, 查询出所有简要信息
+ * @Description: 订单信息简要 ｜ 一次查询, 查询出该订单所有简要信息（数据库信息）
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)

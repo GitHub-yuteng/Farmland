@@ -21,9 +21,9 @@ import java.util.Collection;
  * @Date: 2022/12/9 9:51 PM
  * @Description: 订单业务服务
  **/
-@Api(value = "订单丰富查询", tags = "订单查询")
+@Api(value = "订单丰富查询", tags = "订单丰富查询")
 @RestController
-@RequestMapping(value = HarvestOmsPath.OrderPath.OMS_RICH_PATH)
+@RequestMapping(value = HarvestOmsPath.OrderPath.ORDER_RICH_PATH)
 public class OrderRichQueryController implements GlobalMacroDefinition {
 
     @Autowired

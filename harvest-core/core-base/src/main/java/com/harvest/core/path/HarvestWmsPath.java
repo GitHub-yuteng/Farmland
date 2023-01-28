@@ -7,4 +7,16 @@ package com.harvest.core.path;
  **/
 public interface HarvestWmsPath {
 
+    String WMS_PATH = "/harvest/wms";
+
+
+    /**
+     * 订单路径
+     */
+    interface WarehousePath {
+
+        String WAREHOUSE_READ_PATH = WMS_PATH + "/read/warehouse";
+
+    }
+
 }

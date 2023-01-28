@@ -26,6 +26,8 @@ public class CacheLoader {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(CacheLoader.class);
 
+    private final static int DEFAULT_INITIAL_CAPACITY = 64;
+
     /**
      * 专供获取缓存的线程池
      */
@@ -41,6 +43,7 @@ public class CacheLoader {
      * 公司对应仓库缓存
      */
     public final static Cache<Long, Collection<WarehouseSimplePO>> COMPANY_ALL_WAREHOUSE_CACHE = Caffeine.newBuilder()
+            .initialCapacity(DEFAULT_INITIAL_CAPACITY)
             .expireAfterWrite(12, TimeUnit.HOURS)
             .build(companyId -> SpringHelper.getBean(WarehouseReadClient.class).getByCompanyId(companyId));
 
@@ -48,6 +51,7 @@ public class CacheLoader {
      * 缓存仓库信息，只支持单个warehouseId查询缓存
      */
     public final static Cache<WarehouseKey, WarehouseDO> COMPANY_WAREHOUSE_CACHE = Caffeine.newBuilder()
+            .initialCapacity(DEFAULT_INITIAL_CAPACITY)
             .expireAfterWrite(24, TimeUnit.HOURS)
             .build(warehouseKey -> SpringHelper.getBean(WarehouseReadClient.class).get(warehouseKey.getCompanyId(), warehouseKey.getWarehouseId()));
 

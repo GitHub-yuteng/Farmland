@@ -12,7 +12,7 @@ import java.util.Collection;
 /**
  * @Author: Alodi
  * @Date: 2022/12/11 1:25 AM
- * @Description: 订单信息领域模型
+ * @Description: 订单信息领域模型 ｜ 包含其他业务领域模型
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)

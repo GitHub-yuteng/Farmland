@@ -4,27 +4,32 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.domain.Page;
 import com.harvest.core.feign.annotation.HarvestService;
 import com.harvest.core.utils.JsonUtils;
+import com.harvest.core.utils.QueryUtils;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
+import com.harvest.oms.client.order.OrderReadClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.OrderItemDO;
-import com.harvest.oms.repository.client.order.OrderReadRepositoryClient;
 import com.harvest.oms.repository.client.order.OrderRichQueryRepositoryClient;
 import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
 import com.harvest.oms.service.order.check.OrderPermissionsVerifier;
 import com.harvest.oms.service.order.convert.OrderConvertor;
+import com.harvest.oms.service.order.handler.OrderCompanyFeatureHandler;
+import com.harvest.oms.service.order.handler.OrderPlatformFeatureHandler;
 import com.harvest.oms.service.order.handler.OrderSectionHandler;
 import com.harvest.oms.vo.order.OrderInfoVO;
+import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.MapUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.CollectionUtils;
 import org.springframework.util.StopWatch;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.*;
 import java.util.stream.Collectors;
 
@@ -63,13 +68,19 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     private OrderRichQueryRepositoryClient orderRichQueryRepositoryClient;
 
     @Autowired
-    private OrderReadRepositoryClient orderReadRepositoryClient;
-
-    @Autowired
     private List<OrderPermissionsVerifier> orderPermissionsVerifiers;
 
     @Autowired
     private List<OrderSectionHandler> orderSectionHandlers;
+
+    @Autowired(required = false)
+    private List<OrderPlatformFeatureHandler> orderPlatformFeatureHandlers;
+
+    @Autowired(required = false)
+    private List<OrderCompanyFeatureHandler> orderCompanyFeatureHandlers;
+
+    @Autowired
+    private OrderReadClient orderReadClient;
 
     @Autowired
     private OrderConvertor orderConvertor;
@@ -92,8 +103,20 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         Page<OrderInfoDO> orderInfoPage = this.convert(orderSimplePage);
         stopWatch.stop();
 
+        stopWatch.start("订单明细信息填充");
+        this.orderItemBatchFill(companyId, orderInfoPage.getData());
+        stopWatch.stop();
+
         stopWatch.start("领域模型信息填充");
         this.sectionBatchFill(companyId, orderInfoPage.getData());
+        stopWatch.stop();
+
+        stopWatch.start("平台订单特性处理");
+        this.platformBehaviorBatchHandler(companyId, orderInfoPage.getData());
+        stopWatch.stop();
+
+        stopWatch.start("公司订单特性处理");
+        this.companyBehaviorBatchHandler(companyId, orderInfoPage.getData());
         stopWatch.stop();
 
         stopWatch.start("视图模型转换");
@@ -118,6 +141,46 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     }
 
     /**
+     * 订单明细信息填充 ｜ 其他领域模型可能需要明细数据 单独摘出填充（防止多线程查询填充没有对应数据）
+     *
+     * @param companyId
+     * @param orders
+     */
+    private void orderItemBatchFill(Long companyId, Collection<OrderInfoDO> orders) {
+        if (CollectionUtils.isEmpty(orders)) {
+            return;
+        }
+        List<Long> orderIds = orders.stream().map(OrderInfoDO::getOrderId).collect(Collectors.toList());
+        Map<Long, List<OrderItemSimplePO>> orderIdItemMap = this.partitionBatch(companyId, orderIds);
+        if (MapUtils.isEmpty(orderIdItemMap)) {
+            return;
+        }
+        orders.forEach(orderInfoDO -> {
+            Long orderId = orderInfoDO.getOrderId();
+            Collection<OrderItemSimplePO> orderItemSimplePOList = orderIdItemMap.get(orderId);
+            orderInfoDO.setOrderItems(orderItemSimplePOList.stream()
+                    .map(orderItemSimplePO -> {
+                        OrderItemDO orderItemDO = new OrderItemDO();
+                        BeanUtils.copyProperties(orderItemSimplePO, orderItemDO);
+                        return orderItemDO;
+                    }).collect(Collectors.toList())
+            );
+        });
+    }
+
+    /**
+     * 如果订单Ids过多 分区分批查询优化 只查询简要信息
+     *
+     * @param companyId
+     * @param orderIds
+     * @return
+     */
+    private Map<Long, List<OrderItemSimplePO>> partitionBatch(Long companyId, List<Long> orderIds) {
+        // extension 大字段 影响IO 在丰富查询时考虑查询效率则延迟查出，判断存在对应的 tagValue 单独取对应的 扩展信息进行处理
+        return QueryUtils.partitionMapExecute(orderIds, ORDER_NUMS, f -> orderReadClient.mapOrderItemByOrderIds(companyId, f));
+    }
+
+    /**
      * 订单领域模型部分信息填充器
      *
      * @param companyId
@@ -130,6 +193,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
 
         if (orders.size() >= ORDER_NUMS) {
             try {
+                // 订单量过多 多线程填充订单其他领域信息
                 CompletableFuture<?>[] futures = new CompletableFuture<?>[orderSectionHandlers.size()];
                 for (int i = 0; i < orderSectionHandlers.size(); i++) {
                     int finalI = i;
@@ -140,11 +204,49 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
                 }
                 CompletableFuture.allOf(futures).get();
             } catch (Exception e) {
-                LOGGER.error("并发补充订单信息失败", e);
+                LOGGER.error("OrderRichQueryClientImpl#sectionBatchFill#并发补充订单领域信息失败", e);
             }
         } else {
             orderSectionHandlers.forEach(section -> section.batchFill(companyId, orders));
         }
+    }
+
+    /**
+     * 平台订单特性处理
+     *
+     * @param companyId
+     * @param orders
+     */
+    private void platformBehaviorBatchHandler(Long companyId, Collection<OrderInfoDO> orders) {
+        if (CollectionUtils.isEmpty(orders) || CollectionUtils.isEmpty(orderPlatformFeatureHandlers)) {
+            return;
+        }
+        try {
+            CompletableFuture<?>[] futures = new CompletableFuture<?>[orderPlatformFeatureHandlers.size()];
+            for (int i = 0; i < orderPlatformFeatureHandlers.size(); i++) {
+                int finalI = i;
+                futures[i] = CompletableFuture.runAsync(
+                        () -> orderPlatformFeatureHandlers.get(finalI).batchFeatureFill(companyId, orders),
+                        OMS_SECTION_READ_EXECUTOR
+                );
+            }
+            CompletableFuture.allOf(futures).get();
+        } catch (Exception e) {
+            LOGGER.error("OrderRichQueryClientImpl#platformBehaviorBatchHandler#并发处理平台订单特性处理失败", e);
+        }
+    }
+
+    /**
+     * 公司订单特性处理
+     *
+     * @param companyId
+     * @param orders
+     */
+    private void companyBehaviorBatchHandler(Long companyId, Collection<OrderInfoDO> orders) {
+        if (CollectionUtils.isEmpty(orders) || CollectionUtils.isEmpty(orderCompanyFeatureHandlers)) {
+            return;
+        }
+        orderCompanyFeatureHandlers.forEach(section -> section.batchFeatureFill(companyId, orders));
     }
 
     /**
@@ -171,7 +273,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
 
     @Override
     public Collection<OrderItemDO> queryOrderItemsRich(Long companyId, Long orderId) {
-        Collection<OrderItemSimplePO> orderItemSimplePOList = orderReadRepositoryClient.getOrderItemByOrderId(companyId, orderId);
+        Collection<OrderItemSimplePO> orderItemSimplePOList = orderReadClient.listOrderItemByOrderId(companyId, orderId);
         Collection<OrderItemDO> orderItemDOList = this.convert(orderItemSimplePOList);
         return orderItemDOList;
     }

@@ -2,7 +2,6 @@ package com.harvest.oms.service.order.handler;
 
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.service.order.handler.section.OrderItemGoodsSectionHandler;
-import com.harvest.oms.service.order.handler.section.OrderItemSectionHandler;
 import com.harvest.oms.service.order.handler.section.OrderLogisticsSectionHandler;
 import com.harvest.oms.service.order.handler.section.OrderWareHouseSectionHandler;
 import lombok.AllArgsConstructor;
@@ -35,12 +34,11 @@ public interface OrderSectionHandler {
     enum Order {
 
         /**
-         * 订单部分信息查询排序
+         * 订单部分信息填充排序
          */
-        A(1, OrderItemSectionHandler.class),
-        B(2, OrderItemGoodsSectionHandler.class),
-        C(3, OrderWareHouseSectionHandler.class),
-        D(4, OrderLogisticsSectionHandler.class),
+        A(1, OrderItemGoodsSectionHandler.class),
+        B(2, OrderWareHouseSectionHandler.class),
+        C(3, OrderLogisticsSectionHandler.class),
 
         ;
 

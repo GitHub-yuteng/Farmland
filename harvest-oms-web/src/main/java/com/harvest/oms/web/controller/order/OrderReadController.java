@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @Api(value = "订单读服务", tags = "订单读服务")
 @RestController
-@RequestMapping(value = HarvestOmsPath.OrderPath.OMS_READ_PATH)
+@RequestMapping(value = HarvestOmsPath.OrderPath.ORDER_READ_PATH)
 public class OrderReadController {
 
     @Autowired

@@ -1,9 +1,9 @@
 server:
-  port: 8932
+  port: 8931
 
 spring:
   application:
-    name: harvest-wms-repository
+    name: harvest-wms-service
   main:
     allow-bean-definition-overriding: true
   cloud:
@@ -24,11 +24,3 @@ feign:
     enabled: false
   okhttp:
     enabled: true
-
-logging:
-  level:
-    com: debug
-
-mybatis-plus:
-  configuration:
-    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl

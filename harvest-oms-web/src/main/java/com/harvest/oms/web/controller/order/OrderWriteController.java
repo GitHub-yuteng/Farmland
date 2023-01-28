@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  **/
 @Api(value = "订单读服务", tags = "订单读服务")
 @RestController
-@RequestMapping(value = HarvestOmsPath.OrderPath.OMS_WRITE_PATH)
+@RequestMapping(value = HarvestOmsPath.OrderPath.ORDER_WRITE_PATH)
 public class OrderWriteController {
 
 

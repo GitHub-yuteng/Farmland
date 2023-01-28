@@ -3,7 +3,7 @@ package com.harvest.core.exception;
 /**
  * @Author: Alodi
  * @Date: 2023/1/2 9:30 PM
- * @Description: TODO
+ * @Description: 标准报错
  **/
 public class StandardRuntimeException extends RuntimeException {
 
