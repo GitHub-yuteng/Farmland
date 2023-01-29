@@ -2,6 +2,7 @@ package com.harvest.oms.service.order.handler.feature.platform;
 
 import com.harvest.core.enums.oms.OrderSourceEnum;
 import com.harvest.oms.domain.order.OrderInfoDO;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -18,12 +19,13 @@ public class OrderPlatformFeature_JDHandler extends AbstractOrderPlatformFeature
 
     @Override
     public void batchFeatureFill(Long companyId, Collection<OrderInfoDO> orders) {
-        boolean anyMatch = orders.stream().anyMatch(order -> order.getOrderSource().equals(JD));
-        if (!anyMatch) {
+        Collection<OrderInfoDO> filter = this.filter(companyId, JD, orders);
+        if (CollectionUtils.isEmpty(filter)) {
             return;
         }
 
-        orders.forEach(order -> {
+        filter.forEach(order -> {
+
         });
     }
 

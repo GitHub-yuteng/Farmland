@@ -3,6 +3,7 @@ package com.harvest.core.config.interceptor;
 import com.harvest.core.context.Context;
 import com.harvest.core.context.ContextHolder;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
@@ -14,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * @Author: Alodi
  * @Date: 2023/1/2 8:51 PM
- * @Description: TODO
+ * @Description: token校验拦截器
  **/
 @Component
-@Order(1)
+@Order(Ordered.HIGHEST_PRECEDENCE)
 public class TokenInterceptor implements HandlerInterceptor {
 
     @Override

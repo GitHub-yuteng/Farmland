@@ -36,7 +36,6 @@ public class OrderWareHouseSectionHandler implements OrderSectionHandler {
     @Override
     public void fill(Long companyId, OrderInfoDO order) {
         this.batchFill(companyId, Collections.singleton(order));
-
     }
 
     /**

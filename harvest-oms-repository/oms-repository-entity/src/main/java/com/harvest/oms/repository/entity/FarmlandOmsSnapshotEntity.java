@@ -12,42 +12,42 @@ import lombok.Setter;
 
 /**
  * <p>
- * 订单敏感信息数据表
+ * 
  * </p>
  *
  * @author Alodi
- * @since 2023-01-29 14:52:41
+ * @since 2023-01-29 14:52:42
  */
 @Getter
 @Setter
-@TableName("farmland_oms_order_sensitive_data")
-@ApiModel(value = "FarmlandOmsOrderSensitiveDataEntity对象", description = "订单敏感信息数据表")
-public class FarmlandOmsOrderSensitiveDataEntity {
+@TableName("farmland_oms_snapshot")
+@ApiModel(value = "FarmlandOmsSnapshotEntity对象", description = "")
+public class FarmlandOmsSnapshotEntity {
 
+    @ApiModelProperty("primary key")
     @TableId("id")
     private Long id;
 
+    @ApiModelProperty("公司ID")
     @TableField("COMPANY_ID")
     private Long companyId;
 
-    @TableField("order_id")
-    private Long orderId;
+    @TableField("oms_key")
+    private Long omsKey;
 
-    @TableField("data_type")
-    private Integer dataType;
+    @ApiModelProperty("快照类型")
+    @TableField("snapshot_type")
+    private Integer snapshotType;
 
-    @TableField("encrypt_method")
-    private Integer encryptMethod;
+    @ApiModelProperty("生成单据等对应快照")
+    @TableField("big_value")
+    private String bigValue;
 
-    @TableField("data_text")
-    private String dataText;
-
-    @TableField("fuzzy_text")
-    private String fuzzyText;
-
+    @ApiModelProperty("记录生成时间")
     @TableField(value = "rc_time", fill = FieldFill.INSERT)
     private LocalDateTime rcTime;
 
+    @ApiModelProperty("记录修改时间")
     @TableField(value = "rm_time", fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime rmTime;
 }

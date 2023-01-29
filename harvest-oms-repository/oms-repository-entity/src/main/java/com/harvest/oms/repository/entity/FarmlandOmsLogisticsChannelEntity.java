@@ -9,18 +9,19 @@ import lombok.Setter;
 
 /**
  * <p>
- * 售后单表
+ * 物流渠道信息
  * </p>
  *
  * @author Alodi
- * @since 2023-01-29 14:52:40
+ * @since 2023-01-29 14:52:41
  */
 @Getter
 @Setter
-@TableName("farmland_oms_after_sale_bill")
-@ApiModel(value = "FarmlandOmsAfterSaleBillEntity对象", description = "售后单表")
-public class FarmlandOmsAfterSaleBillEntity {
+@TableName("farmland_oms_logistics_channel")
+@ApiModel(value = "FarmlandOmsLogisticsChannelEntity对象", description = "物流渠道信息")
+public class FarmlandOmsLogisticsChannelEntity {
 
+    @ApiModelProperty("primary key")
     @TableId("id")
     private Long id;
 }

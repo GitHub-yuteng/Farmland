@@ -1,6 +1,6 @@
 package com.harvest.oms.repository.mapper;
 
-import com.harvest.oms.repository.entity.FarmlandOmsInboundBillItemEntity;
+import com.harvest.oms.repository.entity.FarmlandOmsSimpleSettingEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,9 +10,9 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author Alodi
- * @since 2023-01-29 14:52:40
+ * @since 2023-01-29 14:52:42
  */
 @Mapper
-public interface FarmlandOmsInboundBillItemMapper extends BaseMapper<FarmlandOmsInboundBillItemEntity> {
+public interface FarmlandOmsSimpleSettingMapper extends BaseMapper<FarmlandOmsSimpleSettingEntity> {
 
 }

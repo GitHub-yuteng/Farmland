@@ -9,17 +9,17 @@ import lombok.Setter;
 
 /**
  * <p>
- * 订单导出模版表
+ * 订单导入模版表
  * </p>
  *
  * @author Alodi
- * @since 2022-12-21 18:15:57
+ * @since 2023-01-29 14:52:42
  */
 @Getter
 @Setter
-@TableName("farmland_oms_order_template_export")
-@ApiModel(value = "FarmlandOmsOrderTemplateExportEntity对象", description = "订单导出模版表")
-public class FarmlandOmsOrderTemplateExportEntity {
+@TableName("farmland_oms_template_order_import")
+@ApiModel(value = "FarmlandOmsTemplateOrderImportEntity对象", description = "订单导入模版表")
+public class FarmlandOmsTemplateOrderImportEntity {
 
     @ApiModelProperty("primary key")
     @TableId("id")

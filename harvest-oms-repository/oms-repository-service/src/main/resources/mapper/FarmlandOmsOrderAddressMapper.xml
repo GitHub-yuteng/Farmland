@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.harvest.oms.repository.mapper.FarmlandOmsOrderAddressMapper">
-  
-  <!-- 通用查询映射结果 -->
-  <resultMap id="BaseResultMap" type="com.harvest.oms.repository.entity.FarmlandOmsOrderAddressEntity">
-    <id column="order_id" property="orderId"/>
-    <result column="COMPANY_ID" property="companyId"/>
-    <result column="address_type" property="addressType"/>
-    <result column="country_code" property="countryCode"/>
-    <result column="country_cn" property="countryCn"/>
-    <result column="postal_code" property="postalCode"/>
-    <result column="region1" property="region1"/>
-    <result column="region2" property="region2"/>
-    <result column="region3" property="region3"/>
-    <result column="region4" property="region4"/>
-    <result column="detail" property="detail"/>
-    <result column="is_deleted" property="isDeleted"/>
-    <result column="rc_time" property="rcTime"/>
-    <result column="rm_time" property="rmTime"/>
-  </resultMap>
-  
-  <!-- 通用查询结果列 -->
-  <sql id="Base_Column_List">
-    order_id, COMPANY_ID, address_type, country_code, country_cn, postal_code, region1, region2, region3, region4, detail, is_deleted, rc_time, rm_time
-  </sql>
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.harvest.oms.repository.entity.FarmlandOmsOrderAddressEntity">
+        <id column="order_id" property="orderId" />
+        <result column="COMPANY_ID" property="companyId" />
+        <result column="address_type" property="addressType" />
+        <result column="country_code" property="countryCode" />
+        <result column="country_cn" property="countryCn" />
+        <result column="postal_code" property="postalCode" />
+        <result column="region1" property="region1" />
+        <result column="region2" property="region2" />
+        <result column="region3" property="region3" />
+        <result column="region4" property="region4" />
+        <result column="detail" property="detail" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="rc_time" property="rcTime" />
+        <result column="rm_time" property="rmTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        order_id, COMPANY_ID, address_type, country_code, country_cn, postal_code, region1, region2, region3, region4, detail, is_deleted, rc_time, rm_time
+    </sql>
 
 </mapper>

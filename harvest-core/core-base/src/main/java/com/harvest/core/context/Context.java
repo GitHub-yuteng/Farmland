@@ -27,6 +27,13 @@ public interface Context {
         applicationType
     }
 
+    /**
+     *
+     * @param key
+     * @param value
+     */
+    void set(PreferenceName key, Object value);
+
     Long getCompanyId();
 
     Long getUserId();
@@ -34,8 +41,6 @@ public interface Context {
     Long getAccountId();
 
     int getApplicationType();
-
-    void set(PreferenceName key, Object value);
 
     Object getLoginAccount();
 

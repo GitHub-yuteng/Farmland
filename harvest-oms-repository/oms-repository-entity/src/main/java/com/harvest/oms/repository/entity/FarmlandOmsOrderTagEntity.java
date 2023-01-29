@@ -8,7 +8,6 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import io.swagger.models.auth.In;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -18,7 +17,7 @@ import lombok.Setter;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-21 18:15:57
+ * @since 2023-01-29 14:52:41
  */
 @Getter
 @Setter

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harvest.oms.repository.mapper.FarmlandOmsSnapshotMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.harvest.oms.repository.entity.FarmlandOmsSnapshotEntity">
+        <id column="id" property="id" />
+        <result column="COMPANY_ID" property="companyId" />
+        <result column="oms_key" property="omsKey" />
+        <result column="snapshot_type" property="snapshotType" />
+        <result column="big_value" property="bigValue" />
+        <result column="rc_time" property="rcTime" />
+        <result column="rm_time" property="rmTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, COMPANY_ID, oms_key, snapshot_type, big_value, rc_time, rm_time
+    </sql>
+
+</mapper>

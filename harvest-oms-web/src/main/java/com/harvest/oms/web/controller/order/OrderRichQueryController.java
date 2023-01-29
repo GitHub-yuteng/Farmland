@@ -32,16 +32,16 @@ public class OrderRichQueryController implements GlobalMacroDefinition {
     @PostMapping(value = "/page/query")
     public ResponseResult<Page<OrderInfoVO>> pageQueryOrderRich(@RequestBody PageOrderConditionQuery condition) {
         Context context = ContextHolder.getContext();
-        Long companyId = 8510380986999420205L;
-        Page<OrderInfoVO> result = orderRichQueryClient.pageQueryOrderRich(companyId, condition);
+        context.set(Context.PreferenceName.companyId, 8510380986999420205L);
+        Page<OrderInfoVO> result = orderRichQueryClient.pageQueryOrderRich(context.getCompanyId(), condition);
         return ResponseResult.success(result);
     }
 
     @PostMapping(value = "/items")
     public ResponseResult<Collection<OrderItemDO>> queryOrderItemsRich(@RequestParam(OMS.ORDER_ID) Long orderId) {
         Context context = ContextHolder.getContext();
-        Long companyId = 8510380986999420205L;
-        Collection<OrderItemDO> items = orderRichQueryClient.queryOrderItemsRich(companyId, orderId);
+        context.set(Context.PreferenceName.companyId, 8510380986999420205L);
+        Collection<OrderItemDO> items = orderRichQueryClient.queryOrderItemsRich(context.getCompanyId(), orderId);
         return ResponseResult.success(items);
     }
 

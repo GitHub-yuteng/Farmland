@@ -54,7 +54,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     private final static int ORDER_NUMS = 200;
 
     /**
-     * 订单扩展信息查询线程池
+     * 订单信息查询线程池
      */
     private final static Executor OMS_SECTION_READ_EXECUTOR = new ThreadPoolExecutor(100, 100, 2000, TimeUnit.MILLISECONDS,
             new SynchronousQueue<>(),
@@ -112,11 +112,11 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         stopWatch.stop();
 
         stopWatch.start("平台订单特性处理");
-        this.platformBehaviorBatchHandler(companyId, orderInfoPage.getData());
+        this.platformFeatureBatchHandler(companyId, orderInfoPage.getData());
         stopWatch.stop();
 
         stopWatch.start("公司订单特性处理");
-        this.companyBehaviorBatchHandler(companyId, orderInfoPage.getData());
+        this.companyFeatureBatchHandler(companyId, orderInfoPage.getData());
         stopWatch.stop();
 
         stopWatch.start("视图模型转换");
@@ -207,7 +207,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
                 LOGGER.error("OrderRichQueryClientImpl#sectionBatchFill#并发补充订单领域信息失败", e);
             }
         } else {
-            orderSectionHandlers.forEach(section -> section.batchFill(companyId, orders));
+            orderSectionHandlers.forEach(handler -> handler.batchFill(companyId, orders));
         }
     }
 
@@ -217,22 +217,29 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
      * @param companyId
      * @param orders
      */
-    private void platformBehaviorBatchHandler(Long companyId, Collection<OrderInfoDO> orders) {
+    private void platformFeatureBatchHandler(Long companyId, Collection<OrderInfoDO> orders) {
         if (CollectionUtils.isEmpty(orders) || CollectionUtils.isEmpty(orderPlatformFeatureHandlers)) {
             return;
         }
-        try {
-            CompletableFuture<?>[] futures = new CompletableFuture<?>[orderPlatformFeatureHandlers.size()];
-            for (int i = 0; i < orderPlatformFeatureHandlers.size(); i++) {
-                int finalI = i;
-                futures[i] = CompletableFuture.runAsync(
-                        () -> orderPlatformFeatureHandlers.get(finalI).batchFeatureFill(companyId, orders),
-                        OMS_SECTION_READ_EXECUTOR
-                );
+
+        long count = orders.stream().map(OrderInfoDO::getOrderSource).distinct().count();
+        if (count >= DEFAULT_10) {
+            try {
+                // 本次查询平台数量统计 超过10个平台使用并发处理
+                CompletableFuture<?>[] futures = new CompletableFuture<?>[orderPlatformFeatureHandlers.size()];
+                for (int i = 0; i < orderPlatformFeatureHandlers.size(); i++) {
+                    int finalI = i;
+                    futures[i] = CompletableFuture.runAsync(
+                            () -> orderPlatformFeatureHandlers.get(finalI).batchFeatureFill(companyId, orders),
+                            OMS_SECTION_READ_EXECUTOR
+                    );
+                }
+                CompletableFuture.allOf(futures).get();
+            } catch (Exception e) {
+                LOGGER.error("OrderRichQueryClientImpl#platformFeatureBatchHandler#并发处理平台订单特性处理失败", e);
             }
-            CompletableFuture.allOf(futures).get();
-        } catch (Exception e) {
-            LOGGER.error("OrderRichQueryClientImpl#platformBehaviorBatchHandler#并发处理平台订单特性处理失败", e);
+        } else {
+            orderPlatformFeatureHandlers.forEach(handler -> handler.batchFeatureFill(companyId, orders));
         }
     }
 
@@ -242,11 +249,16 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
      * @param companyId
      * @param orders
      */
-    private void companyBehaviorBatchHandler(Long companyId, Collection<OrderInfoDO> orders) {
+    private void companyFeatureBatchHandler(Long companyId, Collection<OrderInfoDO> orders) {
         if (CollectionUtils.isEmpty(orders) || CollectionUtils.isEmpty(orderCompanyFeatureHandlers)) {
             return;
         }
-        orderCompanyFeatureHandlers.forEach(section -> section.batchFeatureFill(companyId, orders));
+        orderCompanyFeatureHandlers.forEach(section -> {
+            boolean match = section.match(companyId);
+            if (match) {
+                section.batchFeatureFill(companyId, orders);
+            }
+        });
     }
 
     /**

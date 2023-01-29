@@ -3,6 +3,7 @@ package com.harvest.oms.repository.entity;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
@@ -12,17 +13,17 @@ import lombok.Setter;
 
 /**
  * <p>
- * 订单敏感信息数据表
+ * 
  * </p>
  *
  * @author Alodi
- * @since 2023-01-29 14:52:41
+ * @since 2023-01-29 14:52:42
  */
 @Getter
 @Setter
-@TableName("farmland_oms_order_sensitive_data")
-@ApiModel(value = "FarmlandOmsOrderSensitiveDataEntity对象", description = "订单敏感信息数据表")
-public class FarmlandOmsOrderSensitiveDataEntity {
+@TableName("farmland_oms_simple_setting")
+@ApiModel(value = "FarmlandOmsSimpleSettingEntity对象", description = "")
+public class FarmlandOmsSimpleSettingEntity {
 
     @TableId("id")
     private Long id;
@@ -30,20 +31,15 @@ public class FarmlandOmsOrderSensitiveDataEntity {
     @TableField("COMPANY_ID")
     private Long companyId;
 
-    @TableField("order_id")
-    private Long orderId;
+    @TableField("type")
+    private String type;
 
-    @TableField("data_type")
-    private Integer dataType;
+    @TableField("content")
+    private String content;
 
-    @TableField("encrypt_method")
-    private Integer encryptMethod;
-
-    @TableField("data_text")
-    private String dataText;
-
-    @TableField("fuzzy_text")
-    private String fuzzyText;
+    @TableField("is_deleted")
+    @TableLogic
+    private Boolean isDeleted;
 
     @TableField(value = "rc_time", fill = FieldFill.INSERT)
     private LocalDateTime rcTime;

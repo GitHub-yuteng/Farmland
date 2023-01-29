@@ -1,6 +1,6 @@
 package com.harvest.oms.repository.mapper;
 
-import com.harvest.oms.repository.entity.FarmlandOmsOrderTemplateExportEntity;
+import com.harvest.oms.repository.entity.FarmlandOmsTemplateOrderExportEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,9 +10,9 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-21 18:15:57
+ * @since 2023-01-29 14:52:42
  */
 @Mapper
-public interface FarmlandOmsOrderTemplateExportMapper extends BaseMapper<FarmlandOmsOrderTemplateExportEntity> {
+public interface FarmlandOmsTemplateOrderExportMapper extends BaseMapper<FarmlandOmsTemplateOrderExportEntity> {
 
 }

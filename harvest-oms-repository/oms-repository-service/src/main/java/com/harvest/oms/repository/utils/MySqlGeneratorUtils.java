@@ -35,18 +35,22 @@ public class MySqlGeneratorUtils {
         list.add("farmland_oms_after_sale_bill_log");
         list.add("farmland_oms_inbound_bill");
         list.add("farmland_oms_inbound_bill_item");
+        list.add("farmland_oms_logistics");
+        list.add("farmland_oms_logistics_auth");
+        list.add("farmland_oms_logistics_channel");
         list.add("farmland_oms_order");
         list.add("farmland_oms_order_address");
         list.add("farmland_oms_order_item");
         list.add("farmland_oms_order_remark");
         list.add("farmland_oms_order_sensitive_data");
         list.add("farmland_oms_order_tag");
-        list.add("farmland_oms_order_template_export");
-        list.add("farmland_oms_order_template_import");
         list.add("farmland_oms_order_value_map");
         list.add("farmland_oms_outbound_bill");
         list.add("farmland_oms_outbound_bill_item");
+        list.add("farmland_oms_simple_setting");
         list.add("farmland_oms_snapshot");
+        list.add("farmland_oms_template_order_export");
+        list.add("farmland_oms_template_order_import");
         list.forEach(MySqlGeneratorUtils::execute);
     }
 
