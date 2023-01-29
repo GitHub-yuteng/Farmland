@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.Collection;
 import java.util.List;
 
 /**
@@ -21,9 +22,10 @@ public interface WarehouseReadClient extends GlobalMacroDefinition {
 
     @ApiOperation("查询公司下所有仓库")
     @PostMapping(value = "/getByCompanyId")
-    List<WarehouseSimplePO> getByCompanyId(@RequestParam(COMPANY_ID) Long companyId);
+    Collection<WarehouseSimplePO> getByCompanyId(@RequestParam(COMPANY_ID) Long companyId);
 
     @ApiOperation("查询仓库信息")
     @PostMapping(value = "/get")
     WarehouseDO get(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(WMS.WAREHOUSE_ID) Long warehouseId);
+
 }

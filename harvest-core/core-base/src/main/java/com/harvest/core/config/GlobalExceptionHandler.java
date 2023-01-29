@@ -37,6 +37,22 @@ public class GlobalExceptionHandler {
         os.write(JsonUtils.object2Json(this.params(request, response, e)).getBytes(StandardCharsets.UTF_8));
     }
 
+    @ExceptionHandler(NullPointerException.class)
+    public void nullPointerException(HttpServletRequest request, HttpServletResponse response, @NotNull Exception exception) throws IOException {
+        NullPointerException e = (NullPointerException) exception;
+        response.setStatus(StandardRuntimeException.RESPONSE_STATUS_CODE);
+        ServletOutputStream os = response.getOutputStream();
+        os.write(JsonUtils.object2Json(this.params(request, response, e)).getBytes(StandardCharsets.UTF_8));
+    }
+
+    @ExceptionHandler(Exception.class)
+    public void exception(HttpServletRequest request, HttpServletResponse response, @NotNull Exception exception) throws IOException {
+        NullPointerException e = (NullPointerException) exception;
+        response.setStatus(StandardRuntimeException.RESPONSE_STATUS_CODE);
+        ServletOutputStream os = response.getOutputStream();
+        os.write(JsonUtils.object2Json(this.params(request, response, e)).getBytes(StandardCharsets.UTF_8));
+    }
+
     /**
      * 组装错误数据
      *
@@ -52,7 +68,12 @@ public class GlobalExceptionHandler {
             StandardRuntimeException e = (StandardRuntimeException) exception;
             map.put("error_code", e.getCode());
             map.put("exception", e.getClass().getSimpleName());
+        } else if (exception instanceof NullPointerException) {
+            NullPointerException e = (NullPointerException) exception;
+            map.put("exception", e.getClass().getSimpleName());
+            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
         } else {
+            map.put("exception", exception.getClass().getSimpleName());
             response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             map.put("message", StringUtils.defaultString(exception.getMessage(), exception.getClass().getSimpleName()));
         }

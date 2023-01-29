@@ -1,6 +1,7 @@
 package com.harvest.wms.web.controller.warehouse;
 
 import com.harvest.core.constants.GlobalMacroDefinition;
+import com.harvest.core.domain.ResponseResult;
 import com.harvest.core.path.HarvestWmsPath;
 import com.harvest.wms.repository.client.warehouse.WarehouseReadClient;
 import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
@@ -11,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import java.util.Collection;
 
 
 /**
@@ -29,8 +30,8 @@ public class WarehouseReadController implements GlobalMacroDefinition {
 
     @ApiOperation("仓库查询")
     @RequestMapping(value = "/getByCompanyId")
-    public List<WarehouseSimplePO> getByCompanyId(@RequestParam(COMPANY_ID) Long companyId) {
-        return warehouseReadClient.getByCompanyId(companyId);
+    public ResponseResult<Collection<WarehouseSimplePO>> getByCompanyId(@RequestParam(COMPANY_ID) Long companyId) {
+        return ResponseResult.success(warehouseReadClient.getByCompanyId(companyId));
     }
 
 }

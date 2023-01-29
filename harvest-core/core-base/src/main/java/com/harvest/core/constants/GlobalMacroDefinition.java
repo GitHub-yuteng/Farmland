@@ -108,4 +108,9 @@ public interface GlobalMacroDefinition {
         String LOGISTICS_IDS = "logisticsIds";
 
     }
+
+    /**
+     * 常用属性参数
+     */
+    int DEFAULT_INITIAL_CAPACITY = 64;
 }

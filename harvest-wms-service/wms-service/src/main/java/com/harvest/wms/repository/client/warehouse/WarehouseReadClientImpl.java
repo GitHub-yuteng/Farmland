@@ -6,7 +6,7 @@ import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
 import com.harvest.wms.repository.repository.domain.WarehouseDO;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * @Author: Alodi
@@ -20,7 +20,7 @@ public class WarehouseReadClientImpl implements WarehouseReadClient {
     private WarehouseReadRepositoryClient warehouseReadRepositoryClient;
 
     @Override
-    public List<WarehouseSimplePO> getByCompanyId(Long companyId) {
+    public Collection<WarehouseSimplePO> getByCompanyId(Long companyId) {
         return warehouseReadRepositoryClient.getByCompanyId(companyId);
     }
 

@@ -1,7 +1,7 @@
 package com.harvest.oms.service.cache;
 
-import com.github.benmanes.caffeine.cache.Cache;
 import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.context.SpringHelper;
 import com.harvest.oms.domain.wms.WarehouseKey;
@@ -21,6 +21,10 @@ import java.util.concurrent.TimeUnit;
  * @Author: Alodi
  * @Date: 2023/1/9 10:57 PM
  * @Description: 对于不经常更改的信息作为本地缓存 Loader
+ *
+ * LoadingCache#get: 回源填充
+ * LoadingCache#getIfPresent: 不回源填充
+ * Cache#getIfPresent: 不回源填充
  **/
 public class CacheLoader {
 
@@ -42,17 +46,17 @@ public class CacheLoader {
     /**
      * 公司对应仓库缓存
      */
-    public final static Cache<Long, Collection<WarehouseSimplePO>> COMPANY_ALL_WAREHOUSE_CACHE = Caffeine.newBuilder()
+    public final static LoadingCache<Long, Collection<WarehouseSimplePO>> COMPANY_ALL_WAREHOUSE_CACHE = Caffeine.newBuilder()
             .initialCapacity(DEFAULT_INITIAL_CAPACITY)
-            .expireAfterWrite(12, TimeUnit.HOURS)
+            .expireAfterWrite(10, TimeUnit.MINUTES)
             .build(companyId -> SpringHelper.getBean(WarehouseReadClient.class).getByCompanyId(companyId));
 
     /**
      * 缓存仓库信息，只支持单个warehouseId查询缓存
      */
-    public final static Cache<WarehouseKey, WarehouseDO> COMPANY_WAREHOUSE_CACHE = Caffeine.newBuilder()
+    public final static LoadingCache<WarehouseKey, WarehouseDO> COMPANY_WAREHOUSE_CACHE = Caffeine.newBuilder()
             .initialCapacity(DEFAULT_INITIAL_CAPACITY)
-            .expireAfterWrite(24, TimeUnit.HOURS)
+            .expireAfterWrite(10, TimeUnit.MINUTES)
             .build(warehouseKey -> SpringHelper.getBean(WarehouseReadClient.class).get(warehouseKey.getCompanyId(), warehouseKey.getWarehouseId()));
 
 }

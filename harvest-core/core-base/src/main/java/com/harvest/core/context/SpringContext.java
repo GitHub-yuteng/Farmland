@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
  * @Date: 2023/1/10 11:17 AM
  * @Description: TODO
  **/
-@Lazy
 @Component
 public final class SpringContext implements ApplicationContextAware {
 

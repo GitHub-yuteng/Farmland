@@ -55,7 +55,7 @@ public class OrderWareHouseSectionHandler implements OrderSectionHandler {
             return;
         }
 
-        Collection<WarehouseSimplePO> warehouseList = CacheLoader.COMPANY_ALL_WAREHOUSE_CACHE.getIfPresent(companyId);
+        Collection<WarehouseSimplePO> warehouseList = CacheLoader.COMPANY_ALL_WAREHOUSE_CACHE.get(companyId);
         if (CollectionUtils.isEmpty(warehouseList)) {
             LOGGER.error("OrderWareHouseSectionHandler#batchFill#该公司仓库为空, 请检查数据！, companyId:{}", companyId);
             orders.forEach(order -> {
