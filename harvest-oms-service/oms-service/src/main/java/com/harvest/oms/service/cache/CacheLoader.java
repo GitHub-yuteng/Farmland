@@ -4,7 +4,7 @@ import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.context.SpringHelper;
-import com.harvest.oms.domain.wms.WarehouseKey;
+import com.harvest.oms.domain.warehouse.WarehouseKey;
 import com.harvest.wms.repository.client.warehouse.WarehouseReadClient;
 import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
 import com.harvest.wms.repository.repository.domain.WarehouseDO;

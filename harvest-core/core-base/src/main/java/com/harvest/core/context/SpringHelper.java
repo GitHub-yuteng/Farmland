@@ -7,7 +7,7 @@ import org.springframework.context.ApplicationContext;
  * @Date: 2023/1/10 10:49 AM
  * @Description: TODO
  **/
-public class SpringHelper {
+public final class SpringHelper {
 
     /**
      * 获取上下文

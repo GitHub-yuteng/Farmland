@@ -2,8 +2,8 @@ package com.harvest.oms.repository.domain.order.simple;
 
 import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.oms.repository.domain.amount.OrderAmount;
-import com.harvest.oms.repository.domain.order.base.*;
 import com.harvest.oms.repository.domain.order.OrderCore;
+import com.harvest.oms.repository.domain.order.base.*;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,6 +23,15 @@ public class OrderSimplePO extends OrderCore {
 
     @ApiModelProperty("订单号")
     private String orderNo;
+
+    @ApiModelProperty("承运商Id")
+    private Long carrierId;
+
+    @ApiModelProperty("渠道Id")
+    private Long channelId;
+
+    @ApiModelProperty("运单号")
+    private String deliveryNo;
 
     @ApiModelProperty("订单状态")
     private OrderStatusEnum orderStatus;

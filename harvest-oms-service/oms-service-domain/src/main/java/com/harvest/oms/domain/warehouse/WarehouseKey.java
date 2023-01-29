@@ -1,4 +1,4 @@
-package com.harvest.oms.domain.wms;
+package com.harvest.oms.domain.warehouse;
 
 import com.harvest.core.domain.CompanyId;
 import io.swagger.annotations.ApiModelProperty;

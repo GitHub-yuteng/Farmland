@@ -23,10 +23,9 @@ public class OperationType extends CompanyId {
         UNDO,
         NEW,
         MODIFIED,
-        MOVED,
         DELETED
     }
 
-    private OperationEnum state$;
+    private OperationEnum state$ = OperationEnum.UNDO;
 
 }

@@ -6,10 +6,7 @@
     <result column="order_no" property="orderNo"/>
     <result column="ORDER_STATUS" property="orderStatus" javaType="com.harvest.core.enums.oms.OrderStatusEnum"
             typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
-    <!-- 仓库 -->
-    <result column="warehouse_owner" property="orderWarehouse.warehouseOwner" javaType="com.harvest.core.enums.wms.WarehouseOwnerEnum"
-            typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
-    <result column="warehouse_id" property="orderWarehouse.warehouseId"/>
+    <result column="delivery_no" property="deliveryNo"/>
     <!-- 金额 -->
     <result column="amount" property="orderAmount" javaType="com.harvest.oms.repository.domain.amount.OrderAmount"
             typeHandler="com.harvest.core.repository.mybatis.handler.ObjectJsonHandler"/>
@@ -39,6 +36,10 @@
     <result column="buyer_remark" property="orderRemark.buyerRemark"/>
     <result column="system_remark" property="orderRemark.systemRemark"/>
     <result column="print_remark" property="orderRemark.printRemark"/>
+    <!-- 仓库 -->
+    <result column="warehouse_owner" property="orderWarehouse.warehouseOwner" javaType="com.harvest.core.enums.wms.WarehouseOwnerEnum"
+            typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
+    <result column="warehouse_id" property="orderWarehouse.warehouseId"/>
   </resultMap>
   
   <sql id="field">
@@ -48,6 +49,7 @@
     o.shop_id,
     o.source_type,
     o.order_no,
+    o.delivery_no,
     <!-- 状态及标识 -->
     o.ORDER_STATUS,
     o.create_type,

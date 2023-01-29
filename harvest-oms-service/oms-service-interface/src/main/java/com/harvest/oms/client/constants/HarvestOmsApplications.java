@@ -9,12 +9,28 @@ public interface HarvestOmsApplications {
 
     String SERVICE_NAME = "harvest-oms-service";
 
-    interface Path {
+    String OMS_PATH = "/oms/order";
 
-        String OMS_PATH = "/oms/order";
+    interface Path {
 
         String ORDER_RICH = OMS_PATH + "/OrderRichQueryClient";
         String ORDER_READ = OMS_PATH + "/OrderReadClient";
+
+    }
+
+    interface LogisticsPath {
+
+        String LOGISTICS_READ = OMS_PATH + "/LogisticsReadClient";
+
+    }
+
+    interface InboundPath {
+
+
+    }
+
+    interface OutboundPath {
+
 
     }
 }

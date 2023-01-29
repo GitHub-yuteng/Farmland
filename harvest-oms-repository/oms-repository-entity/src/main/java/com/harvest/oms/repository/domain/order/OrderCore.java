@@ -1,6 +1,6 @@
 package com.harvest.oms.repository.domain.order;
 
-import com.harvest.core.domain.CompanyId;
+import com.harvest.core.domain.OperationType;
 import com.harvest.core.enums.oms.OrderSourceEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -13,14 +13,14 @@ import lombok.EqualsAndHashCode;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class OrderCore extends CompanyId {
+public class OrderCore extends OperationType {
 
     private static final long serialVersionUID = -2926021609995331681L;
 
     @ApiModelProperty("订单Id")
     private Long orderId;
 
-    @ApiModelProperty("店铺id")
+    @ApiModelProperty("店铺Id")
     private Long shopId;
 
     @ApiModelProperty("订单来源")

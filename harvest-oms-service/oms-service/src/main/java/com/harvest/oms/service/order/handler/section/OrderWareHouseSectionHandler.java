@@ -21,9 +21,8 @@ import java.util.stream.Collectors;
  * @Author: Alodi
  * @Date: 2023/1/1 6:21 PM
  * @Description: 订单仓库信息
- * {@link OrderSectionHandler.Order#B}
  **/
-@Order(3)
+@Order(OrderSectionHandler.Order.ORDER_WAREHOUSE)
 @Component
 public class OrderWareHouseSectionHandler implements OrderSectionHandler {
 

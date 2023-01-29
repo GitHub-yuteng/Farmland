@@ -1,6 +1,9 @@
 package com.harvest.oms.domain.order;
 
-import com.harvest.oms.domain.logistics.LogisticsDO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.harvest.oms.domain.order.logistics.OrderLogisticsChannelDO;
+import com.harvest.oms.domain.order.platform.OrderPlatformFeature;
+import com.harvest.oms.domain.order.platform.PlatformFeature;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.wms.repository.repository.domain.WarehouseDO;
 import io.swagger.annotations.ApiModelProperty;
@@ -23,9 +26,13 @@ public class OrderInfoDO extends OrderSimplePO {
     @ApiModelProperty("订单明细")
     private Collection<OrderItemDO> orderItems;
 
+    @ApiModelProperty("物流渠道信息")
+    private OrderLogisticsChannelDO logisticsChannel;
+
+    @JsonIgnore
+    @ApiModelProperty(value = "平台特性", notes = "根据平台强转对应特性对象使用")
+    private OrderPlatformFeature<? extends PlatformFeature> platformFeature;
+
     @ApiModelProperty("仓库信息")
     private WarehouseDO warehouse;
-
-    @ApiModelProperty("物流信息")
-    private LogisticsDO logistics;
 }

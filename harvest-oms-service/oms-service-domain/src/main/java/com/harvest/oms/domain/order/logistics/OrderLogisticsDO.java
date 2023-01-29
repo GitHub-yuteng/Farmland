@@ -1,4 +1,4 @@
-package com.harvest.oms.domain.logistics;
+package com.harvest.oms.domain.order.logistics;
 
 import com.harvest.core.domain.CompanyId;
 import lombok.Data;
@@ -11,9 +11,10 @@ import lombok.EqualsAndHashCode;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class LogisticsDO extends CompanyId {
+public class OrderLogisticsDO extends CompanyId {
 
     private static final long serialVersionUID = 3584012581034612621L;
 
+    private Long carrierId;
 
 }

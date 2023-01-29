@@ -1,7 +1,6 @@
-package com.harvest.oms.service.order.check.permissions;
+package com.harvest.oms.service.order.verifier;
 
 import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
-import com.harvest.oms.service.order.check.OrderPermissionsVerifier;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

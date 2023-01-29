@@ -3,7 +3,7 @@ package com.harvest.core.config;
 import com.google.common.collect.Maps;
 import com.harvest.core.exception.StandardRuntimeException;
 import com.harvest.core.utils.JsonUtils;
-import org.apache.commons.lang3.StringUtils;
+import feign.FeignException;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,6 +35,7 @@ public class GlobalExceptionHandler {
         response.setStatus(StandardRuntimeException.RESPONSE_STATUS_CODE);
         ServletOutputStream os = response.getOutputStream();
         os.write(JsonUtils.object2Json(this.params(request, response, e)).getBytes(StandardCharsets.UTF_8));
+        exception.printStackTrace();
     }
 
     @ExceptionHandler(NullPointerException.class)
@@ -43,14 +44,24 @@ public class GlobalExceptionHandler {
         response.setStatus(StandardRuntimeException.RESPONSE_STATUS_CODE);
         ServletOutputStream os = response.getOutputStream();
         os.write(JsonUtils.object2Json(this.params(request, response, e)).getBytes(StandardCharsets.UTF_8));
+        exception.printStackTrace();
+    }
+
+    @ExceptionHandler(FeignException.class)
+    public void feignException(HttpServletRequest request, HttpServletResponse response, @NotNull Exception exception) throws IOException {
+        FeignException e = (FeignException) exception;
+        response.setStatus(StandardRuntimeException.RESPONSE_STATUS_CODE);
+        ServletOutputStream os = response.getOutputStream();
+        os.write(JsonUtils.object2Json(this.params(request, response, e)).getBytes(StandardCharsets.UTF_8));
+        exception.printStackTrace();
     }
 
     @ExceptionHandler(Exception.class)
     public void exception(HttpServletRequest request, HttpServletResponse response, @NotNull Exception exception) throws IOException {
-        NullPointerException e = (NullPointerException) exception;
         response.setStatus(StandardRuntimeException.RESPONSE_STATUS_CODE);
         ServletOutputStream os = response.getOutputStream();
-        os.write(JsonUtils.object2Json(this.params(request, response, e)).getBytes(StandardCharsets.UTF_8));
+        os.write(JsonUtils.object2Json(this.params(request, response, exception)).getBytes(StandardCharsets.UTF_8));
+        exception.printStackTrace();
     }
 
     /**
@@ -67,17 +78,10 @@ public class GlobalExceptionHandler {
         if (exception instanceof StandardRuntimeException) {
             StandardRuntimeException e = (StandardRuntimeException) exception;
             map.put("error_code", e.getCode());
-            map.put("exception", e.getClass().getSimpleName());
-        } else if (exception instanceof NullPointerException) {
-            NullPointerException e = (NullPointerException) exception;
-            map.put("exception", e.getClass().getSimpleName());
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-        } else {
-            map.put("exception", exception.getClass().getSimpleName());
-            response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            map.put("message", StringUtils.defaultString(exception.getMessage(), exception.getClass().getSimpleName()));
         }
 
+        response.setStatus(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+        map.put("exception", exception.getClass().getSimpleName());
         map.put("message", exception.getMessage());
         map.put("path", request.getServletPath());
         map.put("status", response.getStatus());

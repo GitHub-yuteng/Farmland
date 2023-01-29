@@ -1,9 +1,8 @@
-package com.harvest.oms.client.order.read;
+package com.harvest.oms.client.order;
 
 import com.google.common.collect.Maps;
 import com.harvest.core.feign.annotation.HarvestService;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
-import com.harvest.oms.client.order.OrderReadClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.client.order.OrderReadRepositoryClient;
 import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;

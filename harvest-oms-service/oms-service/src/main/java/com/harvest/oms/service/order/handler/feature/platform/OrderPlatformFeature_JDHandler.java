@@ -2,6 +2,8 @@ package com.harvest.oms.service.order.handler.feature.platform;
 
 import com.harvest.core.enums.oms.OrderSourceEnum;
 import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.domain.order.platform.OrderPlatformFeature;
+import com.harvest.oms.domain.order.platform.PlatformFeature_JD;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
@@ -25,7 +27,10 @@ public class OrderPlatformFeature_JDHandler extends AbstractOrderPlatformFeature
         }
 
         filter.forEach(order -> {
-
+            OrderPlatformFeature<PlatformFeature_JD> orderPlatformFeature = new OrderPlatformFeature<>();
+            PlatformFeature_JD featureJd = new PlatformFeature_JD();
+            orderPlatformFeature.setFeature(featureJd);
+            order.setPlatformFeature(orderPlatformFeature);
         });
     }
 

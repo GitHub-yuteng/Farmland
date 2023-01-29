@@ -12,6 +12,8 @@ import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.OrderItemDO;
 import com.harvest.oms.service.order.handler.OrderSectionHandler;
 import org.apache.commons.collections4.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.annotation.Order;
@@ -25,11 +27,12 @@ import java.util.stream.Collectors;
  * @Author: Alodi
  * @Date: 2023/1/1 6:21 PM
  * @Description: TODO
- * {@link OrderSectionHandler.Order#A}
  **/
-@Order(2)
+@Order(OrderSectionHandler.Order.ORDER_ITEM_GOODS)
 @Component
 public class OrderItemGoodsSectionHandler implements OrderSectionHandler {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderItemGoodsSectionHandler.class);
 
     @Autowired
     private GoodsCoupletClient goodsCoupletClient;

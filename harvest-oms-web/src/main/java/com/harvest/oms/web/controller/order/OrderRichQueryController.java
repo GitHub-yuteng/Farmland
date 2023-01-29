@@ -6,7 +6,7 @@ import com.harvest.core.context.ContextHolder;
 import com.harvest.core.domain.Page;
 import com.harvest.core.domain.ResponseResult;
 import com.harvest.core.path.HarvestOmsPath;
-import com.harvest.oms.client.order.rich.OrderRichQueryClient;
+import com.harvest.oms.client.order.OrderRichQueryClient;
 import com.harvest.oms.domain.order.OrderItemDO;
 import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
 import com.harvest.oms.vo.order.OrderInfoVO;
@@ -31,9 +31,9 @@ public class OrderRichQueryController implements GlobalMacroDefinition {
 
     @PostMapping(value = "/page/query")
     public ResponseResult<Page<OrderInfoVO>> pageQueryOrderRich(@RequestBody PageOrderConditionQuery condition) {
-        Context context = ContextHolder.getContext();
-        context.set(Context.PreferenceName.companyId, 8510380986999420205L);
-        Page<OrderInfoVO> result = orderRichQueryClient.pageQueryOrderRich(context.getCompanyId(), condition);
+//        Context context = ContextHolder.getContext();
+//        context.set(Context.PreferenceName.companyId, 8510380986999420205L);
+        Page<OrderInfoVO> result = orderRichQueryClient.pageQueryOrderRich(8510380986999420205L, condition);
         return ResponseResult.success(result);
     }
 

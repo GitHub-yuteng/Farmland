@@ -1,4 +1,4 @@
-package com.harvest.oms.service.order.convert;
+package com.harvest.oms.service.order.convertor;
 
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.vo.order.OrderInfoVO;

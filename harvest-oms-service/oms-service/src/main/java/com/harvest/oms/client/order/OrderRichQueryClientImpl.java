@@ -1,20 +1,20 @@
-package com.harvest.oms.client.order.rich;
+package com.harvest.oms.client.order;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.domain.Page;
 import com.harvest.core.feign.annotation.HarvestService;
+import com.harvest.core.monitor.anno.Monitor;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.core.utils.QueryUtils;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
-import com.harvest.oms.client.order.OrderReadClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.OrderItemDO;
 import com.harvest.oms.repository.client.order.OrderRichQueryRepositoryClient;
 import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
-import com.harvest.oms.service.order.check.OrderPermissionsVerifier;
-import com.harvest.oms.service.order.convert.OrderConvertor;
+import com.harvest.oms.service.order.verifier.OrderPermissionsVerifier;
+import com.harvest.oms.service.order.convertor.OrderConvertor;
 import com.harvest.oms.service.order.handler.OrderCompanyFeatureHandler;
 import com.harvest.oms.service.order.handler.OrderPlatformFeatureHandler;
 import com.harvest.oms.service.order.handler.OrderSectionHandler;
@@ -86,6 +86,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     private OrderConvertor orderConvertor;
 
 
+    @Monitor
     @Override
     public Page<OrderInfoVO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
 
