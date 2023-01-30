@@ -38,13 +38,14 @@ public class GoodsSimplePO extends GoodsCore {
     @ApiModelProperty("商品单位")
     private String unit;
 
+    @ApiModelProperty("货号/产品编号")
+    private String productNo;
+
     @ApiModelProperty("商品业务属性字段")
     private GoodsBusiness goodsBusiness;
 
     @ApiModelProperty("商品管理开关")
     private GoodsSwitch goodsSwitch;
 
-    @ApiModelProperty("货号/产品编号")
-    private String productNo;
 
 }

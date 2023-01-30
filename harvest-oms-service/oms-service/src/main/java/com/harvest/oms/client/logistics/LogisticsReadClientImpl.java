@@ -11,12 +11,10 @@ import java.util.List;
 /**
  * @Author: Alodi
  * @Date: 2022/12/9 10:24 PM
- * @Description: TODO
+ * @Description: 物流读服务
  **/
 @HarvestService(path = HarvestOmsApplications.LogisticsPath.LOGISTICS_READ)
 public class LogisticsReadClientImpl implements LogisticsReadClient {
-
-
 
     @Override
     public Collection<OrderLogisticsChannelDO> getChanelByLogisticsKeys(Long companyId, List<OrderLogisticsKey> logisticsKeys) {

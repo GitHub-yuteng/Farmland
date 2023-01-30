@@ -16,17 +16,19 @@ public enum OrderSourceEnum implements IEnum<Integer> {
     /**
      *
      */
-    JD(1, "京东"),
+    JD      (1, "京东"),
+    Taobao  (2, "淘宝"),
+    Tiktok  (3, "Tiktok"),
 
     ;
 
     /**
-     * 状态值
+     * 类型
      */
     private final int type;
 
     /**
-     * 描述
+     * 值
      */
     private final String value;
 
