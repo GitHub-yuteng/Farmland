@@ -33,6 +33,8 @@ public class OrderPlatformFeature_JDHandler extends AbstractOrderPlatformFeature
         filter.forEach(order -> {
             OrderPlatformFeature<PlatformFeature_JD> orderPlatformFeature = new OrderPlatformFeature<>();
             PlatformFeature_JD featureJd = new PlatformFeature_JD();
+            featureJd.setOrderSource(JD);
+            featureJd.setCompanyId(companyId);
             orderPlatformFeature.setFeature(featureJd);
             order.setPlatformFeature(orderPlatformFeature);
         });

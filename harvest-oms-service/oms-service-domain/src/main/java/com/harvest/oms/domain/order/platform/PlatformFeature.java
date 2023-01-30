@@ -1,6 +1,7 @@
 package com.harvest.oms.domain.order.platform;
 
 import com.harvest.core.domain.CompanyId;
+import com.harvest.core.enums.oms.OrderSourceEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,4 +16,5 @@ public abstract class PlatformFeature extends CompanyId {
 
     private static final long serialVersionUID = -1793977241391913644L;
 
+    private OrderSourceEnum orderSource;
 }

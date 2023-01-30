@@ -33,6 +33,8 @@ public class OrderPlatformFeature_TaobaoHandler extends AbstractOrderPlatformFea
         filter.forEach(order -> {
             OrderPlatformFeature<PlatformFeature_Taobao> orderPlatformFeature = new OrderPlatformFeature<>();
             PlatformFeature_Taobao feature_Taobao = new PlatformFeature_Taobao();
+            feature_Taobao.setOrderSource(TAOBAO);
+            feature_Taobao.setCompanyId(companyId);
             orderPlatformFeature.setFeature(feature_Taobao);
             order.setPlatformFeature(orderPlatformFeature);
         });

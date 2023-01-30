@@ -88,7 +88,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
 
     @Monitor
     @Override
-    public Page<OrderInfoVO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
+    public Page<OrderInfoDO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
 
         StopWatch stopWatch = new StopWatch();
 
@@ -101,34 +101,30 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         stopWatch.stop();
 
         stopWatch.start("领域模型转换");
-        Page<OrderInfoDO> orderInfoPage = this.convert(orderSimplePage);
+        Page<OrderInfoDO> page = this.convert(orderSimplePage);
         stopWatch.stop();
 
         stopWatch.start("订单明细信息填充");
-        this.orderItemBatchFill(companyId, orderInfoPage.getData());
+        this.orderItemBatchFill(companyId, page.getData());
         stopWatch.stop();
 
         stopWatch.start("领域模型信息填充");
-        this.sectionBatchFill(companyId, orderInfoPage.getData());
+        this.sectionBatchFill(companyId, page.getData());
         stopWatch.stop();
 
         stopWatch.start("平台订单特性处理");
-        this.platformFeatureBatchHandler(companyId, orderInfoPage.getData());
+        this.platformFeatureBatchHandler(companyId, page.getData());
         stopWatch.stop();
 
         stopWatch.start("公司订单特性处理");
-        this.companyFeatureBatchHandler(companyId, orderInfoPage.getData());
-        stopWatch.stop();
-
-        stopWatch.start("视图模型转换");
-        Collection<OrderInfoVO> data = orderConvertor.convert(orderInfoPage.getData());
+        this.companyFeatureBatchHandler(companyId, page.getData());
         stopWatch.stop();
 
         if (stopWatch.getTotalTimeMillis() > TIME_OUT) {
             LOGGER.warn("OrderService#Rich#订单查询超时, companyId:{}, condition:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
         }
 
-        return Page.build(orderInfoPage.getPageNo(), orderInfoPage.getPageSize(), data, orderInfoPage.getCount());
+        return page;
     }
 
     /**

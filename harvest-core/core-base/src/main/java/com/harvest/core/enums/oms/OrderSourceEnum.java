@@ -19,6 +19,7 @@ public enum OrderSourceEnum implements IEnum<Integer> {
     JD      (1, "京东"),
     Taobao  (2, "淘宝"),
     Tiktok  (3, "Tiktok"),
+    TMall   (4, "TMall"),
 
     ;
 

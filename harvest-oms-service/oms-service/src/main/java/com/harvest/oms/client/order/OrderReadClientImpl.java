@@ -1,15 +1,16 @@
 package com.harvest.oms.client.order;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.harvest.core.domain.Page;
 import com.harvest.core.feign.annotation.HarvestService;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.client.order.OrderReadRepositoryClient;
 import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;
-import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
+import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
@@ -27,14 +28,19 @@ import java.util.stream.Collectors;
 public class OrderReadClientImpl implements OrderReadClient {
 
     @Autowired
+    private OrderRichQueryClient orderRichQueryClient;
+
+    @Autowired
     private OrderReadRepositoryClient orderReadRepositoryClient;
 
     @Override
     public OrderInfoDO get(Long companyId, Long orderId) {
-        OrderSimplePO orderSimplePO = orderReadRepositoryClient.get(companyId, orderId);
-        OrderInfoDO orderInfoDO = new OrderInfoDO();
-        BeanUtils.copyProperties(orderSimplePO, orderInfoDO);
-        return orderInfoDO;
+        PageOrderConditionQuery condition = new PageOrderConditionQuery();
+        condition.setPageNo(1);
+        condition.setPageSize(1);
+        condition.setOrderIds(Collections.singletonList(orderId));
+        Page<OrderInfoDO> page = orderRichQueryClient.pageQueryOrderRich(companyId, condition);
+        return Lists.newArrayList(page.getData()).get(0);
     }
 
     @Override
