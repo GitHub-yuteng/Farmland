@@ -1,6 +1,7 @@
 package com.harvest.oms.service.order.handler.feature.company;
 
 import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.domain.order.company.CompanyFeature;
 import com.harvest.oms.service.order.handler.OrderCompanyFeatureHandler;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
@@ -19,6 +20,11 @@ public class OrderCompanyFeature_Main_Handler extends AbstractOrderCompanyFeatur
 
     @Override
     public void batchFeatureFill(Long companyId, Collection<OrderInfoDO> orders) {
+
+    }
+
+    @Override
+    public <T extends CompanyFeature> void buildFeature(Long companyId, T feature) {
 
     }
 

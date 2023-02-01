@@ -3,6 +3,7 @@ package com.harvest.oms.service.order.handler.feature.platform;
 import com.harvest.core.enums.oms.OrderSourceEnum;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.platform.OrderPlatformFeature;
+import com.harvest.oms.domain.order.platform.PlatformFeature;
 import com.harvest.oms.domain.order.platform.PlatformFeature_JD;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -32,12 +33,19 @@ public class OrderPlatformFeature_JDHandler extends AbstractOrderPlatformFeature
 
         filter.forEach(order -> {
             OrderPlatformFeature<PlatformFeature_JD> orderPlatformFeature = new OrderPlatformFeature<>();
+
             PlatformFeature_JD featureJd = new PlatformFeature_JD();
-            featureJd.setOrderSource(JD);
-            featureJd.setCompanyId(companyId);
+            this.buildFeature(companyId, featureJd);
+
+            orderPlatformFeature.setCompanyId(companyId);
             orderPlatformFeature.setFeature(featureJd);
             order.setPlatformFeature(orderPlatformFeature);
         });
     }
 
+    @Override
+    public <T extends PlatformFeature> void buildFeature(Long companyId, T feature) {
+        feature.setCompanyId(companyId);
+        feature.setOrderSource(JD);
+    }
 }

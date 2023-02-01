@@ -1,6 +1,7 @@
 package com.harvest.oms.service.order.handler.feature.platform;
 
 import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.domain.order.platform.PlatformFeature;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -15,6 +16,11 @@ public class OrderPlatformFeature_TiktokHandler extends AbstractOrderPlatformFea
 
     @Override
     public void batchFeatureFill(Long companyId, Collection<OrderInfoDO> orders) {
+
+    }
+
+    @Override
+    public <T extends PlatformFeature> void buildFeature(Long companyId, T feature) {
 
     }
 

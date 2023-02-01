@@ -3,6 +3,7 @@ package com.harvest.oms.service.order.handler.feature.platform;
 import com.harvest.core.enums.oms.OrderSourceEnum;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.platform.OrderPlatformFeature;
+import com.harvest.oms.domain.order.platform.PlatformFeature;
 import com.harvest.oms.domain.order.platform.PlatformFeature_Taobao;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -33,10 +34,17 @@ public class OrderPlatformFeature_TaobaoHandler extends AbstractOrderPlatformFea
         filter.forEach(order -> {
             OrderPlatformFeature<PlatformFeature_Taobao> orderPlatformFeature = new OrderPlatformFeature<>();
             PlatformFeature_Taobao feature_Taobao = new PlatformFeature_Taobao();
-            feature_Taobao.setOrderSource(TAOBAO);
-            feature_Taobao.setCompanyId(companyId);
+            this.buildFeature(companyId, feature_Taobao);
+
+            orderPlatformFeature.setCompanyId(companyId);
             orderPlatformFeature.setFeature(feature_Taobao);
             order.setPlatformFeature(orderPlatformFeature);
         });
+    }
+
+    @Override
+    public <T extends PlatformFeature> void buildFeature(Long companyId, T feature) {
+        feature.setCompanyId(companyId);
+        feature.setOrderSource(TAOBAO);
     }
 }

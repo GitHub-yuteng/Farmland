@@ -2,6 +2,8 @@ package com.harvest.oms.service.order.handler.feature.company;
 
 import com.google.common.collect.Sets;
 import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.domain.order.company.CompanyFeature;
+import com.harvest.oms.domain.order.platform.PlatformFeature;
 import com.harvest.oms.service.order.handler.OrderCompanyFeatureHandler;
 
 import java.util.Collection;
@@ -23,4 +25,13 @@ public abstract class AbstractOrderCompanyFeatureHandler implements OrderCompany
     public void batchFeatureFill(Long companyId, Collection<OrderInfoDO> orders) {
 
     }
+
+    /**
+     * 构建对应平台特性对象
+     *
+     * @param companyId
+     * @param feature
+     * @param <T>
+     */
+    public abstract <T extends CompanyFeature> void buildFeature(Long companyId, T feature);
 }

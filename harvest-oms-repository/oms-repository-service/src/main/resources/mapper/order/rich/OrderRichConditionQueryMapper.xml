@@ -6,6 +6,8 @@
     <result column="order_no" property="orderNo"/>
     <result column="ORDER_STATUS" property="orderStatus" javaType="com.harvest.core.enums.oms.OrderStatusEnum"
             typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
+    <result column="carrier_id" property="carrierId"/>
+    <result column="channel_id" property="channelId"/>
     <result column="delivery_no" property="deliveryNo"/>
     <!-- 金额 -->
     <result column="amount" property="orderAmount" javaType="com.harvest.oms.repository.domain.amount.OrderAmount"
@@ -49,6 +51,8 @@
     o.shop_id,
     o.source_type,
     o.order_no,
+    o.carrier_id,
+    o.channel_id,
     o.delivery_no,
     <!-- 状态及标识 -->
     o.ORDER_STATUS,

@@ -1,6 +1,5 @@
 package com.harvest.oms.domain.order;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.harvest.oms.domain.order.logistics.OrderLogisticsChannelDO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.wms.repository.repository.domain.WarehouseDO;
