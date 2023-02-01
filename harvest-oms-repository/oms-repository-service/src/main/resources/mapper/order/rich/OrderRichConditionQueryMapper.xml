@@ -96,32 +96,27 @@
     SELECT
     <include refid="field"/>
     FROM farmland_oms_order o
-    <include refid="joinExtends"/>
-    <include refid="where"/>
-    LIMIT #{limit} OFFSET #{from}
+    <include refid="JoinExtends"/>
+    <include refid="ORDER_CORE.OrderCondition"/>
+    <include refid="Paging"/>
   </select>
   
   <select id="countQueryOrderWithRichCondition" parameterType="hashmap" resultType="java.lang.Long">
     SELECT count(1)
     FROM farmland_oms_order o
-    <include refid="joinExtends"/>
-    <include refid="where"/>
+    <include refid="JoinExtends"/>
+    <include refid="ORDER_CORE.OrderCondition"/>
     ORDER BY o.rc_time
   </select>
   
-  <sql id="joinExtends">
+  <sql id="JoinExtends">
     LEFT JOIN farmland_oms_order_address address ON address.order_id = o.id AND address.is_deleted = 0
     LEFT JOIN farmland_oms_order_remark remark ON remark.order_id = o.id
   </sql>
   
-  <sql id="where">
-    WHERE o.COMPANY_ID = #{companyId}
-    AND o.is_deleted = 0
-    <if test="orderIds != null and orderIds.size() > 0">
-      AND o.id IN
-      <foreach collection="orderIds" item="orderId" open="(" close=")" separator=",">
-        #{orderId}
-      </foreach>
+  <sql id="Paging">
+    <if test="limit != null and from != null">
+      LIMIT #{limit} OFFSET #{from}
     </if>
   </sql>
 

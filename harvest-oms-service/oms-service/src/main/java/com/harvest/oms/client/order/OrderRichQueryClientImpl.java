@@ -2,6 +2,7 @@ package com.harvest.oms.client.order;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.domain.Page;
+import com.harvest.core.exception.StandardRuntimeException;
 import com.harvest.core.feign.annotation.HarvestService;
 import com.harvest.core.monitor.anno.Monitor;
 import com.harvest.core.utils.JsonUtils;
@@ -13,12 +14,11 @@ import com.harvest.oms.repository.client.order.OrderRichQueryRepositoryClient;
 import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
-import com.harvest.oms.service.order.verifier.OrderPermissionsVerifier;
 import com.harvest.oms.service.order.convertor.OrderConvertor;
 import com.harvest.oms.service.order.handler.OrderCompanyFeatureHandler;
 import com.harvest.oms.service.order.handler.OrderPlatformFeatureHandler;
 import com.harvest.oms.service.order.handler.OrderSectionHandler;
-import com.harvest.oms.vo.order.OrderInfoVO;
+import com.harvest.oms.service.order.verifier.OrderPermissionsVerifier;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
 import org.slf4j.Logger;
@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StopWatch;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
@@ -86,11 +87,11 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     private OrderConvertor orderConvertor;
 
 
-    @Monitor
+    @Monitor(efficiencyWatch = 500)
     @Override
     public Page<OrderInfoDO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
 
-        StopWatch stopWatch = new StopWatch();
+        StopWatch stopWatch = new StopWatch("订单分页查询");
 
         stopWatch.start("权限校验");
         this.verification(companyId, condition);
@@ -121,10 +122,31 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         stopWatch.stop();
 
         if (stopWatch.getTotalTimeMillis() > TIME_OUT) {
-            LOGGER.warn("OrderService#Rich#订单查询超时, companyId:{}, condition:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
+            LOGGER.warn("OrderRichQueryClientImpl#pageQueryOrderRich#订单查询超时, companyId:{}, condition:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
         }
 
         return page;
+    }
+
+    @Override
+    public OrderInfoDO getOrderRich(Long companyId, Long orderId) {
+        PageOrderConditionQuery condition = new PageOrderConditionQuery();
+        condition.setOrderIds(Collections.singletonList(orderId));
+        Page<OrderInfoDO> page = this.pageQueryOrderRich(companyId, condition);
+        if (CollectionUtils.isEmpty(page.getData())) {
+            LOGGER.error("OrderRichQueryClientImpl#getOrderRich#订单不存在, companyId:{}, orderId:{}", companyId, orderId);
+            throw new StandardRuntimeException("订单不存在！");
+        }
+        return page.getData().iterator().next();
+    }
+
+    @Override
+    public Collection<OrderInfoDO> listQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
+        Page<OrderInfoDO> page = this.pageQueryOrderRich(companyId, condition);
+        if (CollectionUtils.isEmpty(page.getData())) {
+            return Collections.emptyList();
+        }
+        return page.getData();
     }
 
     /**
@@ -201,7 +223,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
                 }
                 CompletableFuture.allOf(futures).get();
             } catch (Exception e) {
-                LOGGER.error("OrderRichQueryClientImpl#sectionBatchFill#并发补充订单领域信息失败", e);
+                LOGGER.error("OrderRichQueryClientImpl#sectionBatchFill#并发补充订单领域信息失败!", e);
             }
         } else {
             orderSectionHandlers.forEach(handler -> handler.batchFill(companyId, orders));
@@ -233,7 +255,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
                 }
                 CompletableFuture.allOf(futures).get();
             } catch (Exception e) {
-                LOGGER.error("OrderRichQueryClientImpl#platformFeatureBatchHandler#并发处理平台订单特性处理失败", e);
+                LOGGER.error("OrderRichQueryClientImpl#platformFeatureBatchHandler#并发处理平台订单特性处理失败!", e);
             }
         } else {
             orderPlatformFeatureHandlers.forEach(handler -> handler.batchFeatureFill(companyId, orders));

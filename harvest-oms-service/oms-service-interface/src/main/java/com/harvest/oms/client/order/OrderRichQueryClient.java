@@ -22,9 +22,17 @@ import java.util.Collection;
 @HarvestClient(name = HarvestOmsApplications.SERVICE_NAME, path = HarvestOmsApplications.Path.ORDER_RICH)
 public interface OrderRichQueryClient extends GlobalMacroDefinition {
 
-    @ApiOperation("订单信息查询")
+    @ApiOperation("分页订单信息查询")
     @PostMapping(value = "/pageQueryOrderRich")
     Page<OrderInfoDO> pageQueryOrderRich(@RequestParam(COMPANY_ID) Long companyId, @RequestBody PageOrderConditionQuery condition);
+
+    @ApiOperation("订单信息查询")
+    @PostMapping(value = "/getOrderRich")
+    OrderInfoDO getOrderRich(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId);
+
+    @ApiOperation("集合订单信息查询")
+    @PostMapping(value = "/listQueryOrderRich")
+    Collection<OrderInfoDO> listQueryOrderRich(@RequestParam(COMPANY_ID) Long companyId, @RequestBody PageOrderConditionQuery condition);
 
     @ApiOperation("订单明细信息查询")
     @PostMapping(value = "/queryOrderItemsRich")

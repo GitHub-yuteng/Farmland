@@ -11,7 +11,7 @@ import java.util.Collection;
 /**
  * @Author: Alodi
  * @Date: 2023/1/28 4:53 PM
- * @Description: 公司订单特性处理 测试
+ * @Description: 公司订单特性处理 重点客户
  **/
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Component

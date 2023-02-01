@@ -13,7 +13,7 @@ import java.util.Collection;
 /**
  * @Author: Alodi
  * @Date: 2023/1/28 4:53 PM
- * @Description: 公司订单特性处理 测试
+ * @Description: 公司订单特性处理
  **/
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Component
@@ -31,6 +31,7 @@ public class OrderCompanyFeature_Farmland_Handler extends AbstractOrderCompanyFe
         orders.forEach(order -> {
             OrderCompanyFeature<CompanyFeature_Farmland> orderCompanyFeature = new OrderCompanyFeature<>();
             CompanyFeature_Farmland feature_farmland = new CompanyFeature_Farmland();
+            feature_farmland.setCompanyId(companyId);
             orderCompanyFeature.setFeature(feature_farmland);
             order.setCompanyFeature(orderCompanyFeature);
         });

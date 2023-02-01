@@ -147,6 +147,15 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
         }
     }
 
+    @Override
+    public Collection<OrderSimplePO> listQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
+        Page<OrderSimplePO> page = this.pageQueryOrderRich(companyId, condition);
+        if (CollectionUtils.isEmpty(page.getData())) {
+            return Collections.emptyList();
+        }
+        return page.getData();
+    }
+
     /**
      * 简化查询结构
      *

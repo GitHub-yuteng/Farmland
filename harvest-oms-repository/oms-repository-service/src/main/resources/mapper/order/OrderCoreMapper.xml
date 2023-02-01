@@ -9,5 +9,16 @@
     <result column="source_type" property="orderSource" javaType="com.harvest.core.enums.oms.OrderSourceEnum"
             typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
   </resultMap>
+  
+  <sql id="OrderCondition">
+    WHERE o.COMPANY_ID = #{companyId}
+    AND o.is_deleted = 0
+    <if test="orderIds != null and orderIds.size() > 0">
+      AND o.id IN
+      <foreach collection="orderIds" item="orderId" open="(" close=")" separator=",">
+        #{orderId}
+      </foreach>
+    </if>
+  </sql>
 
 </mapper>
