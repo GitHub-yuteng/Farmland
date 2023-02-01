@@ -34,6 +34,7 @@ public class MySqlGeneratorUtils {
         list.add("farmland_wms_inbound_bill_item");
         list.add("farmland_wms_warehouse");
         list.add("farmland_wms_warehouse_address");
+        list.add("farmland_wms_warehouse_switch");
         list.forEach(MySqlGeneratorUtils::execute);
     }
 

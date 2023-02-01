@@ -33,4 +33,7 @@ public class WarehouseCore extends CompanyId {
     @ApiModelProperty("仓库类型")
     private WarehouseTypeEnum warehouseType;
 
+    @ApiModelProperty("仓库状态")
+    private Integer status;
+
 }

@@ -8,9 +8,8 @@
     <result column="COMPANY_ID" property="companyId"/>
     <result column="main_type" property="mainType"/>
     <result column="is_delivery" property="isDelivery"/>
-    <result column="status" property="status"/>
     <!--仓库地址-->
-    <result column="warehouse_id" property="warehouseAddress.warehouseId"/>
+    <result column="id" property="warehouseAddress.warehouseId"/>
     <result column="address_type" property="warehouseAddress.addressType"/>
     <result column="country_code" property="warehouseAddress.countryCode"/>
     <result column="country_cn" property="warehouseAddress.countryCn"/>
@@ -20,6 +19,10 @@
     <result column="region3" property="warehouseAddress.region3"/>
     <result column="region4" property="warehouseAddress.region4"/>
     <result column="detail" property="warehouseAddress.detail"/>
+    <!--仓库配置开关-->
+    <result column="id" property="warehouseSwitch.warehouseId"/>
+    <result column="open_qimen" property="warehouseSwitch.openQimen"/>
+    <result column="open_auto_sync" property="warehouseSwitch.openAutoSync"/>
   </resultMap>
   
   <sql id="Base_Column_List">
@@ -46,7 +49,9 @@
     address.region3,
     address.region4,
     address.detail,
-    address.is_deleted
+    <!-- 仓库配置开关 -->
+    switch.open_qimen,
+    switch.open_auto_sync
   </sql>
   
   <select id="getByCompanyId" resultMap="BaseResultMap">
@@ -54,6 +59,7 @@
     <include refid="Base_Column_List"/>
     FROM farmland_wms_warehouse warehouse
     LEFT JOIN farmland_wms_warehouse_address address ON address.warehouse_id = warehouse.id AND address.is_deleted = 0
+    LEFT JOIN farmland_wms_warehouse_switch switch ON switch.warehouse_id = warehouse.id
     WHERE warehouse.COMPANY_ID = #{companyId}
     AND warehouse.is_deleted = 0
   </select>

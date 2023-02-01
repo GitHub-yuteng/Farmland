@@ -3,6 +3,7 @@ package com.harvest.wms.repository.domain.warehouse.simple;
 import com.harvest.wms.repository.domain.warehouse.WarehouseCore;
 import com.harvest.wms.repository.domain.warehouse.base.WarehouseAddress;
 import com.harvest.wms.repository.domain.warehouse.base.WarehouseSwitch;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,10 +22,10 @@ public class WarehouseSimplePO extends WarehouseCore {
 
     private Boolean isDelivery;
 
+    @ApiModelProperty("仓库地址")
     private WarehouseAddress warehouseAddress;
 
+    @ApiModelProperty("仓库配置开关")
     private WarehouseSwitch warehouseSwitch;
-
-    private Integer status;
 
 }

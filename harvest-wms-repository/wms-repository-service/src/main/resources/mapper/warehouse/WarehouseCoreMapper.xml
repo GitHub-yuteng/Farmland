@@ -10,6 +10,7 @@
             typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
     <result column="warehouse_type" property="warehouseType" javaType="com.harvest.core.enums.wms.WarehouseTypeEnum"
             typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
+    <result column="status" property="status"/>
   </resultMap>
 
 </mapper>

@@ -18,6 +18,10 @@ public class WarehouseSwitch implements Serializable {
     @ApiModelProperty("仓库Id")
     private Long warehouseId;
 
+    @ApiModelProperty("奇门对接")
+    private Boolean openQimen;
 
+    @ApiModelProperty("自动同步库存")
+    private Boolean openAutoSync;
 
 }

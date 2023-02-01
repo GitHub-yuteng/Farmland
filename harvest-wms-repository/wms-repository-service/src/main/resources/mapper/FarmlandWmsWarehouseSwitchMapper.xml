@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harvest.wms.repository.mapper.FarmlandWmsWarehouseSwitchMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.harvest.wms.repository.entity.FarmlandWmsWarehouseSwitchEntity">
+        <id column="warehouse_id" property="warehouseId" />
+        <result column="open_qimen" property="openQimen" />
+        <result column="open_auto_sync" property="openAutoSync" />
+        <result column="rc_time" property="rcTime" />
+        <result column="rm_time" property="rmTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        warehouse_id, open_qimen, open_auto_sync, rc_time, rm_time
+    </sql>
+
+</mapper>
