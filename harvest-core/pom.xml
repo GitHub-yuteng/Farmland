@@ -19,6 +19,7 @@
     <module>core-object-base</module>
     <module>core-repository-base</module>
     <module>core-service-base</module>
+    <module>core-web-base</module>
   </modules>
   
   <properties>

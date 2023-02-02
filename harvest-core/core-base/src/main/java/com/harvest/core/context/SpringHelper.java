@@ -35,7 +35,7 @@ public final class SpringHelper {
     /**
      * 获取上下文实例
      */
-    protected static <T> T bean(ApplicationContext applicationContext, Class<T> clazz) {
+    private static <T> T bean(ApplicationContext applicationContext, Class<T> clazz) {
         return applicationContext.getBean(clazz);
     }
 

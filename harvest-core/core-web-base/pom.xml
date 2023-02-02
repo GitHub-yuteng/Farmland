@@ -1,26 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>com.harvest</groupId>
-    <artifactId>farmland-harvest</artifactId>
+    <artifactId>harvest-core</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   
-  <artifactId>harvest-oms-web</artifactId>
-  <name>harvest-oms-web</name>
-  <description>harvest-oms-web</description>
+  <artifactId>core-web-base</artifactId>
   
   <dependencies>
     <dependency>
       <groupId>com.harvest</groupId>
-      <artifactId>core-web-base</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-      <groupId>com.harvest</groupId>
-      <artifactId>oms-service-interface</artifactId>
+      <artifactId>core-base</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
   </dependencies>

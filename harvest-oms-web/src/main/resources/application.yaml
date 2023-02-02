@@ -4,9 +4,6 @@ server:
 spring:
   application:
     name: harvest-oms-web
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
   main:
     allow-bean-definition-overriding: true
   cloud:
