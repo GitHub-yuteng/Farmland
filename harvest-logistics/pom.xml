@@ -13,7 +13,7 @@
   <artifactId>harvest-logistics</artifactId>
   
   <modules>
-    <module>base-logistics</module>
+    <module>logistics-base</module>
   </modules>
   
   <properties>
