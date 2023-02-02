@@ -2,6 +2,7 @@ package com.harvest.oms.service.order.task;
 
 import com.harvest.oms.service.order.task.stat.OrderLogisticTrackBackTask;
 import com.harvest.oms.service.order.task.stat.OrderStockLackBackTask;
+import com.harvest.oms.service.redis.OrderBackStatTaskKey;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.stereotype.Component;
 
@@ -43,11 +44,12 @@ public class OrderBackStatTaskContext implements OrderBackStatTask, Initializing
 
     @Override
     public void StockLackStat(long companyId) {
-        StockLackBackTaskProcessor.execute(companyId);
+        StockLackBackTaskProcessor.execute(companyId, OrderBackStatTaskKey.STOCK_LACK_KEY);
     }
 
     @Override
     public void LogisticsTracking(long companyId) {
-        LogisticsTrackingBackTaskProcessor.execute(companyId);
+        LogisticsTrackingBackTaskProcessor.execute(companyId, OrderBackStatTaskKey.LOGISTICS_TRACKING_KEY);
     }
+
 }

@@ -2,7 +2,7 @@ package com.harvest.oms.service.order.task;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.service.lock.DistributedLockUtils;
-import com.harvest.oms.service.redis.OrderLogisticsTrackingKey;
+import com.harvest.oms.service.redis.OrderBackStatTaskKey;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -54,14 +54,11 @@ public abstract class AbstractBackTaskProcessor {
                 new ThreadPoolExecutor.CallerRunsPolicy());
     }
 
-    public void execute(Long companyId) {
+    public void execute(Long companyId, OrderBackStatTaskKey orderBackStatTaskKey) {
         // 对公司级别上锁
         synchronized (String.valueOf(companyId).intern()) {
             try {
-                Boolean lock = DistributedLockUtils.lock(
-                        OrderLogisticsTrackingKey.builder().build(),
-                        () -> backStatExecutor.submit(this.getTask(companyId)).get()
-                );
+                Boolean lock = DistributedLockUtils.lock(orderBackStatTaskKey, () -> backStatExecutor.submit(this.getTask(companyId)).get());
             } catch (Exception e) {
                 LOGGER.error(String.format("公司后台任务执行异常, companyId:%s, 异常原因：%s", companyId, e.getMessage()), e.getCause());
             } finally {
