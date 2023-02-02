@@ -15,6 +15,12 @@ public class DistributedLockUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DistributedLockUtils.class);
 
+    public static <T extends BaseKeyPrefix, V> V lock(T lockKey, Callable<V> callable) throws Exception {
+        if (lockKey == null) {
+            throw new RuntimeException("分布式锁键值不能为空");
+        }
+        return lock(lockKey.getKeyPrefix(), callable, 1);
+    }
 
     public static <T extends BaseKeyPrefix, V> V lock(T lockKey, Callable<V> callable, int seconds) throws Exception {
         if (lockKey == null) {

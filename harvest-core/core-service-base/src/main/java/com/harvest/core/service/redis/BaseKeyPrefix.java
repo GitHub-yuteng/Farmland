@@ -10,7 +10,7 @@ import java.util.Random;
  * @Description: TODO
  **/
 @Data
-public class BaseKeyPrefix implements KeyPrefix {
+public abstract class BaseKeyPrefix implements KeyPrefix {
 
     private final static Random RANDOM = new Random();
 
