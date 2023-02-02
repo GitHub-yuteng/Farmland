@@ -26,7 +26,7 @@ public interface OrderBackStatTask extends GlobalMacroDefinition {
 
     }
 
-    @ApiOperation("标识订单缺货标")
+    @ApiOperation("订单缺货统计")
     void StockLackStat(long companyId);
 
     @ApiOperation("订单物流状态追踪")

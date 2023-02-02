@@ -18,7 +18,7 @@ import java.util.Collection;
 /**
  * @Author: Alodi
  * @Date: 2022/12/24 4:37 PM
- * @Description: 订单丰富查询服务
+ * @Description: 前端订单查询服务
  **/
 @HarvestService(path = HarvestOmsApplications.Path.ORDER_FRONT)
 public class OrderFrontQueryClientImpl implements OrderFrontQueryClient {
