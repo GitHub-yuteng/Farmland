@@ -46,9 +46,8 @@ public interface GlobalMacroDefinition {
         String INBOUND_BILL_ID = "inboundBillId";
         String INBOUND_BILL_IDS = "inboundBillIds";
 
-        String TAG = "tag";
         String TAG_ID = "tagId";
-        String TAGS = "tags";
+        String TAGS = "tagIds";
     }
 
     interface GOODS {

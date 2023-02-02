@@ -1,11 +1,12 @@
 package com.harvest.oms.service.redis;
 
+import com.harvest.core.service.redis.KeyModePrefix;
 import com.harvest.oms.service.order.task.OrderBackStatTask;
 
 /**
  * @Author: Alodi
  * @Date: 2023/2/2 2:31 PM
- * @Description: TODO
+ * @Description: 订单后台任务缓存 Key 值
  **/
 public class OrderBackStatTaskKey extends OmsKeyPrefix {
 
@@ -17,8 +18,18 @@ public class OrderBackStatTaskKey extends OmsKeyPrefix {
         super(keyPrefix, expireSeconds);
     }
 
-    public final static OrderBackStatTaskKey STOCK_LACK_KEY = new OrderBackStatTaskKey(OrderBackStatTask.BackStatTaskEnum.STOCK_LACK.taskName);
+    /**
+     * 缺货标记后台任务
+     */
+    public final static OrderBackStatTaskKey STOCK_LACK_KEY = new OrderBackStatTaskKey(
+            KeyModePrefix.OMS.ORDER_BACK_STAT_TASK + OrderBackStatTask.BackStatTaskEnum.STOCK_LACK.taskName
+    );
 
-    public final static OrderBackStatTaskKey LOGISTICS_TRACKING_KEY = new OrderBackStatTaskKey(OrderBackStatTask.BackStatTaskEnum.LOGISTICS_TRACKING.taskName);
+    /**
+     * 物流追踪后台任务
+     */
+    public final static OrderBackStatTaskKey LOGISTICS_TRACKING_KEY = new OrderBackStatTaskKey(
+            KeyModePrefix.OMS.ORDER_BACK_STAT_TASK + OrderBackStatTask.BackStatTaskEnum.LOGISTICS_TRACKING.taskName
+    );
 
 }
