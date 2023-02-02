@@ -84,6 +84,7 @@ public class OrderItemGoodsSectionHandler implements OrderSectionHandler {
                     return sku;
                 }).collect(Collectors.toList())
         );
+
         // 设置商品规格信息简要
         goodsInfoDO.setSkuSimples(skuSimples.stream()
                 .filter(skuSimplePO -> skuSimplePO.getSkuId().equals(skuId))

@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  * @Author: Alodi
  * @Date: 2023/1/9 10:57 PM
  * @Description: 对于不经常更改的信息作为本地缓存 Loader
- *
+ * <p>
  * LoadingCache#get: 回源填充
  * LoadingCache#getIfPresent: 不回源填充
  * Cache#getIfPresent: 不回源填充
@@ -33,9 +33,9 @@ public class CacheLoader {
     private final static int DEFAULT_INITIAL_CAPACITY = 64;
 
     /**
-     * 专供获取缓存的线程池
+     * 专供异步获取缓存的线程池
      */
-    private final static Executor CACHE_LOADER_READ_EXECUTOR = new ThreadPoolExecutor(100, 100, 2000, TimeUnit.MILLISECONDS,
+    private final static Executor CACHE_LOADER_READ_EXECUTOR = new ThreadPoolExecutor(20, 20, 2000, TimeUnit.MILLISECONDS,
             new SynchronousQueue<>(),
             new ThreadFactoryBuilder()
                     .setNameFormat("cache-loader-reading-%d")

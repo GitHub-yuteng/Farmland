@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.spec.MGF1ParameterSpec;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.regex.Matcher;
@@ -90,7 +91,7 @@ public class IdGenerator {
     public static byte[] sha1AsBytes(byte[] input) {
         MessageDigest md;
         try {
-            md = MessageDigest.getInstance("SHA1");
+            md = MessageDigest.getInstance(MGF1ParameterSpec.SHA1.getDigestAlgorithm());
         } catch (NoSuchAlgorithmException e) {
             throw new RuntimeException(e);
         }

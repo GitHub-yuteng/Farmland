@@ -26,9 +26,15 @@ public class OrderInfoDO extends OrderSimplePO {
     @ApiModelProperty("物流渠道信息")
     private OrderLogisticsChannelDO logisticsChannel;
 
+    /**
+     * {@link com.harvest.oms.domain.order.platform.PlatformFeature}
+     */
     @ApiModelProperty(value = "平台特性", notes = "根据平台强转对应特性对象使用")
     private Object platformFeature;
 
+    /**
+     * {@link com.harvest.oms.domain.order.company.CompanyFeature}
+     */
     @ApiModelProperty(value = "公司特性", notes = "根据公司强转对应特性对象使用")
     private Object companyFeature;
 

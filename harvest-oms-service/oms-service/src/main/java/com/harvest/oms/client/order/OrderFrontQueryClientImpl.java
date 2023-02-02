@@ -45,6 +45,11 @@ public class OrderFrontQueryClientImpl implements OrderFrontQueryClient {
         return Page.build(page.getPageNo(), page.getPageSize(), data, page.getCount());
     }
 
+    /**
+     * 查询触发后台异步任务
+     *
+     * @param companyId
+     */
     private void triggerBackStatTask(Long companyId) {
         taskExecutor.execute(() -> {
             orderBackStatTask.StockLackStat(companyId);
