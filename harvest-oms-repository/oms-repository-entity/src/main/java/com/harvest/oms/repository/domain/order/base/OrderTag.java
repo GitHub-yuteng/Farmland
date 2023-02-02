@@ -1,5 +1,7 @@
 package com.harvest.oms.repository.domain.order.base;
 
+import com.harvest.oms.repository.enums.tag.OrderTagDisplayEnum;
+import com.harvest.oms.repository.enums.tag.OrderTagSourceEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -24,6 +26,9 @@ public class OrderTag implements Serializable {
     @ApiModelProperty("订单标记值")
     private Integer tagValue;
 
+    @ApiModelProperty("订单标记来源")
+    private OrderTagSourceEnum tagSource;
+
     @ApiModelProperty("根据业务是否继续执行判断点")
     private Boolean processed;
 
@@ -33,4 +38,6 @@ public class OrderTag implements Serializable {
     @ApiModelProperty("额外信息")
     private Object extension;
 
+    @ApiModelProperty("订单标记样式")
+    private OrderTagDisplayEnum display;
 }

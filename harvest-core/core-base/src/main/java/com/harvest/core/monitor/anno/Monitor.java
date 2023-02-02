@@ -5,7 +5,7 @@ import java.lang.annotation.*;
 /**
  * @Author: Alodi
  * @Date: 2023/1/29 4:38 PM
- * @Description: TODO
+ * @Description: 异常监控通知注解
  **/
 @Documented
 @Target(ElementType.METHOD)

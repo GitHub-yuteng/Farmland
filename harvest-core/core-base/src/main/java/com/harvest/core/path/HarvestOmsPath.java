@@ -7,8 +7,7 @@ package com.harvest.core.path;
  **/
 public interface HarvestOmsPath {
 
-    String FINANCE_PATH         = "/harvest/finance";
-    String OMS_ORDER_PATH       = "/harvest/oms/order";
+    String OMS_PATH             = "/harvest/oms/order";
     String OMS_INBOUND_PATH     = "/harvest/oms/inbound";
     String OMS_OUTBOUND_PATH    = "/harvest/oms/outbound";
 
@@ -17,10 +16,10 @@ public interface HarvestOmsPath {
      */
     interface OrderPath {
 
-        String ORDER_RICH_PATH = OMS_ORDER_PATH + "/rich";
-        String ORDER_BUSINESS_PATH = OMS_ORDER_PATH + "/business";
-        String ORDER_READ_PATH = OMS_ORDER_PATH + "/read";
-        String ORDER_WRITE_PATH = OMS_ORDER_PATH + "/write";
+        String ORDER_FRONT_PATH     = OMS_PATH + "/front";
+        String ORDER_BUSINESS_PATH  = OMS_PATH + "/business";
+        String ORDER_READ_PATH      = OMS_PATH + "/read";
+        String ORDER_WRITE_PATH     = OMS_PATH + "/write";
 
     }
 

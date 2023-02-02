@@ -1,6 +1,12 @@
 package com.harvest.oms.service.order.convertor;
 
+import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.vo.order.OrderInfoVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Component;
+
+import java.util.Collection;
+import java.util.stream.Collectors;
 
 /**
  * @Author: Alodi
@@ -10,5 +16,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderConvertor {
 
+    public Collection<OrderInfoVO> convert(Collection<OrderInfoDO> collection) {
+        return collection.stream().map(orderInfoDO -> {
+            OrderInfoVO orderInfoVO = new OrderInfoVO();
+            BeanUtils.copyProperties(orderInfoDO, orderInfoVO);
+            return orderInfoVO;
+        }).collect(Collectors.toList());
+    }
 
 }

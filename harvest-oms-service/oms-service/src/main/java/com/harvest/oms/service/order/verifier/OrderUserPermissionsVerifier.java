@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * @Author: Alodi
  * @Date: 2023/1/5 11:12 AM
- * @Description: 店铺权限校验
+ * @Description: 用户权限校验
  **/
 @Order(Ordered.HIGHEST_PRECEDENCE)
 @Component
