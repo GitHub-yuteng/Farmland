@@ -27,13 +27,13 @@ public class OrderBackStatTaskContext implements OrderBackStatTask, Initializing
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        LogisticsTrackingBackTaskProcessor = new AbstractBackTaskProcessor("logistics-tracking-task", 10, 10) {
+        LogisticsTrackingBackTaskProcessor = new AbstractBackTaskProcessor(BackStatTaskEnum.LOGISTICS_TRACKING.taskName, 10, 10) {
             @Override
             protected Callable<Boolean> getTask(long companyId) {
                 return new OrderLogisticTrackBackTask(companyId);
             }
         };
-        StockLackBackTaskProcessor = new AbstractBackTaskProcessor("stock-lack-task", 10, 10) {
+        StockLackBackTaskProcessor = new AbstractBackTaskProcessor(BackStatTaskEnum.STOCK_LACK.taskName, 10, 10) {
             @Override
             protected Callable<Boolean> getTask(long companyId) {
                 return new OrderStockLackBackTask(companyId);

@@ -9,13 +9,15 @@ import java.util.concurrent.Callable;
  **/
 public class OrderLogisticTrackBackTask implements Callable<Boolean> {
 
-    public OrderLogisticTrackBackTask(Long companyId) {
+    private final Long companyId;
 
+    public OrderLogisticTrackBackTask(Long companyId) {
+        this.companyId = companyId;
     }
 
     @Override
     public Boolean call() throws Exception {
-        System.out.println("物流追踪！");
+        System.out.println(companyId + "物流追踪！");
         return true;
     }
 

@@ -2,6 +2,7 @@ package com.harvest.oms.service.order.task;
 
 import com.harvest.core.constants.GlobalMacroDefinition;
 import io.swagger.annotations.ApiOperation;
+import lombok.AllArgsConstructor;
 
 /**
  * @Author: Alodi
@@ -9,6 +10,21 @@ import io.swagger.annotations.ApiOperation;
  * @Description: 后台轻任务（实时性较高的任务）
  **/
 public interface OrderBackStatTask extends GlobalMacroDefinition {
+
+    @AllArgsConstructor
+    enum BackStatTaskEnum {
+
+        /**
+         * 后台任务枚举
+         */
+        STOCK_LACK          ("stock-lack-task"),
+        LOGISTICS_TRACKING  ("logistics-tracking-task"),
+
+        ;
+
+        public final String taskName;
+
+    }
 
     @ApiOperation("标识订单缺货标")
     void StockLackStat(long companyId);

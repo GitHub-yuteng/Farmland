@@ -4,17 +4,16 @@ import com.harvest.core.service.redis.BaseKeyPrefix;
 
 /**
  * @Author: Alodi
- * @Date: 2023/2/2 1:01 PM
+ * @Date: 2023/2/2 3:14 PM
  * @Description: TODO
  **/
-public class OrderKey extends BaseKeyPrefix {
+public class OmsKeyPrefix extends BaseKeyPrefix {
 
-    public OrderKey(String keyPrefix) {
+    public OmsKeyPrefix(String keyPrefix) {
         super(keyPrefix);
     }
 
-    public OrderKey(String keyPrefix, int expireSeconds) {
+    public OmsKeyPrefix(String keyPrefix, int expireSeconds) {
         super(keyPrefix, expireSeconds);
     }
-
 }
