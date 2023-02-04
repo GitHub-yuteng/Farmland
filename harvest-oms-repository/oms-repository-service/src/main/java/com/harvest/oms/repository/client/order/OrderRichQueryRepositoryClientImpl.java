@@ -4,7 +4,7 @@ import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.domain.Page;
 import com.harvest.core.domain.range.date.DataTimeRange;
-import com.harvest.core.feign.annotation.HarvestService;
+import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.utils.FieldUtils;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;

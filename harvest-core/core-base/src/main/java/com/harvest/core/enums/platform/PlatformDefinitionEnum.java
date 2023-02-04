@@ -15,10 +15,9 @@ public enum PlatformDefinitionEnum {
     /**
      * 平台定义
      */
-    SHOP                (1, "店铺平台"),
-    WAREHOUSE           (2, "仓库平台"),
-    LOGISTICS           (3, "承运商"),
-    LOGISTICS_TRACKING  (4, "物流追踪商");
+    WAREHOUSE           (1, "仓库平台"),
+    LOGISTICS           (2, "承运商"),
+    LOGISTICS_TRACK     (3, "物流追踪商");
 
     /**
      * 类型

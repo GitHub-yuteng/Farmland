@@ -2,7 +2,7 @@ package com.harvest.oms.repository.client.order;
 
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.core.domain.Page;
-import com.harvest.core.feign.annotation.HarvestClient;
+import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.query.order.PageOrderConditionQuery;

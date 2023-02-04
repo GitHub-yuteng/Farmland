@@ -1,5 +1,6 @@
 package com.harvest.core.annotation;
 
+import com.harvest.core.enums.platform.PlatformDefinitionEnum;
 import org.springframework.core.annotation.AliasFor;
 
 import java.lang.annotation.*;
@@ -20,8 +21,5 @@ public @interface Platform {
     @AliasFor("type")
     int value() default 0;
 
-    /**
-     * {@link com.harvest.core.enums.platform.PlatformDefinitionEnum}
-     */
-    int definition() default 0;
+    PlatformDefinitionEnum definition();
 }

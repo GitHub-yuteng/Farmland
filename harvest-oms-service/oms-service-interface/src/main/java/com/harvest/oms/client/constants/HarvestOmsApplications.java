@@ -13,9 +13,18 @@ public interface HarvestOmsApplications {
 
     interface Path {
 
+        /**
+         * 查询
+         */
         String ORDER_FRONT = OMS_PATH + "/OrderFrontQueryClient";
         String ORDER_RICH  = OMS_PATH + "/OrderRichQueryClient";
         String ORDER_READ  = OMS_PATH + "/OrderReadClient";
+
+        /**
+         * 业务
+         */
+        String ORDER_AUDIT     = OMS_PATH + "/OrderAuditClient";
+        String ORDER_DELIVERY  = OMS_PATH + "/OrderDeliveryClient";
 
     }
 

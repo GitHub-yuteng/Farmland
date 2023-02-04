@@ -1,6 +1,6 @@
 package com.harvest.oms.client.order;
 
-import com.harvest.core.feign.annotation.HarvestClient;
+import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.domain.order.OrderInfoDO;

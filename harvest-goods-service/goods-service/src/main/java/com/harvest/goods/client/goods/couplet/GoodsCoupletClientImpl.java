@@ -1,6 +1,6 @@
 package com.harvest.goods.client.goods.couplet;
 
-import com.harvest.core.feign.annotation.HarvestService;
+import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.goods.client.constants.HarvestGoodsApplications;
 import com.harvest.goods.repository.client.couplet.GoodsCoupletReadRepositoryClient;
 import com.harvest.goods.repository.domain.goods.simple.GoodsSimplePO;

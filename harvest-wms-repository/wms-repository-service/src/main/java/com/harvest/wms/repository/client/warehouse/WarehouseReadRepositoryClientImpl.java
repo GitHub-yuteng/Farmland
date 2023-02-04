@@ -1,6 +1,6 @@
 package com.harvest.wms.repository.client.warehouse;
 
-import com.harvest.core.feign.annotation.HarvestService;
+import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.wms.repository.constants.HarvestWmsRepositoryApplications;
 import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
 import com.harvest.wms.repository.mapper.warehouse.read.WarehouseReadMapper;

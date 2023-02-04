@@ -1,8 +1,8 @@
 package com.harvest.oms.client.order;
 
+import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.core.domain.Page;
-import com.harvest.core.feign.annotation.HarvestClient;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
 import com.harvest.oms.vo.order.OrderInfoVO;
@@ -22,5 +22,9 @@ public interface OrderFrontQueryClient extends GlobalMacroDefinition {
     @ApiOperation("分页订单信息查询-特定供前端调用-查询触发器")
     @PostMapping(value = "/front/page/order")
     Page<OrderInfoVO> frontPageQueryOrder(@RequestParam(COMPANY_ID) Long companyId, @RequestBody PageOrderConditionQuery condition);
+
+    @ApiOperation("订单信息查询-特定供前端调用")
+    @PostMapping(value = "/front/order")
+    OrderInfoVO frontQueryOrder(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId);
 
 }

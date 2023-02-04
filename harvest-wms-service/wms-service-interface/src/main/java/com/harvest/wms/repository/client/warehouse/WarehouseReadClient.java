@@ -1,7 +1,7 @@
 package com.harvest.wms.repository.client.warehouse;
 
 import com.harvest.core.constants.GlobalMacroDefinition;
-import com.harvest.core.feign.annotation.HarvestClient;
+import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.wms.repository.constants.HarvestWmsApplications;
 import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
 import com.harvest.wms.repository.repository.domain.WarehouseDO;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @Author: Alodi

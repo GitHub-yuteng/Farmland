@@ -1,6 +1,6 @@
 package com.harvest.oms.repository.client.order;
 
-import com.harvest.core.feign.annotation.HarvestService;
+import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;
 import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;

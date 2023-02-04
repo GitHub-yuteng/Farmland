@@ -27,6 +27,14 @@
       <artifactId>basic-repository-interface</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
+    
+    <!-- logistics -->
+    <dependency>
+      <groupId>com.harvest</groupId>
+      <artifactId>logistics-cainiao-interface</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    
   </dependencies>
   
   <properties>

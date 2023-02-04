@@ -1,6 +1,6 @@
 package com.harvest.goods.client.goods.read;
 
-import com.harvest.core.feign.annotation.HarvestClient;
+import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.goods.client.constants.HarvestGoodsApplications;
 import com.harvest.goods.repository.domain.goods.simple.GoodsSimplePO;

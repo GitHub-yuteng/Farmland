@@ -1,7 +1,7 @@
 package com.harvest.wms.repository.client.warehouse;
 
 import com.harvest.core.constants.GlobalMacroDefinition;
-import com.harvest.core.feign.annotation.HarvestClient;
+import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.wms.repository.constants.HarvestWmsRepositoryApplications;
 import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
 import io.swagger.annotations.ApiOperation;

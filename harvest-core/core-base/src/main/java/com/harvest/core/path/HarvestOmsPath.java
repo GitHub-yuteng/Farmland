@@ -18,6 +18,8 @@ public interface HarvestOmsPath {
 
         String ORDER_FRONT_PATH     = OMS_PATH + "/front";
         String ORDER_BUSINESS_PATH  = OMS_PATH + "/business";
+        String ORDER_AUDIT_PATH     = OMS_PATH + "/audit";
+        String ORDER_DELIVERY_PATH  = OMS_PATH + "/delivery";
         String ORDER_READ_PATH      = OMS_PATH + "/read";
         String ORDER_WRITE_PATH     = OMS_PATH + "/write";
 

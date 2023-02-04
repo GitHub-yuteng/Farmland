@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -15,11 +17,11 @@ import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.support.TransactionTemplate;
 
 import javax.sql.DataSource;
-import java.sql.SQLException;
 
 /**
- * @author yt
- */
+ * @Author: Alodi
+ * @Date: 2022/12/31 3:28 PM
+ **/
 @Configuration
 @MapperScan(basePackages = {"com.harvest.oms.repository.mapper"}, sqlSessionFactoryRef = "omsSqlSessionFactory")
 public class JdbcDataSource {
@@ -27,32 +29,17 @@ public class JdbcDataSource {
     public final static String OMS_TRANSACTION_MANAGER = "omsTransactionManager";
     public final static String OMS_TRANSACTION_TEMPLATE = "omsTransactionTemplate";
 
-    private final static String JDBC_URL = "jdbc:mysql://127.0.0.1:3306/farmland_oms";
-    private final static String USERNAME = "root";
-    private final static String PASSWORD = "123456";
+    @Autowired
+    private DataSourceProperties dataSourceProperties;
 
     @Bean(name = "oms_dataSource")
-    public DataSource dataSource() throws SQLException {
+    public DataSource dataSource() {
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setName("node-oms-mysql");
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl(JDBC_URL);
-        dataSource.setUsername(USERNAME);
-        dataSource.setPassword(PASSWORD);
-        dataSource.setInitialSize(5);
-        dataSource.setMaxActive(20);
-        dataSource.setMinIdle(5);
-        dataSource.setTestWhileIdle(true);
-        dataSource.setFilters("stat");
-        dataSource.setMaxWait(60000);
-        dataSource.setTimeBetweenEvictionRunsMillis(60000);
-        dataSource.setMinEvictableIdleTimeMillis(300000);
-        dataSource.setTestOnBorrow(false);
-        dataSource.setTestOnReturn(false);
-        dataSource.setPoolPreparedStatements(true);
-        dataSource.setMaxOpenPreparedStatements(100);
-        dataSource.setConnectionProperties("druid.stat.slowSqlMillis=5000");
-        dataSource.setConnectionProperties("druid.stat.logSlowSql=true");
+        dataSource.setName(dataSourceProperties.getName());
+        dataSource.setDriverClassName(dataSourceProperties.getDriverClassName());
+        dataSource.setUrl(dataSourceProperties.getUrl());
+        dataSource.setUsername(dataSourceProperties.getUsername());
+        dataSource.setPassword(dataSourceProperties.getPassword());
         return dataSource;
     }
 
@@ -66,7 +53,8 @@ public class JdbcDataSource {
     @Bean(name = "omsSqlSessionFactory")
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         MybatisSqlSessionFactoryBean bean = new MybatisSqlSessionFactoryBean();
-        bean.setDataSource(dataSource());
+        bean.setDataSource(this.dataSource());
+
         MybatisConfiguration configuration = new MybatisConfiguration();
         configuration.setCallSettersOnNulls(true);
         configuration.setMapUnderscoreToCamelCase(true);
@@ -79,14 +67,14 @@ public class JdbcDataSource {
 
     @Primary
     @Bean(name = JdbcDataSource.OMS_TRANSACTION_MANAGER)
-    public DataSourceTransactionManager dataSourceTransactionManager() throws SQLException {
-        return new DataSourceTransactionManager(dataSource());
+    public DataSourceTransactionManager dataSourceTransactionManager() {
+        return new DataSourceTransactionManager(this.dataSource());
     }
 
     @Bean(value = JdbcDataSource.OMS_TRANSACTION_TEMPLATE)
-    public TransactionTemplate transactionTemplate() throws SQLException {
+    public TransactionTemplate transactionTemplate() {
         TransactionTemplate transactionTemplate = new TransactionTemplate();
-        transactionTemplate.setTransactionManager(dataSourceTransactionManager());
+        transactionTemplate.setTransactionManager(this.dataSourceTransactionManager());
         //PROPAGATION_REQUIRED：如果当前没有事务，就新建一个事务，如果已经存在一个事务中，加入到这个事务中。这是最常见的选择。
         //PROPAGATION_NESTED：如果当前存在事务，则在嵌套事务内执行。如果当前没有事务，则执行与PROPAGATION_REQUIRED类似的操作。
         //当使用PROPAGATION_NESTED时，底层的数据源必须基于JDBC 3.0，并且实现者需要支持保存点事务机制。

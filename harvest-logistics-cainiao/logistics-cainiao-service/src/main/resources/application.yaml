@@ -1,0 +1,31 @@
+server:
+  port: 9201
+
+spring:
+  application:
+    name: harvest-cainiao-logistics-service
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    discovery:
+      enabled: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 1
+    password:
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8000/eureka
+  instance:
+    instance-id: ${spring.application.name}:${server.port}
+    lease-renewal-interval-in-seconds: 2
+    lease-expiration-duration-in-seconds: 10
+
+feign:
+  httpclient:
+    enabled: false
+  okhttp:
+    enabled: true

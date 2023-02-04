@@ -16,12 +16,15 @@ import java.util.stream.Collectors;
 @Component
 public class OrderConvertor {
 
-    public Collection<OrderInfoVO> convert(Collection<OrderInfoDO> collection) {
-        return collection.stream().map(orderInfoDO -> {
-            OrderInfoVO orderInfoVO = new OrderInfoVO();
-            BeanUtils.copyProperties(orderInfoDO, orderInfoVO);
-            return orderInfoVO;
-        }).collect(Collectors.toList());
+
+    public Collection<OrderInfoVO> convertList(Collection<OrderInfoDO> collection) {
+        return collection.stream().map(this::convert).collect(Collectors.toList());
+    }
+
+    public OrderInfoVO convert(OrderInfoDO order) {
+        OrderInfoVO orderInfoVO = new OrderInfoVO();
+        BeanUtils.copyProperties(order, orderInfoVO);
+        return orderInfoVO;
     }
 
 }
