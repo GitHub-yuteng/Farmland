@@ -6,9 +6,7 @@
 - 单据的生成
 - 信息的存储
 - 状态的流转
-
-## 项目介绍
-
+- 领域对象DDD构建
 
 ## 技术选型
 
@@ -21,6 +19,17 @@
 - Druid
 - Lombok
 - Hutool
+
+## DB Schema
+- farmland_biz 
+- farmland_core
+- farmland_finance
+- farmland_goods
+- farmland_oms
+- farmland_purchase
+- farmland_rule
+- farmland_task
+- farmland_wms
 
 ## 开发环境
 
