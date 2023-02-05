@@ -57,11 +57,6 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
         );
     }
 
-    private boolean existDeclaration(OrderInfoDO order) {
-        OrderDeclarationDO declaration = order.getDeclaration();
-        return Objects.nonNull(declaration);
-    }
-
     @Override
     public boolean beforeDeclare(Long companyId, SubmitDeclarationRequest request) {
         // 是否已经申报
@@ -69,6 +64,11 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
             throw new StandardRuntimeException(ExceptionCodes.OMS_MODULE_ERROR, "[warn]当前订单已申请交运，如需重新交运请先取消或者点击【刷新】查看交运结果!");
         }
         return true;
+    }
+
+    private boolean existDeclaration(OrderInfoDO order) {
+        OrderDeclarationDO declaration = order.getDeclaration();
+        return Objects.nonNull(declaration);
     }
 
     @Override

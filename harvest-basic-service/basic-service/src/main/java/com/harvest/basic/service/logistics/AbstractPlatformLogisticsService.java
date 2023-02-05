@@ -1,5 +1,6 @@
-package com.harvest.core.engine.logistics;
+package com.harvest.basic.service.logistics;
 
+import com.harvest.basic.client.logistics.PlatformLogisticsClient;
 import com.harvest.core.engine.PlatformServiceEngine;
 import com.harvest.core.enums.platform.PlatformDefinitionEnum;
 

@@ -2,6 +2,7 @@ package com.harvest.oms.request.order.declare;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.harvest.core.batch.BatchResultId;
+import com.harvest.core.enums.logistics.LogisticsEnum;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,6 +25,8 @@ public class SubmitDeclarationRequest extends BatchResultId implements Serializa
     @ApiModelProperty("订单信息-业务流转")
     private OrderInfoDO order;
 
-
+    @JsonIgnore
+    @ApiModelProperty("承运商类型-业务流转")
+    private LogisticsEnum logistics;
 
 }

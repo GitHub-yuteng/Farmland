@@ -7,7 +7,7 @@ import lombok.Getter;
 /**
  * @Author: Alodi
  * @Date: 2022/12/11 1:31 AM
- * @Description: 其他模块也要使用订单状态枚举，所以放在核心模块，以防枚举冗余
+ * @Description: 其他模块也要使用订单状态枚举, 放在核心模块以防枚举冗余
  **/
 @Getter
 @AllArgsConstructor

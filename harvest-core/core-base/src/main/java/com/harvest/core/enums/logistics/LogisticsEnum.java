@@ -1,4 +1,4 @@
-package com.harvest.logistics.enums;
+package com.harvest.core.enums.logistics;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

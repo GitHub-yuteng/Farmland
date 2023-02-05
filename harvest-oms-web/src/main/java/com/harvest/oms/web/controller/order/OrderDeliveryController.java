@@ -22,7 +22,7 @@ import java.util.List;
  * @Date: 2022/12/9 9:51 PM
  * @Description: 订单发货服务
  **/
-@Api(value = "订单业务服务", tags = "订单业务服务")
+@Api(value = "订单发货服务", tags = "订单发货服务")
 @RestController
 @RequestMapping(value = HarvestOmsPath.OrderPath.ORDER_DELIVERY_PATH)
 public class OrderDeliveryController {

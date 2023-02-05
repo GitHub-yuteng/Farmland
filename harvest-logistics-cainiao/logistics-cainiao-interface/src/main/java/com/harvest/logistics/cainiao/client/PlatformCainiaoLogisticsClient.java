@@ -1,8 +1,8 @@
 package com.harvest.logistics.cainiao.client;
 
+import com.harvest.basic.client.logistics.PlatformLogisticsClient;
 import com.harvest.core.annotation.Platform;
 import com.harvest.core.annotation.feign.HarvestClient;
-import com.harvest.core.engine.logistics.PlatformLogisticsClient;
 import com.harvest.core.enums.platform.PlatformDefinitionEnum;
 import com.harvest.logistics.cainiao.HarvestCainiaoLogisticsApplications;
 

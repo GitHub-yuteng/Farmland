@@ -1,7 +1,7 @@
 package com.harvest.basic.service.logistics;
 
-import com.harvest.core.engine.logistics.AbstractPlatformLogisticsService;
-import com.harvest.core.engine.logistics.PlatformLogisticsClient;
+import com.harvest.basic.client.logistics.PlatformLogisticsClient;
+import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
 public class PlatformLogisticsService extends AbstractPlatformLogisticsService implements PlatformLogisticsClient {
 
     @Override
-    public void submitDeclaration(Long companyId) {
-        super.call(3).submitDeclaration(companyId);
+    public void submitDeclaration(Long companyId, SubmitDeclarationRequest request) {
+        super.call(request.getLogistics().getIndex()).submitDeclaration(companyId, request);
     }
 
     @Override

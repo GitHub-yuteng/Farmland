@@ -31,17 +31,17 @@ public class BasicLogisticsClientImpl implements BasicLogisticsClient {
     @Override
     public void submitDeclaration(Long companyId, SubmitDeclarationRequest request) {
 
-        StopWatch stopWatch = new StopWatch("订单交运");
+        StopWatch stopWatch = new StopWatch("订单申报监控");
 
-        stopWatch.start("交运申报");
-        platformLogisticsService.submitDeclaration(companyId);
+        stopWatch.start("提交申报");
+        platformLogisticsService.submitDeclaration(companyId, request);
         stopWatch.stop();
 
         stopWatch.start("获取面单");
         platformLogisticsService.print(companyId);
         stopWatch.stop();
 
-        LOGGER.info("BasicLogisticsClientImpl#submitDeclaration, \nstopWatch:{}", stopWatch.prettyPrint());
+        LOGGER.info("BasicLogisticsClientImpl#submitDeclaration, \n{}", stopWatch.prettyPrint());
 
     }
 

@@ -2,6 +2,7 @@ package com.harvest.logistics.cainiao.client;
 
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.logistics.cainiao.HarvestCainiaoLogisticsApplications;
+import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 
 /**
  * @Author: Alodi
@@ -12,7 +13,7 @@ import com.harvest.logistics.cainiao.HarvestCainiaoLogisticsApplications;
 public class PlatformCainiaoLogisticsClientImpl implements PlatformCainiaoLogisticsClient {
 
     @Override
-    public void submitDeclaration(Long companyId) {
+    public void submitDeclaration(Long companyId, SubmitDeclarationRequest request) {
         System.out.println("菜鸟申报");
     }
 

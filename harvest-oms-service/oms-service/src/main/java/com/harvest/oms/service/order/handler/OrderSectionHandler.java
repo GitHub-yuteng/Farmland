@@ -41,6 +41,10 @@ public interface OrderSectionHandler {
          * 订单物流信息
          */
         int ORDER_LOGISTICS = 3;
+        /**
+         * 订单申报信息
+         */
+        int ORDER_DECLARATION = 4;
 
     }
 
