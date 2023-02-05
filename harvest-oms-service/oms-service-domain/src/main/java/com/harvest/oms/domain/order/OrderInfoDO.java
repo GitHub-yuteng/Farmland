@@ -1,5 +1,6 @@
 package com.harvest.oms.domain.order;
 
+import com.harvest.oms.domain.order.declare.OrderDeclarationDO;
 import com.harvest.oms.domain.order.logistics.OrderLogisticsChannelDO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.wms.repository.repository.domain.WarehouseDO;
@@ -25,6 +26,9 @@ public class OrderInfoDO extends OrderSimplePO {
 
     @ApiModelProperty("物流渠道信息")
     private OrderLogisticsChannelDO logisticsChannel;
+
+    @ApiModelProperty("订单交运申报信息")
+    private OrderDeclarationDO declaration;
 
     /**
      * {@link com.harvest.oms.domain.order.platform.PlatformFeature}

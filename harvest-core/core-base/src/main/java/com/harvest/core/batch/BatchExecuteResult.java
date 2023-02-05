@@ -61,10 +61,10 @@ public class BatchExecuteResult<T> {
 
         private static final long serialVersionUID = -5616278702464428044L;
 
-        @ApiModelProperty("键值")
+        @ApiModelProperty("键值Id eg:OrderId")
         private Long id;
 
-        @ApiModelProperty("键值")
+        @ApiModelProperty("键值 eg:orderNo")
         private T key;
 
         @ApiModelProperty("异常原因")

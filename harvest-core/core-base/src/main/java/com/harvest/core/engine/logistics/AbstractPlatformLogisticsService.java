@@ -15,5 +15,4 @@ public abstract class AbstractPlatformLogisticsService extends PlatformServiceEn
         return (PlatformLogisticsClient) super.getService(PlatformDefinitionEnum.LOGISTICS, platformType);
     }
 
-
 }

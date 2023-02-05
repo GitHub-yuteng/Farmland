@@ -10,10 +10,11 @@ import org.springframework.stereotype.Component;
  * @Description: TODO
  **/
 @Component
-public class PlatformLogisticsService extends AbstractPlatformLogisticsService {
+public class PlatformLogisticsService extends AbstractPlatformLogisticsService implements PlatformLogisticsClient {
 
+    @Override
     public void submitDeclaration(long companyId) {
-        PlatformLogisticsClient call = super.call(3);
-        call.submitDeclaration(companyId);
+        super.call(3).submitDeclaration(companyId);
     }
+
 }

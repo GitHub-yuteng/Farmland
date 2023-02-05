@@ -12,6 +12,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.core.annotation.AnnotationUtils;
 
 import java.util.Map;
+import java.util.Objects;
 
 /**
  * @Author: Alodi
@@ -30,16 +31,17 @@ public abstract class PlatformServiceEngine implements ApplicationContextAware {
     /**
      * 驱动引擎 获取平台服务
      *
-     * @param platformDefinitionType
+     * @param platformDefinitionEnum
      * @param platformType
      * @return
      */
-    public Object getService(PlatformDefinitionEnum platformDefinitionType, int platformType) {
+    public Object getService(PlatformDefinitionEnum platformDefinitionEnum, int platformType) {
         for (Object service : services.values()) {
             Platform annotation = AnnotationUtils.findAnnotation(service.getClass(), Platform.class);
-            if (annotation != null && annotation.definition() == platformDefinitionType && annotation.type() == platformType) {
+            if (Objects.nonNull(annotation) && annotation.definition() == platformDefinitionEnum && annotation.type() == platformType) {
                 HarvestService localService = AnnotationUtils.findAnnotation(service.getClass(), HarvestService.class);
-                if (localService != null) {
+                // 本地服务
+                if (Objects.nonNull(localService)) {
                     return localService;
                 }
                 return service;
@@ -47,7 +49,7 @@ public abstract class PlatformServiceEngine implements ApplicationContextAware {
         }
 
         throw new StandardRuntimeException(ExceptionCodes.SYSTEM_EXCEPTION,
-                "platformDefinitionType=" + platformDefinitionType +
+                "platformDefinitionEnum=" + platformDefinitionEnum +
                         "platformType=" + platformType +
                         "平台未定义，请检查平台jar 依赖是否添加!"
         );
