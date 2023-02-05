@@ -15,7 +15,9 @@ public enum LogisticsEnum {
     /**
      * 物流枚举
      */
-    JD("JD", "京东", "京东物流", 1),
+    JD      ("JD",      "京东", "京东物流", 1),
+    SF      ("SF",      "顺丰", "顺丰",    2),
+    CAINIAO ("CAINIAO", "菜鸟", "顺丰",    3),
 
     ;
 

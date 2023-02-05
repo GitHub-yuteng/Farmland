@@ -5,6 +5,7 @@ import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.core.constants.GlobalMacroDefinition;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @Author: Alodi
@@ -16,6 +17,6 @@ public interface BasicLogisticsClient extends GlobalMacroDefinition {
 
     @ApiOperation("申报提交")
     @PostMapping("/submitDeclaration")
-    void submitDeclaration(long companyId);
+    void submitDeclaration(@RequestParam(COMPANY_ID) long companyId);
 
 }

@@ -12,8 +12,8 @@ import com.harvest.logistics.cainiao.HarvestCainiaoLogisticsApplications;
  * @Date: 2023/2/4 2:27 PM
  * @Description: TODO
  **/
-@HarvestClient(value = HarvestCainiaoLogisticsApplications.SERVICE_NAME, path = HarvestCainiaoLogisticsApplications.SERVICE_PATH)
 @Platform(definition = PlatformDefinitionEnum.LOGISTICS, type = CainiaoPlatformLogisticsClient.PLATFORM_TYPE)
+@HarvestClient(value = HarvestCainiaoLogisticsApplications.SERVICE_NAME, path = HarvestCainiaoLogisticsApplications.SERVICE_PATH)
 public interface CainiaoPlatformLogisticsClient extends PlatformLogisticsClient {
 
     /**

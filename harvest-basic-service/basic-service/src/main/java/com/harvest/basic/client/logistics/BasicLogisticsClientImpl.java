@@ -1,8 +1,9 @@
 package com.harvest.basic.client.logistics;
 
 import com.harvest.basic.client.constants.HarvestBasicApplications;
+import com.harvest.basic.service.logistics.PlatformLogisticsService;
 import com.harvest.core.annotation.feign.HarvestService;
-import com.harvest.core.engine.logistics.PlatformLogisticsClient;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @Author: Alodi
@@ -12,10 +13,11 @@ import com.harvest.core.engine.logistics.PlatformLogisticsClient;
 @HarvestService(path = HarvestBasicApplications.Path.LOGISTICS)
 public class BasicLogisticsClientImpl implements BasicLogisticsClient {
 
-    private PlatformLogisticsClient platformLogisticsClient;
+    @Autowired
+    private PlatformLogisticsService platformLogisticsService;
 
     @Override
     public void submitDeclaration(long companyId) {
-        platformLogisticsClient.submitDeclaration(companyId);
+        platformLogisticsService.submitDeclaration(companyId);
     }
 }

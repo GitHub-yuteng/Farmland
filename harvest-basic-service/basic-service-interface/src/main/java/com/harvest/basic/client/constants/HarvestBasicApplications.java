@@ -15,6 +15,6 @@ public interface HarvestBasicApplications {
 
         String WEB_CONFIG = BASIC_PATH + "/webConfig";
 
-        String LOGISTICS = BASIC_PATH + "/logistics";
+        String LOGISTICS  = BASIC_PATH + "/logistics";
     }
 }

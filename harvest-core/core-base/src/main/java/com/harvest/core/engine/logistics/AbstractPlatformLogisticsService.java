@@ -11,8 +11,8 @@ import com.harvest.core.enums.platform.PlatformDefinitionEnum;
 public abstract class AbstractPlatformLogisticsService extends PlatformServiceEngine {
 
     @Override
-    protected Object call(int platformType) {
-        return super.getService(PlatformDefinitionEnum.LOGISTICS, platformType);
+    protected PlatformLogisticsClient call(int platformType) {
+        return (PlatformLogisticsClient) super.getService(PlatformDefinitionEnum.LOGISTICS, platformType);
     }
 
 

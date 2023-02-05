@@ -1,6 +1,7 @@
 package com.harvest.core.engine;
 
 import com.harvest.core.annotation.Platform;
+import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.enums.platform.PlatformDefinitionEnum;
 import com.harvest.core.exception.ExceptionCodes;
@@ -38,7 +39,7 @@ public abstract class PlatformServiceEngine implements ApplicationContextAware {
         for (Object service : services.values()) {
             Platform annotation = AnnotationUtils.findAnnotation(service.getClass(), Platform.class);
             if (annotation != null && annotation.definition() == platformDefinitionType && annotation.type() == platformType) {
-                HarvestService localService = AnnotationUtils.findAnnotation(service.getClass(), HarvestService.class);
+                HarvestClient localService = AnnotationUtils.findAnnotation(service.getClass(), HarvestClient.class);
                 if (localService != null) {
                     return service;
                 }
