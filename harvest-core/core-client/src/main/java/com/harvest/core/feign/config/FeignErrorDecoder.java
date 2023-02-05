@@ -8,7 +8,6 @@ import feign.codec.ErrorDecoder;
 import org.apache.http.HttpStatus;
 import org.springframework.context.annotation.Configuration;
 
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
@@ -44,7 +43,7 @@ public class FeignErrorDecoder implements ErrorDecoder {
                     }
                 }
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             // do nothing
 
         }
