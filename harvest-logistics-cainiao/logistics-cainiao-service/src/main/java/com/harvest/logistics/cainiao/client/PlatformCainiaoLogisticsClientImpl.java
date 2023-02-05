@@ -9,7 +9,7 @@ import com.harvest.logistics.cainiao.HarvestCainiaoLogisticsApplications;
  * @Description: TODO
  **/
 @HarvestService(path = HarvestCainiaoLogisticsApplications.SERVICE_PATH)
-public class CainiaoPlatformLogisticsClientImpl implements CainiaoPlatformLogisticsClient {
+public class PlatformCainiaoLogisticsClientImpl implements PlatformCainiaoLogisticsClient {
 
     @Override
     public void submitDeclaration(long companyId) {

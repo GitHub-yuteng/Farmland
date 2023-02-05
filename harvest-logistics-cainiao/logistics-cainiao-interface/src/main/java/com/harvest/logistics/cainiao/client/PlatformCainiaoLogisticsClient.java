@@ -12,13 +12,13 @@ import com.harvest.logistics.cainiao.HarvestCainiaoLogisticsApplications;
  * @Date: 2023/2/4 2:27 PM
  * @Description: TODO
  **/
-@Platform(definition = PlatformDefinitionEnum.LOGISTICS, type = CainiaoPlatformLogisticsClient.PLATFORM_TYPE)
+@Platform(definition = PlatformDefinitionEnum.LOGISTICS, type = PlatformCainiaoLogisticsClient.PLATFORM_TYPE)
 @HarvestClient(value = HarvestCainiaoLogisticsApplications.SERVICE_NAME, path = HarvestCainiaoLogisticsApplications.SERVICE_PATH)
-public interface CainiaoPlatformLogisticsClient extends PlatformLogisticsClient {
+public interface PlatformCainiaoLogisticsClient extends PlatformLogisticsClient {
 
     /**
      * {@link com.harvest.logistics.enums.LogisticsEnum.index}
      */
-    int PLATFORM_TYPE = 1;
+    int PLATFORM_TYPE = 3;
 
 }

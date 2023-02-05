@@ -7,6 +7,6 @@ package com.harvest.logistics.cainiao;
  **/
 public interface HarvestCainiaoLogisticsApplications {
 
-    String SERVICE_NAME = "harvest-logistics-cainiao-service";
+    String SERVICE_NAME = "harvest-cainiao-logistics-service";
     String SERVICE_PATH = "/service/logistics/cainiao";
 }

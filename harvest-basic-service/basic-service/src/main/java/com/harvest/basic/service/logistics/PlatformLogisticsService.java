@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class PlatformLogisticsService extends AbstractPlatformLogisticsService {
 
     public void submitDeclaration(long companyId) {
-        PlatformLogisticsClient call = super.call(1);
+        PlatformLogisticsClient call = super.call(3);
         call.submitDeclaration(companyId);
     }
 }
