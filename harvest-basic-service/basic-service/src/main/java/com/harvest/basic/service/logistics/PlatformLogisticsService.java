@@ -13,8 +13,12 @@ import org.springframework.stereotype.Component;
 public class PlatformLogisticsService extends AbstractPlatformLogisticsService implements PlatformLogisticsClient {
 
     @Override
-    public void submitDeclaration(long companyId) {
+    public void submitDeclaration(Long companyId) {
         super.call(3).submitDeclaration(companyId);
     }
 
+    @Override
+    public void print(Long companyId) {
+        super.call(3).print(companyId);
+    }
 }

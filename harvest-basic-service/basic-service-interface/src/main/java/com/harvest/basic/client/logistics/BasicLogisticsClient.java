@@ -19,6 +19,6 @@ public interface BasicLogisticsClient extends GlobalMacroDefinition {
 
     @ApiOperation("申报提交")
     @PostMapping("/submitDeclaration")
-    void submitDeclaration(@RequestParam(COMPANY_ID) long companyId, @RequestBody SubmitDeclarationRequest request);
+    void submitDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody SubmitDeclarationRequest request);
 
 }

@@ -1,6 +1,7 @@
 package com.harvest.core.feign.interceptor;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import feign.Request;
 import feign.RequestInterceptor;
 import feign.RequestTemplate;
@@ -26,7 +27,8 @@ public class FeignRequestInterceptor implements RequestInterceptor {
             requestTemplate.body();
         }
         try {
-            Map<String, String> headers = getHeaders();
+//            Map<String, String> headers = getHeaders();
+            Map<String, String> headers = Maps.newHashMap();
             for (String headerName : headers.keySet()) {
                 if (checkEssential(headerName)) {
                     requestTemplate.header(headerName, headers.get(headerName));

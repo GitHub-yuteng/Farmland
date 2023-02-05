@@ -11,6 +11,7 @@ import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.declare.OrderDeclarationDO;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
+import com.harvest.oms.service.order.business.OrderDeclareProcessor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -23,7 +24,7 @@ import java.util.stream.Collectors;
  * @Description: 订单交运
  **/
 @HarvestService(path = HarvestOmsApplications.Path.ORDER_DELIVERY)
-public class OrderDeliveryClientImpl implements OrderDeliveryClient {
+public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclareProcessor {
 
     @Autowired
     private BasicLogisticsClient basicLogisticsClient;
@@ -38,28 +39,21 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient {
         if (CollectionUtils.isEmpty(requests)) {
             return new BatchExecuteResult<>();
         }
-        requests = requests.stream().filter(request -> Objects.nonNull(request.getOrderId())).collect(Collectors.toList());
+        requests = requests.stream().filter(request -> Objects.nonNull(request.getId())).collect(Collectors.toList());
         if (CollectionUtils.isEmpty(requests)) {
             throw new StandardRuntimeException("请检查订单交运申报参数! By: orderId is null. ");
         }
+
+        // 记录键值 id-key
         Map<Long, String> orderMap = new HashMap<>(2);
         // TODO OMS Concurrent processing of each order delivery declaration.
         return ActuatorUtils.parallelFailAllowBatchExecute(requests, (request) -> {
-                    Long orderId = request.getOrderId();
+                    Long orderId = request.getId();
                     OrderInfoDO order = SpringHelper.getBean(OrderReadClient.class).get(companyId, orderId);
-                    // 是否已经申报
-                    if (this.existDeclaration(order)) {
-                        throw new StandardRuntimeException(ExceptionCodes.OMS_MODULE_ERROR, "[warn]当前订单已申请交运，如需重新交运请先取消或者点击【刷新】查看交运结果!");
-                    }
-                    // 订单信息
                     request.setOrder(order);
-                    // 渠道地址信息
-
                     orderMap.put(orderId, order.getOrderNo());
-                    // 提交报关
-                    basicLogisticsClient.submitDeclaration(companyId, request);
-
-                }, request -> orderMap.get(request.getOrderId())
+                    this.execute(companyId, request);
+                }, request -> orderMap.get(request.getId())
         );
     }
 
@@ -68,4 +62,25 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient {
         return Objects.nonNull(declaration);
     }
 
+    @Override
+    public boolean beforeDeclare(Long companyId, SubmitDeclarationRequest request) {
+        // 是否已经申报
+        if (this.existDeclaration(request.getOrder())) {
+            throw new StandardRuntimeException(ExceptionCodes.OMS_MODULE_ERROR, "[warn]当前订单已申请交运，如需重新交运请先取消或者点击【刷新】查看交运结果!");
+        }
+        return true;
+    }
+
+    @Override
+    public void processDeclare(Long companyId, SubmitDeclarationRequest request) {
+        // 渠道地址信息
+
+        // 提交报关
+        basicLogisticsClient.submitDeclaration(companyId, request);
+    }
+
+    @Override
+    public void afterDeclare(Long companyId, SubmitDeclarationRequest request) {
+
+    }
 }

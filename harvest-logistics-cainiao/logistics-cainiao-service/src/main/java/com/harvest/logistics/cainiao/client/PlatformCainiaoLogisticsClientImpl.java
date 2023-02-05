@@ -12,8 +12,12 @@ import com.harvest.logistics.cainiao.HarvestCainiaoLogisticsApplications;
 public class PlatformCainiaoLogisticsClientImpl implements PlatformCainiaoLogisticsClient {
 
     @Override
-    public void submitDeclaration(long companyId) {
+    public void submitDeclaration(Long companyId) {
         System.out.println("菜鸟申报");
     }
 
+    @Override
+    public void print(Long companyId) {
+        System.out.println("菜鸟获取面单");
+    }
 }

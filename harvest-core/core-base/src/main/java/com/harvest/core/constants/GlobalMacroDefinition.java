@@ -111,6 +111,7 @@ public interface GlobalMacroDefinition {
     /**
      * 常用属性参数 无特殊意义定义
      */
+    int DEFAULT_0 = 0;
     int DEFAULT_10 = 10;
 
     int DEFAULT_INITIAL_CAPACITY = 64;

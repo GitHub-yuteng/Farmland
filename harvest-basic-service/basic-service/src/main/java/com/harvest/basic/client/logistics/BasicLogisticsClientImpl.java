@@ -4,7 +4,10 @@ import com.harvest.basic.client.constants.HarvestBasicApplications;
 import com.harvest.basic.service.logistics.PlatformLogisticsService;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StopWatch;
 
 /**
  * @Author: Alodi
@@ -14,14 +17,32 @@ import org.springframework.beans.factory.annotation.Autowired;
 @HarvestService(path = HarvestBasicApplications.Path.LOGISTICS)
 public class BasicLogisticsClientImpl implements BasicLogisticsClient {
 
+    private final static Logger LOGGER = LoggerFactory.getLogger(BasicLogisticsClientImpl.class);
+
     @Autowired
     private PlatformLogisticsService platformLogisticsService;
 
+    /**
+     * Basic 驱动 交运申报 -> 获取面单
+     *
+     * @param companyId
+     * @param request
+     */
     @Override
-    public void submitDeclaration(long companyId, SubmitDeclarationRequest request) {
-        // Basic 驱动 交运后获取面单
+    public void submitDeclaration(Long companyId, SubmitDeclarationRequest request) {
 
+        StopWatch stopWatch = new StopWatch("订单交运");
 
+        stopWatch.start("交运申报");
         platformLogisticsService.submitDeclaration(companyId);
+        stopWatch.stop();
+
+        stopWatch.start("获取面单");
+        platformLogisticsService.print(companyId);
+        stopWatch.stop();
+
+        LOGGER.info("BasicLogisticsClientImpl#submitDeclaration, \nstopWatch:{}", stopWatch.prettyPrint());
+
     }
+
 }

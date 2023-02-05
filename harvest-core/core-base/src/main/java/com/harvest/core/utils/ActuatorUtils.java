@@ -3,6 +3,7 @@ package com.harvest.core.utils;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.batch.BatchExecuteResult;
+import com.harvest.core.batch.BatchResultId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
@@ -68,8 +69,8 @@ public class ActuatorUtils {
      * @param <T>        主键泛型
      * @return 执行结果
      */
-    public static <E, T> BatchExecuteResult<T> failAllowBatchExecute(Collection<E> collection, Consumer<E> consumer,
-                                                                     Function<E, T> keyGetter) {
+    public static <E extends BatchResultId, T> BatchExecuteResult<T> failAllowBatchExecute(Collection<E> collection, Consumer<E> consumer,
+                                                                                           Function<E, T> keyGetter) {
         if (CollectionUtils.isEmpty(collection)) {
             return new BatchExecuteResult<>();
         }
@@ -85,7 +86,7 @@ public class ActuatorUtils {
      * 比如 修改10个订单的状态，其中有一个订单的状态不能被修改，
      * 则其他9个修改成功，并返回失败的这个的错误原因
      */
-    public static <E, T> BatchExecuteResult<T> parallelFailAllowBatchExecute(Collection<E> collection, Consumer<E> consumer, Function<E, T> keyGetter) {
+    public static <E extends BatchResultId, T> BatchExecuteResult<T> parallelFailAllowBatchExecute(Collection<E> collection, Consumer<E> consumer, Function<E, T> keyGetter) {
         if (CollectionUtils.isEmpty(collection)) {
             return new BatchExecuteResult<>();
         }
@@ -109,7 +110,7 @@ public class ActuatorUtils {
         return result;
     }
 
-    private static <E, T> Consumer<E> getConsumer(BatchExecuteResult<T> result, Consumer<E> consumer, Function<E, T> keyGetter) {
+    private static <E extends BatchResultId, T> Consumer<E> getConsumer(BatchExecuteResult<T> result, Consumer<E> consumer, Function<E, T> keyGetter) {
         return c -> {
             try {
                 consumer.accept(c);
@@ -122,13 +123,14 @@ public class ActuatorUtils {
                 map.setReason(e.getMessage());
                 map.setE(e);
                 try {
-                    map.setKey(keyGetter.apply(c));
-                } catch (Exception e1) {
-                    LOGGER.error("可失败任务键值取值异常", e1);
+                    map.setId((c.getId()));
+                } catch (Exception id) {
+                    LOGGER.error("可失败任务键值id取值异常", id);
                 }
                 try {
-                    map.setId((Long) c);
-                } catch (Exception ignored) {
+                    map.setKey(keyGetter.apply(c));
+                } catch (Exception key) {
+                    LOGGER.error("可失败任务键值key取值异常", key);
                 }
                 result.getErrorList().add(map);
                 result.getFailCount().incrementAndGet();

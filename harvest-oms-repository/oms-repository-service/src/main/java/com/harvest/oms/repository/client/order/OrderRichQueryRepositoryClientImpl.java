@@ -2,9 +2,9 @@ package com.harvest.oms.repository.client.order;
 
 import com.google.common.collect.Maps;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.domain.Page;
 import com.harvest.core.domain.range.date.DataTimeRange;
-import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.utils.FieldUtils;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;
@@ -167,8 +167,11 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
         Map<String, Object> paramsMap = Maps.newHashMap();
 
         paramsMap.put("companyId", companyId);
-        paramsMap.put("from", condition.getFrom());
-        paramsMap.put("limit", condition.getLimit());
+
+        if (condition.getFrom() > DEFAULT_0 && condition.getLimit() > DEFAULT_0) {
+            paramsMap.put("from", condition.getFrom());
+            paramsMap.put("limit", condition.getLimit());
+        }
 
         if (CollectionUtils.isNotEmpty(condition.getOrderIds())) {
             paramsMap.put("orderIds", condition.getOrderIds());
