@@ -272,10 +272,10 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         if (CollectionUtils.isEmpty(orders) || CollectionUtils.isEmpty(orderCompanyFeatureHandlers)) {
             return;
         }
-        orderCompanyFeatureHandlers.forEach(section -> {
-            boolean match = section.match(companyId);
+        orderCompanyFeatureHandlers.forEach(feature -> {
+            boolean match = feature.match(companyId);
             if (match) {
-                section.batchFeatureFill(companyId, orders);
+                feature.batchFeatureFill(companyId, orders);
             }
         });
     }

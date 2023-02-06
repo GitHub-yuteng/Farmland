@@ -168,7 +168,7 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
 
         paramsMap.put("companyId", companyId);
 
-        if (condition.getFrom() > DEFAULT_0 && condition.getLimit() > DEFAULT_0) {
+        if (condition.getPageNo() > DEFAULT_0 && condition.getPageSize() > DEFAULT_0) {
             paramsMap.put("from", condition.getFrom());
             paramsMap.put("limit", condition.getLimit());
         }
@@ -232,9 +232,18 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
             if (CollectionUtils.isNotEmpty(orderNos)) {
                 paramsMap.put("orderNos", orderNos);
             }
+            Collection<String> deliveryNos = nos.getDeliveryNos();
+            if (CollectionUtils.isNotEmpty(deliveryNos)) {
+                paramsMap.put("deliveryNos", deliveryNos);
+            }
+            Collection<String> waveNos = nos.getWaveNos();
+            if (CollectionUtils.isNotEmpty(waveNos)) {
+                paramsMap.put("waveNos", waveNos);
+            }
             // 后续补充
         }
 
+        // 异常订单
         if (Objects.nonNull(condition.getAbnormal())) {
             paramsMap.put("abnormal", condition.getAbnormal());
         }
