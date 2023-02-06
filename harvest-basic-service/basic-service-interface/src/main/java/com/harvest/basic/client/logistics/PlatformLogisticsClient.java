@@ -14,11 +14,35 @@ import org.springframework.web.bind.annotation.RequestParam;
  **/
 public interface PlatformLogisticsClient extends GlobalMacroDefinition {
 
-    @ApiOperation("申报提交")
+    @ApiOperation("获取授权")
+    @PostMapping("/token")
+    void getToken(@RequestParam(COMPANY_ID) Long companyId);
+
+    @ApiOperation("刷新授权")
+    @PostMapping("/refreshToken")
+    void refreshToken(@RequestParam(COMPANY_ID) Long companyId);
+
+    @PostMapping("/validAccount")
+    @ApiOperation(value = "账户验证")
+    void validAccount(@RequestParam(COMPANY_ID) Long companyId);
+
+    @ApiOperation("提交申报")
     @PostMapping("/submitDeclaration")
     void submitDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody SubmitDeclarationRequest request);
+
+    @ApiOperation("获取运单号")
+    @PostMapping("/getDeliveryNo")
+    void getDeliveryNo(@RequestParam(COMPANY_ID) Long companyId, @RequestBody SubmitDeclarationRequest request);
 
     @ApiOperation("获取面单")
     @PostMapping("/print")
     void print(@RequestParam(COMPANY_ID) Long companyId);
+
+    @ApiOperation("取消申报")
+    @PostMapping("/cancelDeclaration")
+    void cancelDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody SubmitDeclarationRequest request);
+
+    @ApiOperation("查询揽收时间")
+    @PostMapping("/queryPickTime")
+    void queryPickTime(@RequestParam(COMPANY_ID) Long companyId);
 }

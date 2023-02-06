@@ -15,9 +15,16 @@ public enum PlatformDefinitionEnum {
     /**
      * 平台定义
      */
-    WAREHOUSE           (1, "仓库平台"),
-    LOGISTICS           (2, "承运商"),
-    LOGISTICS_TRACK     (3, "物流追踪商");
+    PLATFORM                (1, "平台"),
+    LOGISTICS               (2, "承运商"),
+    LOGISTICS_TRACK         (3, "物流追踪商"),
+    WAREHOUSE               (4, "仓储服务商"),
+
+    CROSS_PLATFORM          (11, "跨境平台"),
+    CROSS_LOGISTICS         (12, "跨境承运商"),
+    CROSS_LOGISTICS_TRACK   (13, "跨境物流追踪商"),
+    CROSS_WAREHOUSE         (14, "跨境仓储服务商"),
+    ;
 
     /**
      * 类型

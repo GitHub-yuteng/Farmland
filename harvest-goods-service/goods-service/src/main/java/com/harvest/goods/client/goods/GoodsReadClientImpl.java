@@ -17,7 +17,6 @@ import java.util.Collection;
 @HarvestService(path = HarvestGoodsApplications.Path.GOODS_READ)
 public class GoodsReadClientImpl extends AbstractGoodsService implements GoodsReadClient {
 
-
     @Override
     public GoodsSimplePO get(Long companyId, GoodsBaseQuery baseQuery) {
         return null;
@@ -27,4 +26,5 @@ public class GoodsReadClientImpl extends AbstractGoodsService implements GoodsRe
     public Collection<GoodsSimplePO> list(Long companyId, Collection<GoodsBaseQuery> baseQueries) {
         return null;
     }
+
 }

@@ -1,4 +1,4 @@
-package com.harvest.core.engine.warehouse;
+package com.harvest.basic.service.warehouse;
 
 import com.harvest.core.engine.PlatformServiceEngine;
 import com.harvest.core.enums.platform.PlatformDefinitionEnum;

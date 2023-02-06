@@ -1,6 +1,7 @@
 package com.harvest.core.monitor;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.core.monitor.anno.Monitor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -24,7 +25,7 @@ import java.util.concurrent.TimeUnit;
  **/
 @Aspect
 @Component
-public class HarvestExceptionMonitor {
+public class HarvestExceptionMonitor implements GlobalMacroDefinition {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HarvestExceptionMonitor.class);
 
@@ -52,7 +53,10 @@ public class HarvestExceptionMonitor {
             stopWatch.start();
             o = joinPoint.proceed(joinPoint.getArgs());
             stopWatch.stop();
-            long totalTimeMillis = stopWatch.getTotalTimeMillis();
+            long cost = stopWatch.getTotalTimeMillis();
+            if (monitor.efficiencyWatch() > DEFAULT_0 && cost >= monitor.efficiencyWatch()) {
+                System.out.println("告警");
+            }
         } catch (Throwable e) {
             throwable = e;
         }

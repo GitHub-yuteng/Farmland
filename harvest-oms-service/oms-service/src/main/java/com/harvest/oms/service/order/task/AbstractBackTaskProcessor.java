@@ -2,7 +2,7 @@ package com.harvest.oms.service.order.task;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.service.lock.DistributedLockUtils;
-import com.harvest.oms.service.redis.OrderBackStatTaskKey;
+import com.harvest.oms.service.redis.key.OrderBackStatTaskKey;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -55,6 +55,9 @@ public abstract class AbstractBackTaskProcessor {
     }
 
     public void execute(Long companyId, OrderBackStatTaskKey orderBackStatTaskKey) {
+
+        // 增加分布式缓存时间间隔
+
         // 对公司级别上锁
         synchronized (String.valueOf(companyId).intern()) {
             try {

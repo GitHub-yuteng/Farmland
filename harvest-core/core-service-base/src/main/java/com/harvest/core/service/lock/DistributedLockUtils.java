@@ -1,6 +1,6 @@
 package com.harvest.core.service.lock;
 
-import com.harvest.core.service.redis.BaseKeyPrefix;
+import com.harvest.core.service.redis.prefix.BaseKeyPrefix;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

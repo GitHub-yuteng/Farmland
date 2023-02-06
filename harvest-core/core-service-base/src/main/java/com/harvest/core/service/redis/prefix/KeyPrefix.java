@@ -1,4 +1,4 @@
-package com.harvest.core.service.redis;
+package com.harvest.core.service.redis.prefix;
 
 /**
  * @Author: Alodi
