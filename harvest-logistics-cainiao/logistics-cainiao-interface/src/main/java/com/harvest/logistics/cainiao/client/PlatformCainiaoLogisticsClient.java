@@ -17,7 +17,7 @@ import com.harvest.logistics.cainiao.HarvestCainiaoLogisticsApplications;
 public interface PlatformCainiaoLogisticsClient extends PlatformLogisticsClient {
 
     /**
-     * {@link com.harvest.logistics.enums.LogisticsEnum.index}
+     * {@link com.harvest.core.enums.logistics.LogisticsEnum}
      */
     int PLATFORM_TYPE = 3;
 
