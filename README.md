@@ -19,12 +19,14 @@
 - Druid
 - Lombok
 - Hutool
+- Guava
 
 ## DB Schema
 - farmland_biz 
 - farmland_core
 - farmland_finance
 - farmland_goods
+- farmland_inventory
 - farmland_oms
 - farmland_purchase
 - farmland_rule
