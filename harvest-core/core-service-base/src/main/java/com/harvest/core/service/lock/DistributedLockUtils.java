@@ -32,5 +32,4 @@ public class DistributedLockUtils {
     public static <V> V lock(String lockKey, Callable<V> callable, int seconds) throws Exception {
         return RedissonLockUtils.lock(lockKey, callable, seconds);
     }
-
 }

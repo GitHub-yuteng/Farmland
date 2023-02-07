@@ -1,7 +1,6 @@
 package com.harvest.oms.service.order.task;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.harvest.core.context.SpringHelper;
 import com.harvest.core.service.lock.DistributedLockUtils;
 import com.harvest.core.service.redis.CacheService;
 import com.harvest.oms.service.redis.key.OrderBackStatTaskKey;
@@ -42,7 +41,7 @@ public abstract class AbstractBackTaskProcessor {
      * @param minInterval
      * @param coreThread
      */
-    public AbstractBackTaskProcessor(String taskName, int minInterval, int coreThread) {
+    public AbstractBackTaskProcessor(String taskName, int minInterval, int coreThread, CacheService cacheService) {
         if (StringUtils.isEmpty(taskName)) {
             throw new IllegalArgumentException("请指定后台任务线程名称");
         }
@@ -60,7 +59,7 @@ public abstract class AbstractBackTaskProcessor {
                         .build(),
                 new ThreadPoolExecutor.CallerRunsPolicy());
 
-        cacheService = SpringHelper.getBean(CacheService.class);
+        this.cacheService = cacheService;
     }
 
     public void execute(Long companyId, OrderBackStatTaskKey orderBackStatTaskKey) {
@@ -78,13 +77,17 @@ public abstract class AbstractBackTaskProcessor {
                 if (this.checkIntervalLimit(companyId)) {
                     return;
                 }
-                try {
-                    Boolean lock = DistributedLockUtils.lock(orderBackStatTaskKey, () -> backStatExecutor.submit(this.getTask(companyId)).get());
-                } catch (Exception e) {
-                    LOGGER.error(String.format("公司后台任务执行异常#backStatExecutor, companyId:%s, 异常原因：%s", companyId, e.getMessage()), e.getCause());
-                } finally {
-                    System.out.println("释放锁！");
-                }
+                Boolean lock = DistributedLockUtils.lock(orderBackStatTaskKey.getKeyLock(),
+                        () -> {
+                            try {
+                                return backStatExecutor.submit(this.getTask(companyId)).get();
+                            } catch (Exception e) {
+                                LOGGER.error(String.format("公司后台任务执行异常#backStatExecutor, companyId:%s, 异常原因：%s", companyId, e.getMessage()), e.getCause());
+                                return false;
+                            } finally {
+                                cacheService.set(OrderBackStatTaskKey.INTERVAL_LIMIT, companyId.toString(), System.currentTimeMillis());
+                            }
+                        }, orderBackStatTaskKey.getExpireSeconds());
             }
         } catch (Exception e) {
             LOGGER.error(String.format("公司后台任务执行异常#execute, companyId:%s, 异常原因：%s", companyId, e.getMessage()), e.getCause());

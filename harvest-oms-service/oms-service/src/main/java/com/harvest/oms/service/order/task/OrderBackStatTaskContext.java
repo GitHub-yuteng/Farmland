@@ -1,9 +1,11 @@
 package com.harvest.oms.service.order.task;
 
+import com.harvest.core.service.redis.CacheService;
 import com.harvest.oms.service.order.task.stat.OrderLogisticTrackBackTask;
 import com.harvest.oms.service.order.task.stat.OrderStockLackBackTask;
 import com.harvest.oms.service.redis.key.OrderBackStatTaskKey;
 import org.springframework.beans.factory.InitializingBean;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.concurrent.Callable;
@@ -26,15 +28,20 @@ public class OrderBackStatTaskContext implements OrderBackStatTask, Initializing
      */
     private AbstractBackTaskProcessor StockLackBackTaskProcessor;
 
+    @Autowired
+    private CacheService cacheService;
+
     @Override
-    public void afterPropertiesSet() throws Exception {
-        LogisticsTrackingBackTaskProcessor = new AbstractBackTaskProcessor(BackStatTaskEnum.LOGISTICS_TRACKING.taskName, 10, 10) {
+    public void afterPropertiesSet() {
+
+        LogisticsTrackingBackTaskProcessor = new AbstractBackTaskProcessor(BackStatTaskEnum.LOGISTICS_TRACKING.taskName, 10, 10, cacheService) {
             @Override
             protected Callable<Boolean> getTask(long companyId) {
                 return new OrderLogisticTrackBackTask(companyId);
             }
         };
-        StockLackBackTaskProcessor = new AbstractBackTaskProcessor(BackStatTaskEnum.STOCK_LACK.taskName, 10, 10) {
+
+        StockLackBackTaskProcessor = new AbstractBackTaskProcessor(BackStatTaskEnum.STOCK_LACK.taskName, 10, 10, cacheService) {
             @Override
             protected Callable<Boolean> getTask(long companyId) {
                 return new OrderStockLackBackTask(companyId);

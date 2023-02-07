@@ -1,5 +1,6 @@
 package com.harvest.oms.web.controller.order;
 
+import com.harvest.core.domain.ResponseResult;
 import com.harvest.core.path.HarvestOmsPath;
 import com.harvest.oms.client.order.OrderReadClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
@@ -27,8 +28,8 @@ public class OrderReadController {
 
     @ApiOperation("订单查询")
     @PostMapping(value = "/get")
-    public OrderInfoDO getOrderInfo(@RequestParam("orderId") Long orderId) {
-        return orderReadClient.get(1L, orderId);
+    public ResponseResult<OrderInfoDO> getOrderInfo(@RequestParam("orderId") Long orderId) {
+        return ResponseResult.success(orderReadClient.get(8510380986999420205L, orderId));
     }
 
 
