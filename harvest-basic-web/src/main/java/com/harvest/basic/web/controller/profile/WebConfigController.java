@@ -26,14 +26,13 @@ public class WebConfigController implements GlobalMacroDefinition {
     @ApiOperation("提供前端自由配置")
     @GetMapping(value = "/get")
     public ResponseResult<String> get(@RequestParam("type") WebConfigEnum type) {
-        Long companyId = 1L;
-        return ResponseResult.success(webConfigClient.get(companyId, type));
+        return ResponseResult.success(webConfigClient.get(8510380986999420205L, type));
     }
 
     @ApiOperation("过去前端自由配置")
     @PostMapping(value = "/save")
     public ResponseResult<String> save(@RequestParam("type") WebConfigEnum type, @RequestParam("value") String value) {
-        webConfigClient.save(1L, type, value);
+        webConfigClient.save(8510380986999420205L, type, value);
         return ResponseResult.success();
     }
 

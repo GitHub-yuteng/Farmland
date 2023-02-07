@@ -15,7 +15,8 @@ import org.springframework.data.redis.serializer.RedisSerializer;
 @Configuration
 public class RedisConfig {
 
-    @Bean
+
+    @Bean(name = "redisTemplate")
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         // 对象操作模版配置序列化方式
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate();

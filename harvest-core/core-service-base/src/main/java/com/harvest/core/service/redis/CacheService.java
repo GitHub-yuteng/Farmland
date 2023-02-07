@@ -3,6 +3,7 @@ package com.harvest.core.service.redis;
 import com.harvest.core.service.redis.prefix.KeyPrefix;
 import com.harvest.core.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
@@ -17,6 +18,7 @@ import java.util.concurrent.TimeUnit;
 public class CacheService {
 
     @Autowired
+    @Qualifier(value = "stringRedisTemplate")
     private StringRedisTemplate stringRedisTemplate;
 
     public <T> T get(KeyPrefix prefix, String key, Class<T> clazz) {
@@ -45,6 +47,23 @@ public class CacheService {
             stringRedisTemplate.opsForValue().set(realKey, str);
         } else {
             stringRedisTemplate.opsForValue().set(realKey, str, seconds, TimeUnit.SECONDS);
+        }
+    }
+
+    /**
+     * 设置对象
+     */
+    public <T> void set(KeyPrefix prefix, String key, String value) {
+        if (value == null || value.length() <= 0) {
+            return;
+        }
+        //生成真正的key
+        String realKey = prefix.getKeyPrefix() + key;
+        int seconds = prefix.expireSeconds();
+        if (seconds <= 0) {
+            stringRedisTemplate.opsForValue().set(realKey, value);
+        } else {
+            stringRedisTemplate.opsForValue().set(realKey, value, seconds, TimeUnit.SECONDS);
         }
     }
 
