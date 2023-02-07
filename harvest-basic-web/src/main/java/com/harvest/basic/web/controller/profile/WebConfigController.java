@@ -8,9 +8,7 @@ import com.harvest.core.path.HarvestBasicPath;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @Author: Alodi
@@ -26,14 +24,14 @@ public class WebConfigController implements GlobalMacroDefinition {
     private WebConfigClient webConfigClient;
 
     @ApiOperation("提供前端自由配置")
-    @RequestMapping(value = "/get")
+    @GetMapping(value = "/get")
     public ResponseResult<String> get(@RequestParam("type") WebConfigEnum type) {
         Long companyId = 1L;
         return ResponseResult.success(webConfigClient.get(companyId, type));
     }
 
     @ApiOperation("过去前端自由配置")
-    @RequestMapping(value = "/save")
+    @PostMapping(value = "/save")
     public ResponseResult<String> save(@RequestParam("type") WebConfigEnum type, @RequestParam("value") String value) {
         webConfigClient.save(1L, type, value);
         return ResponseResult.success();

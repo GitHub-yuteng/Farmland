@@ -8,6 +8,8 @@ import com.harvest.goods.repository.domain.goods.simple.GoodsSimplePO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,25 +29,25 @@ public class GoodsReadController {
     private GoodsReadClient goodsReadClient;
 
     @ApiOperation("商品查询")
-    @RequestMapping(value = "/get")
+    @GetMapping(value = "/get")
     public ResponseResult<GoodsSimplePO> getGoodsSimplePO() {
         return ResponseResult.success(null);
     }
 
     @ApiOperation("商品查询")
-    @RequestMapping(value = "/query")
+    @PostMapping(value = "/query")
     public ResponseResult<List<GoodsSimplePO>> queryGoodsSimplePO() {
         return ResponseResult.success(null);
     }
 
     @ApiOperation("商品查询")
-    @RequestMapping(value = "/list")
+    @PostMapping(value = "/list")
     public ResponseResult<List<GoodsSimplePO>> listByIdGoodsSimplePO() {
         return ResponseResult.success(null);
     }
 
     @ApiOperation("商品查询")
-    @RequestMapping(value = "/page")
+    @PostMapping(value = "/page")
     public ResponseResult<Page<GoodsSimplePO>> pageGoodsSimplePO() {
         return ResponseResult.success(null);
     }

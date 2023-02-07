@@ -15,7 +15,6 @@ spring:
     database: 1
     password:
 
-
 eureka:
   client:
     service-url:
@@ -30,3 +29,10 @@ feign:
     enabled: false
   okhttp:
     enabled: true
+
+springfox:
+  documentation:
+    enabled: false
+    auto-startup: false
+    swagger-ui:
+      enabled: false

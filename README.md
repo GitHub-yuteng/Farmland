@@ -20,6 +20,7 @@
 - Lombok
 - Hutool
 - Guava
+- Swagger3
 
 ## DB Schema
 - farmland_biz 

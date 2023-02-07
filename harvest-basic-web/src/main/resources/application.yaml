@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: harvest-basic-web
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   main:
     allow-bean-definition-overriding: true
   cloud:
@@ -24,3 +27,10 @@ feign:
     enabled: false
   okhttp:
     enabled: true
+
+springfox:
+  documentation:
+    enabled: true
+    auto-startup: true
+    swagger-ui:
+      enabled: true

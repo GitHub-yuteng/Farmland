@@ -45,6 +45,13 @@ feign:
   okhttp:
     enabled: true
 
+springfox:
+  documentation:
+    enabled: false
+    auto-startup: false
+    swagger-ui:
+      enabled: false
+
 logging:
   level:
     com: debug

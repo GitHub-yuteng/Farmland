@@ -16,8 +16,8 @@ public enum GoodsTypeEnum implements IEnum<Integer> {
     /**
      * 商品类型
      */
-    GOODS_ORDINARY  (1, "普通商品"),
-    GOODS_PACKAGE   (2, "组合商品"),
+    GOODS_SINGLE    (1, "单规格商品"),
+    GOODS_MULTIPLE  (2, "多规格商品"),
 
     ;
 

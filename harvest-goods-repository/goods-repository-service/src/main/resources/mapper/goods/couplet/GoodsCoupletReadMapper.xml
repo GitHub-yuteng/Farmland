@@ -112,9 +112,8 @@
     LEFT JOIN farmland_goods_switch switch ON switch.goods_id = spu.id
     LEFT JOIN farmland_goods_category category ON category.id = spu.category_id
     LEFT JOIN farmland_goods_brand brand ON brand.id = spu.brand_id
-    LEFT JOIN farmland_goods_sku sku ON sku.spu_id = spu.id AND sku.is_deleted = 0
+    LEFT JOIN farmland_goods_sku sku ON sku.spu_id = spu.id AND sku.is_deleted = 0 AND sku.COMPANY_ID = #{companyId}
     WHERE spu.COMPANY_ID = #{companyId}
-    AND sku.COMPANY_ID = #{companyId}
     AND spu.is_deleted = 0
     AND
     <foreach collection="collection" item="item" open="(" close=")" separator="or">

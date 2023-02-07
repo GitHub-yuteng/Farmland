@@ -24,3 +24,10 @@ feign:
     enabled: false
   okhttp:
     enabled: true
+
+springfox:
+  documentation:
+    enabled: true
+    auto-startup: true
+    swagger-ui:
+      enabled: true
