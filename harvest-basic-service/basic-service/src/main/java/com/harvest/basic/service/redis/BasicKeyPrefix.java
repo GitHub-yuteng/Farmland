@@ -24,4 +24,9 @@ public class BasicKeyPrefix extends BaseKeyPrefix {
     public String getKeyPrefix() {
         return BASIC_PREFIX + super.getKeyPrefix();
     }
+
+    @Override
+    public String getKeyLock() {
+        return BASIC_PREFIX + super.getKeyLock();
+    }
 }

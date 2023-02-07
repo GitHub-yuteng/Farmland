@@ -24,4 +24,9 @@ public class OmsKeyPrefix extends BaseKeyPrefix {
     public String getKeyPrefix() {
         return OMS_PREFIX + super.getKeyPrefix();
     }
+
+    @Override
+    public String getKeyLock() {
+        return OMS_PREFIX + super.getKeyLock();
+    }
 }

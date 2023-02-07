@@ -14,13 +14,22 @@ public abstract class BaseKeyPrefix implements KeyPrefix {
 
     private final static Random RANDOM = new Random();
 
+    protected final static int ONE_MINUTE = 60;
     protected final static int ONE_HOUR = 60 * 60;
-    protected final static int ONE_DAY  = 60 * 60 * 24;
+    protected final static int ONE_DAY = 60 * 60 * 24;
     protected final static int ONE_WEEK = 60 * 60 * 24 * 7;
     protected final static int ONE_MONTH = 60 * 60 * 24 * 30;
     protected final static int TWO_MONTH = 60 * 60 * 24 * 30 * 2;
 
+    /**
+     * 分隔符
+     */
     private final static String SPLIT = ":";
+
+    /**
+     * lock tag
+     */
+    private final static String LOCK = "-lock:";
 
     /**
      * key前缀
@@ -48,5 +57,10 @@ public abstract class BaseKeyPrefix implements KeyPrefix {
     @Override
     public String getKeyPrefix() {
         return this.getClass().getSimpleName() + SPLIT + this.keyPrefix;
+    }
+
+    @Override
+    public String getKeyLock() {
+        return this.getClass().getSimpleName() + SPLIT + this.keyPrefix + LOCK;
     }
 }

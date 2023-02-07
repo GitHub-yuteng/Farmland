@@ -16,4 +16,10 @@ public interface KeyPrefix {
      * 获取key前缀
      */
     String getKeyPrefix();
+
+    /**
+     *
+     * 获取 key-lock 前缀
+     */
+    String getKeyLock();
 }

@@ -28,7 +28,9 @@ public interface PlatformLogisticsClient extends GlobalMacroDefinition {
 
     @ApiOperation("提交申报")
     @PostMapping("/submitDeclaration")
-    void submitDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody SubmitDeclarationRequest request);
+    default void submitDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody SubmitDeclarationRequest request) {
+
+    }
 
     @ApiOperation("获取运单号")
     @PostMapping("/getDeliveryNo")

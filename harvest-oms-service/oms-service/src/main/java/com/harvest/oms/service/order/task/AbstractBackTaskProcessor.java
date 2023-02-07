@@ -1,7 +1,9 @@
 package com.harvest.oms.service.order.task;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.harvest.core.context.SpringHelper;
 import com.harvest.core.service.lock.DistributedLockUtils;
+import com.harvest.core.service.redis.CacheService;
 import com.harvest.oms.service.redis.key.OrderBackStatTaskKey;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -29,6 +31,11 @@ public abstract class AbstractBackTaskProcessor {
     protected final ExecutorService backStatExecutor;
 
     /**
+     * 缓存服务
+     */
+    protected CacheService cacheService;
+
+    /**
      * 任务构建
      *
      * @param taskName
@@ -52,22 +59,41 @@ public abstract class AbstractBackTaskProcessor {
                         .setUncaughtExceptionHandler((thread, e) -> LOGGER.error(taskName + "-back-stat-%d:{} 发生异常", thread, e))
                         .build(),
                 new ThreadPoolExecutor.CallerRunsPolicy());
+
+        cacheService = SpringHelper.getBean(CacheService.class);
     }
 
     public void execute(Long companyId, OrderBackStatTaskKey orderBackStatTaskKey) {
 
-        // 增加分布式缓存时间间隔
-
-        // 对公司级别上锁
-        synchronized (String.valueOf(companyId).intern()) {
-            try {
-                Boolean lock = DistributedLockUtils.lock(orderBackStatTaskKey, () -> backStatExecutor.submit(this.getTask(companyId)).get());
-            } catch (Exception e) {
-                LOGGER.error(String.format("公司后台任务执行异常, companyId:%s, 异常原因：%s", companyId, e.getMessage()), e.getCause());
-            } finally {
-                System.out.println("释放锁！");
+        /*分布式锁，如果当前该公司已经在执行了统计任务则直接返回*/
+        try {
+            // 触发最小间隔
+            if (this.checkIntervalLimit(companyId)) {
+                return;
             }
+
+            // 对公司级别上锁
+            synchronized (String.valueOf(companyId).intern()) {
+                // 触发最小间隔 二次校验
+                if (this.checkIntervalLimit(companyId)) {
+                    return;
+                }
+                try {
+                    Boolean lock = DistributedLockUtils.lock(orderBackStatTaskKey, () -> backStatExecutor.submit(this.getTask(companyId)).get());
+                } catch (Exception e) {
+                    LOGGER.error(String.format("公司后台任务执行异常#backStatExecutor, companyId:%s, 异常原因：%s", companyId, e.getMessage()), e.getCause());
+                } finally {
+                    System.out.println("释放锁！");
+                }
+            }
+        } catch (Exception e) {
+            LOGGER.error(String.format("公司后台任务执行异常#execute, companyId:%s, 异常原因：%s", companyId, e.getMessage()), e.getCause());
         }
+
+    }
+
+    private boolean checkIntervalLimit(Long companyId) {
+        return cacheService.exists(OrderBackStatTaskKey.INTERVAL_LIMIT, companyId.toString());
     }
 
     /**

@@ -8,6 +8,7 @@ import com.harvest.oms.service.redis.OmsKeyPrefix;
  * @Author: Alodi
  * @Date: 2023/2/2 2:31 PM
  * @Description: 订单后台任务缓存 Key 值
+ * oms:OrderBackStatTaskKey:back-stat:task-name
  **/
 public class OrderBackStatTaskKey extends OmsKeyPrefix {
 
@@ -20,17 +21,24 @@ public class OrderBackStatTaskKey extends OmsKeyPrefix {
     }
 
     /**
+     * 时间最小间隔
+     */
+    public final static OrderBackStatTaskKey INTERVAL_LIMIT = new OrderBackStatTaskKey(
+            KeyModePrefix.OMS.ORDER_BACK_STAT_TASK + "interval-limit", ONE_MINUTE
+    );
+
+    /**
      * 缺货标记后台任务
      */
     public final static OrderBackStatTaskKey STOCK_LACK_KEY = new OrderBackStatTaskKey(
-            KeyModePrefix.OMS.ORDER_BACK_STAT_TASK + OrderBackStatTask.BackStatTaskEnum.STOCK_LACK.taskName
+            KeyModePrefix.OMS.ORDER_BACK_STAT_TASK + OrderBackStatTask.BackStatTaskEnum.STOCK_LACK.taskName, 1
     );
 
     /**
      * 物流追踪后台任务
      */
     public final static OrderBackStatTaskKey LOGISTICS_TRACKING_KEY = new OrderBackStatTaskKey(
-            KeyModePrefix.OMS.ORDER_BACK_STAT_TASK + OrderBackStatTask.BackStatTaskEnum.LOGISTICS_TRACKING.taskName
+            KeyModePrefix.OMS.ORDER_BACK_STAT_TASK + OrderBackStatTask.BackStatTaskEnum.LOGISTICS_TRACKING.taskName, 1
     );
 
 }

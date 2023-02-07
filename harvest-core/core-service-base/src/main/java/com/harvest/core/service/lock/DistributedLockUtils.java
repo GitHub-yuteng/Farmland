@@ -19,7 +19,7 @@ public class DistributedLockUtils {
         if (lockKey == null) {
             throw new RuntimeException("分布式锁键值不能为空");
         }
-        return lock(lockKey.getKeyPrefix(), callable, 1);
+        return lock(lockKey.getKeyPrefix(), callable, lockKey.expireSeconds());
     }
 
     public static <T extends BaseKeyPrefix, V> V lock(T lockKey, Callable<V> callable, int seconds) throws Exception {
