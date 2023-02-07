@@ -13,7 +13,7 @@ import java.util.concurrent.Callable;
 /**
  * @Author: Alodi
  * @Date: 2023/2/1 8:37 PM
- * @Description: TODO
+ * @Description: 后台轻量级任务
  **/
 @Component
 public class OrderBackStatTaskContext implements OrderBackStatTask, InitializingBean {

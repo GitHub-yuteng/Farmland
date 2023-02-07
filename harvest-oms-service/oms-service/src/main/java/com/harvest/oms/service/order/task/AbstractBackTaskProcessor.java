@@ -77,17 +77,16 @@ public abstract class AbstractBackTaskProcessor {
                 if (this.checkIntervalLimit(companyId)) {
                     return;
                 }
-                Boolean lock = DistributedLockUtils.lock(orderBackStatTaskKey.getKeyLock(),
-                        () -> {
-                            try {
-                                return backStatExecutor.submit(this.getTask(companyId)).get();
-                            } catch (Exception e) {
-                                LOGGER.error(String.format("公司后台任务执行异常#backStatExecutor, companyId:%s, 异常原因：%s", companyId, e.getMessage()), e.getCause());
-                                return false;
-                            } finally {
-                                cacheService.set(OrderBackStatTaskKey.INTERVAL_LIMIT, companyId.toString(), System.currentTimeMillis());
-                            }
-                        }, orderBackStatTaskKey.getExpireSeconds());
+                Boolean lock = DistributedLockUtils.lock(orderBackStatTaskKey, companyId.toString(), () -> {
+                    try {
+                        return backStatExecutor.submit(this.getTask(companyId)).get();
+                    } catch (Exception e) {
+                        LOGGER.error(String.format("公司后台任务执行异常#backStatExecutor, companyId:%s, 异常原因：%s", companyId, e.getMessage()), e.getCause());
+                        return false;
+                    } finally {
+                        cacheService.set(OrderBackStatTaskKey.INTERVAL_LIMIT, companyId.toString(), System.currentTimeMillis());
+                    }
+                });
             }
         } catch (Exception e) {
             LOGGER.error(String.format("公司后台任务执行异常#execute, companyId:%s, 异常原因：%s", companyId, e.getMessage()), e.getCause());
