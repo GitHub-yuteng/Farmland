@@ -50,6 +50,8 @@
     <module>harvest-platform-JD</module>
     <module>harvest-platform-TMall</module>
     <module>harvest-cloud-NLP</module>
+    <module>harvest-warehouse</module>
+    <module>harvest-warehouse-cainiao</module>
   </modules>
 
 </project>
