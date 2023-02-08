@@ -1,5 +1,7 @@
 package com.harvest.basic.client.logistics;
 
+import com.harvest.basic.domain.logistics.DeclarationDataFile;
+import com.harvest.basic.domain.logistics.DeclarationResponse;
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import io.swagger.annotations.ApiOperation;
@@ -13,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
  * @Description: TODO
  **/
 public interface PlatformLogisticsClient extends GlobalMacroDefinition {
+
+    String MESSAGE = "暂不支持该功能!";
 
     @ApiOperation("获取授权")
     @PostMapping("/token")
@@ -28,8 +32,11 @@ public interface PlatformLogisticsClient extends GlobalMacroDefinition {
 
     @ApiOperation("提交申报")
     @PostMapping("/submitDeclaration")
-    default void submitDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody SubmitDeclarationRequest request) {
-
+    default DeclarationResponse submitDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody SubmitDeclarationRequest request) {
+        DeclarationResponse response = new DeclarationResponse();
+        response.setSuccess(false);
+        response.setMessage(MESSAGE);
+        return response;
     }
 
     @ApiOperation("获取运单号")
@@ -38,7 +45,7 @@ public interface PlatformLogisticsClient extends GlobalMacroDefinition {
 
     @ApiOperation("获取面单")
     @PostMapping("/print")
-    void print(@RequestParam(COMPANY_ID) Long companyId);
+    DeclarationDataFile print(@RequestParam(COMPANY_ID) Long companyId, @RequestBody SubmitDeclarationRequest request);
 
     @ApiOperation("取消申报")
     @PostMapping("/cancelDeclaration")

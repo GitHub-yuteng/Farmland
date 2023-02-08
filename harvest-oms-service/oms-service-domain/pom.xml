@@ -26,6 +26,11 @@
     <!--其他模块领域模型-->
     <dependency>
       <groupId>com.harvest</groupId>
+      <artifactId>basic-service-domain</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.harvest</groupId>
       <artifactId>goods-service-domain</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>

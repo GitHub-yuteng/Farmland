@@ -1,6 +1,7 @@
 package com.harvest.oms.repository.domain.order.simple;
 
 import com.harvest.core.enums.oms.OrderStatusEnum;
+import com.harvest.oms.repository.domain.amount.OrderAmount;
 import com.harvest.oms.repository.domain.order.base.OrderTime;
 import com.harvest.oms.repository.domain.order.OrderCore;
 import io.swagger.annotations.ApiModelProperty;
@@ -63,8 +64,8 @@ public class OrderItemSimplePO extends OrderCore implements Serializable {
     @ApiModelProperty("数量")
     private BigDecimal quantity;
 
-    @ApiModelProperty("金额大字段｜Json")
-    private String amount;
+    @ApiModelProperty("订单明细 金额大字段｜Json")
+    private OrderAmount amount;
 
     @ApiModelProperty("缺货数量")
     private BigDecimal stockLack;

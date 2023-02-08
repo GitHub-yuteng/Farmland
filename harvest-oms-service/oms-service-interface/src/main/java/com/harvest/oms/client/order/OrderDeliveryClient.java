@@ -25,7 +25,7 @@ public interface OrderDeliveryClient extends GlobalMacroDefinition {
     @PostMapping("/listDeclaration")
     void listDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
 
-    @ApiOperation("订单发货申报")
+    @ApiOperation("订单并发发货申报")
     @PostMapping("/declare")
     BatchExecuteResult<String> declare(@RequestParam(COMPANY_ID) Long companyId, @RequestBody Collection<SubmitDeclarationRequest> requests);
 

@@ -11,9 +11,8 @@ import lombok.EqualsAndHashCode;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class OrderDeclarationDO extends CompanyId {
+public class OrderItemDeclarationDO extends CompanyId {
 
     private static final long serialVersionUID = 5207642073238121865L;
-
 
 }

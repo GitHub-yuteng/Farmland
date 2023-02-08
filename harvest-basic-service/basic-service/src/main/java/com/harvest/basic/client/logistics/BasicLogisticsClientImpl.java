@@ -1,6 +1,8 @@
 package com.harvest.basic.client.logistics;
 
 import com.harvest.basic.client.constants.HarvestBasicApplications;
+import com.harvest.basic.domain.logistics.DeclarationDataFile;
+import com.harvest.basic.domain.logistics.DeclarationResponse;
 import com.harvest.basic.service.logistics.PlatformLogisticsService;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
@@ -29,20 +31,21 @@ public class BasicLogisticsClientImpl implements BasicLogisticsClient {
      * @param request
      */
     @Override
-    public void submitDeclaration(Long companyId, SubmitDeclarationRequest request) {
+    public DeclarationResponse submitDeclaration(Long companyId, SubmitDeclarationRequest request) {
 
         StopWatch stopWatch = new StopWatch("订单申报监控");
 
         stopWatch.start("提交申报");
-        platformLogisticsService.submitDeclaration(companyId, request);
+        DeclarationResponse response = platformLogisticsService.submitDeclaration(companyId, request);
         stopWatch.stop();
 
         stopWatch.start("获取面单");
-        platformLogisticsService.print(companyId);
+        DeclarationDataFile file = platformLogisticsService.print(companyId, request);
         stopWatch.stop();
 
         LOGGER.info("BasicLogisticsClientImpl#submitDeclaration, \n{}", stopWatch.prettyPrint());
 
+        return response;
     }
 
 }

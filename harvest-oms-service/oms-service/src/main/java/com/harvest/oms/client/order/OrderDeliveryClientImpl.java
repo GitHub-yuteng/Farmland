@@ -1,12 +1,14 @@
 package com.harvest.oms.client.order;
 
 import com.harvest.basic.client.logistics.BasicLogisticsClient;
+import com.harvest.basic.domain.logistics.DeclarationResponse;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.core.context.SpringHelper;
 import com.harvest.core.exception.ExceptionCodes;
 import com.harvest.core.exception.StandardRuntimeException;
 import com.harvest.core.utils.ActuatorUtils;
+import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.declare.OrderDeclarationDO;
@@ -52,7 +54,8 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
                     OrderInfoDO order = SpringHelper.getBean(OrderReadClient.class).get(companyId, orderId);
                     request.setOrder(order);
                     orderMap.put(orderId, order.getOrderNo());
-                    this.execute(companyId, request);
+                    // 执行申报
+                    this.executeDeclare(companyId, request);
                 }, request -> orderMap.get(request.getId())
         );
     }
@@ -73,10 +76,13 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
 
     @Override
     public void processDeclare(Long companyId, SubmitDeclarationRequest request) {
+
         // 渠道地址信息
 
         // 提交报关
-        basicLogisticsClient.submitDeclaration(companyId, request);
+        DeclarationResponse response = basicLogisticsClient.submitDeclaration(companyId, request);
+        System.out.println(JsonUtils.object2Json(response));
+
     }
 
     @Override

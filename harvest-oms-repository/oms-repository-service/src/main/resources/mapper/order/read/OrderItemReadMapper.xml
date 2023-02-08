@@ -21,7 +21,8 @@
     <result column="discounted_price" property="discountedPrice"/>
     <result column="is_package" property="isPackage"/>
     <result column="quantity" property="quantity"/>
-    <result column="amount" property="amount"/>
+    <result column="amount" property="amount" javaType="com.harvest.oms.repository.domain.amount.OrderAmount"
+            typeHandler="com.harvest.core.repository.mybatis.handler.ObjectJsonHandler"/>
     <result column="created_time" property="orderItemTime.createdTime"/>
     <result column="paid_time" property="orderItemTime.paidTime"/>
     <result column="send_time" property="orderItemTime.sendTime"/>
@@ -33,10 +34,38 @@
   </resultMap>
   
   <sql id="field">
-    id AS order_item_id, COMPANY_ID, shop_id, order_id, source_type, order_item_status, delivery_no,
-    spu_id, spu_code, spu_name, sku_id, sku_code, sku_name,
-    unit_price, discounted_price, is_package, quantity, amount,
-    created_time, paid_time, send_time, end_time, modify_time, stock_lack, stock_lack_time, picture_oss_url
+    <!-- 订单天然带来的信息 -->
+    order_id,
+    COMPANY_ID,
+    shop_id,
+    source_type,
+    <!-- 订单明细 -->
+    id AS order_item_id,
+    order_item_status,
+    delivery_no,
+    <!-- 订单明细商品信息 -->
+    spu_id,
+    spu_code,
+    spu_name,
+    sku_id,
+    sku_code,
+    sku_name,
+    <!-- 订单明细金额 -->
+    unit_price,
+    discounted_price,
+    is_package,
+    quantity,
+    amount,
+    <!-- 订单明细时间 -->
+    created_time,
+    paid_time,
+    send_time,
+    end_time,
+    modify_time,
+    <!-- 缺货 -->
+    stock_lack,
+    stock_lack_time,
+    picture_oss_url
   </sql>
   
   <select id="listOrderItemByOrderIds" resultMap="BaseResultMap">

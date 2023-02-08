@@ -1,9 +1,9 @@
 package com.harvest.oms.client.order;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.domain.Page;
 import com.harvest.core.exception.StandardRuntimeException;
-import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.monitor.anno.Monitor;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.core.utils.QueryUtils;
@@ -98,34 +98,34 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         stopWatch.stop();
 
         stopWatch.start("订单查询");
-        Page<OrderSimplePO> orderSimplePage = orderRichQueryRepositoryClient.pageQueryOrderRich(companyId, condition);
+        Page<OrderSimplePO> page = orderRichQueryRepositoryClient.pageQueryOrderRich(companyId, condition);
         stopWatch.stop();
 
         stopWatch.start("领域模型转换");
-        Page<OrderInfoDO> page = this.convert(orderSimplePage);
+        Collection<OrderInfoDO> data = orderConvertor.OrderInfoDO(page.getData());
         stopWatch.stop();
 
         stopWatch.start("订单明细信息填充");
-        this.orderItemBatchFill(companyId, page.getData());
+        this.orderItemBatchFill(companyId, data);
         stopWatch.stop();
 
         stopWatch.start("领域模型信息填充");
-        this.sectionBatchFill(companyId, page.getData());
+        this.sectionBatchFill(companyId, data);
         stopWatch.stop();
 
         stopWatch.start("平台订单特性处理");
-        this.platformFeatureBatchHandler(companyId, page.getData());
+        this.platformFeatureBatchHandler(companyId, data);
         stopWatch.stop();
 
         stopWatch.start("公司订单特性处理");
-        this.companyFeatureBatchHandler(companyId, page.getData());
+        this.companyFeatureBatchHandler(companyId, data);
         stopWatch.stop();
 
         if (stopWatch.getTotalTimeMillis() > TIME_OUT) {
             LOGGER.warn("OrderRichQueryClientImpl#pageQueryOrderRich#订单查询超时, companyId:{}, condition:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
         }
 
-        return page;
+        return Page.build(condition.getPageNo(), condition.getPageSize(), data, page.getCount());
     }
 
     @Override
@@ -280,27 +280,6 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         });
     }
 
-    /**
-     * 转换领域模型
-     *
-     * @param orderSimplePage
-     * @return
-     */
-    private Page<OrderInfoDO> convert(Page<OrderSimplePO> orderSimplePage) {
-        Collection<OrderSimplePO> orderSimpleList = orderSimplePage.getData();
-        List<OrderInfoDO> orderInfoList = orderSimpleList.stream().map(orderSimplePO -> {
-            OrderInfoDO orderInfoDO = new OrderInfoDO();
-            BeanUtils.copyProperties(orderSimplePO, orderInfoDO);
-            return orderInfoDO;
-        }).collect(Collectors.toList());
-
-        return new Page<>(
-                orderSimplePage.getPageNo(),
-                orderSimplePage.getPageSize(),
-                orderInfoList,
-                orderSimplePage.getCount()
-        );
-    }
 
     @Override
     public Collection<OrderItemDO> queryOrderItemsRich(Long companyId, Long orderId) {

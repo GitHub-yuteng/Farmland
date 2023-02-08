@@ -1,6 +1,7 @@
 package com.harvest.basic.client.logistics;
 
 import com.harvest.basic.client.constants.HarvestBasicApplications;
+import com.harvest.basic.domain.logistics.DeclarationResponse;
 import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
@@ -19,6 +20,6 @@ public interface BasicLogisticsClient extends GlobalMacroDefinition {
 
     @ApiOperation("申报提交")
     @PostMapping("/submitDeclaration")
-    void submitDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody SubmitDeclarationRequest request);
+    DeclarationResponse submitDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody SubmitDeclarationRequest request);
 
 }

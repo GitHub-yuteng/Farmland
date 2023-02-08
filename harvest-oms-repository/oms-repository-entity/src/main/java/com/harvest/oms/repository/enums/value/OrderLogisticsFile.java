@@ -1,6 +1,6 @@
 package com.harvest.oms.repository.enums.value;
 
-import com.harvest.core.domain.file.HarvestFile;
+import com.harvest.core.domain.file.DataFile;
 import com.harvest.oms.repository.enums.OrderValueMapEnum;
 import lombok.Data;
 
@@ -16,7 +16,7 @@ public class OrderLogisticsFile implements IOrderValueMap {
 
     private static final long serialVersionUID = -5586524607014030675L;
 
-    private List<HarvestFile> files;
+    private List<DataFile> files;
 
     @Override
     public OrderValueMapEnum getType() {

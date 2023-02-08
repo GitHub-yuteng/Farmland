@@ -45,6 +45,14 @@ public interface OrderSectionHandler {
          * 订单申报信息
          */
         int ORDER_DECLARATION = 4;
+        /**
+         * 订单店铺信息
+         */
+        int ORDER_SHOP = 5;
+        /**
+         * 订单自定义标签
+         */
+        int ORDER_CUSTOM_TAG = 6;
 
     }
 

@@ -27,6 +27,6 @@ public class SubmitDeclarationRequest extends BatchResultId implements Serializa
 
     @JsonIgnore
     @ApiModelProperty("承运商类型-业务流转")
-    private LogisticsEnum logistics;
+    private LogisticsEnum logisticsType;
 
 }

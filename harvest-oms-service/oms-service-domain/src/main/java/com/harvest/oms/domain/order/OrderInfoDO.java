@@ -1,5 +1,6 @@
 package com.harvest.oms.domain.order;
 
+import com.harvest.basic.domain.shop.ShopDO;
 import com.harvest.oms.domain.order.declare.OrderDeclarationDO;
 import com.harvest.oms.domain.order.logistics.OrderLogisticsChannelDO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
@@ -20,6 +21,9 @@ import java.util.Collection;
 public class OrderInfoDO extends OrderSimplePO {
 
     private static final long serialVersionUID = 2547095981099704006L;
+
+    @ApiModelProperty("店铺信息")
+    private ShopDO shop;
 
     @ApiModelProperty("订单明细")
     private Collection<OrderItemDO> orderItems;

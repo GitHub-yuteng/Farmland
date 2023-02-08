@@ -1,6 +1,8 @@
 package com.harvest.basic.service.logistics;
 
 import com.harvest.basic.client.logistics.PlatformLogisticsClient;
+import com.harvest.basic.domain.logistics.DeclarationDataFile;
+import com.harvest.basic.domain.logistics.DeclarationResponse;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import org.springframework.stereotype.Component;
 
@@ -28,8 +30,8 @@ public class PlatformLogisticsService extends AbstractPlatformLogisticsService i
     }
 
     @Override
-    public void submitDeclaration(Long companyId, SubmitDeclarationRequest request) {
-        super.call(3).submitDeclaration(companyId, request);
+    public DeclarationResponse submitDeclaration(Long companyId, SubmitDeclarationRequest request) {
+        return super.call(3).submitDeclaration(companyId, request);
     }
 
     @Override
@@ -38,8 +40,8 @@ public class PlatformLogisticsService extends AbstractPlatformLogisticsService i
     }
 
     @Override
-    public void print(Long companyId) {
-        super.call(3).print(companyId);
+    public DeclarationDataFile print(Long companyId, SubmitDeclarationRequest request) {
+        return super.call(3).print(companyId, request);
     }
 
     @Override

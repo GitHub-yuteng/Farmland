@@ -38,7 +38,7 @@ public interface OrderDeclareProcessor {
      * @param companyId
      * @param request
      */
-    default void execute(Long companyId, SubmitDeclarationRequest request) {
+    default void executeDeclare(Long companyId, SubmitDeclarationRequest request) {
         boolean before = this.beforeDeclare(companyId, request);
         if (!before) {
             return;
