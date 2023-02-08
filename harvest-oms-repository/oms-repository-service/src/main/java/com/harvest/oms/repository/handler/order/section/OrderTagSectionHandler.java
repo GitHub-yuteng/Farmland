@@ -9,6 +9,7 @@ import com.harvest.core.utils.QueryUtils;
 import com.harvest.oms.repository.domain.order.base.OrderTag;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.entity.FarmlandOmsOrderTagEntity;
+import com.harvest.oms.repository.enums.tag.OrderTagSourceEnum;
 import com.harvest.oms.repository.handler.order.OrderSectionRepositoryHandler;
 import com.harvest.oms.repository.mapper.FarmlandOmsOrderTagMapper;
 import org.apache.commons.collections4.CollectionUtils;
@@ -83,6 +84,7 @@ public class OrderTagSectionHandler implements OrderSectionRepositoryHandler<Ord
                         orderTag.setTagId(tag.getId());
                         orderTag.setOrderId(tag.getRecordId());
                         orderTag.setTagValue(tag.getTagValue());
+                        orderTag.setTagSource(OrderTagSourceEnum.calcTag(tag.getTagValue()));
                         orderTag.setProcessed(tag.getProcessed());
                         orderTag.setSimpleExtension(tag.getSimpleExtension());
                         return orderTag;

@@ -21,13 +21,6 @@ import java.util.Collection;
 @HarvestClient(value = HarvestOmsRepositoryApplications.SERVICE_NAME, path = HarvestOmsRepositoryApplications.Path.ORDER_RICH)
 public interface OrderRichQueryRepositoryClient extends GlobalMacroDefinition {
 
-    /**
-     * 一次查询, 查询出所有简要信息
-     *
-     * @param companyId
-     * @param condition
-     * @return
-     */
     @ApiOperation("分页订单信息查询")
     @PostMapping(value = "/pageQueryOrderRich")
     Page<OrderSimplePO> pageQueryOrderRich(@RequestParam(COMPANY_ID) Long companyId, @RequestBody PageOrderConditionQuery condition);
