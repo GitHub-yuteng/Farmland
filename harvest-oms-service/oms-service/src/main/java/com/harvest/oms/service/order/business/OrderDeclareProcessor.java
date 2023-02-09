@@ -10,13 +10,22 @@ import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 public interface OrderDeclareProcessor {
 
     /**
+     * 交运申报前置校验
+     *
+     * @param companyId
+     * @param request
+     * @return
+     */
+    void check(Long companyId, SubmitDeclarationRequest request);
+
+    /**
      * 交运申报前置处理
      *
      * @param companyId
      * @param request
      * @return
      */
-    boolean beforeDeclare(Long companyId, SubmitDeclarationRequest request);
+    void beforeDeclare(Long companyId, SubmitDeclarationRequest request);
 
     /**
      * 业务处理过程
@@ -39,10 +48,7 @@ public interface OrderDeclareProcessor {
      * @param request
      */
     default void executeDeclare(Long companyId, SubmitDeclarationRequest request) {
-        boolean before = this.beforeDeclare(companyId, request);
-        if (!before) {
-            return;
-        }
+        this.beforeDeclare(companyId, request);
         this.processDeclare(companyId, request);
         this.afterDeclare(companyId, request);
     }

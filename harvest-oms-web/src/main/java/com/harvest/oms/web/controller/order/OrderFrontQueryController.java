@@ -26,14 +26,14 @@ public class OrderFrontQueryController implements GlobalMacroDefinition {
     private OrderFrontQueryClient orderFrontQueryClient;
 
     @ApiOperation("订单分页查询")
-    @PostMapping(value = "/page/order")
+    @PostMapping(value = "/page")
     public ResponseResult<Page<OrderInfoVO>> frontPageQueryOrder(@RequestBody PageOrderConditionQuery condition) {
         Page<OrderInfoVO> page = orderFrontQueryClient.frontPageQueryOrder(8510380986999420205L, condition);
         return ResponseResult.success(page);
     }
 
     @ApiOperation("订单查询")
-    @GetMapping(value = "/order")
+    @GetMapping(value = "/get")
     public ResponseResult<OrderInfoVO> frontQueryOrder(@RequestParam(OMS.ORDER_ID) Long orderId) {
         OrderInfoVO page = orderFrontQueryClient.frontQueryOrder(8510380986999420205L, orderId);
         return ResponseResult.success(page);

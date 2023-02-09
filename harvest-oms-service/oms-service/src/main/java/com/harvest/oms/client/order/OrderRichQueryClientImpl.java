@@ -273,8 +273,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
             return;
         }
         orderCompanyFeatureHandlers.forEach(feature -> {
-            boolean match = feature.match(companyId);
-            if (match) {
+            if (feature.match(companyId)) {
                 feature.batchFeatureFill(companyId, orders);
             }
         });

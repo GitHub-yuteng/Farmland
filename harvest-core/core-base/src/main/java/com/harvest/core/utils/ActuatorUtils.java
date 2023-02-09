@@ -114,7 +114,7 @@ public class ActuatorUtils {
         }));
         try {
             latch.await(10, TimeUnit.SECONDS);
-        } catch (InterruptedException e) {
+        } catch (Exception e) {
             LOGGER.error("并发批量处理中断异常", e);
             return result;
         }
@@ -133,16 +133,12 @@ public class ActuatorUtils {
                 BatchExecuteResult.ErrorReasonMap<T> map = new BatchExecuteResult.ErrorReasonMap<>();
                 map.setReason(e.getMessage());
                 map.setE(e);
-                try {
-                    // 使用范型限定取出业务 Id
-                    map.setId((c.getId()));
-                } catch (Exception id) {
-                    LOGGER.error("可失败任务键值id取值异常", id);
-                }
+                // 使用范型限定取出业务 Id
+                map.setId((c.getId()));
                 try {
                     map.setKey(keyGetter.apply(c));
                 } catch (Exception key) {
-                    LOGGER.error("可失败任务键值key取值异常", key);
+                    LOGGER.error("可失败任务键值key取值异常!   ", key);
                 }
                 result.getErrorList().add(map);
                 result.getFailCount().incrementAndGet();

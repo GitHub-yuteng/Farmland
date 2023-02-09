@@ -15,5 +15,10 @@ public class LogisticsChannelSimplePO extends LogisticsCore {
 
     private static final long serialVersionUID = 6093320375464669182L;
 
+    private Long channelId;
+
+    private String channelCode;
+
+    private String channelName;
 
 }

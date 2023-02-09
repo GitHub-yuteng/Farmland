@@ -15,9 +15,6 @@ public class OrderLogisticsChannelDO extends LogisticsChannelSimplePO {
 
     private static final long serialVersionUID = -3225129685192443595L;
 
-    private Long channelId;
-
-
 
 
 }

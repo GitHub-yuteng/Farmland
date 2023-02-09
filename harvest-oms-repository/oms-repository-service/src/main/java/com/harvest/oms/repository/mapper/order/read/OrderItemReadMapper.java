@@ -16,6 +16,6 @@ import java.util.List;
 @Mapper
 public interface OrderItemReadMapper extends GlobalMacroDefinition {
 
-    Collection<OrderItemSimplePO> listOrderItemByOrderIds(@Param("companyId") Long companyId, @Param("orderIds") List<Long> orderIds);
+    Collection<OrderItemSimplePO> listOrderItemByOrderIds(@Param(COMPANY_ID) Long companyId, @Param(OMS.ORDER_IDS) List<Long> orderIds);
 
 }

@@ -19,7 +19,7 @@ public interface OrderAuditProcessor {
     void check(Long companyId, SubmitAuditRequest request);
 
     /**
-     * 交运审核前置处理
+     * 订单单审核前置处理
      *
      * @param companyId
      * @param request

@@ -26,5 +26,6 @@ public class SubmitAuditRequest extends BatchId implements Serializable {
 
     public static class SubmitAuditItemRequest {
 
+
     }
 }

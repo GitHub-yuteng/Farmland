@@ -85,7 +85,8 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
 
         List<Long> orderIds = (List<Long>) paramsMap.get(FieldUtils.getFieldName(PageOrderConditionQuery::getOrderIds));
         if (CollectionUtils.isNotEmpty(orderIds) && orderIds.contains(0L)) {
-            LOGGER.warn("Repository#Rich#订单拆分查询为空, companyId:{}, optimizeConvertor:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(optimizeConvertor.getClass().getSimpleName()), stopWatch.prettyPrint());
+            LOGGER.warn("Repository#Rich#订单拆分查询为空, companyId:{}, optimizeConvertor:{}, \nstopWatch:{}",
+                    companyId, JsonUtils.object2Json(optimizeConvertor.getClass().getSimpleName()), stopWatch.prettyPrint());
             return page;
         }
 

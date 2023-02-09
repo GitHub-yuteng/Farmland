@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harvest.oms.repository.mapper.order.read.OrderLogisticsChannelReadMapper">
+  
+  <resultMap id="BaseResultMap" type="com.harvest.oms.repository.domain.logistics.simple.LogisticsChannelSimplePO">
+    <id column="id" property="carrierId"/>
+    <result column="COMPANY_ID" property="companyId"/>
+    <result column="carrier_code" property="carrierCode"/>
+    <result column="carrier_code" property="carrierCode"/>
+    <result column="carrier" property="carrier"/>
+    <result column="channel_id" property="channelId"/>
+    <result column="channel_code" property="channelCode"/>
+    <result column="channel_name" property="channelName"/>
+  </resultMap>
+  
+  <select id="getChanelByLogisticsKeys" resultMap="BaseResultMap">
+    SELECT id,
+    COMPANY_ID,
+    carrier_code,
+    carrier,
+    channel_id,
+    channel_code,
+    channel_name
+    FROM farmland_oms_logistics logistics
+    LEFT JOIN farmland_oms_logistics_channel channel ON channel.carrier_id = logistics.id
+    WHERE logistics.COMPANY_ID = #{companyId}
+    AND
+    <foreach collection="list" item="key" separator="OR" open="(" close=")">
+      id = #{key.carrierId} AND carrier_id = #{key.carrierId} AND channel_id = #{key.channelId}
+    </foreach>
+  </select>
+
+</mapper>

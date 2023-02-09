@@ -13,6 +13,7 @@ import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.declare.OrderDeclarationDO;
+import com.harvest.oms.domain.order.logistics.OrderLogisticsChannelDO;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import com.harvest.oms.service.order.business.OrderDeclareProcessor;
 import org.apache.commons.collections4.CollectionUtils;
@@ -62,12 +63,15 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
     }
 
     @Override
-    public boolean beforeDeclare(Long companyId, SubmitDeclarationRequest request) {
+    public void check(Long companyId, SubmitDeclarationRequest request) {
+        OrderLogisticsChannelDO logisticsChannel = request.getOrder().getLogisticsChannel();
+        if (Objects.isNull(logisticsChannel)) {
+            throw new StandardRuntimeException(ExceptionCodes.OMS_MODULE_ERROR, "渠道为空, 请选择承运商渠道后, 进行交运申报!");
+        }
         // 是否已经申报
         if (this.existDeclaration(request.getOrder())) {
             throw new StandardRuntimeException(ExceptionCodes.OMS_MODULE_ERROR, "[warn]当前订单已申请交运，如需重新交运请先取消或者点击【刷新】查看交运结果!");
         }
-        return true;
     }
 
     private boolean existDeclaration(OrderInfoDO order) {
@@ -76,12 +80,21 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
     }
 
     @Override
+    public void beforeDeclare(Long companyId, SubmitDeclarationRequest request) {
+
+    }
+
+    @Override
     public void processDeclare(Long companyId, SubmitDeclarationRequest request) {
-        request.setLogisticsType(LogisticsEnum.CAINIAO);
+        OrderLogisticsChannelDO logisticsChannel = request.getOrder().getLogisticsChannel();
+        request.setLogisticsType(LogisticsEnum.getEnumByCode(logisticsChannel.getCarrierCode()));
         // 渠道地址信息
 
         // 提交报关
+
         DeclarationResponse response = basicLogisticsClient.submitDeclaration(companyId, request);
+
+
         System.out.println(JsonUtils.object2Json(response));
 
     }
