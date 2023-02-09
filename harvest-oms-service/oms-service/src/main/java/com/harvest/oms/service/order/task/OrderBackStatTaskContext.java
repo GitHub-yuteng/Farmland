@@ -3,7 +3,7 @@ package com.harvest.oms.service.order.task;
 import com.harvest.core.service.redis.CacheService;
 import com.harvest.oms.service.order.task.stat.OrderLogisticTrackBackTask;
 import com.harvest.oms.service.order.task.stat.OrderStockLackBackTask;
-import com.harvest.oms.service.redis.key.OrderBackStatTaskKey;
+import com.harvest.oms.redis.stat.OrderBackStatTaskKey;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

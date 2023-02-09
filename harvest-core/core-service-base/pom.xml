@@ -33,6 +33,12 @@
       <groupId>com.github.ben-manes.caffeine</groupId>
       <artifactId>caffeine</artifactId>
     </dependency>
+    <!--rocketmq-->
+    <dependency>
+      <groupId>org.apache.rocketmq</groupId>
+      <artifactId>rocketmq-spring-boot-starter</artifactId>
+      <version>2.2.2</version>
+    </dependency>
   </dependencies>
   
   <properties>

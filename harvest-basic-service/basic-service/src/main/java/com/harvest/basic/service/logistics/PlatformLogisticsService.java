@@ -31,17 +31,17 @@ public class PlatformLogisticsService extends AbstractPlatformLogisticsService i
 
     @Override
     public DeclarationResponse submitDeclaration(Long companyId, SubmitDeclarationRequest request) {
-        return super.call(3).submitDeclaration(companyId, request);
+        return super.call(request.getLogisticsType().getIndex()).submitDeclaration(companyId, request);
     }
 
     @Override
     public void getDeliveryNo(Long companyId, SubmitDeclarationRequest request) {
-        super.call(3).getDeliveryNo(companyId, request);
+        super.call(request.getLogisticsType().getIndex()).getDeliveryNo(companyId, request);
     }
 
     @Override
     public DeclarationDataFile print(Long companyId, SubmitDeclarationRequest request) {
-        return super.call(3).print(companyId, request);
+        return super.call(request.getLogisticsType().getIndex()).print(companyId, request);
     }
 
     @Override

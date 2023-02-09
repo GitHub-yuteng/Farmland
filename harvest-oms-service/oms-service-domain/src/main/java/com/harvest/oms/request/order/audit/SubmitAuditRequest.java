@@ -1,8 +1,7 @@
-package com.harvest.oms.request.order.declare;
+package com.harvest.oms.request.order.audit;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.harvest.core.batch.BatchId;
-import com.harvest.core.enums.logistics.LogisticsEnum;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -17,7 +16,7 @@ import java.io.Serializable;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SubmitDeclarationRequest extends BatchId implements Serializable {
+public class SubmitAuditRequest extends BatchId implements Serializable {
 
     private static final long serialVersionUID = -3113055454947802845L;
 
@@ -25,12 +24,7 @@ public class SubmitDeclarationRequest extends BatchId implements Serializable {
     @ApiModelProperty("订单信息-业务流转")
     private OrderInfoDO order;
 
-    @JsonIgnore
-    @ApiModelProperty("物流类型-业务流转")
-    private LogisticsEnum logisticsType;
+    public static class SubmitAuditItemRequest {
 
-    @JsonIgnore
-    @ApiModelProperty("对应物流特征偏好-业务流转")
-    private Object feature;
-
+    }
 }

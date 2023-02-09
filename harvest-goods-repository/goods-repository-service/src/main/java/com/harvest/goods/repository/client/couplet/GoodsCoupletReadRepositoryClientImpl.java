@@ -21,7 +21,8 @@ public class GoodsCoupletReadRepositoryClientImpl implements GoodsCoupletReadRep
     private GoodsCoupletReadMapper goodsCoupletReadMapper;
 
     @Override
-    public Collection<GoodsSimplePO> coupletGoods(Long companyId, Collection<GoodsBaseQuery> baseQueries) {
-        return goodsCoupletReadMapper.coupletGoods(companyId, baseQueries);
+    public Collection<GoodsSimplePO> coupletGoods(Long companyId, Collection<GoodsBaseQuery> collection) {
+        return goodsCoupletReadMapper.coupletGoods(companyId, collection);
     }
+
 }

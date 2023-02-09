@@ -34,7 +34,6 @@ public class OrderDeclarationSectionhandler implements OrderSectionHandler {
         }
 
         List<Long> orderIds = orders.parallelStream().map(OrderInfoDO::getOrderId).distinct().collect(Collectors.toList());
-
         OrderReadClient bean = SpringHelper.getBean(OrderReadClient.class);
     }
 }

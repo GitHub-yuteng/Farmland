@@ -1,8 +1,8 @@
-package com.harvest.oms.service.redis.key;
+package com.harvest.oms.redis.stat;
 
 import com.harvest.core.service.redis.prefix.KeyModePrefix;
+import com.harvest.oms.redis.OmsKeyPrefix;
 import com.harvest.oms.service.order.task.OrderBackStatTask;
-import com.harvest.oms.service.redis.OmsKeyPrefix;
 
 /**
  * @Author: Alodi

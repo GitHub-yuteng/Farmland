@@ -3,7 +3,7 @@ package com.harvest.core.utils;
 import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.batch.BatchExecuteResult;
-import com.harvest.core.batch.BatchResultId;
+import com.harvest.core.batch.BatchId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
@@ -60,7 +60,7 @@ public class ActuatorUtils {
 
 
     /**
-     * 串行可失败处理器
+     * 串行可失败处理器-范型限定
      *
      * @param collection 集合
      * @param consumer   消费方式
@@ -69,8 +69,7 @@ public class ActuatorUtils {
      * @param <T>        主键泛型
      * @return 执行结果
      */
-    public static <E extends BatchResultId, T> BatchExecuteResult<T> failAllowBatchExecute(Collection<E> collection, Consumer<E> consumer,
-                                                                                           Function<E, T> keyGetter) {
+    public static <E extends BatchId, T> BatchExecuteResult<T> failAllowBatchExecute(Collection<E> collection, Consumer<E> consumer, Function<E, T> keyGetter) {
         if (CollectionUtils.isEmpty(collection)) {
             return new BatchExecuteResult<>();
         }
@@ -80,13 +79,25 @@ public class ActuatorUtils {
     }
 
     /**
-     * 并发批量处理器
+     * 并发批量处理器-范型限定
+     *
+     * @param collection
+     * @param consumer
+     * @param <E>
+     * @return
+     */
+    public static <E extends BatchId> BatchExecuteResult<E> parallelFailAllowBatchExecute(Collection<E> collection, Consumer<E> consumer) {
+        return parallelFailAllowBatchExecute(collection, consumer, Function.identity());
+    }
+
+    /**
+     * 并发批量处理器-范型限定
      * <p>
      * 多个任务执行，允许其中有任务失败。并返回失败记录的错误原因
      * 比如 修改10个订单的状态，其中有一个订单的状态不能被修改，
      * 则其他9个修改成功，并返回失败的这个的错误原因
      */
-    public static <E extends BatchResultId, T> BatchExecuteResult<T> parallelFailAllowBatchExecute(Collection<E> collection, Consumer<E> consumer, Function<E, T> keyGetter) {
+    public static <E extends BatchId, T> BatchExecuteResult<T> parallelFailAllowBatchExecute(Collection<E> collection, Consumer<E> consumer, Function<E, T> keyGetter) {
         if (CollectionUtils.isEmpty(collection)) {
             return new BatchExecuteResult<>();
         }
@@ -110,7 +121,7 @@ public class ActuatorUtils {
         return result;
     }
 
-    private static <E extends BatchResultId, T> Consumer<E> getConsumer(BatchExecuteResult<T> result, Consumer<E> consumer, Function<E, T> keyGetter) {
+    private static <E extends BatchId, T> Consumer<E> getConsumer(BatchExecuteResult<T> result, Consumer<E> consumer, Function<E, T> keyGetter) {
         return c -> {
             try {
                 consumer.accept(c);
@@ -123,6 +134,7 @@ public class ActuatorUtils {
                 map.setReason(e.getMessage());
                 map.setE(e);
                 try {
+                    // 使用范型限定取出业务 Id
                     map.setId((c.getId()));
                 } catch (Exception id) {
                     LOGGER.error("可失败任务键值id取值异常", id);
@@ -150,8 +162,7 @@ public class ActuatorUtils {
      * @param <T>           输出泛型
      * @return 结果集
      */
-    public static <E, T> List<T> partitionExecute(List<E> list, int partitionSize,
-                                                  Function<List<E>, Collection<T>> function) {
+    public static <E, T> List<T> partitionExecute(List<E> list, int partitionSize, Function<List<E>, Collection<T>> function) {
         if (CollectionUtils.isEmpty(list)) {
             return Collections.emptyList();
         }

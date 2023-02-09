@@ -24,6 +24,17 @@ eureka:
     lease-renewal-interval-in-seconds: 2
     lease-expiration-duration-in-seconds: 10
 
+rocketmq:
+  name-server: localhost:9876
+  producer:
+    group: ORDER-PRODUCER-GROUP
+    #发送消息的超时时间
+    send-message-timeout: 3000
+    #异步消息重试的次数
+    retry-times-when-send-async-failed: 2
+    #同步消息重试的次数
+    retry-times-when-send-failed: 2
+
 feign:
   httpclient:
     enabled: false

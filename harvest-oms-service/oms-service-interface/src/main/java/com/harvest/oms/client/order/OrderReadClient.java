@@ -37,5 +37,4 @@ public interface OrderReadClient extends GlobalMacroDefinition {
     @ApiOperation("订单明细信息查询")
     @PostMapping(value = "/mapOrderItemByOrderIds")
     Map<Long, List<OrderItemSimplePO>> mapOrderItemByOrderIds(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
-
 }

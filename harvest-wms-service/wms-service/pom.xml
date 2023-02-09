@@ -27,6 +27,12 @@
       <artifactId>wms-repository-interface</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
+  
+    <dependency>
+      <groupId>com.harvest</groupId>
+      <artifactId>oms-service-interface</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
   </dependencies>
   
   <properties>

@@ -9,7 +9,7 @@ import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 /**
  * @Author: Alodi
  * @Date: 2023/2/4 2:27 PM
- * @Description: TODO
+ * @Description: 菜鸟物流平台
  **/
 @HarvestService(path = HarvestCainiaoLogisticsApplications.SERVICE_PATH)
 public class PlatformCainiaoLogisticsClientImpl implements PlatformCainiaoLogisticsClient {

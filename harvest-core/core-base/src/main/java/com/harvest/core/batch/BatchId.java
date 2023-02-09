@@ -11,7 +11,7 @@ import java.io.Serializable;
  * @Description: TODO
  **/
 @Data
-public class BatchResultId implements Serializable {
+public class BatchId implements Serializable {
 
     private static final long serialVersionUID = -5002420670654914779L;
 

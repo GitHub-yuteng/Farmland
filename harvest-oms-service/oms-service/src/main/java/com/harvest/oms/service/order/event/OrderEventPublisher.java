@@ -1,14 +1,20 @@
-package com.harvest.oms.service.order.listener;
+package com.harvest.oms.service.order.event;
 
-import com.harvest.oms.enums.OrderEventEnum;
-import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.core.batch.BatchExecuteResult;
+import com.harvest.core.batch.BatchId;
+import com.harvest.core.utils.ActuatorUtils;
 import com.harvest.oms.client.order.OrderReadClient;
+import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.enums.OrderEventEnum;
+import com.harvest.oms.service.order.listener.OrderEventListener;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @Author: Alodi
@@ -27,6 +33,22 @@ public class OrderEventPublisher {
     private OrderReadClient orderReadClient;
 
     /**
+     * 异步执行监听事件
+     *
+     * @param companyId
+     * @param orderId
+     * @param event
+     */
+    public void publishAsync(Long companyId, Long orderId, OrderEventEnum event) {
+        BatchExecuteResult<BatchId> batchResultIdBatchExecuteResult = ActuatorUtils.parallelFailAllowBatchExecute(Stream.of(orderId).map(id -> {
+            BatchId batchId = new BatchId();
+            batchId.setId(id);
+            return batchId;
+        }).collect(Collectors.toList()), id -> this.publish(companyId, orderId, event));
+
+    }
+
+    /**
      * 同步执行监听事件
      */
     public void publish(Long companyId, Long orderId, OrderEventEnum type) {
@@ -42,14 +64,16 @@ public class OrderEventPublisher {
         this.doPublish(companyId, order, type);
     }
 
-    private void doPublish(long companyId, OrderInfoDO order, OrderEventEnum type) {
+    private void doPublish(long companyId, OrderInfoDO order, OrderEventEnum event) {
         orderEventListeners.forEach(listener -> {
-            switch (type) {
+            switch (event) {
                 case CREATED:
                     listener.created(companyId, order);
                     break;
                 case PAID:
                 case AUDIT:
+                    listener.audit(companyId, order);
+                    break;
                 case RETURN_AUDIT:
                 case CLOSE:
                     break;
@@ -58,5 +82,6 @@ public class OrderEventPublisher {
             }
         });
     }
+
 
 }

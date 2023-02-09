@@ -1,15 +1,13 @@
 package com.harvest.oms.service.order.handler.section;
 
 import com.harvest.goods.client.goods.couplet.GoodsCoupletClient;
-import com.harvest.goods.domain.GoodsInfoDO;
-import com.harvest.goods.domain.SkuInfoDO;
-import com.harvest.goods.repository.domain.goods.base.GoodsBusiness;
-import com.harvest.goods.repository.domain.goods.base.GoodsSwitch;
 import com.harvest.goods.repository.domain.goods.simple.GoodsSimplePO;
 import com.harvest.goods.repository.domain.goods.simple.SkuSimplePO;
 import com.harvest.goods.repository.query.GoodsBaseQuery;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.OrderItemDO;
+import com.harvest.oms.domain.order.goods.OrderGoodsDO;
+import com.harvest.oms.domain.order.goods.OrderSkuDO;
 import com.harvest.oms.service.order.handler.OrderSectionHandler;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -73,60 +71,20 @@ public class OrderItemGoodsSectionHandler implements OrderSectionHandler {
     private void convert(Long companyId, OrderItemDO orderItemDO, Long skuId, GoodsSimplePO goodsSimplePO) {
         Collection<SkuSimplePO> skuSimples = goodsSimplePO.getSkuSimples();
         // copy 真实使用的商品信息
-        GoodsInfoDO goodsInfoDO = new GoodsInfoDO();
-        orderItemDO.setGoodsInfo(goodsInfoDO);
+        OrderGoodsDO goods = new OrderGoodsDO();
+        BeanUtils.copyProperties(goodsSimplePO, goods);
+        orderItemDO.setGoods(goods);
         // 设置商品规格信息
-        goodsInfoDO.setSkus(skuSimples.stream()
+        goods.setSku(skuSimples.stream()
                 .filter(skuSimplePO -> skuSimplePO.getSkuId().equals(skuId))
                 .map(skuSimplePO -> {
-                    SkuInfoDO sku = new SkuInfoDO();
-                    BeanUtils.copyProperties(skuSimplePO, sku);
-                    return sku;
-                }).collect(Collectors.toList())
+                    OrderSkuDO orderSkuDO = new OrderSkuDO();
+                    BeanUtils.copyProperties(skuSimplePO, orderSkuDO);
+                    return orderSkuDO;
+                }).findFirst().orElseGet(() -> {
+                    LOGGER.error("商品异常！");
+                    return new OrderSkuDO();
+                })
         );
-
-        // 设置商品规格信息简要
-        goodsInfoDO.setSkuSimples(skuSimples.stream()
-                .filter(skuSimplePO -> skuSimplePO.getSkuId().equals(skuId))
-                .collect(Collectors.toList())
-        );
-
-        GoodsBusiness simpleBusiness = goodsSimplePO.getGoodsBusiness();
-        if (Objects.nonNull(simpleBusiness)) {
-            GoodsBusiness goodsBusiness = new GoodsBusiness();
-            goodsInfoDO.setGoodsBusiness(goodsBusiness);
-            // 设置商品业务字段信息
-            goodsBusiness.setQualityPeriod(simpleBusiness.getQualityPeriod());
-            goodsBusiness.setForbidReceivePeriod(simpleBusiness.getForbidReceivePeriod());
-            goodsBusiness.setForbidSalePeriod(simpleBusiness.getForbidSalePeriod());
-            goodsBusiness.setAllowAcceptPeriod(simpleBusiness.getAllowAcceptPeriod());
-            goodsBusiness.setLifeCycle(simpleBusiness.getLifeCycle());
-        }
-
-        GoodsSwitch simpleSwitch = goodsSimplePO.getGoodsSwitch();
-        if (Objects.nonNull(simpleSwitch)) {
-            GoodsSwitch goodsSwitch = new GoodsSwitch();
-            goodsInfoDO.setGoodsSwitch(goodsSwitch);
-            // 设置商品设置开关
-            goodsSwitch.setOpenBatch(simpleSwitch.getOpenBatch());
-            goodsSwitch.setOpenValidity(simpleSwitch.getOpenValidity());
-        }
-
-        goodsInfoDO.setProductNo(goodsSimplePO.getProductNo());
-        goodsInfoDO.setLengthUnit(goodsSimplePO.getLengthUnit());
-        goodsInfoDO.setWeightUnit(goodsSimplePO.getWeightUnit());
-        goodsInfoDO.setVolumeUnit(goodsSimplePO.getVolumeUnit());
-        goodsInfoDO.setSpuId(goodsSimplePO.getSpuId());
-        goodsInfoDO.setSpuCode(goodsSimplePO.getSpuCode());
-        goodsInfoDO.setSpuName(goodsSimplePO.getSpuName());
-        goodsInfoDO.setStatus(goodsSimplePO.getStatus());
-        goodsInfoDO.setGoodsType(goodsSimplePO.getGoodsType());
-        goodsInfoDO.setIsPackage(goodsSimplePO.getIsPackage());
-        goodsInfoDO.setCategoryId(goodsSimplePO.getCategoryId());
-        goodsInfoDO.setCategory(goodsSimplePO.getCategory());
-        goodsInfoDO.setBrandId(goodsSimplePO.getBrandId());
-        goodsInfoDO.setBrand(goodsSimplePO.getBrand());
-        goodsInfoDO.setUnitId(goodsSimplePO.getUnitId());
-        goodsInfoDO.setCompanyId(companyId);
     }
 }

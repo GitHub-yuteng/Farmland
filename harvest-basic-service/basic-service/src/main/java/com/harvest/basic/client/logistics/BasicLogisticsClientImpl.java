@@ -41,6 +41,7 @@ public class BasicLogisticsClientImpl implements BasicLogisticsClient {
 
         stopWatch.start("获取面单");
         DeclarationDataFile file = platformLogisticsService.print(companyId, request);
+        response.setFile(file);
         stopWatch.stop();
 
         LOGGER.info("BasicLogisticsClientImpl#submitDeclaration, \n{}", stopWatch.prettyPrint());

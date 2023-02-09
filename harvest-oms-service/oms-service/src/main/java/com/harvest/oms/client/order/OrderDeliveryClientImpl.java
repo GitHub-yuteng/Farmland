@@ -5,6 +5,7 @@ import com.harvest.basic.domain.logistics.DeclarationResponse;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.core.context.SpringHelper;
+import com.harvest.core.enums.logistics.LogisticsEnum;
 import com.harvest.core.exception.ExceptionCodes;
 import com.harvest.core.exception.StandardRuntimeException;
 import com.harvest.core.utils.ActuatorUtils;
@@ -76,7 +77,7 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
 
     @Override
     public void processDeclare(Long companyId, SubmitDeclarationRequest request) {
-
+        request.setLogisticsType(LogisticsEnum.CAINIAO);
         // 渠道地址信息
 
         // 提交报关

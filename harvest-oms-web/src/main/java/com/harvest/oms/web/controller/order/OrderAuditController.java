@@ -1,11 +1,20 @@
 package com.harvest.oms.web.controller.order;
 
+import com.harvest.core.batch.BatchExecuteResult;
+import com.harvest.core.domain.ResponseResult;
 import com.harvest.core.path.HarvestOmsPath;
 import com.harvest.oms.client.order.OrderAuditClient;
+import com.harvest.oms.request.order.audit.SubmitAuditRequest;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Collection;
+import java.util.List;
 
 /**
  * @Author: Alodi
@@ -19,5 +28,19 @@ public class OrderAuditController {
 
     @Autowired
     private OrderAuditClient orderAuditClient;
+
+    @ApiOperation("订单审核")
+    @PostMapping(value = "/order")
+    public ResponseResult<BatchExecuteResult<String>> audit(@RequestBody List<Long> orderIds) {
+        BatchExecuteResult<String> result = orderAuditClient.audit(8510380986999420205L, orderIds);
+        return ResponseResult.success(result);
+    }
+
+    @ApiOperation("订单审核带提交项")
+    @PostMapping(value = "/order/with/submit")
+    public ResponseResult<BatchExecuteResult<String>> auditWithSubmit(@RequestBody Collection<SubmitAuditRequest> requests) {
+        BatchExecuteResult<String> result = orderAuditClient.auditWithSubmit(8510380986999420205L, requests);
+        return ResponseResult.success(result);
+    }
 
 }

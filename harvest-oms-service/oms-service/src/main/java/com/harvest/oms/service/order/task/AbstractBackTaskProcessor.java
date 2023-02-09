@@ -3,7 +3,7 @@ package com.harvest.oms.service.order.task;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.service.lock.DistributedLockUtils;
 import com.harvest.core.service.redis.CacheService;
-import com.harvest.oms.service.redis.key.OrderBackStatTaskKey;
+import com.harvest.oms.redis.stat.OrderBackStatTaskKey;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

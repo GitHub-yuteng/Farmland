@@ -33,6 +33,15 @@ public enum LogisticsEnum {
      */
     private final Integer index;
 
+    public LogisticsEnum getEnumByCode(String code) {
+        for (LogisticsEnum logisticsEnum : LogisticsEnum.values()) {
+            if (logisticsEnum.getCode().equals(code)) {
+                return logisticsEnum;
+            }
+        }
+        return null;
+    }
+
     public LogisticsEnum getEnumByIndex(Integer index) {
         for (LogisticsEnum logisticsEnum : LogisticsEnum.values()) {
             if (logisticsEnum.getIndex().equals(index)) {

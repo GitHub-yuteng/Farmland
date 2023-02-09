@@ -1,4 +1,4 @@
-package com.harvest.oms.service.cache;
+package com.harvest.oms.cache;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;

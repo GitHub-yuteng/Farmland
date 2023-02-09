@@ -1,4 +1,4 @@
-package com.harvest.oms.service.redis;
+package com.harvest.oms.redis;
 
 import com.harvest.core.service.redis.prefix.BaseKeyPrefix;
 import com.harvest.core.service.redis.prefix.KeyModePrefix;

@@ -15,4 +15,6 @@ public class OrderDeclarationVO extends SubmitDeclarationRequest {
 
     private static final long serialVersionUID = 2324752528183060363L;
 
+
+
 }

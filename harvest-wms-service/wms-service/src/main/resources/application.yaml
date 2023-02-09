@@ -24,6 +24,12 @@ eureka:
     lease-renewal-interval-in-seconds: 2
     lease-expiration-duration-in-seconds: 10
 
+rocketmq:
+  name-server: localhost:9876
+  consumer:
+    group: ORDER-PRODUCER-GROUP
+    topic: my-topic
+
 feign:
   httpclient:
     enabled: false
