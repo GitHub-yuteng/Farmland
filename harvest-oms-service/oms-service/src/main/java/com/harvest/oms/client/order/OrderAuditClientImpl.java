@@ -53,7 +53,7 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
         }
         Map<Long, SubmitAuditRequest> orderAuditSubmitMap = requests.stream().collect(Collectors.toMap(SubmitAuditRequest::getId, Function.identity(), (k1, k2) -> k1));
         // 记录键值 id-key
-        Map<Long, String> orderMap = new HashMap<>(2);
+        Map<Long, String> orderMap = new HashMap<>(DEFAULT_2);
         return super.SyncOrderParallelFailAllowBatchExecute(companyId, requests.stream().map(SubmitAuditRequest::getId).collect(Collectors.toList()),
                 order -> {
                     // 传递订单信息
