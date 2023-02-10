@@ -13,6 +13,7 @@ public interface KeyModePrefix {
 
     interface OMS {
 
+        String ORDER_AUDIT_FLOW     = "flow:";
         String ORDER_BACK_STAT_TASK = "back-stat:";
 
     }

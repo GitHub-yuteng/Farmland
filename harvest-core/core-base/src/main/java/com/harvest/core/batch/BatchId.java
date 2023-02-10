@@ -18,4 +18,8 @@ public class BatchId implements Serializable {
     @ApiModelProperty("业务主键")
     private Long id;
 
+    public String getKey() {
+        return this.id.toString();
+    }
+
 }

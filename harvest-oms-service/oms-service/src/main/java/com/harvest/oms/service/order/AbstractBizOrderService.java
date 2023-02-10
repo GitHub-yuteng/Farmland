@@ -2,9 +2,15 @@ package com.harvest.oms.service.order;
 
 import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.core.batch.BatchId;
+import com.harvest.core.exception.ExceptionCodes;
+import com.harvest.core.exception.StandardRuntimeException;
+import com.harvest.core.service.lock.DistributedLockUtils;
 import com.harvest.core.utils.ActuatorUtils;
 import com.harvest.oms.client.order.OrderReadClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.redis.flow.OrderAuditFlowKey;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
@@ -20,6 +26,8 @@ import java.util.stream.Collectors;
  **/
 public abstract class AbstractBizOrderService {
 
+    protected static final Logger LOGGER = LoggerFactory.getLogger(AbstractBizOrderService.class);
+
     @Autowired
     protected OrderReadClient orderReadClient;
 
@@ -34,14 +42,27 @@ public abstract class AbstractBizOrderService {
     protected BatchExecuteResult<String> SyncOrderParallelFailAllowBatchExecute(Long companyId, Collection<Long> orderIds, Consumer<OrderInfoDO> consumer) {
         Map<Long, String> orderMap = new ConcurrentHashMap<>(2);
         return ActuatorUtils.parallelFailAllowBatchExecute(orderIds.stream().map(orderId -> {
-            BatchId batchId = new BatchId();
-            batchId.setId(orderId);
-            return batchId;
-        }).collect(Collectors.toList()), batchResultId -> {
-            OrderInfoDO order = orderReadClient.get(companyId, batchResultId.getId());
-            orderMap.put(batchResultId.getId(), order.getOrderNo());
-            consumer.accept(order);
-        }, batchResultId -> orderMap.get(batchResultId.getId()));
+                    BatchId batchId = new BatchId();
+                    batchId.setId(orderId);
+                    return batchId;
+                }).collect(Collectors.toList()),
+                batchResultId -> {
+                    try {
+                        Boolean lock = DistributedLockUtils.lock(OrderAuditFlowKey.ORDER_AUDIT_KEY, batchResultId.getKey(),
+                                () -> {
+                                    OrderInfoDO order = orderReadClient.get(companyId, batchResultId.getId());
+                                    orderMap.put(batchResultId.getId(), order.getOrderNo());
+                                    consumer.accept(order);
+                                    return true;
+                                }
+                                , OrderAuditFlowKey.ORDER_AUDIT_KEY.expireSeconds());
+
+                    } catch (Exception e) {
+                        LOGGER.error("订单处理失败, 订单Id: {}", batchResultId.getId(), e);
+                        throw new StandardRuntimeException(ExceptionCodes.OMS_MODULE_ERROR, e.getMessage());
+                    }
+                },
+                batchResultId -> orderMap.get(batchResultId.getId()));
     }
 
 }

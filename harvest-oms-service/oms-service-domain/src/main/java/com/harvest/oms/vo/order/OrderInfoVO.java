@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * @Author: Alodi
  * @Date: 2022/12/11 7:51 PM
- * @Description: TODO
+ * @Description: 可根据需要数据来转换VO，达到减少IO延迟
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)

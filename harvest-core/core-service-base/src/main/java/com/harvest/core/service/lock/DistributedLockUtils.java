@@ -21,14 +21,14 @@ public class DistributedLockUtils {
         if (Objects.isNull(keyPrefix) || StringUtils.isEmpty(lockKey)) {
             throw new RuntimeException("Distributed lock key value cannot be empty.");
         }
-        return lock(keyPrefix.getKeyPrefix() + lockKey, callable, keyPrefix.expireSeconds());
+        return lock(keyPrefix.getKeyLock() + lockKey, callable, keyPrefix.expireSeconds());
     }
 
     public static <T extends BaseKeyPrefix, V> V lock(T keyPrefix, String lockKey, Callable<V> callable, int seconds) throws Exception {
         if (Objects.isNull(keyPrefix) || StringUtils.isEmpty(lockKey)) {
             throw new RuntimeException("Distributed lock key value cannot be empty.");
         }
-        return lock(keyPrefix.getKeyPrefix() + lockKey, callable, seconds);
+        return lock(keyPrefix.getKeyLock() + lockKey, callable, seconds);
     }
 
     public static <V> V lock(String realKey, Callable<V> callable, int seconds) throws Exception {

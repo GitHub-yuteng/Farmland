@@ -10,4 +10,6 @@ import lombok.Data;
 @Data
 public class OrderAuditTransferDTO {
 
+    private Boolean $continue;
+
 }
