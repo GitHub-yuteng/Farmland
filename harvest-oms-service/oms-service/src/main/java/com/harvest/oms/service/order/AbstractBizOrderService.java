@@ -48,15 +48,13 @@ public abstract class AbstractBizOrderService {
                 }).collect(Collectors.toList()),
                 batchResultId -> {
                     try {
-                        Boolean lock = DistributedLockUtils.lock(OrderAuditFlowKey.ORDER_AUDIT_KEY, batchResultId.getKey(),
+                        DistributedLockUtils.lock(OrderAuditFlowKey.ORDER_AUDIT_KEY, batchResultId.getKey(),
                                 () -> {
                                     OrderInfoDO order = orderReadClient.get(companyId, batchResultId.getId());
                                     orderMap.put(batchResultId.getId(), order.getOrderNo());
                                     consumer.accept(order);
-                                    return true;
                                 }
                                 , OrderAuditFlowKey.ORDER_AUDIT_KEY.expireSeconds());
-
                     } catch (Exception e) {
                         LOGGER.error("订单处理失败, 订单Id: {}", batchResultId.getId(), e);
                         throw new StandardRuntimeException(ExceptionCodes.OMS_MODULE_ERROR, e.getMessage());

@@ -17,6 +17,60 @@ public class DistributedLockUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(DistributedLockUtils.class);
 
+    /**
+     * Runnable lock.
+     *
+     * @param keyPrefix
+     * @param lockKey
+     * @param runnable
+     * @param <T>
+     */
+    public static <T extends BaseKeyPrefix> void lock(T keyPrefix, String lockKey, Runnable runnable) {
+        if (Objects.isNull(keyPrefix) || StringUtils.isEmpty(lockKey)) {
+            throw new RuntimeException("Distributed lock key value cannot be empty.");
+        }
+        lock(keyPrefix.getKeyLock(), lockKey, runnable, keyPrefix.expireSeconds());
+    }
+
+    /**
+     * Runnable lock.
+     *
+     * @param keyPrefix
+     * @param lockKey
+     * @param runnable
+     * @param seconds
+     * @param <T>
+     */
+    public static <T extends BaseKeyPrefix> void lock(T keyPrefix, String lockKey, Runnable runnable, int seconds) {
+        if (Objects.isNull(keyPrefix) || StringUtils.isEmpty(lockKey)) {
+            throw new RuntimeException("Distributed lock key value cannot be empty.");
+        }
+        lock(keyPrefix.getKeyLock(), lockKey, runnable, seconds);
+    }
+
+    /**
+     * Runnable lock.
+     *
+     * @param realKey
+     * @param lockKey
+     * @param runnable
+     * @param seconds
+     */
+    private static void lock(String realKey, String lockKey, Runnable runnable, int seconds) {
+        RedissonLockUtils.lock(realKey + lockKey, runnable, seconds);
+    }
+
+    /**
+     * Callable lock.
+     *
+     * @param keyPrefix
+     * @param lockKey
+     * @param callable
+     * @param <T>
+     * @param <V>
+     * @return
+     * @throws Exception
+     */
     public static <T extends BaseKeyPrefix, V> V lock(T keyPrefix, String lockKey, Callable<V> callable) throws Exception {
         if (Objects.isNull(keyPrefix) || StringUtils.isEmpty(lockKey)) {
             throw new RuntimeException("Distributed lock key value cannot be empty.");
@@ -24,6 +78,18 @@ public class DistributedLockUtils {
         return lock(keyPrefix.getKeyLock() + lockKey, callable, keyPrefix.expireSeconds());
     }
 
+    /**
+     * Callable lock.
+     *
+     * @param keyPrefix
+     * @param lockKey
+     * @param callable
+     * @param seconds
+     * @param <T>
+     * @param <V>
+     * @return
+     * @throws Exception
+     */
     public static <T extends BaseKeyPrefix, V> V lock(T keyPrefix, String lockKey, Callable<V> callable, int seconds) throws Exception {
         if (Objects.isNull(keyPrefix) || StringUtils.isEmpty(lockKey)) {
             throw new RuntimeException("Distributed lock key value cannot be empty.");
@@ -31,7 +97,17 @@ public class DistributedLockUtils {
         return lock(keyPrefix.getKeyLock() + lockKey, callable, seconds);
     }
 
-    public static <V> V lock(String realKey, Callable<V> callable, int seconds) throws Exception {
+    /**
+     * Callable lock.
+     *
+     * @param realKey
+     * @param callable
+     * @param seconds
+     * @param <V>
+     * @return
+     * @throws Exception
+     */
+    private static <V> V lock(String realKey, Callable<V> callable, int seconds) throws Exception {
         if (StringUtils.isEmpty(realKey)) {
             throw new RuntimeException("Distributed lock key value cannot be empty.");
         }

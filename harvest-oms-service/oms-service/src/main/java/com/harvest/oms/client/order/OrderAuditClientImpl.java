@@ -2,6 +2,7 @@ package com.harvest.oms.client.order;
 
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.batch.BatchExecuteResult;
+import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.core.service.mq.ProducerMessageService;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @Author: Alodi
@@ -27,6 +29,11 @@ import java.util.stream.Collectors;
  **/
 @HarvestService(path = HarvestOmsApplications.Path.ORDER_AUDIT)
 public class OrderAuditClientImpl extends AbstractBizOrderService implements OrderAuditClient, OrderAuditProcessor {
+
+    /**
+     * 待/审核状态
+     */
+    private final static List<OrderStatusEnum> AUDIT_STATUS_ENUMS = Stream.of(OrderStatusEnum.APPROVE).collect(Collectors.toList());
 
     @Autowired
     private ProducerMessageService producerMessageService;
@@ -54,7 +61,7 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
         Map<Long, SubmitAuditRequest> orderAuditSubmitMap = requests.stream().collect(Collectors.toMap(SubmitAuditRequest::getId, Function.identity(), (k1, k2) -> k1));
         // 记录键值 id-key
         Map<Long, String> orderMap = new HashMap<>(DEFAULT_2);
-        return super.SyncOrderParallelFailAllowBatchExecute(companyId, requests.stream().map(SubmitAuditRequest::getId).collect(Collectors.toList()),
+        return super.SyncOrderParallelFailAllowBatchExecute(companyId, orderAuditSubmitMap.keySet(),
                 order -> {
                     // 传递订单信息
                     SubmitAuditRequest submitAuditRequest = orderAuditSubmitMap.get(order.getOrderId());

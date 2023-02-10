@@ -31,7 +31,70 @@ public class RedissonLockUtils {
      */
     private static final int MAX_HOLD_LOCK_SECONDS = 60 * 10;
 
+    /**
+     * Runnable lock.
+     *
+     * @param lockKey
+     * @param runnable
+     * @param seconds
+     */
+    public static void lock(String lockKey, Runnable runnable, int seconds) {
+        if (StringUtils.isEmpty(lockKey)) {
+            throw new StandardRuntimeException(ExceptionCodes.CORE_MODULE_ERROR, "分布式锁键值不能为空!");
+        }
+        lock(lockKey, runnable, seconds, MAX_HOLD_LOCK_SECONDS, 1);
+    }
 
+    /**
+     * Runnable lock with tryTimes.
+     *
+     * @param lockKey
+     * @param runnable
+     * @param seconds
+     * @param tryTimes
+     */
+    public static void lock(String lockKey, Runnable runnable, int seconds, int tryTimes) {
+        if (StringUtils.isEmpty(lockKey)) {
+            throw new StandardRuntimeException(ExceptionCodes.CORE_MODULE_ERROR, "分布式锁键值不能为空");
+        }
+        lock(lockKey, runnable, seconds, MAX_HOLD_LOCK_SECONDS, tryTimes);
+    }
+
+    /**
+     * Runnable lock run.
+     *
+     * @param lockKey
+     * @param runnable
+     * @param waitTime
+     * @param leaseTime
+     * @param tryTimes
+     */
+    private static void lock(String lockKey, Runnable runnable, long waitTime, long leaseTime, int tryTimes) {
+        RLock lock = SpringHelper.getBean(RedissonClient.class).getLock(lockKey);
+        try {
+            if (getRedisLock(lock, waitTime, leaseTime, tryTimes)) {
+                runnable.run();
+            }
+        } catch (Exception e) {
+            LOGGER.error("分布式锁 键值：{} 排队超时。超时时间:{} 秒", lockKey, waitTime);
+            throw new StandardRuntimeException(ExceptionCodes.CORE_MODULE_ERROR, e.getMessage());
+        } finally {
+            if (lock != null && lock.isLocked() && lock.isHeldByCurrentThread()) {
+                lock.unlock();
+            }
+        }
+    }
+
+    /**
+     * Callable lock.
+     *
+     * @param lockKey
+     * @param callable
+     * @param seconds
+     * @param <V>
+     * @return
+     * @throws Exception
+     */
     public static <V> V lock(String lockKey, Callable<V> callable, int seconds) throws Exception {
         if (StringUtils.isEmpty(lockKey)) {
             throw new StandardRuntimeException(ExceptionCodes.CORE_MODULE_ERROR, "分布式锁键值不能为空!");
@@ -39,13 +102,36 @@ public class RedissonLockUtils {
         return lock(lockKey, callable, seconds, MAX_HOLD_LOCK_SECONDS, 1);
     }
 
-    public static <V> V lock(String key, Callable<V> callable, int seconds, int tryTimes) throws Exception {
-        if (StringUtils.isEmpty(key)) {
+    /**
+     * Callable lock tryTimes.
+     *
+     * @param lockKey
+     * @param callable
+     * @param seconds
+     * @param tryTimes
+     * @param <V>
+     * @return
+     * @throws Exception
+     */
+    public static <V> V lock(String lockKey, Callable<V> callable, int seconds, int tryTimes) throws Exception {
+        if (StringUtils.isEmpty(lockKey)) {
             throw new StandardRuntimeException(ExceptionCodes.CORE_MODULE_ERROR, "分布式锁键值不能为空");
         }
-        return lock(key, callable, seconds, MAX_HOLD_LOCK_SECONDS, tryTimes);
+        return lock(lockKey, callable, seconds, MAX_HOLD_LOCK_SECONDS, tryTimes);
     }
 
+    /**
+     * Callable call.
+     *
+     * @param lockKey
+     * @param callable
+     * @param waitTime
+     * @param leaseTime
+     * @param tryTimes
+     * @param <V>
+     * @return
+     * @throws Exception
+     */
     private static <V> V lock(String lockKey, Callable<V> callable, long waitTime, long leaseTime, int tryTimes) throws Exception {
         RLock lock = SpringHelper.getBean(RedissonClient.class).getLock(lockKey);
         try {
