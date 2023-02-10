@@ -11,7 +11,7 @@ import org.springframework.stereotype.Component;
  * @Date: 2023/2/8 10:37 PM
  * @Description: TODO
  **/
-@RocketMQMessageListener(topic = "${rocketmq.consumer.topic}", consumerGroup = "ORDER-PRODUCER-GROUP")
+@RocketMQMessageListener(topic = "my-topic", consumerGroup = "ORDER-PRODUCER-GROUP")
 @Component
 public class ConsumerMessageListener implements RocketMQListener<SubmitWmsOrderMessage> {
 

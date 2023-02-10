@@ -26,9 +26,6 @@ eureka:
 
 rocketmq:
   name-server: localhost:9876
-  consumer:
-    group: ORDER-PRODUCER-GROUP
-    topic: my-topic
 
 feign:
   httpclient:

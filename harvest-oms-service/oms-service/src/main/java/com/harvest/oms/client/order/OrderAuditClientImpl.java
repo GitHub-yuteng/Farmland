@@ -83,6 +83,7 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
     public void afterAudit(Long companyId, SubmitAuditRequest request) {
         // 推送wms
         SubmitWmsOrderMessage submitWmsOrderMessage = new SubmitWmsOrderMessage();
+        submitWmsOrderMessage.setCompanyId(companyId);
         submitWmsOrderMessage.setOrder(request.getOrder());
         SendResult sendResult = producerMessageService.syncSend("my-topic", submitWmsOrderMessage);
         System.out.println(JsonUtils.object2Json(sendResult));
