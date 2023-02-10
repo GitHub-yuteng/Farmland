@@ -8,7 +8,7 @@ import java.util.concurrent.*;
 /**
  * @Author: Alodi
  * @Date: 2023/2/10 3:03 PM
- * @Description: TODO
+ * @Description: 延迟任务执行器
  **/
 public class DelayTaskExecutor {
 
@@ -41,7 +41,7 @@ public class DelayTaskExecutor {
     /**
      * 延迟任务执行线程池
      */
-    private static ThreadPoolExecutor executor;
+    private static ThreadPoolExecutor delayTaskExecutor;
 
     /**
      * 延迟任务执行器初始化
@@ -50,7 +50,7 @@ public class DelayTaskExecutor {
         /*任务循环线程池*/
         ExecutorService loopExecutor = new ThreadPoolExecutor(1, 1, 0,
                 TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>(),
-                new ThreadFactoryBuilder().withNameFormat("harvest-delay-task-loop-executor").withDaemon(true).get()
+                new ThreadFactoryBuilder().withNameFormat("harvest-delay-task-loop-executor").get()
         );
 
         loopExecutor.submit(() -> {
@@ -65,11 +65,11 @@ public class DelayTaskExecutor {
             }
         });
         /*最多50个线程执行延迟任务*/
-        executor = new ThreadPoolExecutor(50, 50, 2000L, TimeUnit.MILLISECONDS,
+        delayTaskExecutor = new ThreadPoolExecutor(50, 50, 2000L, TimeUnit.MILLISECONDS,
                 new LinkedBlockingQueue<>(),
                 new ThreadFactoryBuilder().withNameFormat("harvest-delay-task-%d").get()
         );
-        executor.allowCoreThreadTimeOut(true);
+        delayTaskExecutor.allowCoreThreadTimeOut(true);
 
     }
 
@@ -78,7 +78,7 @@ public class DelayTaskExecutor {
             return;
         }
         try {
-            executor.execute(() -> {
+            delayTaskExecutor.execute(() -> {
                 try {
                     task.getRetryTimes().incrementAndGet();
                     task.getConsumer().accept(task);
@@ -86,19 +86,20 @@ public class DelayTaskExecutor {
                         task.getOnSuccess().accept(task);
                     }
                 } catch (Exception e) {
-                    this.taskExecuteFailedPostProcess(task);
+                    this.postTaskExecuteFailedProcess(task);
                 }
             });
         } catch (Exception e) {
             /*如果未达到重试次数则继续创建任务，放回队列中*/
-            this.taskExecuteFailedPostProcess(task);
+            this.postTaskExecuteFailedProcess(task);
         }
     }
 
-    private void taskExecuteFailedPostProcess(DelayTask task) {
+    private void postTaskExecuteFailedProcess(DelayTask task) {
         int retryTimes = task.getRetryTimes().get();
         if (retryTimes < task.getRetryIfFailed()) {
-            task.setStart(System.currentTimeMillis() + task.getStep() * task.getRetryTimes().get());
+            long time = (long) task.getStep() * 1000;
+            task.setStart(System.currentTimeMillis() + time * task.getRetryTimes().get());
             this.pushTask(task);
             return;
         }

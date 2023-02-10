@@ -21,24 +21,29 @@ public class DelayTask extends CompanyId implements Delayed {
     private static final long serialVersionUID = 2695586265847769402L;
 
     /**
+     * 任务描述 用户日志记录
+     */
+    private String description;
+
+    /**
      * 开始时间，默认为任务创建时间
      */
     private long start = System.currentTimeMillis();
 
     /**
-     * 延迟时长
+     * 延迟时长 秒级
      */
-    private final long delay = 5000L;
+    private final int delay = 5;
 
     /**
      * 步长，单位毫秒。如果间隔5s，步长5s，则任务开始后第一次执行5s后，第二次执行为15s后
      */
-    private long step;
+    private int step;
 
     /**
      * 失败重试总次数 默认不重试
      */
-    private int retryIfFailed = 0;
+    private int retryIfFailed;
 
     /**
      * 已重试次数
@@ -49,11 +54,6 @@ public class DelayTask extends CompanyId implements Delayed {
      * 额外信息实体
      */
     private Object extension;
-
-    /**
-     * 任务描述 用户日志记录
-     */
-    private String description;
 
     /**
      * 执行的任务
@@ -70,10 +70,17 @@ public class DelayTask extends CompanyId implements Delayed {
      */
     private Consumer<DelayTask> onSuccess;
 
+    public DelayTask(Long companyId, String description, int step, int retryIfFailed, Consumer<DelayTask> consumer) {
+        super(companyId);
+        this.description = description;
+        this.step = step;
+        this.retryIfFailed = retryIfFailed;
+        this.consumer = consumer;
+    }
 
     @Override
     public long getDelay(TimeUnit unit) {
-        return unit.convert((start + delay) - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
+        return unit.convert((start + (delay * 1000)) - System.currentTimeMillis(), TimeUnit.MILLISECONDS);
     }
 
     @Override
