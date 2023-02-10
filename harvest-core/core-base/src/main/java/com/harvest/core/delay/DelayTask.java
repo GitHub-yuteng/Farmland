@@ -33,7 +33,7 @@ public class DelayTask extends CompanyId implements Delayed {
     /**
      * 延迟时长 秒级
      */
-    private final int delay = 5;
+    private int delay = 5;
 
     /**
      * 步长，单位毫秒。如果间隔5s，步长5s，则任务开始后第一次执行5s后，第二次执行为15s后
@@ -75,6 +75,34 @@ public class DelayTask extends CompanyId implements Delayed {
         this.description = description;
         this.step = step;
         this.retryIfFailed = retryIfFailed;
+        this.consumer = consumer;
+    }
+
+    public DelayTask(Long companyId, String description, int step, int retryIfFailed, Object extension, Consumer<DelayTask> consumer) {
+        super(companyId);
+        this.description = description;
+        this.step = step;
+        this.retryIfFailed = retryIfFailed;
+        this.extension = extension;
+        this.consumer = consumer;
+    }
+
+    public DelayTask(Long companyId, String description, int delay, int step, int retryIfFailed, Consumer<DelayTask> consumer) {
+        super(companyId);
+        this.description = description;
+        this.delay = delay;
+        this.step = step;
+        this.retryIfFailed = retryIfFailed;
+        this.consumer = consumer;
+    }
+
+    public DelayTask(Long companyId, String description, int delay, int step, int retryIfFailed, Object extension, Consumer<DelayTask> consumer) {
+        super(companyId);
+        this.description = description;
+        this.delay = delay;
+        this.step = step;
+        this.retryIfFailed = retryIfFailed;
+        this.extension = extension;
         this.consumer = consumer;
     }
 
