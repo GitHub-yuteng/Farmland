@@ -16,9 +16,9 @@ public class BatchId implements Serializable {
     private static final long serialVersionUID = -5002420670654914779L;
 
     @ApiModelProperty("业务主键")
-    private Long id;
+    protected Long id;
 
-    public String getKey() {
+    public String getLockKey() {
         return this.id.toString();
     }
 

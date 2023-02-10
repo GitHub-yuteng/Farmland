@@ -5,10 +5,12 @@ import com.google.common.collect.Lists;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
+import java.util.StringJoiner;
 import java.util.concurrent.atomic.AtomicInteger;
 
 @Data
@@ -30,7 +32,7 @@ public class BatchExecuteResult<T> {
     @ApiModelProperty("失败时错误信息")
     private List<ErrorReasonMap<T>> errorList;
 
-    @ApiModelProperty("执行成功记录key")
+    @ApiModelProperty("执行成功记录Key")
     private List<T> successKeyList;
 
     public BatchExecuteResult() {
@@ -57,12 +59,10 @@ public class BatchExecuteResult<T> {
     }
 
     @Data
-    public static class ErrorReasonMap<T> implements Serializable {
+    @EqualsAndHashCode(callSuper = true)
+    public static class ErrorReasonMap<T> extends BatchId implements Serializable {
 
         private static final long serialVersionUID = -5616278702464428044L;
-
-        @ApiModelProperty("键值Id eg:OrderId")
-        private Long id;
 
         @ApiModelProperty("键值 eg:orderNo")
         private T key;
@@ -76,11 +76,12 @@ public class BatchExecuteResult<T> {
 
         @Override
         public String toString() {
-            return "ErrorReasonMap{" +
-                    "key=" + key +
-                    ", reason='" + reason + '\'' +
-                    ", id=" + id +
-                    '}';
+            return new StringJoiner(", ", ErrorReasonMap.class.getSimpleName() + "[", "]")
+                    .add("key=" + key)
+                    .add("reason='" + reason + "'")
+                    .add("e=" + e)
+                    .add("id=" + id)
+                    .toString();
         }
     }
 }
