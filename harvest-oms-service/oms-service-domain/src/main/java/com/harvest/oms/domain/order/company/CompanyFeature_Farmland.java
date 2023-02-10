@@ -14,4 +14,5 @@ public class CompanyFeature_Farmland extends CompanyFeature {
 
     private static final long serialVersionUID = -1793977241391913644L;
 
+    private String name;
 }

@@ -35,6 +35,7 @@ public class OrderCompanyFeature_Farmland_Handler extends AbstractOrderCompanyFe
 
             CompanyFeature_Farmland feature_farmland = new CompanyFeature_Farmland();
             feature_farmland.setCompanyId(companyId);
+            feature_farmland.setName("公司特性");
 
             orderCompanyFeature.setCompanyId(companyId);
             orderCompanyFeature.setFeature(feature_farmland);
