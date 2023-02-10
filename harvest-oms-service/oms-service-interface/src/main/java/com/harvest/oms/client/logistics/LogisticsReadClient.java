@@ -3,7 +3,7 @@ package com.harvest.oms.client.logistics;
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
-import com.harvest.oms.domain.order.logistics.OrderLogisticsChannelDO;
+import com.harvest.oms.domain.logistics.LogisticsChannelDO;
 import com.harvest.oms.repository.domain.logistics.OrderLogisticsKey;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,10 +19,10 @@ import java.util.List;
  * @Description:
  **/
 @HarvestClient(name = HarvestOmsApplications.SERVICE_NAME, path = HarvestOmsApplications.LogisticsPath.LOGISTICS_READ)
-public interface OrderLogisticsReadClient extends GlobalMacroDefinition {
+public interface LogisticsReadClient extends GlobalMacroDefinition {
 
     @ApiOperation("订单物流渠道查询")
     @PostMapping(value = "/getChanelByLogisticsKeys")
-    Collection<OrderLogisticsChannelDO> getChanelByLogisticsKeys(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<OrderLogisticsKey> logisticsKeys);
+    Collection<LogisticsChannelDO> getChanelByLogisticsKeys(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<OrderLogisticsKey> logisticsKeys);
 
 }

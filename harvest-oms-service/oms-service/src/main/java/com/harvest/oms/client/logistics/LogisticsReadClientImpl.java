@@ -2,7 +2,7 @@ package com.harvest.oms.client.logistics;
 
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
-import com.harvest.oms.domain.order.logistics.OrderLogisticsChannelDO;
+import com.harvest.oms.domain.logistics.LogisticsChannelDO;
 import com.harvest.oms.repository.client.logistics.LogisticsReadRepositoryClient;
 import com.harvest.oms.repository.domain.logistics.OrderLogisticsKey;
 import com.harvest.oms.repository.domain.logistics.simple.LogisticsChannelSimplePO;
@@ -19,16 +19,16 @@ import java.util.stream.Collectors;
  * @Description: 物流读服务
  **/
 @HarvestService(path = HarvestOmsApplications.LogisticsPath.LOGISTICS_READ)
-public class OrderLogisticsReadClientImpl implements OrderLogisticsReadClient {
+public class LogisticsReadClientImpl implements LogisticsReadClient {
 
     @Autowired
     private LogisticsReadRepositoryClient logisticsReadRepositoryClient;
 
     @Override
-    public Collection<OrderLogisticsChannelDO> getChanelByLogisticsKeys(Long companyId, List<OrderLogisticsKey> logisticsKeys) {
+    public Collection<LogisticsChannelDO> getChanelByLogisticsKeys(Long companyId, List<OrderLogisticsKey> logisticsKeys) {
         Collection<LogisticsChannelSimplePO> channelSimpleList = logisticsReadRepositoryClient.getChanelByLogisticsKeys(companyId, logisticsKeys);
         return channelSimpleList.stream().map(simple -> {
-            OrderLogisticsChannelDO logisticsChannel = new OrderLogisticsChannelDO();
+            LogisticsChannelDO logisticsChannel = new LogisticsChannelDO();
             BeanUtils.copyProperties(simple, logisticsChannel);
             return logisticsChannel;
         }).collect(Collectors.toList());

@@ -1,4 +1,4 @@
-package com.harvest.oms.domain.order.logistics;
+package com.harvest.oms.domain.logistics;
 
 import com.harvest.oms.repository.domain.logistics.simple.LogisticsSimplePO;
 import lombok.Data;
@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class OrderLogisticsDO extends LogisticsSimplePO {
+public class LogisticsDO extends LogisticsSimplePO {
 
     private static final long serialVersionUID = 3584012581034612621L;
 

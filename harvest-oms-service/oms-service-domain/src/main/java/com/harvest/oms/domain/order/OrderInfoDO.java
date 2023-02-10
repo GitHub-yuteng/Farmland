@@ -2,7 +2,7 @@ package com.harvest.oms.domain.order;
 
 import com.harvest.basic.domain.shop.ShopDO;
 import com.harvest.oms.domain.order.declare.OrderDeclarationDO;
-import com.harvest.oms.domain.order.logistics.OrderLogisticsChannelDO;
+import com.harvest.oms.domain.logistics.LogisticsChannelDO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.wms.repository.repository.domain.WarehouseDO;
 import io.swagger.annotations.ApiModelProperty;
@@ -29,7 +29,7 @@ public class OrderInfoDO extends OrderSimplePO {
     private Collection<OrderItemDO> orderItems;
 
     @ApiModelProperty("物流渠道信息")
-    private OrderLogisticsChannelDO logisticsChannel;
+    private LogisticsChannelDO logisticsChannel;
 
     @ApiModelProperty("订单交运申报信息")
     private OrderDeclarationDO declaration;

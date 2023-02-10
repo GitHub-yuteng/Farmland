@@ -48,7 +48,7 @@ public abstract class AbstractBizOrderService {
                 }).collect(Collectors.toList()),
                 batchResultId -> {
                     try {
-                        DistributedLockUtils.lock(OrderAuditFlowKey.ORDER_AUDIT_KEY, batchResultId.getKey(),
+                        DistributedLockUtils.lock(OrderAuditFlowKey.ORDER_AUDIT_KEY, batchResultId.getLockKey(),
                                 () -> {
                                     OrderInfoDO order = orderReadClient.get(companyId, batchResultId.getId());
                                     orderMap.put(batchResultId.getId(), order.getOrderNo());

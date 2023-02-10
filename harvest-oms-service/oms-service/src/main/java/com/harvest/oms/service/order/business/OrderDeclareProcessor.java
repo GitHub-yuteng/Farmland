@@ -1,5 +1,6 @@
 package com.harvest.oms.service.order.business;
 
+import com.harvest.basic.domain.logistics.DeclarationResponse;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 
 /**
@@ -32,14 +33,15 @@ public interface OrderDeclareProcessor {
      *
      * @param companyId
      */
-    void processDeclare(Long companyId, SubmitDeclarationRequest request);
+    DeclarationResponse processDeclare(Long companyId, SubmitDeclarationRequest request);
 
     /**
      * 交运申报后置处理
      *
      * @param companyId
+     * @param response
      */
-    void afterDeclare(Long companyId, SubmitDeclarationRequest request);
+    void afterDeclare(Long companyId, SubmitDeclarationRequest request, DeclarationResponse response);
 
     /**
      * 执行业务流程
@@ -49,8 +51,8 @@ public interface OrderDeclareProcessor {
      */
     default void executeDeclare(Long companyId, SubmitDeclarationRequest request) {
         this.beforeDeclare(companyId, request);
-        this.processDeclare(companyId, request);
-        this.afterDeclare(companyId, request);
+        DeclarationResponse response = this.processDeclare(companyId, request);
+        this.afterDeclare(companyId, request, response);
     }
 
 }

@@ -11,9 +11,10 @@ import com.harvest.core.exception.StandardRuntimeException;
 import com.harvest.core.utils.ActuatorUtils;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
+import com.harvest.oms.client.logistics.LogisticsReadClient;
+import com.harvest.oms.domain.logistics.LogisticsChannelDO;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.declare.OrderDeclarationDO;
-import com.harvest.oms.domain.order.logistics.OrderLogisticsChannelDO;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import com.harvest.oms.service.order.business.OrderDeclareProcessor;
 import org.apache.commons.collections4.CollectionUtils;
@@ -32,6 +33,9 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
 
     @Autowired
     private BasicLogisticsClient basicLogisticsClient;
+
+    @Autowired
+    private LogisticsReadClient logisticsReadClient;
 
     @Override
     public void listDeclaration(Long companyId, List<Long> orderIds) {
@@ -64,7 +68,7 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
 
     @Override
     public void check(Long companyId, SubmitDeclarationRequest request) {
-        OrderLogisticsChannelDO logisticsChannel = request.getOrder().getLogisticsChannel();
+        LogisticsChannelDO logisticsChannel = request.getOrder().getLogisticsChannel();
         if (Objects.isNull(logisticsChannel)) {
             throw new StandardRuntimeException(ExceptionCodes.OMS_MODULE_ERROR, "渠道为空, 请选择承运商渠道后, 进行交运申报!");
         }
@@ -85,22 +89,27 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
     }
 
     @Override
-    public void processDeclare(Long companyId, SubmitDeclarationRequest request) {
-        OrderLogisticsChannelDO logisticsChannel = request.getOrder().getLogisticsChannel();
+    public DeclarationResponse processDeclare(Long companyId, SubmitDeclarationRequest request) {
+
+        LogisticsChannelDO logisticsChannel = request.getOrder().getLogisticsChannel();
         request.setLogisticsType(LogisticsEnum.getEnumByCode(logisticsChannel.getCarrierCode()));
+
         // 渠道地址信息
 
         // 提交报关
 
         DeclarationResponse response = basicLogisticsClient.submitDeclaration(companyId, request);
 
-
         System.out.println("申报结果: " + JsonUtils.object2Json(response));
-
+        return response;
     }
 
     @Override
-    public void afterDeclare(Long companyId, SubmitDeclarationRequest request) {
+    public void afterDeclare(Long companyId, SubmitDeclarationRequest request, DeclarationResponse response) {
+
+        // 上传文件
+
 
     }
+
 }
