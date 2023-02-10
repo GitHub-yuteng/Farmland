@@ -95,7 +95,7 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
         DeclarationResponse response = basicLogisticsClient.submitDeclaration(companyId, request);
 
 
-        System.out.println(JsonUtils.object2Json(response));
+        System.out.println("申报结果: " + JsonUtils.object2Json(response));
 
     }
 

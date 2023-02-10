@@ -3,6 +3,7 @@ package com.harvest.logistics.cainiao.client;
 import com.harvest.basic.domain.logistics.DeclarationDataFile;
 import com.harvest.basic.domain.logistics.DeclarationResponse;
 import com.harvest.core.annotation.feign.HarvestService;
+import com.harvest.core.domain.file.OuterDataFormat;
 import com.harvest.logistics.cainiao.HarvestCainiaoLogisticsApplications;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 
@@ -32,7 +33,7 @@ public class PlatformCainiaoLogisticsClientImpl implements PlatformCainiaoLogist
     @Override
     public DeclarationResponse submitDeclaration(Long companyId, SubmitDeclarationRequest request) {
         System.out.println("菜鸟申报");
-        return null;
+        return new DeclarationResponse();
     }
 
     @Override
@@ -42,7 +43,10 @@ public class PlatformCainiaoLogisticsClientImpl implements PlatformCainiaoLogist
 
     @Override
     public DeclarationDataFile print(Long companyId, SubmitDeclarationRequest request) {
-        return null;
+        DeclarationDataFile file = new DeclarationDataFile();
+        file.setFormat(OuterDataFormat.PICTURE_DATA);
+        file.setData("数据");
+        return file;
     }
 
     @Override

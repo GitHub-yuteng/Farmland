@@ -1,6 +1,5 @@
 package com.harvest.oms.request.order.audit;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.harvest.core.batch.BatchId;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import io.swagger.annotations.ApiModelProperty;
@@ -20,7 +19,6 @@ public class SubmitAuditRequest extends BatchId implements Serializable {
 
     private static final long serialVersionUID = -3113055454947802845L;
 
-    @JsonIgnore
     @ApiModelProperty("订单信息-业务流转")
     private OrderInfoDO order;
 

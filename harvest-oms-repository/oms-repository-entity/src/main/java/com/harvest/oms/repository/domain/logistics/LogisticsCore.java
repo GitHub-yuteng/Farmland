@@ -21,6 +21,6 @@ public class LogisticsCore extends CompanyId {
 
     private String carrier;
 
-    private String status;
+    private Integer status;
 
 }

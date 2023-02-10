@@ -50,9 +50,9 @@ public class OrderLogisticsSectionHandler implements OrderSectionHandler {
                 .filter(order -> Objects.nonNull(order.getCarrierId()) && Objects.nonNull(order.getChannelId()))
                 .map(order -> {
                     OrderLogisticsKey logisticsKey = new OrderLogisticsKey();
-                    logisticsKey.setCarrierId(companyId);
-                    logisticsKey.setChannelId(order.getCarrierId());
-                    logisticsKey.setCompanyId(order.getChannelId());
+                    logisticsKey.setCarrierId(order.getCarrierId());
+                    logisticsKey.setChannelId(order.getChannelId());
+                    logisticsKey.setCompanyId(companyId);
                     return logisticsKey;
                 }).collect(Collectors.toList());
 

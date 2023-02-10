@@ -6,21 +6,25 @@
     <id column="id" property="carrierId"/>
     <result column="COMPANY_ID" property="companyId"/>
     <result column="carrier_code" property="carrierCode"/>
-    <result column="carrier_code" property="carrierCode"/>
     <result column="carrier" property="carrier"/>
+    <result column="status" property="status"/>
     <result column="channel_id" property="channelId"/>
     <result column="channel_code" property="channelCode"/>
     <result column="channel_name" property="channelName"/>
+    <result column="c_status" property="status"/>
   </resultMap>
   
   <select id="getChanelByLogisticsKeys" resultMap="BaseResultMap">
-    SELECT id,
-    COMPANY_ID,
-    carrier_code,
-    carrier,
-    channel_id,
-    channel_code,
-    channel_name
+    SELECT
+    logistics.id,
+    logistics.COMPANY_ID,
+    logistics.carrier_code,
+    logistics.carrier,
+    logistics.status,
+    channel.channel_id,
+    channel.channel_code,
+    channel.channel_name,
+    channel.status AS c_status
     FROM farmland_oms_logistics logistics
     LEFT JOIN farmland_oms_logistics_channel channel ON channel.carrier_id = logistics.id
     WHERE logistics.COMPANY_ID = #{companyId}
