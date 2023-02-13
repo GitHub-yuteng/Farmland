@@ -18,6 +18,7 @@ import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.declare.OrderDeclarationDO;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import com.harvest.oms.service.order.business.OrderDeclareProcessor;
+import com.harvest.oms.service.order.handler.OrderDeclareHandler;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -42,6 +43,9 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
     @Autowired
     private LogisticsReadClient logisticsReadClient;
 
+    @Autowired(required = false)
+    private List<OrderDeclareHandler> orderDeclareHandlers;
+
     @Override
     public void listDeclaration(Long companyId, List<Long> orderIds) {
 
@@ -58,7 +62,7 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
         }
 
         // 记录键值 id-key
-        Map<Long, String> orderMap = new HashMap<>(2);
+        Map<Long, String> orderMap = new HashMap<>(DEFAULT_2);
         // TODO OMS Concurrent processing of each order delivery declaration.
         return ActuatorUtils.parallelFailAllowBatchExecute(requests, (request) -> {
                     Long orderId = request.getId();
@@ -91,26 +95,20 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
     @Override
     public void beforeDeclare(Long companyId, SubmitDeclarationRequest request) {
 
-    }
-
-    @Override
-    public DeclarationResponse processDeclare(Long companyId, SubmitDeclarationRequest request) {
-
         LogisticsChannelDO logisticsChannel = request.getOrder().getLogisticsChannel();
         request.setLogisticsType(LogisticsEnum.getEnumByCode(logisticsChannel.getLogisticsCode()));
         // 渠道地址信息
         List<LogisticsChannelAddressDO> channelAddressList = logisticsReadClient.getChannelAddress(companyId, logisticsChannel.getChannelId());
         request.setChannelAddressList(channelAddressList);
-        // 提交报关
-        LOGGER.info("申报请求: " + JsonUtils.object2Json(request));
+
+    }
+
+    @Override
+    public DeclarationResponse processDeclare(Long companyId, SubmitDeclarationRequest request) {
+        LOGGER.info("OrderDeliveryClientImpl#processDeclare#申报请求: " + JsonUtils.object2Json(request));
         DeclarationResponse response = basicLogisticsClient.submitDeclaration(companyId, request);
-
-        Boolean success = response.getSuccess();
-        if (success) {
-
-        }
-
-
+        LOGGER.info("OrderDeliveryClientImpl#processDeclare#申报结果: " + JsonUtils.object2Json(response));
+        orderDeclareHandlers.forEach(handler -> handler.execute(companyId, request, response));
         return response;
     }
 
