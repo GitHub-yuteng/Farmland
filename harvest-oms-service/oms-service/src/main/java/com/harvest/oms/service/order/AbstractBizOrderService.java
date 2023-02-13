@@ -41,26 +41,22 @@ public abstract class AbstractBizOrderService {
      */
     protected BatchExecuteResult<String> SyncOrderParallelFailAllowBatchExecute(Long companyId, Collection<Long> orderIds, Consumer<OrderInfoDO> consumer) {
         Map<Long, String> orderMap = new ConcurrentHashMap<>(2);
-        return ActuatorUtils.parallelFailAllowBatchExecute(orderIds.stream().map(orderId -> {
-                    BatchId batchId = new BatchId();
-                    batchId.setId(orderId);
-                    return batchId;
-                }).collect(Collectors.toList()),
-                batchResultId -> {
+        return ActuatorUtils.parallelFailAllowBatchExecute(orderIds.stream().map(BatchId::build).collect(Collectors.toList()),
+                batchId -> {
                     try {
-                        DistributedLockUtils.lock(OrderAuditFlowKey.ORDER_AUDIT_KEY, batchResultId.getLockKey(),
+                        DistributedLockUtils.lock(OrderAuditFlowKey.ORDER_AUDIT_KEY, batchId.getLockKey(),
                                 () -> {
-                                    OrderInfoDO order = orderReadClient.get(companyId, batchResultId.getId());
-                                    orderMap.put(batchResultId.getId(), order.getOrderNo());
+                                    OrderInfoDO order = orderReadClient.get(companyId, batchId.getId());
+                                    orderMap.put(batchId.getId(), order.getOrderNo());
                                     consumer.accept(order);
                                 }
                                 , OrderAuditFlowKey.ORDER_AUDIT_KEY.expireSeconds());
                     } catch (Exception e) {
-                        LOGGER.error("订单处理失败, 订单Id: {}", batchResultId.getId(), e);
+                        LOGGER.error("订单处理失败, 订单Id: {}", batchId.getId(), e);
                         throw new StandardRuntimeException(ExceptionCodes.OMS_MODULE_ERROR, e.getMessage());
                     }
                 },
-                batchResultId -> orderMap.get(batchResultId.getId()));
+                batchId -> orderMap.get(batchId.getId()));
     }
 
 }

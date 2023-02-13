@@ -17,7 +17,7 @@ public class OrderLogisticsKey extends CompanyId {
     private static final long serialVersionUID = 3584012581034612621L;
 
     @ApiModelProperty("承运商Id")
-    private Long carrierId;
+    private Long logisticsId;
     @ApiModelProperty("渠道Id")
     private Long channelId;
 

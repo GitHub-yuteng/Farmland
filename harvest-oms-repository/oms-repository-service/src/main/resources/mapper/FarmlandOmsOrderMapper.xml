@@ -28,7 +28,7 @@
         <result column="warehouse_id" property="warehouseId" />
         <result column="wave_no" property="waveNo" />
         <result column="logistic_type" property="logisticType" />
-        <result column="carrier_id" property="carrierId" />
+        <result column="logistics_id" property="logisticsId" />
         <result column="channel_id" property="channelId" />
         <result column="delivery_no" property="deliveryNo" />
         <result column="weight" property="weight" />
@@ -50,7 +50,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, COMPANY_ID, order_no, source_type, shop_id, ORDER_STATUS, amount, spu_kind, sku_kind, total_quantity, created_time, paid_time, send_time, delivery_deadline_time, modify_time, print_time, audit_man_id, audit_time, end_time, create_type, warehouse_owner, warehouse_id, wave_no, logistic_type, carrier_id, channel_id, delivery_no, weight, volume, buyer_id, business_man_id, declare_status, logistics_status, ignore_outbound, is_hang_up, hang_up_case_type, hang_up_case_id, empty_order, is_abnormal, is_deleted, rc_time, rm_time
+        id, COMPANY_ID, order_no, source_type, shop_id, ORDER_STATUS, amount, spu_kind, sku_kind, total_quantity, created_time, paid_time, send_time, delivery_deadline_time, modify_time, print_time, audit_man_id, audit_time, end_time, create_type, warehouse_owner, warehouse_id, wave_no, logistic_type, logistics_id, channel_id, delivery_no, weight, volume, buyer_id, business_man_id, declare_status, logistics_status, ignore_outbound, is_hang_up, hang_up_case_type, hang_up_case_id, empty_order, is_abnormal, is_deleted, rc_time, rm_time
     </sql>
 
 </mapper>

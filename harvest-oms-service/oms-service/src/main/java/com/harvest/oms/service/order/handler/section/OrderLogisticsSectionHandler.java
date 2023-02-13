@@ -47,10 +47,10 @@ public class OrderLogisticsSectionHandler implements OrderSectionHandler {
     @Override
     public void batchFill(Long companyId, Collection<OrderInfoDO> orders) {
         List<OrderLogisticsKey> logisticsKeys = orders.stream()
-                .filter(order -> Objects.nonNull(order.getCarrierId()) && Objects.nonNull(order.getChannelId()))
+                .filter(order -> Objects.nonNull(order.getLogisticsId()) && Objects.nonNull(order.getChannelId()))
                 .map(order -> {
                     OrderLogisticsKey logisticsKey = new OrderLogisticsKey();
-                    logisticsKey.setCarrierId(order.getCarrierId());
+                    logisticsKey.setLogisticsId(order.getLogisticsId());
                     logisticsKey.setChannelId(order.getChannelId());
                     logisticsKey.setCompanyId(companyId);
                     return logisticsKey;
@@ -60,23 +60,23 @@ public class OrderLogisticsSectionHandler implements OrderSectionHandler {
             return;
         }
 
-        Collection<LogisticsChannelDO> channels = logisticsReadClient.getChanelByLogisticsKeys(companyId, logisticsKeys);
+        Collection<LogisticsChannelDO> channels = logisticsReadClient.getChannelByLogisticsKeys(companyId, logisticsKeys);
         if (CollectionUtils.isEmpty(channels)) {
             LOGGER.error("OrderLogisticsSectionHandler#batchFill#承运商渠道信息为空！logisticsKeys:{}", JsonUtils.object2Json(logisticsKeys));
             return;
         }
         Map<String, LogisticsChannelDO> logisticsKeyMap = channels.stream().collect(
-                Collectors.toMap(channel -> channel.getCarrierId() + "|" + channel.getChannelId(), Function.identity(), (k1, k2) -> k1)
+                Collectors.toMap(channel -> channel.getLogisticsId() + "|" + channel.getChannelId(), Function.identity(), (k1, k2) -> k1)
         );
         orders.forEach(order -> {
-            if (Objects.isNull(order.getCarrierId()) || Objects.isNull(order.getChannelId())) {
+            if (Objects.isNull(order.getLogisticsId()) || Objects.isNull(order.getChannelId())) {
                 return;
             }
-            Long carrierId = order.getCarrierId();
+            Long logisticsId = order.getLogisticsId();
             Long channelId = order.getChannelId();
-            LogisticsChannelDO channel = logisticsKeyMap.get(carrierId + "|" + channelId);
+            LogisticsChannelDO channel = logisticsKeyMap.get(logisticsId + "|" + channelId);
             if (Objects.isNull(channel)) {
-                LOGGER.error("OrderLogisticsSectionHandler#batchFill#承运商渠道信息异常！carrierId:{}, channelId:{}", carrierId, channelId);
+                LOGGER.error("OrderLogisticsSectionHandler#batchFill#承运商渠道信息异常！carrierId:{}, channelId:{}", logisticsId, channelId);
                 return;
             }
             order.setLogisticsChannel(channel);

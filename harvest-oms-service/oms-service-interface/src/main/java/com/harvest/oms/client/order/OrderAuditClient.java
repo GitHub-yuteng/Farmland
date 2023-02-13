@@ -28,4 +28,5 @@ public interface OrderAuditClient extends GlobalMacroDefinition {
     @ApiOperation("订单并发审核带提交项目")
     @PostMapping("/batch/audit/with/submit")
     BatchExecuteResult<String> auditWithSubmit(@RequestParam(COMPANY_ID) Long companyId, @RequestBody Collection<SubmitAuditRequest> requests);
+
 }

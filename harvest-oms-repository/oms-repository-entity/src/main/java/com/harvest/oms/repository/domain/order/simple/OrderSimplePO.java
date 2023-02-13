@@ -25,7 +25,7 @@ public class OrderSimplePO extends OrderCore {
     private String orderNo;
 
     @ApiModelProperty("承运商Id")
-    private Long carrierId;
+    private Long logisticsId;
 
     @ApiModelProperty("渠道Id")
     private Long channelId;

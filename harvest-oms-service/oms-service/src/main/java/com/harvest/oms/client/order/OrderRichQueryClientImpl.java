@@ -69,9 +69,15 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     private OrderRichQueryRepositoryClient orderRichQueryRepositoryClient;
 
     @Autowired
-    private List<OrderPermissionsVerifier> orderPermissionsVerifiers;
+    private OrderReadClient orderReadClient;
 
     @Autowired
+    private OrderConvertor orderConvertor;
+
+    @Autowired(required = false)
+    private List<OrderPermissionsVerifier> orderPermissionsVerifiers;
+
+    @Autowired(required = false)
     private List<OrderSectionHandler> orderSectionHandlers;
 
     @Autowired(required = false)
@@ -80,16 +86,10 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     @Autowired(required = false)
     private List<OrderCompanyFeatureHandler> orderCompanyFeatureHandlers;
 
-    @Autowired
-    private OrderReadClient orderReadClient;
 
-    @Autowired
-    private OrderConvertor orderConvertor;
-
-
-    @Monitor(efficiencyWatch = 500)
+    @Monitor(efficiencyWatch = 1000)
     @Override
-    public Page<OrderInfoDO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
+    public Page<OrderInfoDO> pageQueryOrder(Long companyId, PageOrderConditionQuery condition) {
 
         StopWatch stopWatch = new StopWatch("订单分页查询");
 
@@ -109,6 +109,35 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         this.orderItemBatchFill(companyId, data);
         stopWatch.stop();
 
+        if (stopWatch.getTotalTimeMillis() > TIME_OUT) {
+            LOGGER.warn("OrderRichQueryClientImpl#pageQueryOrder#订单查询超时, companyId:{}, condition:{}\nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
+        }
+
+        return Page.build(condition.getPageNo(), condition.getPageSize(), data, page.getCount());
+    }
+
+    @Override
+    public OrderInfoDO getOrder(Long companyId, Long orderId) {
+        PageOrderConditionQuery condition = new PageOrderConditionQuery();
+        condition.setOrderIds(Collections.singletonList(orderId));
+        Page<OrderInfoDO> page = this.pageQueryOrder(companyId, condition);
+        if (CollectionUtils.isEmpty(page.getData())) {
+            LOGGER.error("OrderRichQueryClientImpl#getOrder#订单不存在, companyId:{}, orderId:{}", companyId, orderId);
+            throw new StandardRuntimeException("订单不存在！");
+        }
+        return page.getData().iterator().next();
+    }
+
+    @Monitor(efficiencyWatch = 2000)
+    @Override
+    public Page<OrderInfoDO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
+
+        Page<OrderInfoDO> page = this.pageQueryOrder(companyId, condition);
+
+        Collection<OrderInfoDO> data = page.getData();
+
+        StopWatch stopWatch = new StopWatch("订单丰富查询");
+
         stopWatch.start("领域模型信息填充");
         this.sectionBatchFill(companyId, data);
         stopWatch.stop();
@@ -122,7 +151,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         stopWatch.stop();
 
         if (stopWatch.getTotalTimeMillis() > TIME_OUT) {
-            LOGGER.warn("OrderRichQueryClientImpl#pageQueryOrderRich#订单查询超时, companyId:{}, condition:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
+            LOGGER.warn("OrderRichQueryClientImpl#pageQueryOrderRich#订单丰富查询, companyId:{}, condition:{}\nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
         }
 
         return Page.build(condition.getPageNo(), condition.getPageSize(), data, page.getCount());

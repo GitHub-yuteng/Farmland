@@ -17,6 +17,6 @@ import java.util.List;
 @Mapper
 public interface OrderLogisticsChannelReadMapper extends GlobalMacroDefinition {
 
-    Collection<LogisticsChannelSimplePO> getChanelByLogisticsKeys(@Param(COMPANY_ID) Long companyId, @Param("list") List<OrderLogisticsKey> logisticsKeys);
+    Collection<LogisticsChannelSimplePO> getChannelByLogisticsKeys(@Param(COMPANY_ID) Long companyId, @Param("list") List<OrderLogisticsKey> logisticsKeys);
 
 }

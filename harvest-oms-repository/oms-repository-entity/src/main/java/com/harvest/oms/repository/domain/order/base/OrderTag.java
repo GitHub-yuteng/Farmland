@@ -38,6 +38,20 @@ public class OrderTag implements Serializable {
     @ApiModelProperty("额外信息")
     private Object extension;
 
-    @ApiModelProperty("订单标记样式")
-    private OrderTagDisplayEnum display;
+    @ApiModelProperty("标记样式")
+    private Display display;
+
+    @Data
+    public static class Display {
+
+        @ApiModelProperty("颜色")
+        private String color;
+
+        @ApiModelProperty("订单标记样式")
+        private OrderTagDisplayEnum display;
+
+        @ApiModelProperty("悬停信息")
+        private String hover;
+
+    }
 }

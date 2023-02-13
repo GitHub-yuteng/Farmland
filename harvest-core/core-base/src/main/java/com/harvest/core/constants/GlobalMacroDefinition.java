@@ -48,6 +48,8 @@ public interface GlobalMacroDefinition {
 
         String TAG_ID = "tagId";
         String TAGS = "tagIds";
+
+        String CHANNEL_ID = "channelId";
     }
 
     interface GOODS {
@@ -86,15 +88,15 @@ public interface GlobalMacroDefinition {
         String IDS = "ids";
         String NAME = "name";
 
-        String ACCOUNT_ID = "accountId";
         String USER_ID = "userId";
+        String ACCOUNT_ID = "accountId";
         String APPLICATION_TYPE = "applicationType";
 
+        String REMARK = "remark";
         String KEYWORD = "keyword";
         String STATUS = "status";
         String IS_DISABLED = "isDisabled";
         String IS_DELETED = "isDeleted";
-        String REMARK = "remark";
         String FAIL_REASON = "failReason";
 
         String BILL_ID = "billId";

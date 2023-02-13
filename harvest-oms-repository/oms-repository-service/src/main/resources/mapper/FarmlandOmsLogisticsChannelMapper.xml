@@ -4,12 +4,20 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.harvest.oms.repository.entity.FarmlandOmsLogisticsChannelEntity">
-        <id column="id" property="id" />
+        <id column="channel_id" property="channelId" />
+        <result column="COMPANY_ID" property="companyId" />
+        <result column="logistics_id" property="logisticsId" />
+        <result column="channel_code" property="channelCode" />
+        <result column="channel_name" property="channelName" />
+        <result column="status" property="status" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="rc_time" property="rcTime" />
+        <result column="rm_time" property="rmTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id
+        channel_id, COMPANY_ID, logistics_id, channel_code, channel_name, status, is_deleted, rc_time, rm_time
     </sql>
 
 </mapper>

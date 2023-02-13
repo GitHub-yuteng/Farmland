@@ -26,7 +26,7 @@ import java.util.concurrent.*;
 @SpringBootTest
 public class OrderDataCreateTest {
 
-    private final static Executor EXECUTOR = new ThreadPoolExecutor(10, 10, 2000, TimeUnit.MILLISECONDS,
+    private final static Executor EXECUTOR = new ThreadPoolExecutor(10, 20, 2000, TimeUnit.MILLISECONDS,
             new SynchronousQueue<>(),
             new ThreadFactoryBuilder().setNameFormat("harvest-oms-create-order-%d").build(),
             new ThreadPoolExecutor.CallerRunsPolicy());
@@ -203,7 +203,7 @@ public class OrderDataCreateTest {
         farmlandOmsOrderEntity.setWarehouseId(Math.abs(new Random().nextLong()));
         farmlandOmsOrderEntity.setWaveNo("123");
         farmlandOmsOrderEntity.setLogisticType(1);
-        farmlandOmsOrderEntity.setCarrierId(Math.abs(new Random().nextLong()));
+        farmlandOmsOrderEntity.setLogisticsId(Math.abs(new Random().nextLong()));
         farmlandOmsOrderEntity.setChannelId(Math.abs(new Random().nextLong()));
         farmlandOmsOrderEntity.setDeliveryNo("123");
         farmlandOmsOrderEntity.setWeight(new BigDecimal("1"));

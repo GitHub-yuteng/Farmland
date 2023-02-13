@@ -9,13 +9,15 @@ import java.util.concurrent.Callable;
  **/
 public class OrderStockLackBackTask implements Callable<Boolean> {
 
-    public OrderStockLackBackTask(Long companyId) {
+    private final Long companyId;
 
+    public OrderStockLackBackTask(Long companyId) {
+        this.companyId = companyId;
     }
 
     @Override
     public Boolean call() throws Exception {
-        System.out.println("缺货统计！");
+        System.out.println(companyId + "缺货统计！");
         return true;
     }
 

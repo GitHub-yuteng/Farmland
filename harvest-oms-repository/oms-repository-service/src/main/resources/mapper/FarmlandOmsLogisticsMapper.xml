@@ -5,11 +5,19 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.harvest.oms.repository.entity.FarmlandOmsLogisticsEntity">
         <id column="id" property="id" />
+        <result column="COMPANY_ID" property="companyId" />
+        <result column="logistics_code" property="logisticsCode" />
+        <result column="logistics" property="logistics" />
+        <result column="authorization" property="authorization" />
+        <result column="status" property="status" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="rc_time" property="rcTime" />
+        <result column="rm_time" property="rmTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id
+        id, COMPANY_ID, logistics_code, logistics, authorization, status, is_deleted, rc_time, rm_time
     </sql>
 
 </mapper>

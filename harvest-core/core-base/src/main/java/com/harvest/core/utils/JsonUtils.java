@@ -16,7 +16,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 /**
@@ -38,7 +37,7 @@ public class JsonUtils {
 
     static {
         //序列化时候统一日期格式
-        OBJECT_MAPPER.setDateFormat(new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"));
+        OBJECT_MAPPER.setDateFormat(DateUtils.FORMAT);
         //设置null时候不序列化(只针对对象属性)
         OBJECT_MAPPER.setSerializationInclusion(JsonInclude.Include.NON_NULL);
         //反序列化时，属性不存在的兼容处理
@@ -160,7 +159,6 @@ public class JsonUtils {
 
     /**
      * json -> 对象
-     * <p>	数据对象类型: new TypeReference<OuterClazz<InnerClazz>>
      */
     public static <T> T jsonToObj(String json, TypeReference<T> type) {
         try {

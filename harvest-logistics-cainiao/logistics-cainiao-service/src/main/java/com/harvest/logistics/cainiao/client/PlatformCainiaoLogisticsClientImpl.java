@@ -4,8 +4,14 @@ import com.harvest.basic.domain.logistics.DeclarationDataFile;
 import com.harvest.basic.domain.logistics.DeclarationResponse;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.domain.file.OuterDataFormat;
+import com.harvest.core.enums.logistics.LogisticsEnum;
+import com.harvest.core.utils.DateUtils;
 import com.harvest.logistics.cainiao.HarvestCainiaoLogisticsApplications;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.util.Date;
 
 /**
  * @Author: Alodi
@@ -14,6 +20,8 @@ import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
  **/
 @HarvestService(path = HarvestCainiaoLogisticsApplications.SERVICE_PATH)
 public class PlatformCainiaoLogisticsClientImpl implements PlatformCainiaoLogisticsClient {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(PlatformCainiaoLogisticsClientImpl.class);
 
     @Override
     public void getToken(Long companyId) {
@@ -32,8 +40,14 @@ public class PlatformCainiaoLogisticsClientImpl implements PlatformCainiaoLogist
 
     @Override
     public DeclarationResponse submitDeclaration(Long companyId, SubmitDeclarationRequest request) {
-        System.out.println("菜鸟申报");
-        return new DeclarationResponse();
+        LOGGER.info(LogisticsEnum.CAINIAO.getName() + "申报");
+        DeclarationResponse declarationResponse = new DeclarationResponse();
+        declarationResponse.setSuccess(true);
+        declarationResponse.setDeliveryNo("CAINIAO123");
+        declarationResponse.setMessage("");
+        declarationResponse.setDeclareTime(DateUtils.FORMAT.format(new Date()));
+        declarationResponse.setFeature("");
+        return declarationResponse;
     }
 
     @Override

@@ -20,7 +20,7 @@ public class OrderDeliveryQuery implements Serializable {
     private Integer declareStatus;
 
     @ApiModelProperty("承运商")
-    private Collection<Long> carrierIds;
+    private Collection<Long> logisticsIds;
 
     @ApiModelProperty("渠道")
     private Collection<Long> channelIds;

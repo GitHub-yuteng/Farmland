@@ -4,7 +4,6 @@ import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.core.service.mq.ProducerMessageService;
-import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.domain.order.audit.OrderAuditTransferDTO;
 import com.harvest.oms.enums.OrderEventEnum;
@@ -63,8 +62,8 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
         Map<Long, String> orderMap = new HashMap<>(DEFAULT_2);
         return super.SyncOrderParallelFailAllowBatchExecute(companyId, orderAuditSubmitMap.keySet(),
                 order -> {
-                    // 传递订单信息
                     SubmitAuditRequest submitAuditRequest = orderAuditSubmitMap.get(order.getOrderId());
+                    // 传递订单信息
                     submitAuditRequest.setOrder(order);
                     // 执行审核
                     this.executeAudit(companyId, submitAuditRequest);
@@ -89,14 +88,17 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
 
     @Override
     public void afterAudit(Long companyId, SubmitAuditRequest request) {
+        SendResult sendResult = this.pushWms(companyId, request);
+        // 发布订单审核事件
+        orderEventPublisher.publishAsync(companyId, request.getOrder().getOrderId(), OrderEventEnum.AUDIT);
+    }
+
+    private SendResult pushWms(Long companyId, SubmitAuditRequest request) {
         // 推送wms
         SubmitWmsOrderMessage submitWmsOrderMessage = new SubmitWmsOrderMessage();
         submitWmsOrderMessage.setCompanyId(companyId);
         submitWmsOrderMessage.setOrder(request.getOrder());
-        SendResult sendResult = producerMessageService.syncSend("my-topic", submitWmsOrderMessage);
-        System.out.println(JsonUtils.object2Json(sendResult));
-        // 发布订单审核事件
-        orderEventPublisher.publishAsync(companyId, request.getOrder().getOrderId(), OrderEventEnum.AUDIT);
+        return producerMessageService.syncSend("my-topic", submitWmsOrderMessage);
     }
 
 }

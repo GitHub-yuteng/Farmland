@@ -3,10 +3,10 @@
 <mapper namespace="com.harvest.oms.repository.mapper.order.read.OrderLogisticsChannelReadMapper">
   
   <resultMap id="BaseResultMap" type="com.harvest.oms.repository.domain.logistics.simple.LogisticsChannelSimplePO">
-    <id column="id" property="carrierId"/>
+    <id column="id" property="logisticsId"/>
     <result column="COMPANY_ID" property="companyId"/>
-    <result column="carrier_code" property="carrierCode"/>
-    <result column="carrier" property="carrier"/>
+    <result column="logistics_code" property="logisticsCode"/>
+    <result column="logistics" property="logistics"/>
     <result column="status" property="status"/>
     <result column="channel_id" property="channelId"/>
     <result column="channel_code" property="channelCode"/>
@@ -14,23 +14,23 @@
     <result column="c_status" property="status"/>
   </resultMap>
   
-  <select id="getChanelByLogisticsKeys" resultMap="BaseResultMap">
+  <select id="getChannelByLogisticsKeys" resultMap="BaseResultMap">
     SELECT
     logistics.id,
     logistics.COMPANY_ID,
-    logistics.carrier_code,
-    logistics.carrier,
+    logistics.logistics_code,
+    logistics.logistics,
     logistics.status,
     channel.channel_id,
     channel.channel_code,
     channel.channel_name,
     channel.status AS c_status
     FROM farmland_oms_logistics logistics
-    LEFT JOIN farmland_oms_logistics_channel channel ON channel.carrier_id = logistics.id
+    LEFT JOIN farmland_oms_logistics_channel channel ON channel.logistics_id = logistics.id
     WHERE logistics.COMPANY_ID = #{companyId}
     AND
     <foreach collection="list" item="key" separator="OR" open="(" close=")">
-      id = #{key.carrierId} AND carrier_id = #{key.carrierId} AND channel_id = #{key.channelId}
+      id = #{key.logisticsId} AND logistics_id = #{key.logisticsId} AND channel_id = #{key.channelId}
     </foreach>
   </select>
 

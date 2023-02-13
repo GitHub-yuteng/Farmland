@@ -35,6 +35,11 @@ public abstract class AbstractBackTaskProcessor {
     protected CacheService cacheService;
 
     /**
+     * 任务名称
+     */
+    private final String taskName;
+
+    /**
      * 任务构建
      *
      * @param taskName
@@ -59,6 +64,7 @@ public abstract class AbstractBackTaskProcessor {
                         .build(),
                 new ThreadPoolExecutor.CallerRunsPolicy());
 
+        this.taskName = taskName;
         this.cacheService = cacheService;
     }
 
@@ -77,7 +83,7 @@ public abstract class AbstractBackTaskProcessor {
                 if (this.checkIntervalLimit(companyId)) {
                     return;
                 }
-                Boolean lock = DistributedLockUtils.lock(orderBackStatTaskKey, companyId.toString(), () -> {
+                DistributedLockUtils.lock(orderBackStatTaskKey, companyId.toString(), () -> {
                     try {
                         return backStatExecutor.submit(this.getTask(companyId)).get();
                     } catch (Exception e) {
@@ -95,7 +101,7 @@ public abstract class AbstractBackTaskProcessor {
     }
 
     private boolean checkIntervalLimit(Long companyId) {
-        return cacheService.exists(OrderBackStatTaskKey.INTERVAL_LIMIT, companyId.toString());
+        return cacheService.exists(OrderBackStatTaskKey.INTERVAL_LIMIT, taskName + "-" + companyId.toString());
     }
 
     /**
@@ -104,6 +110,6 @@ public abstract class AbstractBackTaskProcessor {
      * @param companyId 公司id
      * @return 任务
      */
-    protected abstract Callable<Boolean> getTask(long companyId);
+    protected abstract Callable<Boolean> getTask(Long companyId);
 
 }

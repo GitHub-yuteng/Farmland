@@ -22,4 +22,10 @@ public class BatchId implements Serializable {
         return this.id.toString();
     }
 
+    public static BatchId build(Long id) {
+        BatchId batchId = new BatchId();
+        batchId.setId(id);
+        return batchId;
+    }
+
 }

@@ -31,7 +31,7 @@ public enum OrderTagSourceEnum {
      */
     public static OrderTagSourceEnum calcTag(Integer value) {
         for (OrderTagSourceEnum orderTagSourceEnum : OrderTagSourceEnum.values()) {
-            if (value > orderTagSourceEnum.value) {
+            if (value >= orderTagSourceEnum.value) {
                 return orderTagSourceEnum;
             }
         }

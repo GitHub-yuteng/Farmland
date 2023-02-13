@@ -1,12 +1,10 @@
 package com.harvest.oms.repository.mapper.order.rich;
 
 import com.harvest.core.constants.GlobalMacroDefinition;
-import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.Collection;
-import java.util.List;
 import java.util.Map;
 
 /**

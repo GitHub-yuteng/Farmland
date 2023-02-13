@@ -1,6 +1,5 @@
 package com.harvest.oms.service.order.event;
 
-import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.core.batch.BatchId;
 import com.harvest.core.utils.ActuatorUtils;
 import com.harvest.oms.client.order.OrderReadClient;
@@ -40,12 +39,9 @@ public class OrderEventPublisher {
      * @param event
      */
     public void publishAsync(Long companyId, Long orderId, OrderEventEnum event) {
-        BatchExecuteResult<BatchId> batchResultIdBatchExecuteResult = ActuatorUtils.parallelFailAllowBatchExecute(Stream.of(orderId).map(id -> {
-            BatchId batchId = new BatchId();
-            batchId.setId(id);
-            return batchId;
-        }).collect(Collectors.toList()), id -> this.publish(companyId, orderId, event));
-
+        ActuatorUtils.parallelVoidFailAllowBatchExecute(Stream.of(orderId).map(BatchId::build).collect(Collectors.toList()),
+                id -> this.publish(companyId, orderId, event)
+        );
     }
 
     /**
@@ -75,6 +71,9 @@ public class OrderEventPublisher {
                     listener.audit(companyId, order);
                     break;
                 case RETURN_AUDIT:
+                    break;
+                case DELIVERY:
+                    break;
                 case CLOSE:
                     break;
                 default:

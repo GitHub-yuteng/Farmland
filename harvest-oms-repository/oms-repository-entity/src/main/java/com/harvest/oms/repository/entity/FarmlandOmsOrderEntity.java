@@ -18,7 +18,7 @@ import lombok.Setter;
  * </p>
  *
  * @author Alodi
- * @since 2023-01-29 14:52:41
+ * @since 2023-02-13 15:05:21
  */
 @Getter
 @Setter
@@ -123,8 +123,8 @@ public class FarmlandOmsOrderEntity {
     private Integer logisticType;
 
     @ApiModelProperty("承运商id")
-    @TableField("carrier_id")
-    private Long carrierId;
+    @TableField("logistics_id")
+    private Long logisticsId;
 
     @ApiModelProperty("渠道id")
     @TableField("channel_id")

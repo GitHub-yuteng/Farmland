@@ -20,7 +20,7 @@ public enum OuterDataFormat implements IEnum<Integer> {
     REMOTE_FILE_URL     (2, "远程文件地址"),
     PDF_DATA            (3, "PDF文件数据流"),
     PICTURE_DATA        (4, "图片数据流"),
-    HTML_DATA           (5, "html文件数据流"),
+    HTML_DATA           (5, "HTML文件数据流"),
     PNG_DATA            (6, "PNG图片数据流");
 
     private final int key;

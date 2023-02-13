@@ -44,7 +44,7 @@ public class FieldUtils {
      * @param <T>
      * @return
      */
-    public static <T> String getSwitchFieldName(SFunction<T, ?> fn, FieldSwitchEnum fieldSwitch) {
+    private static <T> String getSwitchFieldName(SFunction<T, ?> fn, FieldSwitchEnum fieldSwitch) {
         SerializedLambda serializedLambda = getSerializedLambda(fn);
 
         // 从lambda信息取出method、field、class等

@@ -15,11 +15,11 @@ public class LogisticsCore extends CompanyId {
 
     private static final long serialVersionUID = -8986055227259428619L;
 
-    private Long carrierId;
+    private Long logisticsId;
 
-    private String carrierCode;
+    private String logisticsCode;
 
-    private String carrier;
+    private String logistics;
 
     private Integer status;
 

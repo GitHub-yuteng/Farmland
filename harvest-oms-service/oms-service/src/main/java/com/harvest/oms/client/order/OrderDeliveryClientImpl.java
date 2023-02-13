@@ -12,12 +12,15 @@ import com.harvest.core.utils.ActuatorUtils;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.client.logistics.LogisticsReadClient;
+import com.harvest.oms.domain.logistics.LogisticsChannelAddressDO;
 import com.harvest.oms.domain.logistics.LogisticsChannelDO;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.declare.OrderDeclarationDO;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import com.harvest.oms.service.order.business.OrderDeclareProcessor;
 import org.apache.commons.collections4.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
@@ -30,6 +33,8 @@ import java.util.stream.Collectors;
  **/
 @HarvestService(path = HarvestOmsApplications.Path.ORDER_DELIVERY)
 public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclareProcessor {
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(OrderDeliveryClientImpl.class);
 
     @Autowired
     private BasicLogisticsClient basicLogisticsClient;
@@ -92,15 +97,20 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
     public DeclarationResponse processDeclare(Long companyId, SubmitDeclarationRequest request) {
 
         LogisticsChannelDO logisticsChannel = request.getOrder().getLogisticsChannel();
-        request.setLogisticsType(LogisticsEnum.getEnumByCode(logisticsChannel.getCarrierCode()));
-
+        request.setLogisticsType(LogisticsEnum.getEnumByCode(logisticsChannel.getLogisticsCode()));
         // 渠道地址信息
-
+        List<LogisticsChannelAddressDO> channelAddressList = logisticsReadClient.getChannelAddress(companyId, logisticsChannel.getChannelId());
+        request.setChannelAddressList(channelAddressList);
         // 提交报关
-
+        LOGGER.info("申报请求: " + JsonUtils.object2Json(request));
         DeclarationResponse response = basicLogisticsClient.submitDeclaration(companyId, request);
 
-        System.out.println("申报结果: " + JsonUtils.object2Json(response));
+        Boolean success = response.getSuccess();
+        if (success) {
+
+        }
+
+
         return response;
     }
 

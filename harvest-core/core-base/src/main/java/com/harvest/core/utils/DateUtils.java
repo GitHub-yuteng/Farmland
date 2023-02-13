@@ -1,5 +1,6 @@
 package com.harvest.core.utils;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -16,6 +17,8 @@ public class DateUtils {
     public static String YEAR_FORMAT = "yyyy";
     public static String MOUTH_FORMAT = "MM";
     public static final String YEAR_MOUTH_FORMAT = "yyyy-MM";
+
+    public final static SimpleDateFormat FORMAT = new SimpleDateFormat(DATE_TIME_FORMAT);
 
     /**
      * 日期天数 操作

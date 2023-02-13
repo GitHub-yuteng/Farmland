@@ -86,6 +86,18 @@ public class ActuatorUtils {
      * @param <E>
      * @return
      */
+    public static <E extends BatchId> void parallelVoidFailAllowBatchExecute(Collection<E> collection, Consumer<E> consumer) {
+        parallelFailAllowBatchExecute(collection, consumer, Function.identity());
+    }
+
+    /**
+     * 并发批量处理器-范型限定
+     *
+     * @param collection
+     * @param consumer
+     * @param <E>
+     * @return
+     */
     public static <E extends BatchId> BatchExecuteResult<E> parallelFailAllowBatchExecute(Collection<E> collection, Consumer<E> consumer) {
         return parallelFailAllowBatchExecute(collection, consumer, Function.identity());
     }
