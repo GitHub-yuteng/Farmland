@@ -40,6 +40,11 @@ public abstract class AbstractBackTaskProcessor {
     private final String taskName;
 
     /**
+     * 任务后缀
+     */
+    private String postfix;
+
+    /**
      * 任务构建
      *
      * @param taskName
@@ -70,6 +75,8 @@ public abstract class AbstractBackTaskProcessor {
 
     public void execute(Long companyId, OrderBackStatTaskKey orderBackStatTaskKey) {
 
+        this.postfix = taskName + "-" + companyId;
+
         /*分布式锁，如果当前该公司已经在执行了统计任务则直接返回*/
         try {
             // 触发最小间隔
@@ -90,7 +97,7 @@ public abstract class AbstractBackTaskProcessor {
                         LOGGER.error(String.format("公司后台任务执行异常#backStatExecutor, companyId:%s, 异常原因：%s", companyId, e.getMessage()), e.getCause());
                         return false;
                     } finally {
-                        cacheService.set(OrderBackStatTaskKey.INTERVAL_LIMIT, companyId.toString(), System.currentTimeMillis());
+                        cacheService.set(OrderBackStatTaskKey.INTERVAL_LIMIT, postfix, System.currentTimeMillis());
                     }
                 });
             }
@@ -101,7 +108,7 @@ public abstract class AbstractBackTaskProcessor {
     }
 
     private boolean checkIntervalLimit(Long companyId) {
-        return cacheService.exists(OrderBackStatTaskKey.INTERVAL_LIMIT, taskName + "-" + companyId.toString());
+        return cacheService.exists(OrderBackStatTaskKey.INTERVAL_LIMIT, postfix);
     }
 
     /**

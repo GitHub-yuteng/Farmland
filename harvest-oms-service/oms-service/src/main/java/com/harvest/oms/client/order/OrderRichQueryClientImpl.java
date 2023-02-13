@@ -132,11 +132,13 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     @Override
     public Page<OrderInfoDO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
 
+        StopWatch stopWatch = new StopWatch("订单丰富查询");
+
+        stopWatch.start("订单信息查询");
         Page<OrderInfoDO> page = this.pageQueryOrder(companyId, condition);
+        stopWatch.stop();
 
         Collection<OrderInfoDO> data = page.getData();
-
-        StopWatch stopWatch = new StopWatch("订单丰富查询");
 
         stopWatch.start("领域模型信息填充");
         this.sectionBatchFill(companyId, data);

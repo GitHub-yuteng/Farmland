@@ -22,7 +22,7 @@ public class OrderTriggerKey extends OmsKeyPrefix {
      * 查询触发器
      */
     public final static OrderTriggerKey ORDER_QUERY_TRIGGER_KEY = new OrderTriggerKey(
-            KeyModePrefix.OMS.ORDER_TRIGGER + "query:", ONE_MINUTE
+            KeyModePrefix.OMS.ORDER_TRIGGER + "interval-limit-query:", ONE_MINUTE
     );
 
 }
