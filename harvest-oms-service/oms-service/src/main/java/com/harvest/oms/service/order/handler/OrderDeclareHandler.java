@@ -10,10 +10,31 @@ import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
  **/
 public interface OrderDeclareHandler {
 
+    /**
+     * 匹配处理器
+     *
+     * @param companyId
+     * @param response
+     * @return
+     */
     boolean match(Long companyId, DeclarationResponse response);
 
+    /**
+     * 处理申报结果
+     *
+     * @param companyId
+     * @param request
+     * @param response
+     */
     void process(Long companyId, SubmitDeclarationRequest request, DeclarationResponse response);
 
+    /**
+     * 执行
+     *
+     * @param companyId
+     * @param request
+     * @param response
+     */
     default void execute(Long companyId, SubmitDeclarationRequest request, DeclarationResponse response) {
         if (this.match(companyId, response)) {
             this.process(companyId, request, response);
