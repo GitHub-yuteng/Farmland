@@ -19,6 +19,11 @@
         #{orderId}
       </foreach>
     </if>
+    <if test="statuses != null and statuses.size() > 0">
+      <foreach collection="statuses" item="status" open="(" close=")" separator=",">
+        #{status}
+      </foreach>
+    </if>
   </sql>
 
 </mapper>
