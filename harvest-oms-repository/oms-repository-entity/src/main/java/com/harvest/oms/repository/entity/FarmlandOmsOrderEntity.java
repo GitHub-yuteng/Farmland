@@ -18,7 +18,7 @@ import lombok.Setter;
  * </p>
  *
  * @author Alodi
- * @since 2023-02-13 15:05:21
+ * @since 2023-02-14 09:33:30
  */
 @Getter
 @Setter
@@ -150,9 +150,9 @@ public class FarmlandOmsOrderEntity {
     @TableField("business_man_id")
     private Long businessManId;
 
-    @ApiModelProperty("申报状态")
-    @TableField("declare_status")
-    private Integer declareStatus;
+    @ApiModelProperty("待申报")
+    @TableField("wait_declare")
+    private Boolean waitDeclare;
 
     @ApiModelProperty("物流状态")
     @TableField("logistics_status")

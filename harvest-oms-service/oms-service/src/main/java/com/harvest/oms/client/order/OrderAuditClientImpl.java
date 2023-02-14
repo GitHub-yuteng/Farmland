@@ -2,7 +2,6 @@ package com.harvest.oms.client.order;
 
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.batch.BatchExecuteResult;
-import com.harvest.core.batch.BatchId;
 import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.core.service.mq.ProducerMessageService;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
@@ -46,7 +45,12 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
         if (CollectionUtils.isEmpty(orderIds)) {
             return new BatchExecuteResult<>();
         }
-        return this.auditWithSubmit(companyId, orderIds.stream().map(BatchId::build).map(o -> (SubmitAuditRequest) o).collect(Collectors.toList()));
+        return this.auditWithSubmit(companyId, orderIds.stream().map(
+                orderId -> {
+                    SubmitAuditRequest submitAuditRequest = new SubmitAuditRequest();
+                    submitAuditRequest.setId(orderId);
+                    return submitAuditRequest;
+                }).collect(Collectors.toList()));
     }
 
     @Override
@@ -79,7 +83,7 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
 
     @Override
     public void processAudit(Long companyId, SubmitAuditRequest request, OrderAuditTransferDTO transfer) {
-
+        
 
     }
 

@@ -26,7 +26,7 @@ public interface OrderDeclareProcessor {
      * @param request
      * @return
      */
-    void beforeDeclare(Long companyId, SubmitDeclarationRequest request);
+    boolean beforeDeclare(Long companyId, SubmitDeclarationRequest request);
 
     /**
      * 业务处理过程
@@ -51,7 +51,9 @@ public interface OrderDeclareProcessor {
      */
     default void executeDeclare(Long companyId, SubmitDeclarationRequest request) {
         this.check(companyId, request);
-        this.beforeDeclare(companyId, request);
+        if (!this.beforeDeclare(companyId, request)) {
+            return;
+        }
         DeclarationResponse response = this.processDeclare(companyId, request);
         this.afterDeclare(companyId, request, response);
     }

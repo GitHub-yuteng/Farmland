@@ -29,5 +29,4 @@ public interface OrderDeliveryClient extends GlobalMacroDefinition {
     @PostMapping("/declare")
     BatchExecuteResult<String> declare(@RequestParam(COMPANY_ID) Long companyId, @RequestBody Collection<SubmitDeclarationRequest> requests);
 
-
 }

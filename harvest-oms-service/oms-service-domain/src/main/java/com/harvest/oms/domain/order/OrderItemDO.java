@@ -22,5 +22,5 @@ public class OrderItemDO extends OrderItemSimplePO {
     private OrderGoodsDO goods;
 
     @ApiModelProperty("申报信息明细")
-    private OrderItemDeclarationDO declaration;
+    private OrderItemDeclarationDO itemDeclaration;
 }

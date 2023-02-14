@@ -65,6 +65,7 @@ public class OrderFrontQueryClientImpl implements OrderFrontQueryClient {
 
         cacheService.set(OrderTriggerKey.ORDER_QUERY_TRIGGER_KEY, companyId.toString(), System.currentTimeMillis());
 
+        // 后台异步任务
         taskExecutor.execute(() -> {
 
             StopWatch stopWatch = new StopWatch("查询触发器后台异步任务");

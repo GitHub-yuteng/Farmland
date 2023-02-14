@@ -19,6 +19,7 @@ public interface HarvestOmsApplications {
         String ORDER_FRONT = OMS_PATH + "/OrderFrontQueryClient";
         String ORDER_RICH  = OMS_PATH + "/OrderRichQueryClient";
         String ORDER_READ  = OMS_PATH + "/OrderReadClient";
+        String ORDER_WRITE = OMS_PATH + "/OrderWriteClient";
 
         /**
          * 业务

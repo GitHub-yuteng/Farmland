@@ -97,7 +97,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         this.verification(companyId, condition);
         stopWatch.stop();
 
-        stopWatch.start("订单查询");
+        stopWatch.start("订单信息查询");
         Page<OrderSimplePO> page = orderRichQueryRepositoryClient.pageQueryOrderRich(companyId, condition);
         stopWatch.stop();
 

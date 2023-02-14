@@ -82,25 +82,28 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
             throw new StandardRuntimeException(ExceptionCodes.OMS_MODULE_ERROR, "渠道为空, 请选择承运商渠道后, 进行交运申报!");
         }
         // 是否已经申报
-        if (this.existDeclaration(request.getOrder())) {
+        if (this.isDeclared(request.getOrder())) {
             throw new StandardRuntimeException(ExceptionCodes.OMS_MODULE_ERROR, "[warn]当前订单已申请交运，如需重新交运请先取消或者点击【刷新】查看交运结果!");
         }
     }
 
-    private boolean existDeclaration(OrderInfoDO order) {
+    private boolean isDeclared(OrderInfoDO order) {
         OrderDeclarationDO declaration = order.getDeclaration();
         return Objects.nonNull(declaration);
     }
 
     @Override
-    public void beforeDeclare(Long companyId, SubmitDeclarationRequest request) {
+    public boolean beforeDeclare(Long companyId, SubmitDeclarationRequest request) {
 
+
+        // 渠道类型
         LogisticsChannelDO logisticsChannel = request.getOrder().getLogisticsChannel();
         request.setLogisticsType(LogisticsEnum.getEnumByCode(logisticsChannel.getLogisticsCode()));
         // 渠道地址信息
         List<LogisticsChannelAddressDO> channelAddressList = logisticsReadClient.getChannelAddress(companyId, logisticsChannel.getChannelId());
         request.setChannelAddressList(channelAddressList);
 
+        return true;
     }
 
     @Override

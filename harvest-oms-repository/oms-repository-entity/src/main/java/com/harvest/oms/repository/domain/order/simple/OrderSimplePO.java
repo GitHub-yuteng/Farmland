@@ -24,7 +24,7 @@ public class OrderSimplePO extends OrderCore {
     @ApiModelProperty("订单号")
     private String orderNo;
 
-    @ApiModelProperty("承运商Id")
+    @ApiModelProperty("物流商Id")
     private Long logisticsId;
 
     @ApiModelProperty("渠道Id")
@@ -32,6 +32,9 @@ public class OrderSimplePO extends OrderCore {
 
     @ApiModelProperty("运单号")
     private String deliveryNo;
+
+    @ApiModelProperty("待申报")
+    private Boolean waitDeclare;
 
     @ApiModelProperty("订单状态")
     private OrderStatusEnum orderStatus;

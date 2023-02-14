@@ -6,4 +6,9 @@ package com.harvest.core.monitor.enums;
  * @Description: TODO
  **/
 public enum MonitorLevelEnum {
+
+
+
+
+
 }
