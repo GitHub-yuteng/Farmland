@@ -11,6 +11,25 @@
   
   <artifactId>logistics-JD-interface</artifactId>
   
+  <dependencies>
+    <dependency>
+      <groupId>com.harvest</groupId>
+      <artifactId>core-client</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.harvest</groupId>
+      <artifactId>logistics-JD-entity</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  
+    <dependency>
+      <groupId>com.harvest</groupId>
+      <artifactId>basic-service-interface</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+  </dependencies>
+  
   <properties>
     <maven.compiler.source>8</maven.compiler.source>
     <maven.compiler.target>8</maven.compiler.target>
