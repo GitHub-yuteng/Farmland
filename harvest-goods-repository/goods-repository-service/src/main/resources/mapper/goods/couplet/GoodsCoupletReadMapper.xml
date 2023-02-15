@@ -38,10 +38,10 @@
       <result column="sku_code" property="skuCode"/>
       <result column="sku_name" property="skuName"/>
       <result column="barcode" property="barcode"/>
-      <result column="purchase_price" property="goodsPrice.purchasePrice"/>
-      <result column="wholesale_price" property="goodsPrice.wholesalePrice"/>
-      <result column="sale_price" property="goodsPrice.salePrice"/>
-      <result column="tag_price" property="goodsPrice.tagPrice"/>
+      <result column="purchase_price" property="skuPrice.purchasePrice"/>
+      <result column="wholesale_price" property="skuPrice.wholesalePrice"/>
+      <result column="sale_price" property="skuPrice.salePrice"/>
+      <result column="tag_price" property="skuPrice.tagPrice"/>
       <result column="procurement_cycle" property="procurementCycle"/>
       <result column="production_cycle" property="productionCycle"/>
       <result column="volume" property="volume"/>

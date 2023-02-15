@@ -36,7 +36,7 @@ public class SkuSimplePO extends GoodsCore {
     private String barcode;
 
     @ApiModelProperty("商品规格金额")
-    private GoodsPrice goodsPrice;
+    private GoodsPrice skuPrice;
 
     @ApiModelProperty("采购周期")
     private BigDecimal procurementCycle;
