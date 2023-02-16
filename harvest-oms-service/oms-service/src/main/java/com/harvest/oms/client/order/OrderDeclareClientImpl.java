@@ -15,6 +15,7 @@ import com.harvest.oms.repository.domain.declare.OrderDeclareSimplePO;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import com.harvest.oms.service.order.handler.declare.OrderCancelDeclareExecutor;
 import com.harvest.oms.service.order.handler.declare.OrderDeclareExecutor;
+import com.harvest.oms.service.order.handler.declare.OrderRefreshDeclareExecutor;
 import com.harvest.oms.vo.order.declare.OrderDeclarationVO;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -23,10 +24,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
@@ -49,7 +47,7 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
     @Override
     public Collection<OrderDeclarationVO> listDeclaration(Long companyId, List<Long> orderIds) {
         Collection<OrderDeclareSimplePO> collection = orderDeclareRepositoryClient.listDeclaration(companyId, orderIds);
-        return null;
+        return Collections.emptyList();
     }
 
     @Override
@@ -78,6 +76,10 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
     @RepeatSubmit(seconds = 5)
     @Override
     public Collection<OrderDeclarationVO> refreshDeclaration(Long companyId, List<Long> orderIds) {
+        ActuatorUtils.parallelFailAllowBatchExecute(orderIds.stream().map(BatchId::build).collect(Collectors.toList()), batchId -> {
+            SpringHelper.getBean(OrderRefreshDeclareExecutor.class).refresh(companyId, batchId.getId());
+        });
+        // result 结果处理 重新查询 申报结果返回
         return this.listDeclaration(companyId, orderIds);
     }
 
