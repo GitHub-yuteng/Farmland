@@ -2,7 +2,7 @@ package com.harvest.core.monitor;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.constants.GlobalMacroDefinition;
-import com.harvest.core.monitor.anno.Monitor;
+import com.harvest.core.annotation.Monitor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -29,7 +29,7 @@ public class HarvestExceptionMonitor implements GlobalMacroDefinition {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HarvestExceptionMonitor.class);
 
-    private final static String MONITOR_POINT = "@annotation(com.harvest.core.monitor.anno.Monitor)";
+    private final static String MONITOR_POINT = "@annotation(com.harvest.core.annotation.Monitor)";
 
     /**
      * 监控通知线程池

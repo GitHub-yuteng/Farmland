@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 /**
  * @Author: Alodi
  * @Date: 2023/2/6 3:54 PM
- * @Description:
+ * @Description: 对象缓存操作 队列或自增等.
  **/
 @Component
 public class RedisService {

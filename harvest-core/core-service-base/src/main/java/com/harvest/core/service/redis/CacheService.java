@@ -35,6 +35,23 @@ public class CacheService {
     /**
      * 设置对象
      */
+    public <T> void set(KeyPrefix prefix, String key, T value, Integer seconds) {
+        String str = JsonUtils.object2Json(value);
+        if (str == null || str.length() <= 0) {
+            return;
+        }
+        //生成真正的key
+        String realKey = prefix.getKeyPrefix() + key;
+        if (seconds <= 0) {
+            stringRedisTemplate.opsForValue().set(realKey, str);
+        } else {
+            stringRedisTemplate.opsForValue().set(realKey, str, seconds, TimeUnit.SECONDS);
+        }
+    }
+
+    /**
+     * 设置对象
+     */
     public <T> void set(KeyPrefix prefix, String key, T value) {
         String str = JsonUtils.object2Json(value);
         if (str == null || str.length() <= 0) {

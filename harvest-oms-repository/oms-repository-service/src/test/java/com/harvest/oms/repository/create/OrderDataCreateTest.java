@@ -210,7 +210,7 @@ public class OrderDataCreateTest {
         farmlandOmsOrderEntity.setVolume(new BigDecimal("2"));
         farmlandOmsOrderEntity.setBuyerId(String.valueOf(Math.abs(new Random().nextLong())));
         farmlandOmsOrderEntity.setBusinessManId(Math.abs(new Random().nextLong()));
-        farmlandOmsOrderEntity.setDeclareStatus(1);
+        farmlandOmsOrderEntity.setWaitDeclare(false);
         farmlandOmsOrderEntity.setIgnoreOutbound(false);
         farmlandOmsOrderEntity.setIsHangUp(false);
         farmlandOmsOrderEntity.setHangUpCaseType(1);

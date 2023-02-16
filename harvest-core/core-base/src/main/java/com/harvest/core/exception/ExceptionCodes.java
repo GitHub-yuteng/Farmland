@@ -18,8 +18,13 @@ public interface ExceptionCodes {
     int CORE_MODULE_ERROR = 1;
 
     /**
+     * 通用异常
+     */
+    int BASE_MODULE_ERROR = 100;
+
+    /**
      * OMS模块异常
      */
-    int OMS_MODULE_ERROR = 100;
+    int OMS_MODULE_ERROR = 1000;
 
 }

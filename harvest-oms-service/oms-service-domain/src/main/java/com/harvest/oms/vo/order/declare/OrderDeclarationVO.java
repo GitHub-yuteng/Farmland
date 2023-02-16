@@ -1,8 +1,8 @@
 package com.harvest.oms.vo.order.declare;
 
-import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+
+import java.io.Serializable;
 
 /**
  * @Author: Alodi
@@ -10,11 +10,9 @@ import lombok.EqualsAndHashCode;
  * @Description: TODO
  **/
 @Data
-@EqualsAndHashCode(callSuper = true)
-public class OrderDeclarationVO extends SubmitDeclarationRequest {
+public class OrderDeclarationVO implements Serializable {
 
     private static final long serialVersionUID = 2324752528183060363L;
-
 
 
 }

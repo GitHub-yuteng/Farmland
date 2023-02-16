@@ -60,6 +60,13 @@ public class OrderEventPublisher {
         this.doPublish(companyId, order, type);
     }
 
+    /**
+     * 执行发布
+     *
+     * @param companyId
+     * @param order
+     * @param event
+     */
     private void doPublish(long companyId, OrderInfoDO order, OrderEventEnum event) {
         orderEventListeners.forEach(listener -> {
             switch (event) {
@@ -67,18 +74,22 @@ public class OrderEventPublisher {
                     listener.created(companyId, order);
                     break;
                 case PAID:
+                    listener.paid(companyId, order);
                     break;
                 case AUDIT:
                     listener.audit(companyId, order);
                     break;
                 case RETURN_AUDIT:
+                    listener.returnAudit(companyId, order);
                     break;
                 case DECLARE:
-                    listener.audit(companyId, order);
+                    listener.declare(companyId, order);
                     break;
                 case DELIVERY:
+                    listener.delivery(companyId, order);
                     break;
                 case CLOSE:
+                    listener.close(companyId, order);
                     break;
                 default:
                     break;

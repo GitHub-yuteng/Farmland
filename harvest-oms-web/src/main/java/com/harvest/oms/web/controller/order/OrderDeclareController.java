@@ -1,6 +1,7 @@
 package com.harvest.oms.web.controller.order;
 
 import com.harvest.core.batch.BatchExecuteResult;
+import com.harvest.core.context.ContextHolder;
 import com.harvest.core.domain.ResponseResult;
 import com.harvest.core.path.HarvestOmsPath;
 import com.harvest.oms.client.order.OrderDeclareClient;
@@ -34,13 +35,14 @@ public class OrderDeclareController {
     @PostMapping(value = "/declaration/get")
     public ResponseResult<Collection<OrderDeclarationVO>> listDeclaration(@RequestBody List<Long> orderIds) {
         Collection<OrderDeclarationVO> result = orderDeclareClient.listDeclaration(8510380986999420205L, orderIds);
-        return null;
+        return ResponseResult.success(result);
     }
 
     @ApiOperation("订单交运申报")
     @PostMapping(value = "/declare")
     public ResponseResult<BatchExecuteResult<String>> declare(@RequestBody Collection<SubmitDeclarationRequest> requests) {
-        BatchExecuteResult<String> result = orderDeclareClient.declare(8510380986999420205L, requests);
+        Long companyId = ContextHolder.getContext().getCompanyId();
+        BatchExecuteResult<String> result = orderDeclareClient.declare(companyId, requests);
         return ResponseResult.success(result);
     }
 
@@ -53,8 +55,8 @@ public class OrderDeclareController {
 
     @ApiOperation("取消交运申报")
     @PostMapping(value = "/declaration/cancel")
-    public ResponseResult<Collection<OrderDeclarationVO>> cancelDeclare(@RequestBody List<Long> orderIds) {
-        Collection<OrderDeclarationVO> result = orderDeclareClient.cancelDeclare(8510380986999420205L, orderIds);
+    public ResponseResult<BatchExecuteResult<String>> cancelDeclare(@RequestBody List<Long> orderIds) {
+        BatchExecuteResult<String> result = orderDeclareClient.cancelDeclare(8510380986999420205L, orderIds);
         return ResponseResult.success(result);
     }
 
