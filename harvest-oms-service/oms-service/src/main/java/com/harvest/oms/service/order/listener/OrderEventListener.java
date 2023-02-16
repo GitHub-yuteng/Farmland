@@ -46,6 +46,15 @@ public interface OrderEventListener {
     }
 
     /**
+     * 订单申报
+     *
+     * @param companyId 公司id
+     * @param order     相关订单
+     */
+    default void declare(long companyId, OrderInfoDO order) {
+    }
+
+    /**
      * 订单发货
      *
      * @param companyId 公司id

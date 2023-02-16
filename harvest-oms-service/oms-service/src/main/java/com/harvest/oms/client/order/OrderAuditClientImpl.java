@@ -2,19 +2,13 @@ package com.harvest.oms.client.order;
 
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.batch.BatchExecuteResult;
+import com.harvest.core.context.SpringHelper;
 import com.harvest.core.enums.oms.OrderStatusEnum;
-import com.harvest.core.service.mq.ProducerMessageService;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
-import com.harvest.oms.domain.order.audit.OrderAuditTransferDTO;
-import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.request.order.audit.SubmitAuditRequest;
-import com.harvest.oms.request.order.warehouse.SubmitWmsOrderMessage;
 import com.harvest.oms.service.order.AbstractBizOrderService;
-import com.harvest.oms.service.order.business.OrderAuditProcessor;
-import com.harvest.oms.service.order.event.OrderEventPublisher;
+import com.harvest.oms.service.order.handler.audit.OrderAuditExecutor;
 import org.apache.commons.collections4.CollectionUtils;
-import org.apache.rocketmq.client.producer.SendResult;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.*;
 import java.util.function.Function;
@@ -27,18 +21,13 @@ import java.util.stream.Stream;
  * @Description: 订单审核
  **/
 @HarvestService(path = HarvestOmsApplications.Path.ORDER_AUDIT)
-public class OrderAuditClientImpl extends AbstractBizOrderService implements OrderAuditClient, OrderAuditProcessor {
+public class OrderAuditClientImpl extends AbstractBizOrderService implements OrderAuditClient {
 
     /**
      * 待/审核状态
      */
     private final static List<OrderStatusEnum> AUDIT_STATUS_ENUMS = Stream.of(OrderStatusEnum.APPROVE).collect(Collectors.toList());
 
-    @Autowired
-    private ProducerMessageService producerMessageService;
-
-    @Autowired
-    private OrderEventPublisher orderEventPublisher;
 
     @Override
     public BatchExecuteResult<String> audit(Long companyId, List<Long> orderIds) {
@@ -67,39 +56,8 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
                     // 传递订单信息
                     submitAuditRequest.setOrder(order);
                     // 执行审核
-                    this.executeAudit(companyId, submitAuditRequest);
+                    SpringHelper.getBean(OrderAuditExecutor.class).exec(companyId, submitAuditRequest);
                 });
-    }
-
-    @Override
-    public void check(Long companyId, SubmitAuditRequest request) {
-
-    }
-
-    @Override
-    public OrderAuditTransferDTO beforeAudit(Long companyId, SubmitAuditRequest request) {
-        return null;
-    }
-
-    @Override
-    public void processAudit(Long companyId, SubmitAuditRequest request, OrderAuditTransferDTO transfer) {
-        
-
-    }
-
-    @Override
-    public void afterAudit(Long companyId, SubmitAuditRequest request) {
-        SendResult sendResult = this.pushWms(companyId, request);
-        // 发布订单审核事件
-        orderEventPublisher.publishAsync(companyId, request.getOrder().getOrderId(), OrderEventEnum.AUDIT);
-    }
-
-    private SendResult pushWms(Long companyId, SubmitAuditRequest request) {
-        // 推送wms
-        SubmitWmsOrderMessage submitWmsOrderMessage = new SubmitWmsOrderMessage();
-        submitWmsOrderMessage.setCompanyId(companyId);
-        submitWmsOrderMessage.setOrder(request.getOrder());
-        return producerMessageService.syncSend("my-topic", submitWmsOrderMessage);
     }
 
 }

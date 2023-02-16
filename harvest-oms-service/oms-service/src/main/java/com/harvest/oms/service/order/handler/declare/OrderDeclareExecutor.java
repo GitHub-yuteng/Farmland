@@ -1,41 +1,38 @@
-package com.harvest.oms.client.order;
+package com.harvest.oms.service.order.handler.declare;
 
 import com.harvest.basic.client.logistics.BasicLogisticsClient;
 import com.harvest.basic.domain.logistics.DeclarationResponse;
-import com.harvest.core.annotation.feign.HarvestService;
-import com.harvest.core.batch.BatchExecuteResult;
-import com.harvest.core.context.SpringHelper;
 import com.harvest.core.enums.logistics.LogisticsEnum;
 import com.harvest.core.exception.ExceptionCodes;
 import com.harvest.core.exception.StandardRuntimeException;
-import com.harvest.core.utils.ActuatorUtils;
 import com.harvest.core.utils.JsonUtils;
-import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.client.logistics.LogisticsReadClient;
 import com.harvest.oms.domain.logistics.LogisticsChannelAddressDO;
 import com.harvest.oms.domain.logistics.LogisticsChannelDO;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.declare.OrderDeclarationDO;
+import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
-import com.harvest.oms.service.order.business.OrderDeclareProcessor;
+import com.harvest.oms.service.order.event.OrderEventPublisher;
 import com.harvest.oms.service.order.handler.OrderDeclareHandler;
-import org.apache.commons.collections4.CollectionUtils;
+import com.harvest.oms.service.order.processor.OrderDeclareProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-import java.util.*;
-import java.util.stream.Collectors;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @Author: Alodi
- * @Date: 2023/2/3 3:42 PM
- * @Description: 订单交运
+ * @Date: 2023/2/16 3:44 PM
+ * @Description: TODO
  **/
-@HarvestService(path = HarvestOmsApplications.Path.ORDER_DELIVERY)
-public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclareProcessor {
+@Component
+public class OrderDeclareExecutor implements OrderDeclareProcessor {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderDeliveryClientImpl.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(OrderDeclareExecutor.class);
 
     @Autowired
     private BasicLogisticsClient basicLogisticsClient;
@@ -46,34 +43,8 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
     @Autowired(required = false)
     private List<OrderDeclareHandler> orderDeclareHandlers;
 
-    @Override
-    public void listDeclaration(Long companyId, List<Long> orderIds) {
-
-    }
-
-    @Override
-    public BatchExecuteResult<String> declare(Long companyId, Collection<SubmitDeclarationRequest> requests) {
-        if (CollectionUtils.isEmpty(requests)) {
-            return new BatchExecuteResult<>();
-        }
-        requests = requests.stream().filter(request -> Objects.nonNull(request.getId())).collect(Collectors.toList());
-        if (CollectionUtils.isEmpty(requests)) {
-            throw new StandardRuntimeException("请检查订单交运申报参数! By: orderId is null. ");
-        }
-
-        // 记录键值 id-key
-        Map<Long, String> orderMap = new HashMap<>(DEFAULT_2);
-        // TODO OMS Concurrent processing of each order delivery declaration.
-        return ActuatorUtils.parallelFailAllowBatchExecute(requests, (request) -> {
-                    Long orderId = request.getId();
-                    OrderInfoDO order = SpringHelper.getBean(OrderReadClient.class).get(companyId, orderId);
-                    request.setOrder(order);
-                    orderMap.put(orderId, order.getOrderNo());
-                    // 执行申报
-                    this.executeDeclare(companyId, request);
-                }, request -> orderMap.get(request.getId())
-        );
-    }
+    @Autowired
+    private OrderEventPublisher orderEventPublisher;
 
     @Override
     public void check(Long companyId, SubmitDeclarationRequest request) {
@@ -89,12 +60,11 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
 
     private boolean isDeclared(OrderInfoDO order) {
         OrderDeclarationDO declaration = order.getDeclaration();
-        return Objects.nonNull(declaration);
+        return Objects.nonNull(declaration) && order.getWaitDeclare();
     }
 
     @Override
     public boolean beforeDeclare(Long companyId, SubmitDeclarationRequest request) {
-
 
         // 渠道类型
         LogisticsChannelDO logisticsChannel = request.getOrder().getLogisticsChannel();
@@ -117,10 +87,9 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient, OrderDeclar
 
     @Override
     public void afterDeclare(Long companyId, SubmitDeclarationRequest request, DeclarationResponse response) {
-
+        // 发布订单审核事件
+        orderEventPublisher.publishAsync(companyId, request.getOrder().getOrderId(), OrderEventEnum.DECLARE);
         // 上传文件
 
-
     }
-
 }

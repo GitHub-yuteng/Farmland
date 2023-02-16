@@ -25,6 +25,7 @@ public interface HarvestOmsApplications {
          * 业务
          */
         String ORDER_AUDIT     = OMS_PATH + "/OrderAuditClient";
+        String ORDER_DECLARE   = OMS_PATH + "/OrderDeclareClient";
         String ORDER_DELIVERY  = OMS_PATH + "/OrderDeliveryClient";
 
     }

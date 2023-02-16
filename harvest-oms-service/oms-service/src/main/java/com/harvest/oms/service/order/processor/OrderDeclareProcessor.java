@@ -1,4 +1,4 @@
-package com.harvest.oms.service.order.business;
+package com.harvest.oms.service.order.processor;
 
 import com.harvest.basic.domain.logistics.DeclarationResponse;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
@@ -49,7 +49,7 @@ public interface OrderDeclareProcessor {
      * @param companyId
      * @param request
      */
-    default void executeDeclare(Long companyId, SubmitDeclarationRequest request) {
+    default void execute(Long companyId, SubmitDeclarationRequest request) {
         this.check(companyId, request);
         if (!this.beforeDeclare(companyId, request)) {
             return;

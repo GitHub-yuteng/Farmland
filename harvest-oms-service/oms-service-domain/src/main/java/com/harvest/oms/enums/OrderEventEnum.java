@@ -19,6 +19,9 @@ public enum OrderEventEnum {
     /*打回审核*/
     RETURN_AUDIT,
 
+    /*订单申报*/
+    DECLARE,
+
     /*订单发货*/
     DELIVERY,
 

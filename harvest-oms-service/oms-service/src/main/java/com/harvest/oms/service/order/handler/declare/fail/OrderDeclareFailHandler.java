@@ -1,12 +1,10 @@
 package com.harvest.oms.service.order.handler.declare.fail;
 
 import com.harvest.basic.domain.logistics.DeclarationResponse;
-import com.harvest.oms.client.order.OrderDeliveryClient;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import com.harvest.oms.service.order.handler.OrderDeclareHandler;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,7 +16,6 @@ import org.springframework.stereotype.Component;
 public class OrderDeclareFailHandler implements OrderDeclareHandler {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderDeclareFailHandler.class);
-
 
 
     @Override

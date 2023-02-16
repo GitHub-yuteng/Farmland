@@ -67,10 +67,14 @@ public class OrderEventPublisher {
                     listener.created(companyId, order);
                     break;
                 case PAID:
+                    break;
                 case AUDIT:
                     listener.audit(companyId, order);
                     break;
                 case RETURN_AUDIT:
+                    break;
+                case DECLARE:
+                    listener.audit(companyId, order);
                     break;
                 case DELIVERY:
                     break;

@@ -1,4 +1,4 @@
-package com.harvest.oms.service.order.business;
+package com.harvest.oms.service.order.processor;
 
 import com.harvest.oms.domain.order.audit.OrderAuditTransferDTO;
 import com.harvest.oms.request.order.audit.SubmitAuditRequest;
@@ -48,7 +48,7 @@ public interface OrderAuditProcessor {
      * @param companyId
      * @param request
      */
-    default void executeAudit(Long companyId, SubmitAuditRequest request) {
+    default void execute(Long companyId, SubmitAuditRequest request) {
         this.check(companyId, request);
         OrderAuditTransferDTO transfer = this.beforeAudit(companyId, request);
         this.processAudit(companyId, request, transfer);
