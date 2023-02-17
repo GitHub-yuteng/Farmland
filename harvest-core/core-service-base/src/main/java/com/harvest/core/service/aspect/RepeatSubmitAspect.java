@@ -6,6 +6,7 @@ import com.harvest.core.exception.ExceptionCodes;
 import com.harvest.core.exception.StandardRuntimeException;
 import com.harvest.core.service.redis.CacheService;
 import com.harvest.core.service.redis.repeat.RepeatKeyPrefix;
+import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -46,7 +47,7 @@ public class RepeatSubmitAspect {
         String realKey = methodName + "-" + ContextHolder.getContext().getCompanyId() + "-" + ContextHolder.getContext().getUserId();
         boolean exists = cacheService.exists(RepeatKeyPrefix.INTERVAL_REPEAT, realKey);
         if (exists) {
-            throw new StandardRuntimeException(ExceptionCodes.BASE_MODULE_ERROR, "请等我反应一会～");
+            throw new StandardRuntimeException(ExceptionCodes.BASE_MODULE_ERROR, StringUtils.isNotEmpty(repeatSubmit.remind()) ? repeatSubmit.remind() : "请稍后重试～");
         }
         cacheService.set(RepeatKeyPrefix.INTERVAL_REPEAT, realKey, System.currentTimeMillis(), seconds);
         return joinPoint.proceed();

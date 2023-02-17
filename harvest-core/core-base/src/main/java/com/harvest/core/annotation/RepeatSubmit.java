@@ -16,4 +16,6 @@ public @interface RepeatSubmit {
 
     int seconds() default 3;
 
+    String remind() default "";
+
 }

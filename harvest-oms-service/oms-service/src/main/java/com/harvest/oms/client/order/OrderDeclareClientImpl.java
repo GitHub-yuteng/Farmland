@@ -73,7 +73,7 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
         );
     }
 
-    @RepeatSubmit(seconds = 5)
+    @RepeatSubmit(seconds = 5, remind = "正在刷新, 请稍后～")
     @Override
     public Collection<OrderDeclarationVO> refreshDeclaration(Long companyId, List<Long> orderIds) {
         ActuatorUtils.parallelFailAllowBatchExecute(orderIds.stream().map(BatchId::build).collect(Collectors.toList()), batchId -> {
@@ -83,7 +83,7 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
         return this.listDeclaration(companyId, orderIds);
     }
 
-    @RepeatSubmit(seconds = 10)
+    @RepeatSubmit(seconds = 10, remind = "请稍后执行～")
     @Override
     public BatchExecuteResult<String> cancelDeclare(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds) {
         Map<Long, String> orderMap = new ConcurrentHashMap<>(DEFAULT_2);
