@@ -30,9 +30,9 @@ import java.util.Objects;
  * @Description: TODO
  **/
 @Component
-public class OrderDeclareExecutor implements OrderDeclareProcessor {
+public class OrderSubmitDeclareExecutor implements OrderDeclareProcessor {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderDeclareExecutor.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(OrderSubmitDeclareExecutor.class);
 
     @Autowired
     private BasicLogisticsClient basicLogisticsClient;

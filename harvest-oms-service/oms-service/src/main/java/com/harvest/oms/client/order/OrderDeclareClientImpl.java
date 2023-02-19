@@ -14,8 +14,8 @@ import com.harvest.oms.repository.client.order.OrderDeclareRepositoryClient;
 import com.harvest.oms.repository.domain.declare.OrderDeclareSimplePO;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import com.harvest.oms.service.order.handler.declare.OrderCancelDeclareExecutor;
-import com.harvest.oms.service.order.handler.declare.OrderDeclareExecutor;
 import com.harvest.oms.service.order.handler.declare.OrderRefreshDeclareExecutor;
+import com.harvest.oms.service.order.handler.declare.OrderSubmitDeclareExecutor;
 import com.harvest.oms.vo.order.declare.OrderDeclarationVO;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -68,7 +68,7 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
                     request.setOrder(order);
                     orderMap.put(orderId, order.getOrderNo());
                     // 执行申报
-                    SpringHelper.getBean(OrderDeclareExecutor.class).execute(companyId, request);
+                    SpringHelper.getBean(OrderSubmitDeclareExecutor.class).execute(companyId, request);
                 }, request -> orderMap.get(request.getId())
         );
     }

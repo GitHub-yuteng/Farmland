@@ -1,6 +1,8 @@
 package com.harvest.oms.service.order.handler.declare;
 
+import com.harvest.core.context.SpringHelper;
 import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.repository.client.order.OrderDeclareRepositoryClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
@@ -27,6 +29,9 @@ public class OrderCancelDeclareExecutor {
      */
     public void cancleDeclare(Long companyId, OrderInfoDO order) {
         System.out.println("取消交运申报！");
+
+
+        SpringHelper.getBean(OrderDeclareRepositoryClient.class).deleteDeclareByOrderId(companyId, order.getOrderId());
     }
 
 }

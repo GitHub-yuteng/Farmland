@@ -26,7 +26,6 @@ public class OrderNoQueryConvertor implements OrderOptimizeQueryConvertor {
 
     @Override
     public Collection<Long> convert(Long companyId, PageOrderConditionQuery condition, Map<String, Object> params) {
-        System.out.println("optimize order no.");
         OrderNoQuery nos = condition.getNos();
         if (Objects.isNull(nos) || CollectionUtils.isEmpty(nos.getOrderNos())) {
             return Collections.emptyList();
