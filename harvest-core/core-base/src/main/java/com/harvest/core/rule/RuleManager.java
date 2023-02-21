@@ -23,7 +23,7 @@ public class RuleManager {
     private final static Logger LOGGER = LoggerFactory.getLogger(RuleManager.class);
 
     @Autowired(required = false)
-    private Set<RuleMatcher<? extends IRule, ?>> matchers;
+    private Set<RuleMatcher<? extends RuleSection, ?>> matchers;
 
     /**
      * 该完整规则的细分规则 全部符合条件才能匹配
@@ -58,15 +58,15 @@ public class RuleManager {
      * @param <RULE>
      * @return
      */
-    private <RULE> Collection<IRule> ruleSection(RULE rule) {
+    private <RULE extends Rule> Collection<RuleSection> ruleSection(RULE rule) {
         if (rule == null) {
             return null;
         }
-        Collection<IRule> ruleDetails = new ArrayList<>();
+        Collection<RuleSection> ruleDetails = new ArrayList<>();
         Field[] fields = rule.getClass().getDeclaredFields();
         for (Field field : fields) {
             Class<?> type = field.getType();
-            if (!IRule.class.isAssignableFrom(type)) {
+            if (!RuleSection.class.isAssignableFrom(type)) {
                 continue;
             }
             try {
@@ -75,7 +75,7 @@ public class RuleManager {
                 if (Objects.isNull(content)) {
                     continue;
                 }
-                ruleDetails.add((IRule) content);
+                ruleDetails.add((RuleSection) content);
             } catch (IllegalAccessException e) {
                 LOGGER.error("获取规则内容发生异常", e);
             }
@@ -91,12 +91,12 @@ public class RuleManager {
      * @param <R>
      * @return
      */
-    private <R extends IRule, C extends RuleCondition> RuleMatcher<R, C> getMatcher(R rule) {
+    private <R extends RuleSection, C extends RuleCondition> RuleMatcher<R, C> getMatcher(R rule) {
         if (rule == null) {
             throw new IllegalArgumentException("Rule cannot be empty!");
         }
         Class<?> clazz = rule.getClass();
-        RuleMatcher<? extends IRule, ?> handler = matchers.stream().filter(h -> h.handle() == clazz).findFirst().orElse(null);
+        RuleMatcher<? extends RuleSection, ?> handler = matchers.stream().filter(h -> h.handle() == clazz).findFirst().orElse(null);
         if (handler == null) {
             throw new IllegalArgumentException("No rule processor configured!");
         }
@@ -104,7 +104,7 @@ public class RuleManager {
     }
 
     /**
-     * 针对所有条件都满足才返回true, 无优先级
+     * 针对所有条件全部满足才返回true
      *
      * @param ruleGroup
      * @param condition
@@ -112,11 +112,11 @@ public class RuleManager {
      * @param <C>
      * @return
      */
-    private <R extends IRule, C extends RuleCondition> boolean and(Collection<R> ruleGroup, C condition) {
+    private <R extends RuleSection, C extends RuleCondition> boolean and(Collection<R> ruleGroup, C condition) {
         if (CollectionUtils.isEmpty(ruleGroup)) {
             return false;
         }
-        for (R rule : ruleGroup) {
+        for (R rule : ruleGroup.stream().sorted(Comparator.comparingInt(R::priority)).collect(Collectors.toList())) {
             RuleMatcher<R, C> matcher = this.getMatcher(rule);
             if (!matcher.match(rule, condition)) {
                 return false;
@@ -126,7 +126,7 @@ public class RuleManager {
     }
 
     /**
-     * 只要有一个规则满足则返回true, 有优先级
+     * 针对所有条件任意一个满足就返回true
      *
      * @param ruleGroup
      * @param condition
@@ -134,7 +134,7 @@ public class RuleManager {
      * @param <C>
      * @return
      */
-    private <R extends IRule, C extends RuleCondition> boolean or(Collection<R> ruleGroup, C condition) {
+    private <R extends RuleSection, C extends RuleCondition> boolean or(Collection<R> ruleGroup, C condition) {
         if (CollectionUtils.isEmpty(ruleGroup)) {
             return false;
         }
@@ -156,12 +156,12 @@ public class RuleManager {
      * @param <C>
      * @return
      */
-    private <R extends IRule, C extends RuleCondition> R findFirst(Collection<R> ruleGroup, C condition) {
+    public  <R extends RuleSection, C extends RuleCondition> R findFirst(Collection<R> ruleGroup, C condition) {
         if (CollectionUtils.isEmpty(ruleGroup)) {
             return null;
         }
         return ruleGroup.stream()
-                .sorted(Comparator.comparingInt(IRule::priority))
+                .sorted(Comparator.comparingInt(RuleSection::priority))
                 .filter(rule -> this.getMatcher(rule).match(rule, condition))
                 .findFirst()
                 .orElse(null);

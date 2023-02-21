@@ -10,7 +10,7 @@ import java.lang.reflect.Type;
  * @Date: 2023/2/20 10:08 AM
  * @Description: TODO
  **/
-public interface RuleMatcher<R extends IRule, C extends RuleCondition> {
+public interface RuleMatcher<R extends RuleSection, C extends RuleCondition> {
 
     /**
      * 匹配规则条件, 是否满足条件

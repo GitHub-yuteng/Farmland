@@ -7,7 +7,7 @@ import lombok.EqualsAndHashCode;
 /**
  * @Author: Alodi
  * @Date: 2023/2/21 11:07 AM
- * @Description: 完整规则(包含 各种细分规则) {@link com.harvest.core.rule.IRule}
+ * @Description: 完整规则(包含 各种细分规则) {@link com.harvest.core.rule.RuleSection}
  *
  **/
 @Data

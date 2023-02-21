@@ -7,7 +7,7 @@ import java.io.Serializable;
  * @Date: 2023/2/20 10:06 AM
  * @Description: 规则接口
  **/
-public interface IRule extends Serializable {
+public interface RuleSection extends Serializable {
 
     /**
      * 优先级
