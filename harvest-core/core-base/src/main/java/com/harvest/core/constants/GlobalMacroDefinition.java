@@ -26,12 +26,14 @@ public interface GlobalMacroDefinition {
     }
 
     interface Shop {
+
         String SHOP_ID = "shopId";
         String SHOP_IDS = "shopIds";
         String SHOP_SOURCE = "shopSource";
     }
 
     interface OMS {
+
         String ORDER_ID = "orderId";
         String ORDER_IDS = "orderIds";
         String ORDER_ITEM_ID = "orderItemId";
@@ -61,6 +63,7 @@ public interface GlobalMacroDefinition {
     }
 
     interface FINANCE {
+
         String ACCOUNT_ID = "financeAccountId";
         String CURRENCY = "currency";
         String DOMESTIC_CURRENCY = "domesticCurrency";
@@ -69,12 +72,14 @@ public interface GlobalMacroDefinition {
     }
 
     interface WMS {
+
         String WAREHOUSE_ID = "warehouseId";
         String WAREHOUSE_IDS = "warehouseIds";
         String WAREHOUSE_OWNER = "warehouseOwner";
     }
 
     interface TIME_BASE {
+
         String CREATE_TIME = "createTime";
         String MODIFY_TIME = "modifyTime";
         String BUSINESS_TIME = "businessTime";

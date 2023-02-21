@@ -24,4 +24,6 @@ public class DateRange extends AbstractRange<Date> {
     public void setMax(Date max) {
         super.setMax(DateUtils.removeTime(max));
     }
+
+
 }

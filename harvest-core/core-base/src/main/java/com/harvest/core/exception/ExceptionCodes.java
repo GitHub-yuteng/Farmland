@@ -27,4 +27,9 @@ public interface ExceptionCodes {
      */
     int OMS_MODULE_ERROR = 1000;
 
+    /**
+     * 规则模块异常
+     */
+    int RULE_MODULE_ERROR = 5000;
+
 }

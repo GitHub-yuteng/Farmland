@@ -7,9 +7,10 @@ import java.lang.annotation.*;
  * @Date: 2023/2/17 5:52 PM
  * @Description: TODO
  **/
-@Target(ElementType.METHOD)
-@Retention(RetentionPolicy.RUNTIME)
 @Inherited
 @Documented
+@Target(ElementType.METHOD)
+@Retention(RetentionPolicy.RUNTIME)
 public @interface TransactionalExec {
+
 }

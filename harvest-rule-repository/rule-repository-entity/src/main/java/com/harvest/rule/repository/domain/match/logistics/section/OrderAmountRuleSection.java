@@ -3,6 +3,7 @@ package com.harvest.rule.repository.domain.match.logistics.section;
 import com.harvest.core.domain.range.number.BigDecimalRange;
 import com.harvest.core.rule.RuleSection;
 import com.harvest.rule.repository.domain.match.logistics.LogisticsRule;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
@@ -15,6 +16,7 @@ public class OrderAmountRuleSection implements RuleSection {
 
     private static final long serialVersionUID = 2689266644800635306L;
 
+    @ApiModelProperty("订单金额范围")
     private BigDecimalRange amountRange;
 
     /**

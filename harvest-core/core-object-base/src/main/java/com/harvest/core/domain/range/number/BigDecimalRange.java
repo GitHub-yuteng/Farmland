@@ -43,7 +43,7 @@ public class BigDecimalRange extends AbstractRange<BigDecimal> implements Global
         if (Objects.nonNull(min) && Objects.isNull(max)) {
             return value.compareTo(min) >= DEFAULT_0;
         }
-        return true;
+        return false;
     }
 
     public boolean inScope(BigDecimal value) {
@@ -64,7 +64,7 @@ public class BigDecimalRange extends AbstractRange<BigDecimal> implements Global
         if (Objects.nonNull(min) && Objects.isNull(max)) {
             return value.compareTo(min) > DEFAULT_0;
         }
-        return true;
+        return false;
     }
 
     public static void main(String[] args) {
