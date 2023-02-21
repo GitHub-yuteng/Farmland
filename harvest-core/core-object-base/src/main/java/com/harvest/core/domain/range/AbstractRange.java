@@ -17,11 +17,11 @@ public abstract class AbstractRange<T> implements Serializable {
     private static final long serialVersionUID = 2927654076965095700L;
 
     @ApiModelProperty(value = "最小值", notes = "根据业务决定 左开/闭 右开/闭")
-    private T min;
+    protected T min;
     @ApiModelProperty(value = "最大值", notes = "根据业务决定 左开/闭 右开/闭")
-    private T max;
+    protected T max;
 
-    public boolean isEmpty() {
+    public boolean isNull() {
         return Objects.isNull(min) && Objects.isNull(max);
     }
 

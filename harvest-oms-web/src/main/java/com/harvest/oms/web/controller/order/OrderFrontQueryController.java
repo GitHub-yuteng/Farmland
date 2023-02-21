@@ -1,6 +1,8 @@
 package com.harvest.oms.web.controller.order;
 
 import com.harvest.core.constants.GlobalMacroDefinition;
+import com.harvest.core.context.Context;
+import com.harvest.core.context.ContextHolder;
 import com.harvest.core.domain.Page;
 import com.harvest.core.domain.ResponseResult;
 import com.harvest.core.path.HarvestOmsPath;
@@ -28,14 +30,16 @@ public class OrderFrontQueryController implements GlobalMacroDefinition {
     @ApiOperation("订单分页查询")
     @PostMapping(value = "/page")
     public ResponseResult<Page<OrderInfoVO>> frontPageQueryOrder(@RequestBody PageOrderConditionQuery condition) {
-        Page<OrderInfoVO> page = orderFrontQueryClient.frontPageQueryOrder(8510380986999420205L, condition);
+        Context context = ContextHolder.getContext();
+        Page<OrderInfoVO> page = orderFrontQueryClient.frontPageQueryOrder(context.getCompanyId(), condition);
         return ResponseResult.success(page);
     }
 
     @ApiOperation("订单查询")
     @GetMapping(value = "/get")
     public ResponseResult<OrderInfoVO> frontQueryOrder(@RequestParam(OMS.ORDER_ID) Long orderId) {
-        OrderInfoVO page = orderFrontQueryClient.frontQueryOrder(8510380986999420205L, orderId);
+        Context context = ContextHolder.getContext();
+        OrderInfoVO page = orderFrontQueryClient.frontQueryOrder(context.getCompanyId(), orderId);
         return ResponseResult.success(page);
     }
 
