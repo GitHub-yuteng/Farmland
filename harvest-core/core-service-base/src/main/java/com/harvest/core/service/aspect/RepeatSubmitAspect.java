@@ -10,7 +10,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,11 +32,7 @@ public class RepeatSubmitAspect {
     @Autowired
     private CacheService cacheService;
 
-    @Pointcut("@annotation(com.harvest.core.annotation.RepeatSubmit)")
-    public void pointCut() {
-    }
-
-    @Around(value = "pointCut()")
+    @Around(value = "@annotation(com.harvest.core.annotation.RepeatSubmit)")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Method method = methodSignature.getMethod();
