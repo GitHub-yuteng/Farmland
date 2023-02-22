@@ -28,9 +28,6 @@ public class OrderCancelDeclareExecutor {
      * @param order
      */
     public void cancleDeclare(Long companyId, OrderInfoDO order) {
-        System.out.println("取消交运申报！");
-
-
         SpringHelper.getBean(OrderDeclareRepositoryClient.class).deleteDeclareByOrderId(companyId, order.getOrderId());
     }
 

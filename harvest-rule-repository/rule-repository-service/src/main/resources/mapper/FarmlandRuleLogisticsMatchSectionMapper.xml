@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harvest.rule.repository.mapper.FarmlandRuleLogisticsMatchSectionMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.harvest.rule.repository.entity.FarmlandRuleLogisticsMatchSectionEntity">
+        <id column="id" property="id" />
+        <result column="COMPANY_ID" property="companyId" />
+        <result column="rule_id" property="ruleId" />
+        <result column="section_type" property="sectionType" />
+        <result column="rule_content" property="ruleContent" />
+        <result column="status" property="status" />
+        <result column="is_deleted" property="isDeleted" />
+        <result column="rc_time" property="rcTime" />
+        <result column="rm_time" property="rmTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, COMPANY_ID, rule_id, section_type, rule_content, status, is_deleted, rc_time, rm_time
+    </sql>
+
+</mapper>

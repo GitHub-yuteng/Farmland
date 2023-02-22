@@ -16,6 +16,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 @HarvestClient(name = HarvestOmsApplications.SERVICE_NAME, path = HarvestOmsApplications.Path.ORDER_WRITE)
 public interface OrderWriteClient extends GlobalMacroDefinition {
 
+    @PostMapping("/build")
+    void build(Long companyId);
+
+    @PostMapping("/saveOrder")
+    void saveOrder(@RequestParam(COMPANY_ID) Long companyId, @RequestBody OrderInfoDO order);
+
     @PostMapping("/updateDeclare")
     void updateDeclare(@RequestParam(COMPANY_ID) Long companyId, @RequestBody OrderInfoDO order);
 

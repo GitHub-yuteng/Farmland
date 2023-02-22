@@ -1,5 +1,6 @@
 package com.harvest.oms.service.order.strategy;
 
+import com.harvest.oms.service.order.event.order.OrderGiftGoodsRuleMatchEvent;
 import com.harvest.oms.service.order.event.order.OrderLogisticsRuleMatchEvent;
 import com.harvest.oms.service.order.event.order.OrderWarehouseRuleMatchEvent;
 import org.springframework.context.annotation.Bean;
@@ -15,13 +16,25 @@ import org.springframework.core.annotation.Order;
 public class OrderRuleStrategyConfig {
 
     /**
-     * 匹配仓库
+     * 匹配赠品
      *
      * @param event
      * @return
      */
     @Bean
     @Order(10)
+    public OrderRuleStrategy matchWarehouse(OrderGiftGoodsRuleMatchEvent event) {
+        return event::match;
+    }
+
+    /**
+     * 匹配仓库
+     *
+     * @param event
+     * @return
+     */
+    @Bean
+    @Order(20)
     public OrderRuleStrategy matchWarehouse(OrderWarehouseRuleMatchEvent event) {
         return event::match;
     }
@@ -34,7 +47,7 @@ public class OrderRuleStrategyConfig {
      * @return
      */
     @Bean
-    @Order(20)
+    @Order(30)
     public OrderRuleStrategy matchLogistics(OrderLogisticsRuleMatchEvent event) {
         return event::match;
     }

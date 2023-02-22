@@ -9,7 +9,7 @@ public interface HarvestOmsRepositoryApplications {
 
     String SERVICE_NAME = "harvest-oms-repository";
 
-    String OMS_PATH = "/oms/repository/order";
+    String OMS_PATH = "/oms/repository";
 
     interface Path {
 

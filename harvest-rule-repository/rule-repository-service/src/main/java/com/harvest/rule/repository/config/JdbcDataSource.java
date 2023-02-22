@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
@@ -24,32 +26,17 @@ public class JdbcDataSource {
     public final static String RULE_TRANSACTION_MANAGER = "ruleTransactionManager";
     public final static String RULE_TRANSACTION_TEMPLATE = "ruleTransactionTemplate";
 
-    private final static String JDBC_URL = "jdbc:mysql://127.0.0.1:3306/farmland_rule";
-    private final static String USERNAME = "root";
-    private final static String PASSWORD = "123456";
+    @Autowired
+    private DataSourceProperties dataSourceProperties;
 
-    @Bean(name = "default_dataSource")
-    public DataSource dataSource() throws SQLException {
+    @Bean(name = "rule_dataSource")
+    public DataSource dataSource() {
         DruidDataSource dataSource = new DruidDataSource();
-        dataSource.setName("node-rule-mysql");
-        dataSource.setDriverClassName("com.mysql.cj.jdbc.Driver");
-        dataSource.setUrl(JDBC_URL);
-        dataSource.setUsername(USERNAME);
-        dataSource.setPassword(PASSWORD);
-        dataSource.setInitialSize(5);
-        dataSource.setMaxActive(20);
-        dataSource.setMinIdle(5);
-        dataSource.setTestWhileIdle(true);
-        dataSource.setFilters("stat");
-        dataSource.setMaxWait(60000);
-        dataSource.setTimeBetweenEvictionRunsMillis(60000);
-        dataSource.setMinEvictableIdleTimeMillis(300000);
-        dataSource.setTestOnBorrow(false);
-        dataSource.setTestOnReturn(false);
-        dataSource.setPoolPreparedStatements(true);
-        dataSource.setMaxOpenPreparedStatements(100);
-        dataSource.setConnectionProperties("druid.stat.slowSqlMillis=5000");
-        dataSource.setConnectionProperties("druid.stat.logSlowSql=true");
+        dataSource.setName(dataSourceProperties.getName());
+        dataSource.setDriverClassName(dataSourceProperties.getDriverClassName());
+        dataSource.setUrl(dataSourceProperties.getUrl());
+        dataSource.setUsername(dataSourceProperties.getUsername());
+        dataSource.setPassword(dataSourceProperties.getPassword());
         return dataSource;
     }
 

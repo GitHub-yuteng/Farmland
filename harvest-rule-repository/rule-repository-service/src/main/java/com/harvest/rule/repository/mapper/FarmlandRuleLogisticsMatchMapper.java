@@ -1,6 +1,6 @@
 package com.harvest.rule.repository.mapper;
 
-import com.harvest.rule.repository.entity.FarmlandRuleDeliveryMatchEntity;
+import com.harvest.rule.repository.entity.FarmlandRuleLogisticsMatchEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -10,9 +10,9 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-19 17:42:01
+ * @since 2023-02-22 11:50:48
  */
 @Mapper
-public interface FarmlandRuleDeliveryMatchMapper extends BaseMapper<FarmlandRuleDeliveryMatchEntity> {
+public interface FarmlandRuleLogisticsMatchMapper extends BaseMapper<FarmlandRuleLogisticsMatchEntity> {
 
 }

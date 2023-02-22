@@ -156,7 +156,7 @@ public class RuleManager {
      * @param <C>
      * @return
      */
-    public  <R extends RuleSection, C extends RuleCondition> R findFirst(Collection<R> ruleGroup, C condition) {
+    public <R extends RuleSection, C extends RuleCondition> R findFirst(Collection<R> ruleGroup, C condition) {
         if (CollectionUtils.isEmpty(ruleGroup)) {
             return null;
         }

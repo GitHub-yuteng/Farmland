@@ -42,6 +42,13 @@ public enum LogisticsRuleMatchEnum implements IEnum<Integer> {
         return this.type;
     }
 
+    public static LogisticsRuleMatchEnum getEnumByType(Integer type) {
+        return Arrays.stream(LogisticsRuleMatchEnum.values())
+                .filter(item -> item.getType().equals(type))
+                .findFirst()
+                .orElse(null);
+    }
+
     public static LogisticsRuleMatchEnum valueOf(Class<? extends RuleSection> clazz) {
         return Arrays.stream(LogisticsRuleMatchEnum.values())
                 .filter(item -> item.getClazz().equals(clazz))

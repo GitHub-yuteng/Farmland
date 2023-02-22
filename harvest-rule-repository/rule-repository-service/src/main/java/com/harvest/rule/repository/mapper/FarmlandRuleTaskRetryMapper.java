@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Mapper;
  * </p>
  *
  * @author Alodi
- * @since 2022-12-19 17:42:02
+ * @since 2023-02-22 11:50:49
  */
 @Mapper
 public interface FarmlandRuleTaskRetryMapper extends BaseMapper<FarmlandRuleTaskRetryEntity> {

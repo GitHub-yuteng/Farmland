@@ -6,6 +6,8 @@ import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.client.order.OrderWriteRepositoryClient;
 import com.harvest.oms.repository.entity.FarmlandOmsOrderEntity;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StopWatch;
 
 /**
  * @Author: Alodi
@@ -17,6 +19,24 @@ public class OrderWriteClientImpl implements OrderWriteClient {
 
     @Autowired
     private OrderWriteRepositoryClient orderWriteRepositoryClient;
+
+    @Override
+    public void build(Long companyId) {
+        OrderInfoDO order = new OrderInfoDO();
+        this.saveOrder(companyId, order);
+    }
+
+    @Override
+    @Transactional
+    public void saveOrder(Long companyId, OrderInfoDO order) {
+
+        StopWatch stopWatch = new StopWatch("新增订单效率监测");
+
+        /* 保存订单 */
+        stopWatch.start();
+        orderWriteRepositoryClient.insert(companyId, order);
+        stopWatch.stop();
+    }
 
     @Override
     public void updateDeclare(Long companyId, OrderInfoDO order) {

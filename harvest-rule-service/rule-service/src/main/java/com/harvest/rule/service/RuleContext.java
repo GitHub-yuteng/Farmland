@@ -25,18 +25,18 @@ public abstract class RuleContext<RULE extends Rule, C extends RuleCondition, RM
      * @param condition
      * @return
      */
-    public RM andMatch(C condition) {
-        Collection<RULE> rules = this.getRules(condition);
+    public RM andMatch(Long companyId, C condition) {
+        Collection<RULE> rules = this.getRules(companyId, condition);
         if (CollectionUtils.isEmpty(rules)) {
             return null;
         }
         RM ruleMatch = null;
         for (RULE rule : rules) {
             if (ruleManager.andMatch(rule, condition)) {
-                if (this.isIgnore(rule, condition)) {
+                if (this.isIgnore(companyId, rule, condition)) {
                     continue;
                 }
-                ruleMatch = this.ruleMatch(rule);
+                ruleMatch = this.ruleMatch(companyId, rule);
                 break;
             }
         }
@@ -49,18 +49,18 @@ public abstract class RuleContext<RULE extends Rule, C extends RuleCondition, RM
      * @param condition
      * @return
      */
-    public RM orMatch(C condition) {
-        Collection<RULE> rules = this.getRules(condition);
+    public RM orMatch(Long companyId, C condition) {
+        Collection<RULE> rules = this.getRules(companyId, condition);
         if (CollectionUtils.isEmpty(rules)) {
             return null;
         }
         RM result = null;
         for (RULE rule : rules) {
             if (ruleManager.orMatch(rule, condition)) {
-                if (this.isIgnore(rule, condition)) {
+                if (this.isIgnore(companyId, rule, condition)) {
                     continue;
                 }
-                result = this.ruleMatch(rule);
+                result = this.ruleMatch(companyId, rule);
                 break;
             }
         }
@@ -80,7 +80,15 @@ public abstract class RuleContext<RULE extends Rule, C extends RuleCondition, RM
      * @param condition
      * @return
      */
-    protected abstract Collection<RULE> getRules(C condition);
+    protected abstract Collection<RULE> getRules(Long companyId, C condition);
+
+    /**
+     * 获取默认规则
+     *
+     * @param companyId
+     * @return
+     */
+    protected abstract RM getDefaultRule(Long companyId);
 
     /**
      * 忽略特殊匹配规则
@@ -89,7 +97,7 @@ public abstract class RuleContext<RULE extends Rule, C extends RuleCondition, RM
      * @param condition
      * @return
      */
-    protected boolean isIgnore(RULE rule, C condition) {
+    protected boolean isIgnore(Long companyId, RULE rule, C condition) {
         return false;
     }
 
@@ -99,6 +107,6 @@ public abstract class RuleContext<RULE extends Rule, C extends RuleCondition, RM
      * @param rule
      * @return
      */
-    protected abstract RM ruleMatch(RULE rule);
+    protected abstract RM ruleMatch(Long companyId, RULE rule);
 
 }

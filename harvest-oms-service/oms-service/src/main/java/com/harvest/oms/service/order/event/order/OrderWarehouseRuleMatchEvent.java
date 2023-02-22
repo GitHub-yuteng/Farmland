@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderWarehouseRuleMatchEvent extends AbstractMatchEvent {
 
-
     /**
      * 匹配仓库
      *

@@ -1,5 +1,7 @@
 package com.harvest.oms.service.order.strategy;
 
+import com.harvest.oms.domain.order.OrderInfoDO;
+
 /**
  * @Author: Alodi
  * @Date: 2023/1/8 12:56 PM
@@ -11,7 +13,7 @@ public interface OrderRuleStrategy {
      * 执行订单策略
      *
      * @param companyId 公司Id
-     * @param orderId   订单Id
+     * @param order     订单
      */
-    void execute(long companyId, Long orderId);
+    void execute(long companyId, OrderInfoDO order);
 }
