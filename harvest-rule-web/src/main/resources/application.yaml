@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: harvest-goods-web
+    name: harvest-rule-web
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher

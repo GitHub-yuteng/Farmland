@@ -1,17 +1,19 @@
 server:
-  port: 8950
+  port: 8951
 
 spring:
   application:
-    name: harvest-goods-web
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
+    name: harvest-rule-service
   main:
     allow-bean-definition-overriding: true
   cloud:
     discovery:
       enabled: true
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 1
+    password:
 
 eureka:
   client:
@@ -30,7 +32,7 @@ feign:
 
 springfox:
   documentation:
-    enabled: true
-    auto-startup: true
+    enabled: false
+    auto-startup: false
     swagger-ui:
-      enabled: true
+      enabled: false

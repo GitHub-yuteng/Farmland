@@ -7,4 +7,11 @@ package com.harvest.core.path;
  **/
 public interface HarvestRulePath {
 
+    String RULE_PATH = "/harvest/rule";
+
+    interface LogisticsRule {
+
+        String LOGISTICS_RULE = RULE_PATH + "/logistics";
+
+    }
 }

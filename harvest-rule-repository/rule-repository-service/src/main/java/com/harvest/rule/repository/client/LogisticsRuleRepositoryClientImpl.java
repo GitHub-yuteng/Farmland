@@ -83,7 +83,7 @@ public class LogisticsRuleRepositoryClientImpl implements LogisticsRuleRepositor
                         .orElseThrow(() -> new StandardRuntimeException(ExceptionCodes.RULE_MODULE_ERROR, "未找到物流规则对应的属性字段!"));
                 field.setAccessible(true);
                 try {
-                    field.set(section, ruleSection);
+                    field.set(ruleSection, content);
                 } catch (IllegalAccessException e) {
                     LOGGER.error("设置物流规则内容发生异常", e);
                 }
