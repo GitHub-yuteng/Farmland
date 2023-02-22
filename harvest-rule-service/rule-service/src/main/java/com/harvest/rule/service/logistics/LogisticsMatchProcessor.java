@@ -1,12 +1,14 @@
 package com.harvest.rule.service.logistics;
 
 import com.harvest.core.utils.JsonUtils;
+import com.harvest.rule.client.logistics.LogisticsRuleClient;
 import com.harvest.rule.domain.logistics.LogisticsRuleMatch;
 import com.harvest.rule.repository.domain.match.logistics.LogisticsRule;
 import com.harvest.rule.repository.domain.match.logistics.LogisticsRuleCondition;
 import com.harvest.rule.service.RuleContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
@@ -21,6 +23,9 @@ import java.util.Objects;
 public class LogisticsMatchProcessor extends RuleContext<LogisticsRule, LogisticsRuleCondition, LogisticsRuleMatch> {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(LogisticsMatchProcessor.class);
+
+    @Autowired
+    private LogisticsRuleClient logisticsRuleClient;
 
     @Override
     protected String type() {
@@ -39,12 +44,12 @@ public class LogisticsMatchProcessor extends RuleContext<LogisticsRule, Logistic
 
     @Override
     protected Collection<LogisticsRule> getRules(Long companyId, LogisticsRuleCondition condition) {
-        return null;
+        return logisticsRuleClient.listLogisticsRule(companyId);
     }
 
     @Override
     protected LogisticsRuleMatch getDefaultRule(Long companyId) {
-        return null;
+        return logisticsRuleClient.getDefaultRule(companyId);
     }
 
     @Override
@@ -54,6 +59,11 @@ public class LogisticsMatchProcessor extends RuleContext<LogisticsRule, Logistic
 
     @Override
     protected LogisticsRuleMatch ruleMatch(Long companyId, LogisticsRule rule) {
-        return null;
+        LogisticsRuleMatch logisticsRuleMatch = new LogisticsRuleMatch();
+        logisticsRuleMatch.setLogisticsId(rule.getLogisticsId());
+        logisticsRuleMatch.setChannelId(rule.getChannelId());
+        logisticsRuleMatch.setRuleId(rule.getId());
+        logisticsRuleMatch.setCompanyId(companyId);
+        return logisticsRuleMatch;
     }
 }

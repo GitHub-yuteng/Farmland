@@ -25,8 +25,13 @@ public interface LogisticsRuleClient extends GlobalMacroDefinition {
     @PostMapping("/listLogisticsRule")
     Collection<LogisticsRule> listLogisticsRule(@RequestParam(COMPANY_ID) Long companyId);
 
+    @ApiOperation("获取默认匹配规则")
+    @PostMapping("/getDefaultRule")
+    LogisticsRuleMatch getDefaultRule(@RequestParam(COMPANY_ID) Long companyId);
+
     @ApiOperation("订单匹配物流")
     @PostMapping("/matchLogistics")
     LogisticsRuleMatch matchLogistics(@RequestParam(COMPANY_ID) Long companyId, @RequestBody LogisticsRuleCondition condition);
+
 
 }

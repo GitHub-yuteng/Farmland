@@ -42,7 +42,9 @@ public class LogisticsRuleRepositoryClientImpl implements LogisticsRuleRepositor
     @Override
     public Collection<LogisticsRule> listLogisticsRule(Long companyId) {
         List<FarmlandRuleLogisticsMatchEntity> ruleMatchs = farmlandRuleLogisticsMatchMapper.selectList(
-                new QueryWrapper<FarmlandRuleLogisticsMatchEntity>().lambda().eq(FarmlandRuleLogisticsMatchEntity::getCompanyId, companyId)
+                new QueryWrapper<FarmlandRuleLogisticsMatchEntity>().lambda()
+                        .eq(FarmlandRuleLogisticsMatchEntity::getCompanyId, companyId)
+                        .eq(FarmlandRuleLogisticsMatchEntity::getIsDefault, true)
         );
         if (CollectionUtils.isEmpty(ruleMatchs)) {
             return Collections.emptyList();
@@ -91,6 +93,29 @@ public class LogisticsRuleRepositoryClientImpl implements LogisticsRuleRepositor
             });
             return logisticsRule;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public LogisticsRule getDefaultRule(Long companyId) {
+        List<FarmlandRuleLogisticsMatchEntity> ruleMatchs = farmlandRuleLogisticsMatchMapper.selectList(
+                new QueryWrapper<FarmlandRuleLogisticsMatchEntity>().lambda()
+                        .eq(FarmlandRuleLogisticsMatchEntity::getCompanyId, companyId)
+                        .eq(FarmlandRuleLogisticsMatchEntity::getIsDefault, true)
+        );
+        if (CollectionUtils.isEmpty(ruleMatchs)) {
+            return null;
+        }
+        FarmlandRuleLogisticsMatchEntity logisticsMatch = ruleMatchs.iterator().next();
+        LogisticsRule logisticsRule = new LogisticsRule();
+        logisticsRule.setRuleName(logisticsMatch.getRuleName());
+        logisticsRule.setPriority(logisticsMatch.getPriority());
+        logisticsRule.setLogisticsId(logisticsMatch.getLogisticsId());
+        logisticsRule.setChannelId(logisticsMatch.getChannelId());
+        logisticsRule.setIsDefault(logisticsMatch.getIsDefault());
+        logisticsRule.setStatus(logisticsMatch.getStatus());
+        logisticsRule.setId(logisticsMatch.getId());
+        logisticsRule.setCompanyId(companyId);
+        return logisticsRule;
     }
 
 }

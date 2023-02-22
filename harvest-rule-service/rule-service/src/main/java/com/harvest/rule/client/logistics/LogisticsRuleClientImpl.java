@@ -30,6 +30,17 @@ public class LogisticsRuleClientImpl implements LogisticsRuleClient {
     }
 
     @Override
+    public LogisticsRuleMatch getDefaultRule(Long companyId) {
+        LogisticsRule defaultRule = logisticsRuleRepositoryClient.getDefaultRule(companyId);
+        LogisticsRuleMatch defaultMatch = new LogisticsRuleMatch();
+        defaultMatch.setLogisticsId(defaultRule.getLogisticsId());
+        defaultMatch.setChannelId(defaultRule.getChannelId());
+        defaultMatch.setRuleId(defaultRule.getId());
+        defaultMatch.setCompanyId(companyId);
+        return defaultMatch;
+    }
+
+    @Override
     public LogisticsRuleMatch matchLogistics(Long companyId, LogisticsRuleCondition condition) {
         return SpringHelper.getBean(LogisticsMatchProcessor.class).andMatch(companyId, condition);
     }
