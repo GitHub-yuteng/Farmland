@@ -44,7 +44,7 @@ public class LogisticsRuleRepositoryClientImpl implements LogisticsRuleRepositor
         List<FarmlandRuleLogisticsMatchEntity> ruleMatchs = farmlandRuleLogisticsMatchMapper.selectList(
                 new QueryWrapper<FarmlandRuleLogisticsMatchEntity>().lambda()
                         .eq(FarmlandRuleLogisticsMatchEntity::getCompanyId, companyId)
-                        .eq(FarmlandRuleLogisticsMatchEntity::getIsDefault, true)
+                        .eq(FarmlandRuleLogisticsMatchEntity::getIsDefault, false)
         );
         if (CollectionUtils.isEmpty(ruleMatchs)) {
             return Collections.emptyList();
@@ -67,25 +67,26 @@ public class LogisticsRuleRepositoryClientImpl implements LogisticsRuleRepositor
             logisticsRule.setStatus(ruleMatch.getStatus());
             logisticsRule.setId(ruleMatch.getId());
             logisticsRule.setCompanyId(companyId);
-            List<FarmlandRuleLogisticsMatchSectionEntity> sections = sectionMap.get(ruleMatch.getId());
-            if (CollectionUtils.isEmpty(sections)) {
+            List<FarmlandRuleLogisticsMatchSectionEntity> ruleSections = sectionMap.get(ruleMatch.getId());
+            if (CollectionUtils.isEmpty(ruleSections)) {
                 return logisticsRule;
             }
-            LogisticsRuleSection ruleSection = new LogisticsRuleSection();
-            logisticsRule.setRuleSection(ruleSection);
+            LogisticsRuleSection logisticsRuleSection = new LogisticsRuleSection();
+            logisticsRule.setRuleSection(logisticsRuleSection);
 
-            sections.forEach(section -> {
-                Integer sectionType = section.getSectionType();
+            ruleSections.forEach(ruleSection -> {
+                Integer sectionType = ruleSection.getSectionType();
                 Class<? extends RuleSection> clazz = LogisticsRuleMatchEnum.getEnumByType(sectionType).getClazz();
-                RuleSection content = JsonUtils.json2Object(section.getRuleContent(), clazz);
+                RuleSection content = JsonUtils.json2Object(ruleSection.getRuleContent(), clazz);
                 assert content != null;
-                Field field = Arrays.stream(ruleSection.getClass().getDeclaredFields())
-                        .filter(item -> RuleSection.class.isAssignableFrom(item.getType()) && clazz.equals(item.getType()))
+                // 获取 物流规则详情
+                Field field = Arrays.stream(logisticsRuleSection.getClass().getDeclaredFields())
+                        .filter(section -> RuleSection.class.isAssignableFrom(section.getType()) && clazz.equals(section.getType()))
                         .findFirst()
                         .orElseThrow(() -> new StandardRuntimeException(ExceptionCodes.RULE_MODULE_ERROR, "未找到物流规则对应的属性字段!"));
                 field.setAccessible(true);
                 try {
-                    field.set(ruleSection, content);
+                    field.set(logisticsRuleSection, content);
                 } catch (IllegalAccessException e) {
                     LOGGER.error("设置物流规则内容发生异常", e);
                 }
