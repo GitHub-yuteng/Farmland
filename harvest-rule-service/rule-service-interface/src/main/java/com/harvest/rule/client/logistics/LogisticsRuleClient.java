@@ -21,7 +21,7 @@ import java.util.Collection;
 @HarvestClient(name = HarvestRuleApplications.SERVICE_NAME, path = HarvestRuleApplications.LogisticsPath.LOGISTICS_RULE)
 public interface LogisticsRuleClient extends GlobalMacroDefinition {
 
-    @ApiOperation("物流匹配规则")
+    @ApiOperation("获取物流匹配规则")
     @PostMapping("/listLogisticsRule")
     Collection<LogisticsRule> listLogisticsRule(@RequestParam(COMPANY_ID) Long companyId);
 
@@ -29,7 +29,7 @@ public interface LogisticsRuleClient extends GlobalMacroDefinition {
     @PostMapping("/getDefaultRule")
     LogisticsRuleMatch getDefaultRule(@RequestParam(COMPANY_ID) Long companyId);
 
-    @ApiOperation("订单匹配物流")
+    @ApiOperation("匹配物流")
     @PostMapping("/matchLogistics")
     LogisticsRuleMatch matchLogistics(@RequestParam(COMPANY_ID) Long companyId, @RequestBody LogisticsRuleCondition condition);
 

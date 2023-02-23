@@ -1,5 +1,6 @@
 package com.harvest.oms.service.order.handler.audit;
 
+import com.harvest.core.context.SpringHelper;
 import com.harvest.core.service.mq.ProducerMessageService;
 import com.harvest.oms.domain.order.audit.OrderAuditTransferDTO;
 import com.harvest.oms.enums.OrderEventEnum;
@@ -41,7 +42,11 @@ public class OrderAuditExecutor implements OrderAuditProcessor {
 
     @Override
     public void check(Long companyId, SubmitAuditRequest request) {
-
+        if (request.isForce()) {
+            // 强制审核不检查数据问题
+            return;
+        }
+        SpringHelper.getBean(OrderAuditCheckExecutor.class).check(request.getOrder());
     }
 
     @Override

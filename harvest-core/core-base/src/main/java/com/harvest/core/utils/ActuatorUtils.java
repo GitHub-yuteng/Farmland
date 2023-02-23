@@ -140,7 +140,6 @@ public class ActuatorUtils {
                 result.getSuccessCount().incrementAndGet();
                 result.getSuccessKeyList().add(keyGetter.apply(c));
             } catch (Exception e) {
-                /*可失败异常，日志级别修改成info*/
                 LOGGER.info("可失败任务处理异常", e);
                 BatchExecuteResult.ErrorReasonMap<T> map = new BatchExecuteResult.ErrorReasonMap<>();
                 map.setReason(e.getMessage());

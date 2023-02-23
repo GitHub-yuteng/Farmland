@@ -22,6 +22,9 @@ public class SubmitAuditRequest extends BatchId implements Serializable {
     @ApiModelProperty("订单信息-业务流转")
     private OrderInfoDO order;
 
+    @ApiModelProperty("强制审核")
+    private boolean force;
+
     public static class SubmitAuditItemRequest {
 
 

@@ -23,7 +23,7 @@ public class OrderRuleStrategyConfig {
      */
     @Bean
     @Order(10)
-    public OrderRuleStrategy matchWarehouse(OrderGiftGoodsRuleMatchEvent event) {
+    public OrderRuleStrategy matchGiftGoods(OrderGiftGoodsRuleMatchEvent event) {
         return event::match;
     }
 

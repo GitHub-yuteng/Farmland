@@ -7,6 +7,7 @@ import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.request.order.audit.SubmitAuditRequest;
 import com.harvest.oms.service.order.AbstractBizOrderService;
+import com.harvest.oms.service.order.handler.audit.OrderAuditCheckExecutor;
 import com.harvest.oms.service.order.handler.audit.OrderAuditExecutor;
 import org.apache.commons.collections4.CollectionUtils;
 
@@ -26,8 +27,17 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
     /**
      * 待/审核状态
      */
-    private final static List<OrderStatusEnum> AUDIT_STATUS_ENUMS = Stream.of(OrderStatusEnum.APPROVE).collect(Collectors.toList());
+    public final static Set<OrderStatusEnum> AUDIT_STATUS_ENUMS = Stream.of(OrderStatusEnum.APPROVE).collect(Collectors.toSet());
 
+    @Override
+    public BatchExecuteResult<String> check(Long companyId, List<Long> orderIds) {
+        if (CollectionUtils.isEmpty(orderIds)) {
+            return new BatchExecuteResult<>();
+        }
+        return super.SyncOrderParallelFailAllowBatchExecute(companyId, orderIds, order ->
+                SpringHelper.getBean(OrderAuditCheckExecutor.class).check(order)
+        );
+    }
 
     @Override
     public BatchExecuteResult<String> audit(Long companyId, List<Long> orderIds) {

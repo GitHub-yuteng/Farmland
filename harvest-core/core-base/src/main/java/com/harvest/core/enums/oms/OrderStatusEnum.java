@@ -18,7 +18,7 @@ public enum OrderStatusEnum implements IEnum<Integer> {
      */
     WAIT_PAY        (1, "待付款", true),
 
-    APPROVE         (10, "审核", false),
+    APPROVE         (10, "待审核", false),
 
     FINANCE_APPROVE (20, "财务审核", false),
 
