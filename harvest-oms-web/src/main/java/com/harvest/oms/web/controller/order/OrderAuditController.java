@@ -40,7 +40,7 @@ public class OrderAuditController implements GlobalMacroDefinition {
     }
 
     @ApiOperation("订单审核")
-    @PostMapping(value = "/exec")
+    @PostMapping(value = "/batch/exec")
     public ResponseResult<BatchExecuteResult<String>> audit(@RequestBody List<Long> orderIds) {
         Long companyId = ContextHolder.getContext().getCompanyId();
         BatchExecuteResult<String> result = orderAuditClient.audit(companyId, orderIds);
@@ -48,7 +48,7 @@ public class OrderAuditController implements GlobalMacroDefinition {
     }
 
     @ApiOperation("订单审核带提交项")
-    @PostMapping(value = "/submit/exec")
+    @PostMapping(value = "/batch/submit/exec")
     public ResponseResult<BatchExecuteResult<String>> auditWithSubmit(@RequestBody Collection<SubmitAuditRequest> requests) {
         Long companyId = ContextHolder.getContext().getCompanyId();
         BatchExecuteResult<String> result = orderAuditClient.auditWithSubmit(companyId, requests);

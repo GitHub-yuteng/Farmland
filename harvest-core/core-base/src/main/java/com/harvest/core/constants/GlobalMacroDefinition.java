@@ -114,6 +114,7 @@ public interface GlobalMacroDefinition {
         String LOGISTICS_IDS = "logisticsIds";
 
         String FORCE = "force";
+        String SUCCESS = "success";
 
     }
 

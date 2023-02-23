@@ -39,7 +39,7 @@ public class OrderDeclareController {
     }
 
     @ApiOperation("订单交运申报")
-    @PostMapping(value = "/declare")
+    @PostMapping(value = "/batch/submit")
     public ResponseResult<BatchExecuteResult<String>> declare(@RequestBody Collection<SubmitDeclarationRequest> requests) {
         Long companyId = ContextHolder.getContext().getCompanyId();
         BatchExecuteResult<String> result = orderDeclareClient.declare(companyId, requests);

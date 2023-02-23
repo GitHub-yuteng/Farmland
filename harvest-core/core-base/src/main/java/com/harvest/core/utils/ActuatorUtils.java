@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.core.batch.BatchId;
+import com.harvest.core.constants.GlobalMacroDefinition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.CollectionUtils;
@@ -142,6 +143,7 @@ public class ActuatorUtils {
                     // 使用范型限定取出业务 Id
                     map.setId((c.getId()));
                     map.setKey(keyGetter.apply(c));
+                    map.setReason(GlobalMacroDefinition.ParameterNames.SUCCESS);
                 } catch (Exception key) {
                     LOGGER.error("可失败任务键值key取值异常!", key);
                 }
