@@ -1,5 +1,6 @@
 package com.harvest.core.batch;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -18,6 +19,7 @@ public class BatchId implements Serializable {
     @ApiModelProperty("业务主键")
     protected Long id;
 
+    @JsonIgnore
     public String getLockKey() {
         return this.id.toString();
     }

@@ -29,17 +29,17 @@ public class BatchExecuteResult<T> {
     @ApiModelProperty("执行失败条数")
     private AtomicInteger failCount;
 
-    @ApiModelProperty("失败时错误信息")
-    private List<ErrorReasonMap<T>> errorList;
+    @ApiModelProperty("失败错误记录")
+    private List<ReasonMap<T>> errorList;
 
-    @ApiModelProperty("执行成功记录Key")
-    private List<T> successKeyList;
+    @ApiModelProperty("执行成功记录")
+    private List<ReasonMap<T>> successList;
 
     public BatchExecuteResult() {
         this.successCount = new AtomicInteger();
         this.failCount = new AtomicInteger();
         this.errorList = Collections.synchronizedList(Lists.newArrayList());
-        this.successKeyList = Collections.synchronizedList(Lists.newArrayList());
+        this.successList = Collections.synchronizedList(Lists.newArrayList());
     }
 
     public BatchExecuteResult(int count) {
@@ -47,20 +47,20 @@ public class BatchExecuteResult<T> {
         this.successCount = new AtomicInteger();
         this.failCount = new AtomicInteger();
         this.errorList = Collections.synchronizedList(Lists.newArrayList());
-        this.successKeyList = Collections.synchronizedList(Lists.newArrayList());
+        this.successList = Collections.synchronizedList(Lists.newArrayList());
     }
 
-    public BatchExecuteResult(int count, AtomicInteger successCount, AtomicInteger failCount, List<ErrorReasonMap<T>> errorList, List<T> successKeyList) {
+    public BatchExecuteResult(int count, AtomicInteger successCount, AtomicInteger failCount, List<ReasonMap<T>> errorList, List<ReasonMap<T>> successList) {
         this.count = count;
         this.successCount = successCount;
         this.failCount = failCount;
         this.errorList = errorList;
-        this.successKeyList = successKeyList;
+        this.successList = successList;
     }
 
     @Data
     @EqualsAndHashCode(callSuper = true)
-    public static class ErrorReasonMap<T> extends BatchId implements Serializable {
+    public static class ReasonMap<T> extends BatchId implements Serializable {
 
         private static final long serialVersionUID = -5616278702464428044L;
 
@@ -70,13 +70,12 @@ public class BatchExecuteResult<T> {
         @ApiModelProperty("异常原因")
         private String reason;
 
-        @JsonIgnore
         @ApiModelProperty("异常")
         private Throwable e;
 
         @Override
         public String toString() {
-            return new StringJoiner(", ", ErrorReasonMap.class.getSimpleName() + "[", "]")
+            return new StringJoiner(", ", ReasonMap.class.getSimpleName() + "[", "]")
                     .add("key=" + key)
                     .add("reason='" + reason + "'")
                     .add("e=" + e)

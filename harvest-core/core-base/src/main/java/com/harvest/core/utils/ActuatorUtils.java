@@ -137,19 +137,27 @@ public class ActuatorUtils {
         return c -> {
             try {
                 consumer.accept(c);
-                result.getSuccessCount().incrementAndGet();
-                result.getSuccessKeyList().add(keyGetter.apply(c));
-            } catch (Exception e) {
-                LOGGER.info("可失败任务处理异常", e);
-                BatchExecuteResult.ErrorReasonMap<T> map = new BatchExecuteResult.ErrorReasonMap<>();
-                map.setReason(e.getMessage());
-                map.setE(e);
-                // 使用范型限定取出业务 Id
-                map.setId((c.getId()));
+                BatchExecuteResult.ReasonMap<T> map = new BatchExecuteResult.ReasonMap<>();
                 try {
+                    // 使用范型限定取出业务 Id
+                    map.setId((c.getId()));
                     map.setKey(keyGetter.apply(c));
                 } catch (Exception key) {
-                    LOGGER.error("可失败任务键值key取值异常!   ", key);
+                    LOGGER.error("可失败任务键值key取值异常!", key);
+                }
+                result.getSuccessList().add(map);
+                result.getSuccessCount().incrementAndGet();
+            } catch (Exception e) {
+                LOGGER.info("可失败任务处理异常", e);
+                BatchExecuteResult.ReasonMap<T> map = new BatchExecuteResult.ReasonMap<>();
+                try {
+                    // 使用范型限定取出业务 Id
+                    map.setId((c.getId()));
+                    map.setKey(keyGetter.apply(c));
+                    map.setReason(e.getMessage());
+                    map.setE(e);
+                } catch (Exception key) {
+                    LOGGER.error("可失败任务键值key取值异常!", key);
                 }
                 result.getErrorList().add(map);
                 result.getFailCount().incrementAndGet();
