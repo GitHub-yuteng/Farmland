@@ -11,7 +11,7 @@ import java.io.Serializable;
 /**
  * @Author: Alodi
  * @Date: 2023/2/5 4:13 PM
- * @Description: @JsonIgnore 标注为业务流转对象与前端无关
+ * @Description:
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)

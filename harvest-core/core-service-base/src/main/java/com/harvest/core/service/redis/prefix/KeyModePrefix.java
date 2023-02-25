@@ -9,6 +9,8 @@ public interface KeyModePrefix {
 
     String OMS_PREFIX = "oms:";
 
+    String RULE_PREFIX = "rule:";
+
     String BASIC_PREFIX = "basic:";
 
 
@@ -18,6 +20,11 @@ public interface KeyModePrefix {
         String ORDER_AUDIT_FLOW     = "flow:";
         String ORDER_BACK_STAT_TASK = "back-stat:";
 
+    }
+
+    interface Rule {
+
+        String Logistics_RULE_Match = "logistics-match-rule:";
     }
 
     interface Basic {

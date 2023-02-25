@@ -1,12 +1,12 @@
 package com.harvest.oms.client.order;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import com.harvest.core.annotation.Monitor;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.domain.Page;
 import com.harvest.core.exception.StandardRuntimeException;
-import com.harvest.core.annotation.Monitor;
 import com.harvest.core.utils.JsonUtils;
-import com.harvest.core.utils.QueryUtils;
+import com.harvest.core.utils.PartitionUtils;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.OrderItemDO;
@@ -227,7 +227,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
      */
     private Map<Long, List<OrderItemSimplePO>> partitionBatch(Long companyId, List<Long> orderIds) {
         // extension 大字段 影响IO 在丰富查询时考虑查询效率则延迟查出，判断存在对应的 tagValue 单独取对应的 扩展信息进行处理
-        return QueryUtils.partitionMapExecute(orderIds, ORDER_NUMS, f -> orderReadClient.mapOrderItemByOrderIds(companyId, f));
+        return PartitionUtils.partitionMapExecute(orderIds, ORDER_NUMS, f -> orderReadClient.mapOrderItemByOrderIds(companyId, f));
     }
 
     /**

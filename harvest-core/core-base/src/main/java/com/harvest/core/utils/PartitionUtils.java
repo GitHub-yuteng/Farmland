@@ -11,9 +11,9 @@ import java.util.stream.Collectors;
 /**
  * @Author: Alodi
  * @Date: 2023/1/2 11:42 PM
- * @Description: 查询优化工具集
+ * @Description: 分区优化工具集
  **/
-public class QueryUtils {
+public class PartitionUtils {
 
     private final static Integer DEFAULT_PARTITION_SIZE = 200;
 

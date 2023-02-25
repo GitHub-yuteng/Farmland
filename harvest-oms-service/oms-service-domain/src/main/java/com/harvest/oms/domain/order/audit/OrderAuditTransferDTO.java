@@ -12,4 +12,11 @@ public class OrderAuditTransferDTO {
 
     private Boolean $continue;
 
+    public Boolean getContinue() {
+        return $continue;
+    }
+
+    public void setContinue(Boolean $continue) {
+        this.$continue = $continue;
+    }
 }

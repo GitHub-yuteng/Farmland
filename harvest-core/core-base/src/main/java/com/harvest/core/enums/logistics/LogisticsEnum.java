@@ -15,8 +15,8 @@ public enum LogisticsEnum {
     /**
      * 物流枚举
      */
-    JD      ("JD", "京东", "京东物流", 1),
-    SF      ("SF", "顺丰", "顺丰", 2),
+    JD      ("JD", "京东", "京东物流",   1),
+    SF      ("SF", "顺丰", "顺丰",      2),
     CAINIAO ("CAINIAO", "菜鸟", "菜鸟", 3),
 
     ;
@@ -29,9 +29,9 @@ public enum LogisticsEnum {
     private final String desc;
 
     /**
-     * 排序&服务类型
+     * 服务类型
      */
-    private final Integer index;
+    private final Integer type;
 
     public static LogisticsEnum getEnumByCode(String code) {
         for (LogisticsEnum logisticsEnum : LogisticsEnum.values()) {
@@ -42,9 +42,9 @@ public enum LogisticsEnum {
         return null;
     }
 
-    public static LogisticsEnum getEnumByIndex(Integer index) {
+    public static LogisticsEnum getEnumByIndex(Integer type) {
         for (LogisticsEnum logisticsEnum : LogisticsEnum.values()) {
-            if (logisticsEnum.getIndex().equals(index)) {
+            if (logisticsEnum.getType().equals(type)) {
                 return logisticsEnum;
             }
         }

@@ -10,6 +10,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.Objects;
+
 /**
  * @Author: Alodi
  * @Date: 2023/2/21 6:24 PM
@@ -34,6 +36,8 @@ public class OrderLogisticsRuleMatchEvent extends AbstractMatchEvent implements 
     public void match(Long companyId, OrderInfoDO order) {
         LogisticsRuleCondition condition = new LogisticsRuleCondition();
         LogisticsRuleMatch match = SpringHelper.getBean(OrderMatchClient.class).matchLogistics(companyId, condition);
-
+        if(Objects.isNull(match)){
+            LOGGER.error("");
+        }
     }
 }

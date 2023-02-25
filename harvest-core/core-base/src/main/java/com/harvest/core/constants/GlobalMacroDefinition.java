@@ -39,6 +39,7 @@ public interface GlobalMacroDefinition {
         String ORDER_ITEM_ID = "orderItemId";
         String ORDER_ITEM_IDS = "orderItemIds";
         String ORDER_SOURCE = "orderSource";
+        String ORDER_STATUS = "orderStatus";
 
         String SPU_ID = GOODS.SPU_ID;
         String SKU_ID = GOODS.SKU_ID;

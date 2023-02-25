@@ -1,7 +1,10 @@
 package com.harvest.oms.service.order.handler.audit;
 
 import com.harvest.core.context.SpringHelper;
+import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.core.service.mq.ProducerMessageService;
+import com.harvest.oms.client.order.OrderWriteClient;
+import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.audit.OrderAuditTransferDTO;
 import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.request.order.audit.SubmitAuditRequest;
@@ -23,6 +26,9 @@ import org.springframework.stereotype.Component;
 public class OrderAuditExecutor implements OrderAuditProcessor {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(OrderAuditExecutor.class);
+
+    @Autowired
+    private OrderWriteClient orderWriteClient;
 
     @Autowired
     private ProducerMessageService producerMessageService;
@@ -51,13 +57,19 @@ public class OrderAuditExecutor implements OrderAuditProcessor {
 
     @Override
     public OrderAuditTransferDTO beforeAudit(Long companyId, SubmitAuditRequest request) {
-        return null;
+        OrderInfoDO order = request.getOrder();
+        order.setOrderStatus(OrderStatusEnum.FINANCE_APPROVE);
+
+        OrderAuditTransferDTO transfer = new OrderAuditTransferDTO();
+        transfer.setContinue(true);
+        return transfer;
     }
 
     @Override
     public void processAudit(Long companyId, SubmitAuditRequest request, OrderAuditTransferDTO transfer) {
+        OrderInfoDO order = request.getOrder();
 
-
+        orderWriteClient.updateOrderStatus(companyId, order);
     }
 
     @Override

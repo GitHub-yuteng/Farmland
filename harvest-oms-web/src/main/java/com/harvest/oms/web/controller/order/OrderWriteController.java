@@ -26,9 +26,6 @@ public class OrderWriteController {
     public void build() {
         Long companyId = ContextHolder.getContext().getCompanyId();
         orderWriteClient.build(companyId);
-
-
-
     }
 
 }

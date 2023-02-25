@@ -14,6 +14,11 @@
   <dependencies>
     <dependency>
       <groupId>com.harvest</groupId>
+      <artifactId>core-service-base</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    <dependency>
+      <groupId>com.harvest</groupId>
       <artifactId>rule-service-interface</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface OrderWriteClient extends GlobalMacroDefinition {
 
     @PostMapping("/build")
-    void build(Long companyId);
+    void build(@RequestParam(COMPANY_ID) Long companyId);
 
     @PostMapping("/saveOrder")
     void saveOrder(@RequestParam(COMPANY_ID) Long companyId, @RequestBody OrderInfoDO order);
@@ -25,4 +25,6 @@ public interface OrderWriteClient extends GlobalMacroDefinition {
     @PostMapping("/updateDeclare")
     void updateDeclare(@RequestParam(COMPANY_ID) Long companyId, @RequestBody OrderInfoDO order);
 
+    @PostMapping("/updateOrderStatus")
+    void updateOrderStatus(@RequestParam(COMPANY_ID) Long companyId, @RequestBody OrderInfoDO order);
 }
