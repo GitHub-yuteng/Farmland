@@ -6,9 +6,11 @@ import com.harvest.core.context.SpringHelper;
 import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.request.order.audit.SubmitAuditRequest;
+import com.harvest.oms.request.order.audit.SubmitAuditReturnRequest;
 import com.harvest.oms.service.order.AbstractBizOrderService;
 import com.harvest.oms.service.order.handler.audit.OrderAuditCheckExecutor;
 import com.harvest.oms.service.order.handler.audit.OrderAuditExecutor;
+import com.harvest.oms.service.order.handler.audit.OrderAuditReturnExecutor;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.*;
@@ -67,6 +69,37 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
                     submitAuditRequest.setOrder(order);
                     // 执行审核
                     SpringHelper.getBean(OrderAuditExecutor.class).exec(companyId, submitAuditRequest);
+                });
+    }
+
+    @Override
+    public BatchExecuteResult<String> returnAudit(Long companyId, List<Long> orderIds) {
+        if (CollectionUtils.isEmpty(orderIds)) {
+            return new BatchExecuteResult<>();
+        }
+        return this.returnAuditWithSubmit(companyId, orderIds.stream().map(
+                orderId -> {
+                    SubmitAuditReturnRequest request = new SubmitAuditReturnRequest();
+                    request.setId(orderId);
+                    return request;
+                }).collect(Collectors.toList()));
+    }
+
+    @Override
+    public BatchExecuteResult<String> returnAuditWithSubmit(Long companyId, Collection<SubmitAuditReturnRequest> requests) {
+        if (CollectionUtils.isEmpty(requests) || requests.parallelStream().allMatch(request -> Objects.isNull(request.getId()))) {
+            return new BatchExecuteResult<>();
+        }
+        Map<Long, SubmitAuditReturnRequest> orderAuditReturnSubmitMap = requests.stream().collect(Collectors.toMap(SubmitAuditReturnRequest::getId, Function.identity(), (k1, k2) -> k1));
+        // 记录键值 id-key
+        Map<Long, String> orderMap = new HashMap<>(DEFAULT_2);
+        return super.SyncOrderParallelFailAllowBatchExecute(companyId, orderAuditReturnSubmitMap.keySet(),
+                order -> {
+                    SubmitAuditReturnRequest request = orderAuditReturnSubmitMap.get(order.getOrderId());
+                    // 传递订单信息
+                    request.setOrder(order);
+                    // 执行审核
+                    SpringHelper.getBean(OrderAuditReturnExecutor.class).exec(companyId, request);
                 });
     }
 

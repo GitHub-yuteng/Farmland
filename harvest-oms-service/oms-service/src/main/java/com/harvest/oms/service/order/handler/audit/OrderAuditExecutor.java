@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 /**
  * @Author: Alodi
  * @Date: 2023/2/16 3:44 PM
- * @Description: TODO
+ * @Description: 订单审核执行器
  **/
 @Component
 public class OrderAuditExecutor implements OrderAuditProcessor {

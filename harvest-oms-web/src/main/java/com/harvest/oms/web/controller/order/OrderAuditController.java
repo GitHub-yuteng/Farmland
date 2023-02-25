@@ -7,6 +7,7 @@ import com.harvest.core.domain.ResponseResult;
 import com.harvest.core.path.HarvestOmsPath;
 import com.harvest.oms.client.order.OrderAuditClient;
 import com.harvest.oms.request.order.audit.SubmitAuditRequest;
+import com.harvest.oms.request.order.audit.SubmitAuditReturnRequest;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,22 @@ public class OrderAuditController implements GlobalMacroDefinition {
     public ResponseResult<BatchExecuteResult<String>> auditWithSubmit(@RequestBody Collection<SubmitAuditRequest> requests) {
         Long companyId = ContextHolder.getContext().getCompanyId();
         BatchExecuteResult<String> result = orderAuditClient.auditWithSubmit(companyId, requests);
+        return ResponseResult.success(result);
+    }
+
+    @ApiOperation("打回订单审核")
+    @PostMapping(value = "/return/batch/exec")
+    public ResponseResult<BatchExecuteResult<String>> returnAudit(@RequestBody List<Long> orderIds) {
+        Long companyId = ContextHolder.getContext().getCompanyId();
+        BatchExecuteResult<String> result = orderAuditClient.returnAudit(companyId, orderIds);
+        return ResponseResult.success(result);
+    }
+
+    @ApiOperation("打回订单审核带提交项")
+    @PostMapping(value = "/return/batch/submit/exec")
+    public ResponseResult<BatchExecuteResult<String>> returnAuditWithSubmit(@RequestBody Collection<SubmitAuditReturnRequest> requests) {
+        Long companyId = ContextHolder.getContext().getCompanyId();
+        BatchExecuteResult<String> result = orderAuditClient.returnAuditWithSubmit(companyId, requests);
         return ResponseResult.success(result);
     }
 
