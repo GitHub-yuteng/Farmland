@@ -1,5 +1,6 @@
 package com.harvest.oms.repository.domain.order.simple;
 
+import com.harvest.core.enums.logistics.LogisticsEnum;
 import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.oms.repository.domain.amount.OrderAmount;
 import com.harvest.oms.repository.domain.order.OrderCore;
@@ -23,6 +24,9 @@ public class OrderSimplePO extends OrderCore {
 
     @ApiModelProperty("订单号")
     private String orderNo;
+
+    @ApiModelProperty("物流商类型")
+    private LogisticsEnum logisticsEnum;
 
     @ApiModelProperty("物流商Id")
     private Long logisticsId;

@@ -2,7 +2,10 @@ package com.harvest.goods.repository.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.baomidou.mybatisplus.core.MybatisConfiguration;
+import com.baomidou.mybatisplus.core.config.GlobalConfig;
+import com.baomidou.mybatisplus.core.toolkit.GlobalConfigUtils;
 import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
+import com.harvest.core.repository.mybatis.handler.AutoMetaObjectHandler;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -55,7 +58,11 @@ public class JdbcDataSource {
     @Bean(name = "goodsSqlSessionFactory")
     public SqlSessionFactory sqlSessionFactory() throws Exception {
         MybatisSqlSessionFactoryBean bean = new MybatisSqlSessionFactoryBean();
-        bean.setDataSource(dataSource());
+        bean.setDataSource(this.dataSource());
+
+        GlobalConfig globalConfig = GlobalConfigUtils.defaults();
+        globalConfig.setMetaObjectHandler(new AutoMetaObjectHandler());
+        bean.setGlobalConfig(globalConfig);
 
         MybatisConfiguration configuration = new MybatisConfiguration();
         configuration.setCallSettersOnNulls(true);
@@ -70,7 +77,7 @@ public class JdbcDataSource {
     @Primary
     @Bean(name = JdbcDataSource.GOODS_TRANSACTION_MANAGER)
     public DataSourceTransactionManager dataSourceTransactionManager() throws SQLException {
-        return new DataSourceTransactionManager(dataSource());
+        return new DataSourceTransactionManager(this.dataSource());
     }
 
     @Bean(value = JdbcDataSource.GOODS_TRANSACTION_TEMPLATE)
