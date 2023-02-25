@@ -3,7 +3,6 @@ package com.harvest.oms.service.order.handler.section;
 import com.harvest.core.context.SpringHelper;
 import com.harvest.oms.client.order.OrderReadClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
-import com.harvest.oms.service.order.handler.OrderSectionHandler;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;

@@ -15,9 +15,10 @@ import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
 import com.harvest.oms.service.order.convertor.OrderConvertor;
-import com.harvest.oms.service.order.handler.OrderCompanyFeatureHandler;
-import com.harvest.oms.service.order.handler.OrderPlatformFeatureHandler;
-import com.harvest.oms.service.order.handler.OrderSectionHandler;
+import com.harvest.oms.service.order.handler.feature.company.OrderCompanyFeatureHandler;
+import com.harvest.oms.service.order.handler.feature.logistics.OrderLogisticsFeatureHandler;
+import com.harvest.oms.service.order.handler.feature.platform.OrderPlatformFeatureHandler;
+import com.harvest.oms.service.order.handler.section.OrderSectionHandler;
 import com.harvest.oms.service.order.verifier.OrderPermissionsVerifier;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.collections4.MapUtils;
@@ -74,17 +75,20 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     @Autowired
     private OrderConvertor orderConvertor;
 
-    @Autowired(required = false)
+    @Autowired
     private List<OrderPermissionsVerifier> orderPermissionsVerifiers;
 
-    @Autowired(required = false)
+    @Autowired
     private List<OrderSectionHandler> orderSectionHandlers;
+
+    @Autowired(required = false)
+    private List<OrderCompanyFeatureHandler> orderCompanyFeatureHandlers;
 
     @Autowired(required = false)
     private List<OrderPlatformFeatureHandler> orderPlatformFeatureHandlers;
 
     @Autowired(required = false)
-    private List<OrderCompanyFeatureHandler> orderCompanyFeatureHandlers;
+    private List<OrderLogisticsFeatureHandler> orderLogisticsFeatureHandlers;
 
 
     @Monitor(efficiencyWatch = 1000)
@@ -150,6 +154,10 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
 
         stopWatch.start("公司订单特性处理");
         this.companyFeatureBatchHandler(companyId, data);
+        stopWatch.stop();
+
+        stopWatch.start("物流订单特性处理");
+        this.logisticsFeatureBatchHandler(companyId, data);
         stopWatch.stop();
 
         if (stopWatch.getTotalTimeMillis() > TIME_OUT) {
@@ -258,6 +266,38 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
             }
         } else {
             orderSectionHandlers.forEach(handler -> handler.batchFill(companyId, orders));
+        }
+    }
+
+    /**
+     * 物流订单特性处理
+     *
+     * @param companyId
+     * @param orders
+     */
+    private void logisticsFeatureBatchHandler(Long companyId, Collection<OrderInfoDO> orders) {
+        if (CollectionUtils.isEmpty(orders) || CollectionUtils.isEmpty(orderLogisticsFeatureHandlers)) {
+            return;
+        }
+
+        long count = orders.stream().map(OrderInfoDO::getLogisticsEnum).distinct().count();
+        if (count >= DEFAULT_10) {
+            try {
+                // 本次查询平台数量统计 超过10个平台使用并发处理
+                CompletableFuture<?>[] futures = new CompletableFuture<?>[orderLogisticsFeatureHandlers.size()];
+                for (int i = 0; i < orderLogisticsFeatureHandlers.size(); i++) {
+                    int finalI = i;
+                    futures[i] = CompletableFuture.runAsync(
+                            () -> orderLogisticsFeatureHandlers.get(finalI).batchFeatureFill(companyId, orders),
+                            OMS_SECTION_READ_EXECUTOR
+                    );
+                }
+                CompletableFuture.allOf(futures).get();
+            } catch (Exception e) {
+                LOGGER.error("OrderRichQueryClientImpl#LogisticsFeatureHandlers#并发处理物流订单特性处理失败!", e);
+            }
+        } else {
+            orderLogisticsFeatureHandlers.forEach(handler -> handler.batchFeatureFill(companyId, orders));
         }
     }
 

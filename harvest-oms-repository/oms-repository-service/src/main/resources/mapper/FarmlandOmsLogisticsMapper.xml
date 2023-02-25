@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.harvest.oms.repository.entity.FarmlandOmsLogisticsEntity">
         <id column="id" property="id" />
         <result column="COMPANY_ID" property="companyId" />
+        <result column="logistics_type" property="logisticsType" />
         <result column="logistics_code" property="logisticsCode" />
         <result column="logistics" property="logistics" />
         <result column="authorization" property="authorization" />
@@ -17,7 +18,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, COMPANY_ID, logistics_code, logistics, authorization, status, is_deleted, rc_time, rm_time
+        id, COMPANY_ID, logistics_type, logistics_code, logistics, authorization, status, is_deleted, rc_time, rm_time
     </sql>
 
 </mapper>

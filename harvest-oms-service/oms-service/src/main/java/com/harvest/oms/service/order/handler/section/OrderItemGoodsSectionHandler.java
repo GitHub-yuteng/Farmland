@@ -8,7 +8,6 @@ import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.OrderItemDO;
 import com.harvest.oms.domain.order.goods.OrderGoodsDO;
 import com.harvest.oms.domain.order.goods.OrderSkuDO;
-import com.harvest.oms.service.order.handler.OrderSectionHandler;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

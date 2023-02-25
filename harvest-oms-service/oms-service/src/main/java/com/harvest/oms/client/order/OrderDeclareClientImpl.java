@@ -13,9 +13,9 @@ import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.client.order.OrderDeclareRepositoryClient;
 import com.harvest.oms.repository.domain.declare.OrderDeclareSimplePO;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
-import com.harvest.oms.service.order.handler.declare.OrderCancelDeclareExecutor;
-import com.harvest.oms.service.order.handler.declare.OrderRefreshDeclareExecutor;
-import com.harvest.oms.service.order.handler.declare.OrderSubmitDeclareExecutor;
+import com.harvest.oms.service.order.handler.declare.executor.OrderCancelDeclareExecutor;
+import com.harvest.oms.service.order.handler.declare.executor.OrderRefreshDeclareExecutor;
+import com.harvest.oms.service.order.handler.declare.submit.OrderSubmitDeclareExecutor;
 import com.harvest.oms.vo.order.declare.OrderDeclarationVO;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
@@ -73,7 +73,7 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
         );
     }
 
-    @RepeatSubmit(seconds = 5, remind = "正在刷新, 请稍后～")
+    @RepeatSubmit(seconds = 5, remind = "正在刷新, 请稍后等待结果～")
     @Override
     public Collection<OrderDeclarationVO> refreshDeclaration(Long companyId, List<Long> orderIds) {
         ActuatorUtils.parallelFailAllowBatchExecute(orderIds.stream().map(BatchId::build).collect(Collectors.toList()), batchId -> {
@@ -83,7 +83,7 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
         return this.listDeclaration(companyId, orderIds);
     }
 
-    @RepeatSubmit(seconds = 10, remind = "请稍后执行～")
+    @RepeatSubmit(seconds = 10, remind = "正在取消申报, 请耐心等待～")
     @Override
     public BatchExecuteResult<String> cancelDeclare(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds) {
         Map<Long, String> orderMap = new ConcurrentHashMap<>(DEFAULT_2);

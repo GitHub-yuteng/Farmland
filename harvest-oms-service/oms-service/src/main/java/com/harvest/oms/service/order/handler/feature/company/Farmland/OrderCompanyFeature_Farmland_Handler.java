@@ -1,11 +1,11 @@
 package com.harvest.oms.service.order.handler.feature.company.Farmland;
 
 import com.harvest.oms.domain.order.OrderInfoDO;
-import com.harvest.oms.domain.order.company.CompanyFeature;
-import com.harvest.oms.domain.order.company.CompanyFeature_Farmland;
-import com.harvest.oms.domain.order.company.OrderCompanyFeature;
+import com.harvest.oms.domain.order.feature.company.CompanyFeature;
+import com.harvest.oms.domain.order.feature.company.CompanyFeature_Farmland;
+import com.harvest.oms.domain.order.feature.company.OrderCompanyFeature;
 import com.harvest.oms.enums.CompanyFeatureEnum;
-import com.harvest.oms.service.order.handler.OrderCompanyFeatureHandler;
+import com.harvest.oms.service.order.handler.feature.company.OrderCompanyFeatureHandler;
 import com.harvest.oms.service.order.handler.feature.company.AbstractOrderCompanyFeatureHandler;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;

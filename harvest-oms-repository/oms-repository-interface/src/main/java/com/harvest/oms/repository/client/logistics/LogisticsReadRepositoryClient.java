@@ -2,9 +2,11 @@ package com.harvest.oms.repository.client.logistics;
 
 import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.core.constants.GlobalMacroDefinition;
+import com.harvest.core.enums.logistics.LogisticsEnum;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;
 import com.harvest.oms.repository.domain.logistics.OrderLogisticsKey;
 import com.harvest.oms.repository.domain.logistics.simple.LogisticsChannelSimplePO;
+import com.harvest.oms.repository.domain.logistics.simple.LogisticsSimplePO;
 import com.harvest.oms.repository.entity.FarmlandOmsLogisticsChannelAddressEntity;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -29,4 +31,8 @@ public interface LogisticsReadRepositoryClient extends GlobalMacroDefinition {
     @ApiOperation("物流渠道地址查询")
     @PostMapping(value = "/getChannelAddress")
     List<FarmlandOmsLogisticsChannelAddressEntity> getChannelAddress(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.CHANNEL_ID) Long channelId);
+
+    @ApiOperation("查询物流信息")
+    @PostMapping(value = "/getLogistics")
+    LogisticsSimplePO getLogistics(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(LOGISTICS.LOGISTICS_TYPE) LogisticsEnum logisticsType);
 }

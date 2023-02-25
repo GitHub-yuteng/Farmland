@@ -1,10 +1,6 @@
 package com.harvest.oms.service.order.handler.feature.platform;
 
-import com.harvest.oms.domain.order.OrderInfoDO;
-import com.harvest.oms.domain.order.platform.PlatformFeature;
-import com.harvest.oms.service.order.handler.OrderPlatformFeatureHandler;
-
-import java.util.Collection;
+import com.harvest.oms.domain.order.feature.platform.PlatformFeature;
 
 /**
  * @Author: Alodi
@@ -12,11 +8,6 @@ import java.util.Collection;
  * @Description: TODO
  **/
 public abstract class AbstractOrderPlatformFeatureHandler implements OrderPlatformFeatureHandler {
-
-    @Override
-    public void batchFeatureFill(Long companyId, Collection<OrderInfoDO> orders) {
-
-    }
 
     /**
      * 构建对应平台特性对象

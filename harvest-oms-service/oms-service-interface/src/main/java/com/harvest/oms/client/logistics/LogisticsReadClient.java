@@ -2,6 +2,7 @@ package com.harvest.oms.client.logistics;
 
 import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.core.constants.GlobalMacroDefinition;
+import com.harvest.core.enums.logistics.LogisticsEnum;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.domain.logistics.LogisticsChannelAddressDO;
 import com.harvest.oms.domain.logistics.LogisticsChannelDO;
@@ -29,4 +30,8 @@ public interface LogisticsReadClient extends GlobalMacroDefinition {
     @ApiOperation("查询物流渠道地址")
     @PostMapping(value = "/getChannelAddress")
     List<LogisticsChannelAddressDO> getChannelAddress(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.CHANNEL_ID) Long channelId);
+
+    @ApiOperation("查询物流渠道地址")
+    @PostMapping(value = "/getAuthorization")
+    String getAuthorization(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(LOGISTICS.LOGISTICS_TYPE) LogisticsEnum logisticsType);
 }

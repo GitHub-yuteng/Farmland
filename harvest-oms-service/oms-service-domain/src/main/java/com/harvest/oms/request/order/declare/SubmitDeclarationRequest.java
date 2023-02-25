@@ -31,7 +31,10 @@ public class SubmitDeclarationRequest extends BatchId implements Serializable {
     @ApiModelProperty("渠道地址-业务流转")
     private List<LogisticsChannelAddressDO> channelAddressList;
 
-    @ApiModelProperty("对应物流特征偏好-业务流转")
-    private Object feature;
+    /**
+     * {@link com.harvest.core.enums.logistics.auth.LogisticsAuth}
+     */
+    @ApiModelProperty(value = "对应物流授权-业务流转", notes = "根据平台强转对应特性对象使用")
+    private Object authorization;
 
 }

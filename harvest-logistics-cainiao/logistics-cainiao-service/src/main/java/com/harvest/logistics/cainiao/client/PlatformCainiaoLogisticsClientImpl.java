@@ -5,8 +5,10 @@ import com.harvest.basic.domain.logistics.DeclarationResponse;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.domain.file.OuterDataFormat;
 import com.harvest.core.enums.logistics.LogisticsEnum;
+import com.harvest.core.enums.logistics.auth.LogisticsAuth_Cainiao;
 import com.harvest.core.utils.DateUtils;
 import com.harvest.logistics.cainiao.HarvestCainiaoLogisticsApplications;
+import com.harvest.core.enums.logistics.feature.LogisticsFeature_Cainiao;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -40,6 +42,16 @@ public class PlatformCainiaoLogisticsClientImpl implements PlatformCainiaoLogist
 
     @Override
     public DeclarationResponse submitDeclaration(Long companyId, SubmitDeclarationRequest request) {
+
+        LogisticsEnum logisticsType = request.getLogisticsType();
+
+        Class<?> clazz = LogisticsEnum.getAuthByType(logisticsType.getType());
+
+        assert clazz != null;
+        String simpleName = clazz.getSimpleName();
+        Object authorization = request.getAuthorization();
+
+
         LOGGER.info(LogisticsEnum.CAINIAO.getName() + "申报");
         DeclarationResponse declarationResponse = new DeclarationResponse();
         declarationResponse.setSuccess(true);

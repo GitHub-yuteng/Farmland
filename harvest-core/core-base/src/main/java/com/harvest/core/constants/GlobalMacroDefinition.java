@@ -79,6 +79,11 @@ public interface GlobalMacroDefinition {
         String WAREHOUSE_OWNER = "warehouseOwner";
     }
 
+    interface LOGISTICS {
+
+        String LOGISTICS_TYPE = "logisticsType";
+    }
+
     interface TIME_BASE {
 
         String CREATE_TIME = "createTime";

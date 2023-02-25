@@ -1,18 +1,22 @@
 package com.harvest.oms.client.logistics;
 
 import com.harvest.core.annotation.feign.HarvestService;
+import com.harvest.core.enums.logistics.LogisticsEnum;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.domain.logistics.LogisticsChannelAddressDO;
 import com.harvest.oms.domain.logistics.LogisticsChannelDO;
 import com.harvest.oms.repository.client.logistics.LogisticsReadRepositoryClient;
 import com.harvest.oms.repository.domain.logistics.OrderLogisticsKey;
 import com.harvest.oms.repository.domain.logistics.simple.LogisticsChannelSimplePO;
+import com.harvest.oms.repository.domain.logistics.simple.LogisticsSimplePO;
 import com.harvest.oms.repository.entity.FarmlandOmsLogisticsChannelAddressEntity;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
@@ -53,6 +57,15 @@ public class LogisticsReadClientImpl implements LogisticsReadClient {
             logisticsChannelAddressDO.setDetail(address.getDetail());
             return logisticsChannelAddressDO;
         }).collect(Collectors.toList());
+    }
+
+    @Override
+    public String getAuthorization(Long companyId, LogisticsEnum logisticsType) {
+        LogisticsSimplePO logisticsSimple = logisticsReadRepositoryClient.getLogistics(companyId, logisticsType);
+        if (Objects.isNull(logisticsSimple)) {
+            return Strings.EMPTY;
+        }
+        return logisticsSimple.getAuthorization();
     }
 
 }

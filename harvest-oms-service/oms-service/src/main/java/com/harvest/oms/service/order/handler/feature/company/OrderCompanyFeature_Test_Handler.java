@@ -2,8 +2,7 @@ package com.harvest.oms.service.order.handler.feature.company;
 
 import com.google.common.collect.Sets;
 import com.harvest.oms.domain.order.OrderInfoDO;
-import com.harvest.oms.domain.order.company.CompanyFeature;
-import com.harvest.oms.service.order.handler.OrderCompanyFeatureHandler;
+import com.harvest.oms.domain.order.feature.company.CompanyFeature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 

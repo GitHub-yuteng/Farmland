@@ -15,5 +15,5 @@ public class LogisticsSimplePO extends LogisticsCore {
 
     private static final long serialVersionUID = 5951895567256499038L;
 
-
+    private String authorization;
 }

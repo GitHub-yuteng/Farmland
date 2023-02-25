@@ -21,6 +21,6 @@ public class LogisticsCore extends CompanyId {
 
     private String logistics;
 
-    private Integer status;
+    private Boolean status;
 
 }

@@ -21,6 +21,6 @@ public class LogisticsChannelSimplePO extends LogisticsCore {
 
     private String channelName;
 
-    private Integer status;
+    private Boolean status;
 
 }

@@ -5,7 +5,6 @@ import com.harvest.oms.client.logistics.LogisticsReadClient;
 import com.harvest.oms.domain.logistics.LogisticsChannelDO;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.domain.logistics.OrderLogisticsKey;
-import com.harvest.oms.service.order.handler.OrderSectionHandler;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
