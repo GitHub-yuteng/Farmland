@@ -75,12 +75,10 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
 
     @RepeatSubmit(seconds = 5, remind = "正在刷新, 请稍后等待结果～")
     @Override
-    public Collection<OrderDeclarationVO> refreshDeclaration(Long companyId, List<Long> orderIds) {
+    public void refreshDeclaration(Long companyId, List<Long> orderIds) {
         ActuatorUtils.parallelFailAllowBatchExecute(orderIds.stream().map(BatchId::build).collect(Collectors.toList()), batchId -> {
             SpringHelper.getBean(OrderRefreshDeclareExecutor.class).refresh(companyId, batchId.getId());
         });
-        // result 结果处理 重新查询 申报结果返回
-        return this.listDeclaration(companyId, orderIds);
     }
 
     @RepeatSubmit(seconds = 10, remind = "正在取消申报, 请耐心等待～")

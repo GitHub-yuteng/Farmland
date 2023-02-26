@@ -32,7 +32,7 @@ public interface OrderDeclareClient extends GlobalMacroDefinition {
 
     @ApiOperation("刷新申报信息")
     @PostMapping("/refreshDeclaration")
-    Collection<OrderDeclarationVO> refreshDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
+    void refreshDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
 
     @ApiOperation("取消交运申报")
     @PostMapping("/cancelDeclare")

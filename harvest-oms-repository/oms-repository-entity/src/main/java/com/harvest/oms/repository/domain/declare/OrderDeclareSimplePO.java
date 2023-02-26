@@ -16,4 +16,5 @@ public class OrderDeclareSimplePO implements Serializable {
     private static final long serialVersionUID = -9000653848376469888L;
 
     private List<OrderItemDeclareSimplePO> items;
+
 }

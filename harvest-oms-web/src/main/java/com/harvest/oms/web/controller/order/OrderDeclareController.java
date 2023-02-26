@@ -48,9 +48,9 @@ public class OrderDeclareController {
 
     @ApiOperation("刷新申报信息")
     @PostMapping(value = "/declaration/refresh")
-    public ResponseResult<Collection<OrderDeclarationVO>> refreshDeclaration(@RequestBody List<Long> orderIds) {
-        Collection<OrderDeclarationVO> result = orderDeclareClient.refreshDeclaration(8510380986999420205L, orderIds);
-        return ResponseResult.success(result);
+    public ResponseResult<String> refreshDeclaration(@RequestBody List<Long> orderIds) {
+        orderDeclareClient.refreshDeclaration(8510380986999420205L, orderIds);
+        return ResponseResult.success();
     }
 
     @ApiOperation("取消交运申报")

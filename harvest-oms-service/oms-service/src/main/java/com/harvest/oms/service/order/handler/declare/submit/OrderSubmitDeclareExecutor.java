@@ -98,9 +98,8 @@ public class OrderSubmitDeclareExecutor implements OrderDeclareProcessor {
 
     @Override
     public void afterDeclare(Long companyId, SubmitDeclarationRequest request, DeclarationResponse response) {
-        // 发布订单审核事件
+        // 发布订单订单申报事件
         orderEventPublisher.publishAsync(companyId, request.getOrder().getOrderId(), OrderEventEnum.DECLARE);
-        // 上传文件
 
     }
 }
