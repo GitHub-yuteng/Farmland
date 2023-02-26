@@ -7,6 +7,8 @@
     <result column="ORDER_STATUS" property="orderStatus" javaType="com.harvest.core.enums.oms.OrderStatusEnum"
             typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
     <!--物流-->
+    <result column="logistic_type" property="logisticsEnum"
+            typeHandler="com.harvest.core.repository.mybatis.handler.EnumTypeHandler"/>
     <result column="logistics_id" property="logisticsId"/>
     <result column="channel_id" property="channelId"/>
     <result column="delivery_no" property="deliveryNo"/>
@@ -55,6 +57,7 @@
     o.source_type,
     o.order_no,
     <!-- 物流 -->
+    o.logistic_type,
     o.logistics_id,
     o.channel_id,
     o.delivery_no,

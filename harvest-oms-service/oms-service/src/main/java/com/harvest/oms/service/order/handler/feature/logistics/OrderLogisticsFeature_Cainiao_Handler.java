@@ -47,7 +47,6 @@ public class OrderLogisticsFeature_Cainiao_Handler extends AbstractOrderLogistic
      */
     @Override
     public <T extends LogisticsFeature> void buildFeature(Long companyId, T feature) {
-        LogisticsFeature_Cainiao logisticsFeature_cainiao = new LogisticsFeature_Cainiao();
-        logisticsFeature_cainiao.setLogisticsEnum(LogisticsEnum.CAINIAO);
+        feature.setLogisticsEnum(LogisticsEnum.CAINIAO);
     }
 }

@@ -1,5 +1,6 @@
 package com.harvest.core.enums.logistics;
 
+import com.harvest.core.enums.IEnum;
 import com.harvest.core.enums.logistics.auth.LogisticsAuth_Cainiao;
 import com.harvest.core.enums.logistics.auth.LogisticsAuth_JD;
 import com.harvest.core.enums.logistics.auth.LogisticsAuth_SF;
@@ -16,7 +17,7 @@ import lombok.Getter;
  **/
 @Getter
 @AllArgsConstructor
-public enum LogisticsEnum {
+public enum LogisticsEnum implements IEnum<Integer> {
 
     /**
      * 物流枚举
@@ -38,6 +39,16 @@ public enum LogisticsEnum {
     private final Class<?> featureClass;
 
     private final Class<?> authorization;
+
+    /**
+     * 获取枚举唯一值
+     *
+     * @return 唯一值
+     */
+    @Override
+    public Integer getKey() {
+        return this.type;
+    }
 
     public static LogisticsEnum getEnumByCode(String code) {
         for (LogisticsEnum logisticsEnum : LogisticsEnum.values()) {
