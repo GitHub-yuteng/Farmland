@@ -26,7 +26,7 @@ public class SubmitDeclarationRequest extends BatchId implements Serializable {
     private OrderInfoDO order;
 
     @ApiModelProperty("物流类型-业务流转")
-    private LogisticsEnum logisticsType;
+    private LogisticsEnum logisticsEnum;
 
     @ApiModelProperty("渠道地址-业务流转")
     private List<LogisticsChannelAddressDO> channelAddressList;

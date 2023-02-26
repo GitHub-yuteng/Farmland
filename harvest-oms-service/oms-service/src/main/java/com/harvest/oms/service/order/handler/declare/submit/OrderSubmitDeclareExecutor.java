@@ -15,7 +15,7 @@ import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import com.harvest.oms.service.order.event.OrderEventPublisher;
 import com.harvest.oms.service.order.handler.declare.OrderDeclareHandler;
-import com.harvest.oms.service.order.handler.feature.logistics.OrderLogisticsFeatureHandler;
+import com.harvest.oms.service.order.handler.feature.logistics.auth.LogisticsAuthHandler;
 import com.harvest.oms.service.order.processor.OrderDeclareProcessor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -45,6 +45,9 @@ public class OrderSubmitDeclareExecutor implements OrderDeclareProcessor {
     private List<OrderDeclareHandler> orderDeclareHandlers;
 
     @Autowired
+    private List<LogisticsAuthHandler> logisticsAuthHandlers;
+
+    @Autowired
     private OrderEventPublisher orderEventPublisher;
 
     @Override
@@ -66,15 +69,20 @@ public class OrderSubmitDeclareExecutor implements OrderDeclareProcessor {
 
     @Override
     public boolean beforeDeclare(Long companyId, SubmitDeclarationRequest request) {
-        LogisticsEnum logisticsType = request.getLogisticsType();
-
 
         // 渠道类型
         LogisticsChannelDO logisticsChannel = request.getOrder().getLogisticsChannel();
-        request.setLogisticsType(LogisticsEnum.getEnumByCode(logisticsChannel.getLogisticsCode()));
+        request.setLogisticsEnum(LogisticsEnum.getEnumByCode(logisticsChannel.getLogisticsCode()));
         // 渠道地址信息
         List<LogisticsChannelAddressDO> channelAddressList = logisticsReadClient.getChannelAddress(companyId, logisticsChannel.getChannelId());
         request.setChannelAddressList(channelAddressList);
+
+        // 填充对应物流授权
+        logisticsAuthHandlers.forEach(handler -> {
+            if (handler.match(companyId, request.getLogisticsEnum())) {
+                handler.buildAuth(companyId, request);
+            }
+        });
 
         return true;
     }

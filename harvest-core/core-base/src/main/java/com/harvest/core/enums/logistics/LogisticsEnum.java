@@ -36,8 +36,14 @@ public enum LogisticsEnum implements IEnum<Integer> {
 
     private final String desc;
 
+    /**
+     * 物流偏好特性
+     */
     private final Class<?> featureClass;
 
+    /**
+     * 物流授权
+     */
     private final Class<?> authorization;
 
     /**

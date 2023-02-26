@@ -43,9 +43,9 @@ public class PlatformCainiaoLogisticsClientImpl implements PlatformCainiaoLogist
     @Override
     public DeclarationResponse submitDeclaration(Long companyId, SubmitDeclarationRequest request) {
 
-        LogisticsEnum logisticsType = request.getLogisticsType();
+        LogisticsEnum logisticsEnum = request.getLogisticsEnum();
 
-        Class<?> clazz = LogisticsEnum.getAuthByType(logisticsType.getType());
+        Class<?> clazz = LogisticsEnum.getAuthByType(logisticsEnum.getType());
 
         assert clazz != null;
         String simpleName = clazz.getSimpleName();
