@@ -15,6 +15,7 @@ import com.harvest.oms.repository.client.order.OrderDeclareRepositoryClient;
 import com.harvest.oms.repository.domain.declare.OrderDeclareSimplePO;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import com.harvest.oms.service.order.handler.declare.executor.OrderCancelDeclareExecutor;
+import com.harvest.oms.service.order.handler.declare.executor.OrderReacquireFaceSheetExecutor;
 import com.harvest.oms.service.order.handler.declare.executor.OrderRefreshDeclareExecutor;
 import com.harvest.oms.service.order.handler.declare.submit.OrderSubmitDeclareExecutor;
 import com.harvest.oms.vo.order.declare.OrderDeclarationVO;
@@ -101,6 +102,15 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
     public void saveDeclaration(Long companyId, SubmitDeclarationRequest request) {
         OrderDeclareSimplePO orderDeclareSimple = new OrderDeclareSimplePO();
         orderDeclareRepositoryClient.saveDeclaration(companyId, orderDeclareSimple);
+    }
+
+    @Override
+    public BatchExecuteResult<String> reacquireDeclaration(Long companyId, List<Long> orderIds) {
+        Map<Long, String> faceSheetMap = new ConcurrentHashMap<>(DEFAULT_2);
+        return ActuatorUtils.parallelFailAllowBatchExecute(orderIds.stream().map(BatchId::build).collect(Collectors.toList()), batchId -> {
+            String url = SpringHelper.getBean(OrderReacquireFaceSheetExecutor.class).reacquire(companyId, batchId.getId());
+            faceSheetMap.put(batchId.getId(), url);
+        }, batchId -> faceSheetMap.get(batchId.getId()));
     }
 
     @Override

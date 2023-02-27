@@ -10,11 +10,11 @@ import org.springframework.stereotype.Component;
  * @Description: TODO
  **/
 @Component
-public class OrderRefreshDeclareExecutor {
+public class OrderReacquireFaceSheetExecutor {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderRefreshDeclareExecutor.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(OrderReacquireFaceSheetExecutor.class);
 
-    public void refresh(Long companyId, Long orderId) {
-        LOGGER.info("刷新申报信息!");
+    public String reacquire(Long companyId, Long orderId) {
+        return "url";
     }
 }
