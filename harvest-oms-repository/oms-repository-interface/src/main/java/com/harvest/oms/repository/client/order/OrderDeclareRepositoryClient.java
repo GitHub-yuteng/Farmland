@@ -24,7 +24,16 @@ public interface OrderDeclareRepositoryClient extends GlobalMacroDefinition {
     @PostMapping("/listDeclaration")
     Collection<OrderDeclareSimplePO> listDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
 
+    @ApiOperation("保存申报信息")
+    @PostMapping("/saveDeclaration")
+    void saveDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody OrderDeclareSimplePO orderDeclareSimple);
+
     @ApiOperation("删除订单报关信息")
     @PostMapping("/deleteDeclareByOrderId")
     void deleteDeclareByOrderId(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId);
+
+    @ApiOperation("设置申报结果")
+    @PostMapping("/setLastResponse")
+    void setLastResponse(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId, @RequestBody Object response);
+
 }

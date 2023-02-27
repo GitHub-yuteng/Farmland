@@ -1,5 +1,6 @@
 package com.harvest.oms.client.order;
 
+import com.harvest.basic.domain.logistics.DeclarationResponse;
 import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.core.constants.GlobalMacroDefinition;
@@ -37,4 +38,12 @@ public interface OrderDeclareClient extends GlobalMacroDefinition {
     @ApiOperation("取消交运申报")
     @PostMapping("/cancelDeclare")
     BatchExecuteResult<String> cancelDeclare(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
+
+    @ApiOperation("保存申报信息")
+    @PostMapping("/saveDeclaration")
+    void saveDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody SubmitDeclarationRequest request);
+
+    @ApiOperation("设置申报结果")
+    @PostMapping("/saveDeclareResponse")
+    void setLastResponse(Long companyId, Long orderId, DeclarationResponse response);
 }

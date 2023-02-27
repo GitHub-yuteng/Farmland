@@ -1,5 +1,6 @@
 package com.harvest.oms.client.order;
 
+import com.harvest.basic.domain.logistics.DeclarationResponse;
 import com.harvest.core.annotation.RepeatSubmit;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.batch.BatchExecuteResult;
@@ -66,6 +67,8 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
                     Long orderId = request.getId();
                     OrderInfoDO order = SpringHelper.getBean(OrderReadClient.class).get(companyId, orderId);
                     request.setOrder(order);
+                    request.setLogisticsEnum(order.getLogisticsEnum());
+
                     orderMap.put(orderId, order.getOrderNo());
                     // 执行申报
                     SpringHelper.getBean(OrderSubmitDeclareExecutor.class).execute(companyId, request);
@@ -92,5 +95,16 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
                     SpringHelper.getBean(OrderCancelDeclareExecutor.class).cancleDeclare(companyId, order);
                 }, batchId -> orderMap.get(batchId.getId())
         );
+    }
+
+    @Override
+    public void saveDeclaration(Long companyId, SubmitDeclarationRequest request) {
+        OrderDeclareSimplePO orderDeclareSimple = new OrderDeclareSimplePO();
+        orderDeclareRepositoryClient.saveDeclaration(companyId, orderDeclareSimple);
+    }
+
+    @Override
+    public void setLastResponse(Long companyId, Long orderId, DeclarationResponse response) {
+        orderDeclareRepositoryClient.setLastResponse(companyId, orderId, response);
     }
 }

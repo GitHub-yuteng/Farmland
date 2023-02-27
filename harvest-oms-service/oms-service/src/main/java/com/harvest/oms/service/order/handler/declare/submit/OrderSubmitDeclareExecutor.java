@@ -2,11 +2,11 @@ package com.harvest.oms.service.order.handler.declare.submit;
 
 import com.harvest.basic.client.logistics.BasicLogisticsClient;
 import com.harvest.basic.domain.logistics.DeclarationResponse;
-import com.harvest.core.enums.logistics.LogisticsEnum;
 import com.harvest.core.exception.ExceptionCodes;
 import com.harvest.core.exception.StandardRuntimeException;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.client.logistics.LogisticsReadClient;
+import com.harvest.oms.client.order.OrderDeclareClient;
 import com.harvest.oms.domain.logistics.LogisticsChannelAddressDO;
 import com.harvest.oms.domain.logistics.LogisticsChannelDO;
 import com.harvest.oms.domain.order.OrderInfoDO;
@@ -21,6 +21,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StopWatch;
 
 import java.util.List;
 import java.util.Objects;
@@ -40,6 +41,9 @@ public class OrderSubmitDeclareExecutor implements OrderDeclareProcessor {
 
     @Autowired
     private LogisticsReadClient logisticsReadClient;
+
+    @Autowired
+    private OrderDeclareClient orderDeclareClient;
 
     @Autowired(required = false)
     private List<OrderDeclareHandler> orderDeclareHandlers;
@@ -68,13 +72,10 @@ public class OrderSubmitDeclareExecutor implements OrderDeclareProcessor {
     }
 
     @Override
-    public boolean beforeDeclare(Long companyId, SubmitDeclarationRequest request) {
-
-        // 渠道类型
-        LogisticsChannelDO logisticsChannel = request.getOrder().getLogisticsChannel();
-        request.setLogisticsEnum(LogisticsEnum.getEnumByCode(logisticsChannel.getLogisticsCode()));
+    public void beforeDeclare(Long companyId, SubmitDeclarationRequest request) {
+        OrderInfoDO order = request.getOrder();
         // 渠道地址信息
-        List<LogisticsChannelAddressDO> channelAddressList = logisticsReadClient.getChannelAddress(companyId, logisticsChannel.getChannelId());
+        List<LogisticsChannelAddressDO> channelAddressList = logisticsReadClient.getChannelAddress(companyId, order.getChannelId());
         request.setChannelAddressList(channelAddressList);
 
         // 填充对应物流授权
@@ -84,15 +85,26 @@ public class OrderSubmitDeclareExecutor implements OrderDeclareProcessor {
             }
         });
 
-        return true;
     }
 
     @Override
     public DeclarationResponse processDeclare(Long companyId, SubmitDeclarationRequest request) {
         LOGGER.info("OrderDeliveryClientImpl#processDeclare#申报请求: " + JsonUtils.object2Json(request));
+        StopWatch stopWatch = new StopWatch();
+
+        stopWatch.start("保存申报信息");
+        orderDeclareClient.saveDeclaration(companyId, request);
+        stopWatch.stop();
+
+        stopWatch.start("开始申报");
         DeclarationResponse response = basicLogisticsClient.submitDeclaration(companyId, request);
-        LOGGER.info("OrderDeliveryClientImpl#processDeclare#申报结果: " + JsonUtils.object2Json(response));
+        stopWatch.stop();
+
+        stopWatch.start("处理申报结果");
         orderDeclareHandlers.forEach(handler -> handler.execute(companyId, request, response));
+        stopWatch.stop();
+
+        LOGGER.info("OrderDeliveryClientImpl#processDeclare#申报结果:{}\n{}", JsonUtils.object2Json(response), stopWatch.prettyPrint());
         return response;
     }
 
