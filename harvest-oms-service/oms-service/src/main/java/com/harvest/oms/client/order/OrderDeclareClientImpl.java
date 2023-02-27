@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 /**
@@ -77,7 +78,7 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
         );
     }
 
-    @RepeatSubmit(seconds = 5, remind = "正在刷新, 请稍后等待结果～")
+    @RepeatSubmit(seconds = 5, remind = "正在刷新, 请稍后～")
     @Override
     public void refreshDeclaration(Long companyId, List<Long> orderIds) {
         ActuatorUtils.parallelFailAllowBatchExecute(orderIds.stream().map(BatchId::build).collect(Collectors.toList()), batchId -> {
@@ -104,13 +105,12 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
         orderDeclareRepositoryClient.saveDeclaration(companyId, orderDeclareSimple);
     }
 
+    @RepeatSubmit(seconds = 10, remind = "正在重新获取面单数据, 请耐心等待～")
     @Override
-    public BatchExecuteResult<String> reacquireDeclaration(Long companyId, List<Long> orderIds) {
-        Map<Long, String> faceSheetMap = new ConcurrentHashMap<>(DEFAULT_2);
-        return ActuatorUtils.parallelFailAllowBatchExecute(orderIds.stream().map(BatchId::build).collect(Collectors.toList()), batchId -> {
-            String url = SpringHelper.getBean(OrderReacquireFaceSheetExecutor.class).reacquire(companyId, batchId.getId());
-            faceSheetMap.put(batchId.getId(), url);
-        }, batchId -> faceSheetMap.get(batchId.getId()));
+    public void reacquireDeclaration(Long companyId, List<Long> orderIds) {
+        ActuatorUtils.failAllowBatchExecute(orderIds.stream().map(BatchId::build).collect(Collectors.toList()), batchId -> {
+            SpringHelper.getBean(OrderReacquireFaceSheetExecutor.class).reacquire(companyId, batchId.getId());
+        }, Function.identity());
     }
 
     @Override

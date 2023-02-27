@@ -57,10 +57,10 @@ public class OrderDeclareController {
 
     @ApiOperation("重新获取面单信息")
     @PostMapping(value = "/declaration/reacquire")
-    public ResponseResult<BatchExecuteResult<String>> reacquireDeclaration(@RequestBody List<Long> orderIds) {
+    public ResponseResult<String> reacquireDeclaration(@RequestBody List<Long> orderIds) {
         Long companyId = ContextHolder.getContext().getCompanyId();
-        BatchExecuteResult<String> result = orderDeclareClient.reacquireDeclaration(companyId, orderIds);
-        return ResponseResult.success(result);
+        orderDeclareClient.reacquireDeclaration(companyId, orderIds);
+        return ResponseResult.success();
     }
 
     @ApiOperation("取消交运申报")
