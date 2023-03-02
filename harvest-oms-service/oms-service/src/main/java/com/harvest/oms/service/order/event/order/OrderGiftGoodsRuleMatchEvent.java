@@ -18,7 +18,7 @@ public class OrderGiftGoodsRuleMatchEvent extends AbstractMatchEvent {
      * @param orderId
      */
     public void match(Long companyId, Long orderId) {
-        OrderInfoDO order = super.orderReadClient.get(companyId, orderId);
+        OrderInfoDO order = super.orderReadClient.getOrderRich(companyId, orderId);
         this.match(companyId, order);
     }
 

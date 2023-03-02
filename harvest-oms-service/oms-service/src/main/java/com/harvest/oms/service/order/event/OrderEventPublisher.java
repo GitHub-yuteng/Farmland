@@ -52,7 +52,7 @@ public class OrderEventPublisher {
             return;
         }
         /*内存中的可能有脏数据，统一从数据库捞一遍数据*/
-        OrderInfoDO order = orderReadClient.get(companyId, orderId);
+        OrderInfoDO order = orderReadClient.getOrderRich(companyId, orderId);
         this.publish(companyId, order, type);
     }
 

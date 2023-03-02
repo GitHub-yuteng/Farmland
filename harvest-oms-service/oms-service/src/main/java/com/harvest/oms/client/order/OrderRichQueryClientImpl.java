@@ -91,6 +91,27 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     private List<OrderLogisticsFeatureHandler> orderLogisticsFeatureHandlers;
 
 
+    @Override
+    public OrderInfoDO getOrder(Long companyId, Long orderId) {
+        PageOrderConditionQuery condition = new PageOrderConditionQuery();
+        condition.setOrderIds(Collections.singletonList(orderId));
+        Collection<OrderInfoDO> data = this.listQueryOrder(companyId, condition);
+        if (CollectionUtils.isEmpty(data)) {
+            LOGGER.error("OrderRichQueryClientImpl#getOrder#订单不存在, companyId:{}, orderId:{}", companyId, orderId);
+            throw new StandardRuntimeException("订单不存在！");
+        }
+        return data.iterator().next();
+    }
+
+    @Override
+    public Collection<OrderInfoDO> listQueryOrder(Long companyId, PageOrderConditionQuery condition) {
+        Page<OrderInfoDO> page = this.pageQueryOrder(companyId, condition);
+        if (CollectionUtils.isEmpty(page.getData())) {
+            return Collections.emptyList();
+        }
+        return page.getData();
+    }
+
     @Monitor(efficiencyWatch = 1000)
     @Override
     public Page<OrderInfoDO> pageQueryOrder(Long companyId, PageOrderConditionQuery condition) {
@@ -121,15 +142,24 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     }
 
     @Override
-    public OrderInfoDO getOrder(Long companyId, Long orderId) {
+    public OrderInfoDO getOrderRich(Long companyId, Long orderId) {
         PageOrderConditionQuery condition = new PageOrderConditionQuery();
         condition.setOrderIds(Collections.singletonList(orderId));
-        Page<OrderInfoDO> page = this.pageQueryOrder(companyId, condition);
-        if (CollectionUtils.isEmpty(page.getData())) {
-            LOGGER.error("OrderRichQueryClientImpl#getOrder#订单不存在, companyId:{}, orderId:{}", companyId, orderId);
+        Collection<OrderInfoDO> data = this.listQueryOrderRich(companyId, condition);
+        if (CollectionUtils.isEmpty(data)) {
+            LOGGER.error("OrderRichQueryClientImpl#getOrderRich#订单不存在, companyId:{}, orderId:{}", companyId, orderId);
             throw new StandardRuntimeException("订单不存在！");
         }
-        return page.getData().iterator().next();
+        return data.iterator().next();
+    }
+
+    @Override
+    public Collection<OrderInfoDO> listQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
+        Page<OrderInfoDO> page = this.pageQueryOrderRich(companyId, condition);
+        if (CollectionUtils.isEmpty(page.getData())) {
+            return Collections.emptyList();
+        }
+        return page.getData();
     }
 
     @Monitor(efficiencyWatch = 2000)
@@ -165,27 +195,6 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         }
 
         return Page.build(condition.getPageNo(), condition.getPageSize(), data, page.getCount());
-    }
-
-    @Override
-    public OrderInfoDO getOrderRich(Long companyId, Long orderId) {
-        PageOrderConditionQuery condition = new PageOrderConditionQuery();
-        condition.setOrderIds(Collections.singletonList(orderId));
-        Page<OrderInfoDO> page = this.pageQueryOrderRich(companyId, condition);
-        if (CollectionUtils.isEmpty(page.getData())) {
-            LOGGER.error("OrderRichQueryClientImpl#getOrderRich#订单不存在, companyId:{}, orderId:{}", companyId, orderId);
-            throw new StandardRuntimeException("订单不存在！");
-        }
-        return page.getData().iterator().next();
-    }
-
-    @Override
-    public Collection<OrderInfoDO> listQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
-        Page<OrderInfoDO> page = this.pageQueryOrderRich(companyId, condition);
-        if (CollectionUtils.isEmpty(page.getData())) {
-            return Collections.emptyList();
-        }
-        return page.getData();
     }
 
     /**

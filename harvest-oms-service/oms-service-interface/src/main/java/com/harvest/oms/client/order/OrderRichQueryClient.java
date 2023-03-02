@@ -30,6 +30,9 @@ public interface OrderRichQueryClient extends GlobalMacroDefinition {
     @PostMapping(value = "/getOrder")
     OrderInfoDO getOrder(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId);
 
+    @ApiOperation("集合订单信息查询")
+    @PostMapping(value = "/listQueryOrder")
+    Collection<OrderInfoDO> listQueryOrder(@RequestParam(COMPANY_ID) Long companyId, @RequestBody PageOrderConditionQuery condition);
 
     /*丰富信息查询*/
 

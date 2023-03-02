@@ -1,6 +1,8 @@
 package com.harvest.oms.web.controller.order;
 
 import com.harvest.core.constants.GlobalMacroDefinition;
+import com.harvest.core.context.Context;
+import com.harvest.core.context.ContextHolder;
 import com.harvest.core.domain.ResponseResult;
 import com.harvest.core.path.HarvestOmsPath;
 import com.harvest.oms.client.order.OrderReadClient;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.net.ContentHandler;
 
 
 /**
@@ -30,7 +34,8 @@ public class OrderReadController implements GlobalMacroDefinition {
     @ApiOperation("订单查询")
     @PostMapping(value = "/get")
     public ResponseResult<OrderInfoDO> getOrderInfo(@RequestParam(OMS.ORDER_ID) Long orderId) {
-        return ResponseResult.success(orderReadClient.get(8510380986999420205L, orderId));
+        Context context = ContextHolder.getContext();
+        return ResponseResult.success(orderReadClient.getOrderRich(context.getCompanyId(), orderId));
     }
 
 }

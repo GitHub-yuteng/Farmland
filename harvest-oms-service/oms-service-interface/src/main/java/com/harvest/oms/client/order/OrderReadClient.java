@@ -23,12 +23,12 @@ import java.util.Map;
 public interface OrderReadClient extends GlobalMacroDefinition {
 
     @ApiOperation("查询订单信息")
-    @PostMapping(value = "/get")
-    OrderInfoDO get(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId);
+    @PostMapping(value = "/getOrderRich")
+    OrderInfoDO getOrderRich(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId);
 
     @ApiOperation("查询订单信息")
     @PostMapping(value = "/listOrderByOrderIds")
-    Collection<OrderInfoDO> listOrderByOrderIds(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
+    Collection<OrderInfoDO> listOrderRichByOrderIds(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
 
     @ApiOperation("订单明细信息查询")
     @PostMapping(value = "/listOrderItemByOrderIds")

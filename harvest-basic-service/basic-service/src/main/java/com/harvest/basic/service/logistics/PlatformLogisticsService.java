@@ -46,7 +46,7 @@ public class PlatformLogisticsService extends AbstractPlatformLogisticsService i
 
     @Override
     public void cancelDeclaration(Long companyId, SubmitDeclarationRequest request) {
-        super.call(3).cancelDeclaration(companyId, request);
+        super.call(request.getLogisticsEnum().getType()).cancelDeclaration(companyId, request);
     }
 
     @Override

@@ -67,7 +67,7 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
         // TODO OMS Concurrent processing of each order delivery declaration.
         return ActuatorUtils.parallelFailAllowBatchExecute(submitDeclarations, (request) -> {
                     Long orderId = request.getId();
-                    OrderInfoDO order = SpringHelper.getBean(OrderReadClient.class).get(companyId, orderId);
+                    OrderInfoDO order = SpringHelper.getBean(OrderReadClient.class).getOrderRich(companyId, orderId);
                     request.setOrder(order);
                     request.setLogisticsEnum(order.getLogisticsEnum());
 
@@ -92,7 +92,7 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
         Map<Long, String> orderMap = new ConcurrentHashMap<>(DEFAULT_2);
         return ActuatorUtils.parallelFailAllowBatchExecute(orderIds.stream().map(BatchId::build).collect(Collectors.toList()), batchId -> {
                     Long orderId = batchId.getId();
-                    OrderInfoDO order = SpringHelper.getBean(OrderReadClient.class).get(companyId, orderId);
+                    OrderInfoDO order = SpringHelper.getBean(OrderReadClient.class).getOrderRich(companyId, orderId);
                     orderMap.put(orderId, order.getOrderNo());
                     SpringHelper.getBean(OrderCancelDeclareExecutor.class).cancleDeclare(companyId, order);
                 }, batchId -> orderMap.get(batchId.getId())
@@ -108,6 +108,7 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
     @RepeatSubmit(seconds = 10, remind = "正在重新获取面单数据, 请耐心等待～")
     @Override
     public void reacquireDeclaration(Long companyId, List<Long> orderIds) {
+        // 串行可失败处理器
         ActuatorUtils.failAllowBatchExecute(orderIds.stream().map(BatchId::build).collect(Collectors.toList()), batchId -> {
             SpringHelper.getBean(OrderReacquireFaceSheetExecutor.class).reacquire(companyId, batchId.getId());
         }, Function.identity());
