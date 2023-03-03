@@ -92,14 +92,16 @@ public class OrderTagSectionHandler implements OrderSectionRepositoryHandler<Ord
                         // 系统标记订单
                         if (orderTag.getTagSource().equals(OrderTagSourceEnum.SYSTEM)) {
                             OrderTagDefinition definition = SystemOrderTag.valueOf(tag.getTagValue());
-                            orderTag.setDisplay(OrderTag.Display.builder()
-                                    .prefix(definition.getPrefix())
-                                    .hover(definition.getHover())
-                                    .description(definition.getDescription())
-                                    .rgb(definition.getRgb())
-                                    .style(definition.getStyle())
-                                    .build()
-                            );
+                            if (Objects.nonNull(definition)) {
+                                orderTag.setDisplay(OrderTag.Display.builder()
+                                        .prefix(definition.getPrefix())
+                                        .hover(definition.getHover())
+                                        .description(definition.getDescription())
+                                        .rgb(definition.getRgb())
+                                        .style(definition.getStyle())
+                                        .build()
+                                );
+                            }
                         }
                         return orderTag;
                     }).collect(Collectors.toList())

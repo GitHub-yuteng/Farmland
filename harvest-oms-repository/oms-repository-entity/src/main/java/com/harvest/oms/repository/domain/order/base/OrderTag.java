@@ -42,8 +42,11 @@ public class OrderTag implements Serializable {
     @ApiModelProperty("")
     private Display display;
 
+    @Data
     @Builder
-    public static class Display {
+    public static class Display implements Serializable {
+
+        private static final long serialVersionUID = -6998746840175300238L;
 
         @ApiModelProperty("显示字符 如 合、拆 等")
         private String prefix;
