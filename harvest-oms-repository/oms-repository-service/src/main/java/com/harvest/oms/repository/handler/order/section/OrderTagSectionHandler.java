@@ -8,6 +8,8 @@ import com.harvest.core.utils.JsonUtils;
 import com.harvest.core.utils.PartitionUtils;
 import com.harvest.oms.repository.domain.order.base.OrderTag;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
+import com.harvest.oms.repository.domain.tag.OrderTagDefinition;
+import com.harvest.oms.repository.domain.tag.SystemOrderTag;
 import com.harvest.oms.repository.entity.FarmlandOmsOrderTagEntity;
 import com.harvest.oms.repository.enums.tag.OrderTagSourceEnum;
 import com.harvest.oms.repository.handler.order.OrderSectionRepositoryHandler;
@@ -87,6 +89,18 @@ public class OrderTagSectionHandler implements OrderSectionRepositoryHandler<Ord
                         orderTag.setTagSource(OrderTagSourceEnum.calcTag(tag.getTagValue()));
                         orderTag.setProcessed(tag.getProcessed());
                         orderTag.setSimpleExtension(tag.getSimpleExtension());
+                        // 系统标记订单
+                        if (orderTag.getTagSource().equals(OrderTagSourceEnum.SYSTEM)) {
+                            OrderTagDefinition definition = SystemOrderTag.valueOf(tag.getTagValue());
+                            orderTag.setDisplay(OrderTag.Display.builder()
+                                    .prefix(definition.getPrefix())
+                                    .hover(definition.getHover())
+                                    .description(definition.getDescription())
+                                    .rgb(definition.getRgb())
+                                    .style(definition.getStyle())
+                                    .build()
+                            );
+                        }
                         return orderTag;
                     }).collect(Collectors.toList())
             );

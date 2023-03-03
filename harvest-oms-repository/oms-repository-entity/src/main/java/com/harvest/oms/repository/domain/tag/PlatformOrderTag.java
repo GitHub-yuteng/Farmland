@@ -7,13 +7,12 @@ import com.harvest.oms.repository.enums.tag.OrderTagSourceEnum;
  * @Date: 2023/2/7 8:24 PM
  * @Description: TODO
  **/
-public interface PlatformOrderContext {
+public interface PlatformOrderTag {
 
     int START_VALUE = OrderTagSourceEnum.PLATFORM.getValue();
 
-
     class TikTok {
-
+        
     }
 
 }

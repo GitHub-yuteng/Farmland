@@ -1,6 +1,6 @@
 package com.harvest.oms.repository.domain.tag;
 
-import com.harvest.oms.repository.enums.tag.OrderTagDisplayEnum;
+import com.harvest.oms.repository.enums.tag.OrderTagStyleEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
@@ -31,7 +31,8 @@ public class OrderTagDefinition {
     private Class<?> extensionClass;
 
     @ApiModelProperty("样式")
-    private OrderTagDisplayEnum display;
+    private OrderTagStyleEnum style;
+
 
     public OrderTagDefinition(int tagValue, String prefix, String hover, String description, String rgb) {
         this.tagValue = tagValue;
@@ -41,12 +42,22 @@ public class OrderTagDefinition {
         this.rgb = rgb;
     }
 
-    public OrderTagDefinition(int tagValue, String prefix, String hover, String description, String rgb, Class<?> extensionClass) {
+    public OrderTagDefinition(int tagValue, String prefix, String hover, String description, String rgb, OrderTagStyleEnum style) {
+        this.tagValue = tagValue;
+        this.prefix = prefix;
+        this.hover = hover;
+        this.description = description;
+        this.rgb = rgb;
+        this.style = style;
+    }
+
+    public OrderTagDefinition(int tagValue, String prefix, String hover, String description, String rgb, Class<?> extensionClass, OrderTagStyleEnum style) {
         this.tagValue = tagValue;
         this.prefix = prefix;
         this.hover = hover;
         this.description = description;
         this.rgb = rgb;
         this.extensionClass = extensionClass;
+        this.style = style;
     }
 }

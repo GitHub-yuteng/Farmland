@@ -1,8 +1,9 @@
 package com.harvest.oms.repository.domain.order.base;
 
-import com.harvest.oms.repository.enums.tag.OrderTagDisplayEnum;
 import com.harvest.oms.repository.enums.tag.OrderTagSourceEnum;
+import com.harvest.oms.repository.enums.tag.OrderTagStyleEnum;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -38,20 +39,26 @@ public class OrderTag implements Serializable {
     @ApiModelProperty("额外信息")
     private Object extension;
 
-    @ApiModelProperty("标记样式")
+    @ApiModelProperty("")
     private Display display;
 
-    @Data
+    @Builder
     public static class Display {
 
-        @ApiModelProperty("颜色")
-        private String color;
+        @ApiModelProperty("显示字符 如 合、拆 等")
+        private String prefix;
 
-        @ApiModelProperty("订单标记样式")
-        private OrderTagDisplayEnum display;
-
-        @ApiModelProperty("悬停信息")
+        @ApiModelProperty("鼠标悬停描述")
         private String hover;
 
+        @ApiModelProperty("描述信息")
+        private String description;
+
+        @ApiModelProperty("颜色值")
+        private String rgb;
+
+        @ApiModelProperty("样式")
+        private OrderTagStyleEnum style;
     }
+
 }
