@@ -15,5 +15,7 @@ public interface HarvestWmsApplications {
 
         String WAREHOUSE_READ = WMS_PATH + "/WarehouseReadClient";
 
+        String CALL_BACK_ORDER = WMS_PATH + "/CallBackOrderClient";
+
     }
 }

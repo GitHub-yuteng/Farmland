@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collection;
-import java.util.List;
 
 /**
  * @Author: Alodi
@@ -24,11 +23,11 @@ public interface OrderAuditClient extends GlobalMacroDefinition {
 
     @ApiOperation("订单并发审核检查")
     @PostMapping("/batch/audit/check")
-    BatchExecuteResult<String> check(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
+    BatchExecuteResult<String> check(@RequestParam(COMPANY_ID) Long companyId, @RequestBody Collection<Long> orderIds);
 
     @ApiOperation("并发订单审核")
     @PostMapping("/batch/audit")
-    BatchExecuteResult<String> audit(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
+    BatchExecuteResult<String> audit(@RequestParam(COMPANY_ID) Long companyId, @RequestBody Collection<Long> orderIds);
 
     @ApiOperation("并发订单审核带提交项目")
     @PostMapping("/batch/audit/with/submit")
@@ -36,7 +35,7 @@ public interface OrderAuditClient extends GlobalMacroDefinition {
 
     @ApiOperation("并发打回订单审核")
     @PostMapping("/return/batch/audit")
-    BatchExecuteResult<String> returnAudit(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
+    BatchExecuteResult<String> returnAudit(@RequestParam(COMPANY_ID) Long companyId, @RequestBody Collection<Long> orderIds);
 
     @ApiOperation("并发打回订单审核带提交项目")
     @PostMapping("/return/batch/audit/with/submit")

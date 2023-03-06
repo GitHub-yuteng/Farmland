@@ -18,6 +18,7 @@
     <module>oms-service-domain</module>
     <module>oms-service-interface</module>
     <module>oms-service-wms</module>
+    <module>oms-service-im</module>
   </modules>
   
   <properties>

@@ -32,7 +32,7 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
     public final static Set<OrderStatusEnum> AUDIT_STATUS_ENUMS = Stream.of(OrderStatusEnum.APPROVE).collect(Collectors.toSet());
 
     @Override
-    public BatchExecuteResult<String> check(Long companyId, List<Long> orderIds) {
+    public BatchExecuteResult<String> check(Long companyId, Collection<Long> orderIds) {
         if (CollectionUtils.isEmpty(orderIds)) {
             return new BatchExecuteResult<>();
         }
@@ -42,7 +42,7 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
     }
 
     @Override
-    public BatchExecuteResult<String> audit(Long companyId, List<Long> orderIds) {
+    public BatchExecuteResult<String> audit(Long companyId, Collection<Long> orderIds) {
         if (CollectionUtils.isEmpty(orderIds)) {
             return new BatchExecuteResult<>();
         }
@@ -73,7 +73,7 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
     }
 
     @Override
-    public BatchExecuteResult<String> returnAudit(Long companyId, List<Long> orderIds) {
+    public BatchExecuteResult<String> returnAudit(Long companyId, Collection<Long> orderIds) {
         if (CollectionUtils.isEmpty(orderIds)) {
             return new BatchExecuteResult<>();
         }

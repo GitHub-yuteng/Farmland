@@ -3,6 +3,7 @@ package com.harvest.oms.service.order.handler.audit;
 import com.harvest.core.context.SpringHelper;
 import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.core.service.mq.ProducerMessageService;
+import com.harvest.core.service.mq.topic.MessageTopic;
 import com.harvest.oms.client.order.OrderWriteClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.audit.OrderAuditTransferDTO;
@@ -76,7 +77,7 @@ public class OrderAuditExecutor implements OrderAuditProcessor {
     public void afterAudit(Long companyId, SubmitAuditRequest request) {
         SendResult sendResult = this.pushWms(companyId, request);
         // 发布订单审核事件
-        orderEventPublisher.publishAsync(companyId, request.getOrder().getOrderId(), OrderEventEnum.AUDIT);
+        orderEventPublisher.publish(companyId, request.getOrder().getOrderId(), OrderEventEnum.AUDIT);
     }
 
     private SendResult pushWms(Long companyId, SubmitAuditRequest request) {
@@ -84,6 +85,6 @@ public class OrderAuditExecutor implements OrderAuditProcessor {
         SubmitWmsOrderMessage submitWmsOrderMessage = new SubmitWmsOrderMessage();
         submitWmsOrderMessage.setCompanyId(companyId);
         submitWmsOrderMessage.setOrder(request.getOrder());
-        return producerMessageService.syncSend("my-topic", submitWmsOrderMessage);
+        return producerMessageService.syncSend(MessageTopic.ORDER_PUSH_WMS, submitWmsOrderMessage);
     }
 }
