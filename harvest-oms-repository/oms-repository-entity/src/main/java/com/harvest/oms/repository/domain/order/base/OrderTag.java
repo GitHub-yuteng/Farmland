@@ -3,8 +3,10 @@ package com.harvest.oms.repository.domain.order.base;
 import com.harvest.oms.repository.enums.tag.OrderTagSourceEnum;
 import com.harvest.oms.repository.enums.tag.OrderTagStyleEnum;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
 
@@ -39,11 +41,13 @@ public class OrderTag implements Serializable {
     @ApiModelProperty("额外信息")
     private Object extension;
 
-    @ApiModelProperty("")
+    @ApiModelProperty("样式")
     private Display display;
 
     @Data
     @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class Display implements Serializable {
 
         private static final long serialVersionUID = -6998746840175300238L;

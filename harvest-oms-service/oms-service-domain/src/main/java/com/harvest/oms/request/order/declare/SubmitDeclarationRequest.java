@@ -8,7 +8,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -18,9 +17,9 @@ import java.util.List;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class SubmitDeclarationRequest extends BatchId implements Serializable {
+public class SubmitDeclarationRequest extends BatchId {
 
-    private static final long serialVersionUID = -3113055454947802845L;
+    private static final long serialVersionUID = 8445956631463903676L;
 
     @ApiModelProperty("订单信息-业务流转")
     private OrderInfoDO order;
@@ -35,8 +34,6 @@ public class SubmitDeclarationRequest extends BatchId implements Serializable {
      * {@link com.harvest.core.enums.logistics.auth.LogisticsAuth}
      */
     @ApiModelProperty(value = "对应物流授权", notes = "根据平台强转对应特性对象使用")
-    private Object authorization;
-
-
+    private String authorization;
 
 }

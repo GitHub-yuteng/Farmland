@@ -101,7 +101,10 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
 
     @Override
     public void saveDeclaration(Long companyId, SubmitDeclarationRequest request) {
+        OrderInfoDO order = request.getOrder();
         OrderDeclareSimplePO orderDeclareSimple = new OrderDeclareSimplePO();
+        orderDeclareSimple.setOrderId(order.getOrderId());
+        orderDeclareSimple.setCompanyId(companyId);
         orderDeclareRepositoryClient.saveDeclaration(companyId, orderDeclareSimple);
     }
 

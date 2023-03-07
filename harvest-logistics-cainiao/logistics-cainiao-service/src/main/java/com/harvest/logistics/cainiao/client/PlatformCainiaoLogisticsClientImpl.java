@@ -6,6 +6,7 @@ import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.domain.file.OuterDataFormat;
 import com.harvest.core.enums.logistics.auth.LogisticsAuth_Cainiao;
 import com.harvest.core.utils.DateUtils;
+import com.harvest.core.utils.JsonUtils;
 import com.harvest.logistics.cainiao.HarvestCainiaoLogisticsApplications;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
@@ -42,7 +43,7 @@ public class PlatformCainiaoLogisticsClientImpl implements PlatformCainiaoLogist
     @Override
     public DeclarationResponse submitDeclaration(Long companyId, SubmitDeclarationRequest request) {
         OrderInfoDO order = request.getOrder();
-        LogisticsAuth_Cainiao authorization = (LogisticsAuth_Cainiao) request.getAuthorization();
+        LogisticsAuth_Cainiao logisticsAuth_cainiao = JsonUtils.json2Object(request.getAuthorization(), LogisticsAuth_Cainiao.class);
         DeclarationResponse declarationResponse = new DeclarationResponse();
         declarationResponse.setSuccess(true);
         declarationResponse.setDeliveryNo("CAINIAO123");

@@ -92,9 +92,9 @@ public class OrderSubmitDeclareExecutor implements OrderDeclareProcessor {
         LOGGER.info("OrderDeliveryClientImpl#processDeclare#申报请求: " + JsonUtils.object2Json(request));
         StopWatch stopWatch = new StopWatch();
 
-        stopWatch.start("保存申报信息");
-        orderDeclareClient.saveDeclaration(companyId, request);
-        stopWatch.stop();
+//        stopWatch.start("预保存申报信息");
+//        orderDeclareClient.saveDeclaration(companyId, request);
+//        stopWatch.stop();
 
         stopWatch.start("开始申报");
         DeclarationResponse response = basicLogisticsClient.submitDeclaration(companyId, request);
