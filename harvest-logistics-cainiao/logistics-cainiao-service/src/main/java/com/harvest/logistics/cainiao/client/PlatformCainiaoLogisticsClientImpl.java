@@ -43,7 +43,8 @@ public class PlatformCainiaoLogisticsClientImpl implements PlatformCainiaoLogist
     @Override
     public DeclarationResponse submitDeclaration(Long companyId, SubmitDeclarationRequest request) {
         OrderInfoDO order = request.getOrder();
-        LogisticsAuth_Cainiao logisticsAuth_cainiao = JsonUtils.json2Object(request.getAuthorization(), LogisticsAuth_Cainiao.class);
+        Class<?> clazz = request.getLogisticsEnum().getAuthorization();
+        LogisticsAuth_Cainiao authorization = (LogisticsAuth_Cainiao) JsonUtils.json2Object(request.getAuthorization(), clazz);
         DeclarationResponse declarationResponse = new DeclarationResponse();
         declarationResponse.setSuccess(true);
         declarationResponse.setDeliveryNo("CAINIAO123");
