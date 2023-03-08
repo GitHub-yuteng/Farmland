@@ -3,8 +3,10 @@ package com.harvest.rule.client.logistics;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.context.SpringHelper;
 import com.harvest.core.service.redis.CacheService;
+import com.harvest.core.utils.JsonUtils;
 import com.harvest.rule.client.constants.HarvestRuleApplications;
 import com.harvest.rule.domain.logistics.LogisticsRuleMatch;
+import com.harvest.rule.redis.logistics.LogisticsRuleKey;
 import com.harvest.rule.repository.client.LogisticsRuleRepositoryClient;
 import com.harvest.rule.repository.domain.match.logistics.LogisticsRule;
 import com.harvest.rule.repository.domain.match.logistics.LogisticsRuleCondition;
@@ -30,10 +32,16 @@ public class LogisticsRuleClientImpl implements LogisticsRuleClient {
 
     @Override
     public Collection<LogisticsRule> listLogisticsRule(Long companyId) {
+        Collection<LogisticsRule> cache = cacheService.getList(LogisticsRuleKey.LOGISTICS_RULE_KEY, companyId.toString(), LogisticsRule.class);
+        if (CollectionUtils.isNotEmpty(cache)) {
+            return cache;
+        }
+
         Collection<LogisticsRule> logisticsRules = logisticsRuleRepositoryClient.listLogisticsRule(companyId);
-        if(CollectionUtils.isEmpty(logisticsRules)){
+        if (CollectionUtils.isEmpty(logisticsRules)) {
             return Collections.emptyList();
         }
+        cacheService.set(LogisticsRuleKey.LOGISTICS_RULE_KEY, companyId.toString(), JsonUtils.object2Json(cache));
         return logisticsRules;
     }
 

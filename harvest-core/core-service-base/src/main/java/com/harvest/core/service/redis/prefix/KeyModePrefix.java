@@ -24,7 +24,8 @@ public interface KeyModePrefix {
 
     interface Rule {
 
-        String Logistics_RULE_Match = "logistics-match-rule:";
+        String LOGISTICS_RULE       = "logistics-rule:";
+        String LOGISTICS_RULE_MATCH = "logistics-match-rule:";
     }
 
     interface Basic {

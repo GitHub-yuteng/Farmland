@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -25,6 +27,12 @@ public class CacheService {
         String realKey = prefix.getKeyPrefix() + key;
         String str = stringRedisTemplate.opsForValue().get(realKey);
         return JsonUtils.json2Object(str, clazz);
+    }
+
+    public <T> Collection<T> getList(KeyPrefix prefix, String key, Class<T> clazz) {
+        String realKey = prefix.getKeyPrefix() + key;
+        String str = stringRedisTemplate.opsForValue().get(realKey);
+        return JsonUtils.json2ObjectList(str, clazz);
     }
 
     public String get(KeyPrefix prefix, String key) {
