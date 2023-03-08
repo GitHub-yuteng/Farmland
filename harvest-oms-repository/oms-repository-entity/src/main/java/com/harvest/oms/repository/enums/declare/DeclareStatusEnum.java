@@ -16,9 +16,8 @@ public enum DeclareStatusEnum implements IEnum<Integer> {
     /**
      * 交运状态
      */
-    INIT                (0, "保存交运信息"),
-    WAIT_DECLARED       (1, "待交运"),
-    DECLARING           (2, "已提交交运信息"),
+    INIT                (0, "草稿交运信息"),
+    WAIT_DECLARED       (1, "已提交交运信息"),
     SUCCESS             (9, "交运成功"),
     FAILURE             (-1,"交运失败")
 

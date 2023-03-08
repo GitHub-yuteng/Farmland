@@ -14,6 +14,7 @@ import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.client.order.OrderDeclareRepositoryClient;
 import com.harvest.oms.repository.domain.declare.OrderDeclareSimplePO;
 import com.harvest.oms.repository.domain.declare.OrderItemDeclareSimplePO;
+import com.harvest.oms.repository.enums.declare.DeclareStatusEnum;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import com.harvest.oms.service.order.handler.declare.executor.OrderCancelDeclareExecutor;
 import com.harvest.oms.service.order.handler.declare.executor.OrderReacquireFaceSheetExecutor;
@@ -107,6 +108,7 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
         OrderDeclareSimplePO orderDeclareSimple = new OrderDeclareSimplePO();
         orderDeclareSimple.setOrderId(order.getOrderId());
         orderDeclareSimple.setCompanyId(companyId);
+        orderDeclareSimple.setStatus(DeclareStatusEnum.INIT.getKey());
         orderDeclareSimple.setItems(order.getOrderItems().stream().map(orderItemDO -> {
             OrderItemDeclareSimplePO orderItemDeclareSimplePO = new OrderItemDeclareSimplePO();
             orderItemDeclareSimplePO.setOrderItemId(orderItemDO.getOrderItemId());
