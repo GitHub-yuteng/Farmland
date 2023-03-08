@@ -32,7 +32,7 @@ public class OrderDeclareController {
     private OrderDeclareClient orderDeclareClient;
 
     @ApiOperation("订单申报信息")
-    @PostMapping(value = "/declaration/get")
+    @PostMapping(value = "/get")
     public ResponseResult<Collection<OrderDeclarationVO>> listDeclaration(@RequestBody List<Long> orderIds) {
         Long companyId = ContextHolder.getContext().getCompanyId();
         Collection<OrderDeclarationVO> result = orderDeclareClient.listDeclaration(companyId, orderIds);
@@ -48,7 +48,7 @@ public class OrderDeclareController {
     }
 
     @ApiOperation("刷新申报信息")
-    @PostMapping(value = "/declaration/refresh")
+    @PostMapping(value = "/refresh")
     public ResponseResult<String> refreshDeclaration(@RequestBody List<Long> orderIds) {
         Long companyId = ContextHolder.getContext().getCompanyId();
         orderDeclareClient.refreshDeclaration(companyId, orderIds);
@@ -56,7 +56,7 @@ public class OrderDeclareController {
     }
 
     @ApiOperation("重新获取面单信息")
-    @PostMapping(value = "/declaration/reacquire")
+    @PostMapping(value = "/reacquire")
     public ResponseResult<String> reacquireDeclaration(@RequestBody List<Long> orderIds) {
         Long companyId = ContextHolder.getContext().getCompanyId();
         orderDeclareClient.reacquireDeclaration(companyId, orderIds);
@@ -64,7 +64,7 @@ public class OrderDeclareController {
     }
 
     @ApiOperation("取消交运申报")
-    @PostMapping(value = "/declaration/cancel")
+    @PostMapping(value = "/cancel")
     public ResponseResult<BatchExecuteResult<String>> cancelDeclare(@RequestBody List<Long> orderIds) {
         Long companyId = ContextHolder.getContext().getCompanyId();
         BatchExecuteResult<String> result = orderDeclareClient.cancelDeclare(companyId, orderIds);
