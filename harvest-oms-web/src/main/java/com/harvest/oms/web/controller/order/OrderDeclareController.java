@@ -35,8 +35,8 @@ public class OrderDeclareController {
     @PostMapping(value = "/get")
     public ResponseResult<Collection<OrderDeclarationVO>> listDeclaration(@RequestBody List<Long> orderIds) {
         Long companyId = ContextHolder.getContext().getCompanyId();
-        Collection<OrderDeclarationVO> result = orderDeclareClient.listDeclaration(companyId, orderIds);
-        return ResponseResult.success(result);
+//        Collection<OrderDeclarationVO> result = orderDeclareClient.listDeclaration(companyId, orderIds);
+        return ResponseResult.success(null);
     }
 
     @ApiOperation("订单交运申报")

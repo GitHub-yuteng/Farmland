@@ -28,7 +28,7 @@ public class OrderCancelDeclareExecutor {
      * @param order
      */
     public void cancleDeclare(Long companyId, OrderInfoDO order) {
-        SpringHelper.getBean(OrderDeclareRepositoryClient.class).deleteDeclareByOrderId(companyId, order.getOrderId());
+        SpringHelper.getBean(OrderDeclareRepositoryClient.class).deleteDeclarationByOrderId(companyId, order.getOrderId());
     }
 
 }

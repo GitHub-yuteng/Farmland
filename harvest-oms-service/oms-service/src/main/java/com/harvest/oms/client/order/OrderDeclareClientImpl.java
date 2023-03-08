@@ -25,7 +25,6 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -51,9 +50,8 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
     private CacheService cacheService;
 
     @Override
-    public Collection<OrderDeclarationVO> listDeclaration(Long companyId, List<Long> orderIds) {
-        Collection<OrderDeclareSimplePO> collection = orderDeclareRepositoryClient.listDeclaration(companyId, orderIds);
-        return Collections.emptyList();
+    public Collection<OrderDeclareSimplePO> listDeclaration(Long companyId, List<Long> orderIds) {
+        return orderDeclareRepositoryClient.listDeclaration(companyId, orderIds);
     }
 
     @Override

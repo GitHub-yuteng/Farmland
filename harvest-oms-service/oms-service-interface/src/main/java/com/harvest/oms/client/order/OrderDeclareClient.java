@@ -5,6 +5,7 @@ import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
+import com.harvest.oms.repository.domain.declare.OrderDeclareSimplePO;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import com.harvest.oms.vo.order.declare.OrderDeclarationVO;
 import io.swagger.annotations.ApiOperation;
@@ -25,7 +26,7 @@ public interface OrderDeclareClient extends GlobalMacroDefinition {
 
     @ApiOperation("查询订单申报信息")
     @PostMapping("/listDeclaration")
-    Collection<OrderDeclarationVO> listDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
+    Collection<OrderDeclareSimplePO> listDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
 
     @ApiOperation("订单并发发货申报")
     @PostMapping("/declare")

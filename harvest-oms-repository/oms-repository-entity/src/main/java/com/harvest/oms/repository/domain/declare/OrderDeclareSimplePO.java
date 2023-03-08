@@ -21,6 +21,8 @@ public class OrderDeclareSimplePO implements Serializable {
 
     private Integer status;
 
+    private String lastResponse;
+
     private List<OrderItemDeclareSimplePO> items;
 
 }
