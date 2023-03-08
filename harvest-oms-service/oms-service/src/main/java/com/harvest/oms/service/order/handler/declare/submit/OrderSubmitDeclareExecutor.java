@@ -93,7 +93,7 @@ public class OrderSubmitDeclareExecutor implements OrderDeclareProcessor {
         StopWatch stopWatch = new StopWatch();
 
         stopWatch.start("预保存申报");
-        orderDeclareClient.saveDeclaration(companyId, request);
+        orderDeclareClient.draftDeclaration(companyId, request);
         stopWatch.stop();
 
         stopWatch.start("开始申报");

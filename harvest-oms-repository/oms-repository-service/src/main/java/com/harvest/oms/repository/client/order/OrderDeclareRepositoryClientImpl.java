@@ -6,7 +6,6 @@ import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;
 import com.harvest.oms.repository.domain.declare.OrderDeclareSimplePO;
-import com.harvest.oms.repository.domain.declare.OrderItemDeclareSimplePO;
 import com.harvest.oms.repository.entity.FarmlandOmsOrderDeclarationEntity;
 import com.harvest.oms.repository.entity.FarmlandOmsOrderDeclarationItemEntity;
 import com.harvest.oms.repository.enums.declare.DeclareStatusEnum;
@@ -37,7 +36,7 @@ public class OrderDeclareRepositoryClientImpl implements OrderDeclareRepositoryC
     }
 
     @Override
-    public void saveDeclaration(Long companyId, OrderDeclareSimplePO orderDeclareSimple) {
+    public void draftDeclaration(Long companyId, OrderDeclareSimplePO orderDeclareSimple) {
         Long orderId = orderDeclareSimple.getOrderId();
 
         boolean exists = farmlandOmsOrderDeclarationMapper.exists(new QueryWrapper<FarmlandOmsOrderDeclarationEntity>().lambda()
@@ -45,31 +44,24 @@ public class OrderDeclareRepositoryClientImpl implements OrderDeclareRepositoryC
                 .eq(FarmlandOmsOrderDeclarationEntity::getOrderId, orderId)
         );
 
-        if (exists) {
-            // 更新交运信息不包含 lastResponse
+        // 保存草稿交运信息
+        FarmlandOmsOrderDeclarationEntity declarationEntity = new FarmlandOmsOrderDeclarationEntity();
+        declarationEntity.setOrderId(orderId);
+        declarationEntity.setCompanyId(companyId);
+        declarationEntity.setStatus(DeclareStatusEnum.INIT.getKey());
+        declarationEntity.setLastResponse("");
+        farmlandOmsOrderDeclarationMapper.insert(declarationEntity);
 
-
-        } else {
-            // 保存交运信息
-            FarmlandOmsOrderDeclarationEntity declarationEntity = new FarmlandOmsOrderDeclarationEntity();
-            declarationEntity.setOrderId(orderId);
-            declarationEntity.setCompanyId(companyId);
-            declarationEntity.setStatus(DeclareStatusEnum.INIT.getKey());
-            farmlandOmsOrderDeclarationMapper.insert(declarationEntity);
-
-            orderDeclareSimple.getItems().forEach(item -> {
-                FarmlandOmsOrderDeclarationItemEntity declarationItemEntity = new FarmlandOmsOrderDeclarationItemEntity();
-                declarationItemEntity.setOrderItemId(item.getOrderItemId());
-                declarationItemEntity.setCompanyId(companyId);
-                declarationItemEntity.setOrderId(item.getOrderId());
-                declarationItemEntity.setSpuId(item.getSpuId());
-                declarationItemEntity.setSkuId(item.getSkuId());
-                declarationItemEntity.setQuantity(item.getQuantity());
-                farmlandOmsOrderDeclarationItemMapper.insert(declarationItemEntity);
-            });
-        }
-
-        List<OrderItemDeclareSimplePO> items = orderDeclareSimple.getItems();
+        orderDeclareSimple.getItems().forEach(item -> {
+            FarmlandOmsOrderDeclarationItemEntity declarationItemEntity = new FarmlandOmsOrderDeclarationItemEntity();
+            declarationItemEntity.setOrderItemId(item.getOrderItemId());
+            declarationItemEntity.setCompanyId(companyId);
+            declarationItemEntity.setOrderId(item.getOrderId());
+            declarationItemEntity.setSpuId(item.getSpuId());
+            declarationItemEntity.setSkuId(item.getSkuId());
+            declarationItemEntity.setQuantity(item.getQuantity());
+            farmlandOmsOrderDeclarationItemMapper.insert(declarationItemEntity);
+        });
     }
 
     @Override

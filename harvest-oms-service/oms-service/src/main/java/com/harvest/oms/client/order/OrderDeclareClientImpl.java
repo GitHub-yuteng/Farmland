@@ -13,6 +13,7 @@ import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.client.order.OrderDeclareRepositoryClient;
 import com.harvest.oms.repository.domain.declare.OrderDeclareSimplePO;
+import com.harvest.oms.repository.domain.declare.OrderItemDeclareSimplePO;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 import com.harvest.oms.service.order.handler.declare.executor.OrderCancelDeclareExecutor;
 import com.harvest.oms.service.order.handler.declare.executor.OrderReacquireFaceSheetExecutor;
@@ -23,6 +24,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -100,12 +102,22 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
     }
 
     @Override
-    public void saveDeclaration(Long companyId, SubmitDeclarationRequest request) {
+    public void draftDeclaration(Long companyId, SubmitDeclarationRequest request) {
         OrderInfoDO order = request.getOrder();
         OrderDeclareSimplePO orderDeclareSimple = new OrderDeclareSimplePO();
         orderDeclareSimple.setOrderId(order.getOrderId());
         orderDeclareSimple.setCompanyId(companyId);
-        orderDeclareRepositoryClient.saveDeclaration(companyId, orderDeclareSimple);
+        orderDeclareSimple.setItems(order.getOrderItems().stream().map(orderItemDO -> {
+            OrderItemDeclareSimplePO orderItemDeclareSimplePO = new OrderItemDeclareSimplePO();
+            orderItemDeclareSimplePO.setOrderItemId(orderItemDO.getOrderItemId());
+            orderItemDeclareSimplePO.setCompanyId(orderItemDO.companyId);
+            orderItemDeclareSimplePO.setOrderId(orderItemDO.getOrderId());
+            orderItemDeclareSimplePO.setSpuId(orderItemDO.getSpuId());
+            orderItemDeclareSimplePO.setSkuId(orderItemDO.getSkuId());
+            orderItemDeclareSimplePO.setQuantity(orderItemDO.getQuantity());
+            return orderItemDeclareSimplePO;
+        }).collect(Collectors.toList()));
+        orderDeclareRepositoryClient.draftDeclaration(companyId, orderDeclareSimple);
     }
 
     @RepeatSubmit(seconds = 10, remind = "正在重新获取面单数据, 请耐心等待～")

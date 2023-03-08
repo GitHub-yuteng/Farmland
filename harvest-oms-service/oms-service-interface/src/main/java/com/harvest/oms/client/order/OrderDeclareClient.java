@@ -39,9 +39,9 @@ public interface OrderDeclareClient extends GlobalMacroDefinition {
     @PostMapping("/cancelDeclare")
     BatchExecuteResult<String> cancelDeclare(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
 
-    @ApiOperation("保存申报信息")
-    @PostMapping("/saveDeclaration")
-    void saveDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody SubmitDeclarationRequest request);
+    @ApiOperation("保存草稿申报信息")
+    @PostMapping("/draftDeclaration")
+    void draftDeclaration(@RequestParam(COMPANY_ID) Long companyId, @RequestBody SubmitDeclarationRequest request);
 
     @ApiOperation("重新获取面单信息")
     @PostMapping("/reacquireDeclaration")
