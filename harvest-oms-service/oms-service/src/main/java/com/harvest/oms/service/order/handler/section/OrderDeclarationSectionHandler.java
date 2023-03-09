@@ -47,7 +47,9 @@ public class OrderDeclarationSectionHandler implements OrderSectionHandler {
                 return;
             }
             List<OrderItemDeclareSimplePO> items = orderDeclareSimplePO.getItems();
-
+            if (CollectionUtils.isEmpty(items)) {
+                return;
+            }
             List<OrderItemDeclarationDO> collect = items.stream().map(item -> {
                 OrderItemDeclarationDO orderItemDeclarationDO = new OrderItemDeclarationDO();
                 return orderItemDeclarationDO;

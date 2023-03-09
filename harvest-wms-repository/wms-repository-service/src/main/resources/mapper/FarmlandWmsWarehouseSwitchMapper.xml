@@ -3,7 +3,7 @@
 <mapper namespace="com.harvest.wms.repository.mapper.FarmlandWmsWarehouseSwitchMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.harvest.wms.repository.entity.FarmlandWmsWarehouseSwitchEntity">
+    <resultMap id="BaseResultMap" type="com.harvest.wms.service.entity.FarmlandWmsWarehouseSwitchEntity">
         <id column="warehouse_id" property="warehouseId" />
         <result column="open_qimen" property="openQimen" />
         <result column="open_auto_sync" property="openAutoSync" />

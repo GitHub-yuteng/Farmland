@@ -3,7 +3,7 @@
 <mapper namespace="com.harvest.wms.repository.mapper.warehouse.read.WarehouseReadMapper">
   
   <!-- 通用查询映射结果 -->
-  <resultMap id="BaseResultMap" type="com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO" extends="WAREHOUSE_CORE.WarehouseCoreMap">
+  <resultMap id="BaseResultMap" type="com.harvest.wms.service.domain.warehouse.simple.WarehouseSimplePO" extends="WAREHOUSE_CORE.WarehouseCoreMap">
     <!--仓库信息-->
     <result column="COMPANY_ID" property="companyId"/>
     <result column="main_type" property="mainType"/>

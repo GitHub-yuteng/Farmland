@@ -55,22 +55,26 @@ public class OrderDeclareRepositoryClientImpl implements OrderDeclareRepositoryC
         return farmlandOmsOrderDeclarationEntities.stream().map(declaration -> {
             OrderDeclareSimplePO orderDeclareSimplePO = new OrderDeclareSimplePO();
             Long orderId = declaration.getOrderId();
-            List<FarmlandOmsOrderDeclarationItemEntity> items = declarationMap.get(orderId);
 
             orderDeclareSimplePO.setOrderId(declaration.getOrderId());
             orderDeclareSimplePO.setCompanyId(declaration.getCompanyId());
             orderDeclareSimplePO.setStatus(declaration.getStatus());
             orderDeclareSimplePO.setLastResponse(declaration.getLastResponse());
-            orderDeclareSimplePO.setItems(items.stream().map(item -> {
-                OrderItemDeclareSimplePO orderItemDeclareSimplePO = new OrderItemDeclareSimplePO();
-                orderItemDeclareSimplePO.setOrderItemId(item.getOrderItemId());
-                orderItemDeclareSimplePO.setCompanyId(item.getCompanyId());
-                orderItemDeclareSimplePO.setOrderId(item.getOrderId());
-                orderItemDeclareSimplePO.setSpuId(item.getSpuId());
-                orderItemDeclareSimplePO.setSkuId(item.getSkuId());
-                orderItemDeclareSimplePO.setQuantity(item.getQuantity());
-                return orderItemDeclareSimplePO;
-            }).collect(Collectors.toList()));
+
+
+            List<FarmlandOmsOrderDeclarationItemEntity> items = declarationMap.get(orderId);
+            if (CollectionUtils.isNotEmpty(items)) {
+                orderDeclareSimplePO.setItems(items.stream().map(item -> {
+                    OrderItemDeclareSimplePO orderItemDeclareSimplePO = new OrderItemDeclareSimplePO();
+                    orderItemDeclareSimplePO.setOrderItemId(item.getOrderItemId());
+                    orderItemDeclareSimplePO.setCompanyId(item.getCompanyId());
+                    orderItemDeclareSimplePO.setOrderId(item.getOrderId());
+                    orderItemDeclareSimplePO.setSpuId(item.getSpuId());
+                    orderItemDeclareSimplePO.setSkuId(item.getSkuId());
+                    orderItemDeclareSimplePO.setQuantity(item.getQuantity());
+                    return orderItemDeclareSimplePO;
+                }).collect(Collectors.toList()));
+            }
             return orderDeclareSimplePO;
         }).collect(Collectors.toList());
     }
