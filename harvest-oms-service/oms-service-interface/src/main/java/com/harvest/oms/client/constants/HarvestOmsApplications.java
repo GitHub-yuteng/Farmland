@@ -29,6 +29,11 @@ public interface HarvestOmsApplications {
         String ORDER_DECLARE   = OMS_PATH + "/OrderDeclareClient";
         String ORDER_DELIVERY  = OMS_PATH + "/OrderDeliveryClient";
 
+        /**
+         * WMS交互
+         */
+        String CALL_BACK_WMS     = OMS_PATH + "/CallBackOrderClient";
+
     }
 
     interface LogisticsPath {

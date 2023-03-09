@@ -22,9 +22,9 @@ public enum OrderStatusEnum implements IEnum<Integer> {
 
     FINANCE_APPROVE (20, "财务审核", false),
 
-    ALLOCATED       (21, "待分配", false),
+    ALLOCATE       (21, "待分配", false),
 
-    PRINT           (30, "配货中", false),
+    PRINT           (30, "打单配货", false),
 
     COLLECT         (31, "待拣货", false),
 
