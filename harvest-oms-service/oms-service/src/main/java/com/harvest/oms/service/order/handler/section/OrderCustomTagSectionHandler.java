@@ -19,7 +19,7 @@ import java.util.stream.Collectors;
  **/
 @Order(OrderSectionHandler.Order.ORDER_CUSTOM_TAG)
 @Component
-public class OrderCustomTagSectionhandler implements OrderSectionHandler {
+public class OrderCustomTagSectionHandler implements OrderSectionHandler {
 
     @Override
     public void fill(Long companyId, OrderInfoDO order) {

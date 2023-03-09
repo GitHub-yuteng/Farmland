@@ -3,15 +3,14 @@ package com.harvest.oms.service.order.handler.section;
 import com.harvest.core.context.SpringHelper;
 import com.harvest.oms.client.order.OrderDeclareClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.domain.order.declare.OrderItemDeclarationDO;
 import com.harvest.oms.repository.domain.declare.OrderDeclareSimplePO;
+import com.harvest.oms.repository.domain.declare.OrderItemDeclareSimplePO;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
@@ -22,7 +21,7 @@ import java.util.stream.Collectors;
  **/
 @Order(OrderSectionHandler.Order.ORDER_DECLARATION)
 @Component
-public class OrderDeclarationSectionhandler implements OrderSectionHandler {
+public class OrderDeclarationSectionHandler implements OrderSectionHandler {
 
     @Override
     public void fill(Long companyId, OrderInfoDO order) {
@@ -44,10 +43,18 @@ public class OrderDeclarationSectionhandler implements OrderSectionHandler {
             Long orderId = order.getOrderId();
             // 交运信息
             OrderDeclareSimplePO orderDeclareSimplePO = orderDeclareSimplePOMap.get(orderId);
+            if (Objects.isNull(orderDeclareSimplePO)) {
+                return;
+            }
+            List<OrderItemDeclareSimplePO> items = orderDeclareSimplePO.getItems();
 
+            List<OrderItemDeclarationDO> collect = items.stream().map(item -> {
+                OrderItemDeclarationDO orderItemDeclarationDO = new OrderItemDeclarationDO();
+                return orderItemDeclarationDO;
+            }).collect(Collectors.toList());
 
             order.getOrderItems().forEach(orderItem -> {
-                orderItem.setItemDeclaration(null);
+//                orderItem.setItemDeclaration();
             });
         });
     }

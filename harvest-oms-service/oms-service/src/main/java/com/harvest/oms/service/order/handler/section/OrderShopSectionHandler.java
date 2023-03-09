@@ -18,7 +18,7 @@ import java.util.stream.Collectors;
  **/
 @Order(OrderSectionHandler.Order.ORDER_SHOP)
 @Component
-public class OrderShopSectionhandler implements OrderSectionHandler {
+public class OrderShopSectionHandler implements OrderSectionHandler {
 
     @Override
     public void fill(Long companyId, OrderInfoDO order) {
