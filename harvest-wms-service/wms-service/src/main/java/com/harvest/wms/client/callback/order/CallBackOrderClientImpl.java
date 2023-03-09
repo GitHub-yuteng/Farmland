@@ -22,12 +22,12 @@ public class CallBackOrderClientImpl implements CallBackOrderClient {
 
     @Override
     public BatchExecuteResult<String> returnAudit(Long companyId, Collection<Long> orderIds) {
+        System.out.println("直接打回审核");
         return orderAuditClient.returnAudit(companyId, orderIds);
     }
 
     @Override
     public BatchExecuteResult<String> returnAuditWithSubmit(Long companyId, Collection<SubmitAuditReturnRequest> requests) {
-        System.out.println("直接打回审核");
         return orderAuditClient.returnAuditWithSubmit(companyId, requests);
     }
 }
