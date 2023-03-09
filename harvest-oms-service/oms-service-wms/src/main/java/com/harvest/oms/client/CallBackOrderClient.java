@@ -47,4 +47,12 @@ public interface CallBackOrderClient extends GlobalMacroDefinition {
     @ApiOperation("推送打包状态")
     @PostMapping("/batch/pack")
     BatchExecuteResult<String> pack(@RequestParam(COMPANY_ID) Long companyId, @RequestBody Collection<Long> orderIds);
+
+    @ApiOperation("推送称重状态")
+    @PostMapping("/batch/weigh")
+    BatchExecuteResult<String> weigh(@RequestParam(COMPANY_ID) Long companyId, @RequestBody Collection<Long> orderIds);
+
+    @ApiOperation("推送待发货状态")
+    @PostMapping("/batch/waitShip")
+    BatchExecuteResult<String> waitShip(@RequestParam(COMPANY_ID) Long companyId, @RequestBody Collection<Long> orderIds);
 }

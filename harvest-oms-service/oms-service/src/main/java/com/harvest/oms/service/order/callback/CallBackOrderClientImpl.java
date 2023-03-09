@@ -13,7 +13,7 @@ import java.util.Collection;
 /**
  * @Author: Alodi
  * @Date: 2023/3/6 4:51 PM
- * @Description: TODO
+ * @Description: WMS 回调实现
  **/
 @HarvestService(path = HarvestOmsApplications.Path.CALL_BACK_WMS)
 public class CallBackOrderClientImpl implements CallBackOrderClient {
@@ -51,6 +51,16 @@ public class CallBackOrderClientImpl implements CallBackOrderClient {
 
     @Override
     public BatchExecuteResult<String> pack(Long companyId, Collection<Long> orderIds) {
+        return null;
+    }
+
+    @Override
+    public BatchExecuteResult<String> weigh(Long companyId, Collection<Long> orderIds) {
+        return null;
+    }
+
+    @Override
+    public BatchExecuteResult<String> waitShip(Long companyId, Collection<Long> orderIds) {
         return null;
     }
 }
