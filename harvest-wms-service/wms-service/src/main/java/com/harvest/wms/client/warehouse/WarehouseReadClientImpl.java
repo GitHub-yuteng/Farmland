@@ -1,9 +1,10 @@
-package com.harvest.wms.repository.client.warehouse;
+package com.harvest.wms.client.warehouse;
 
 import com.harvest.core.annotation.feign.HarvestService;
-import com.harvest.wms.repository.constants.HarvestWmsApplications;
+import com.harvest.wms.repository.client.warehouse.WarehouseReadRepositoryClient;
+import com.harvest.wms.constants.HarvestWmsApplications;
 import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
-import com.harvest.wms.repository.repository.domain.WarehouseDO;
+import com.harvest.wms.domain.WarehouseDO;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;

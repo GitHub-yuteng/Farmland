@@ -1,9 +1,9 @@
-package com.harvest.wms.repository.web.controller.warehouse;
+package com.harvest.wms.web.controller.warehouse;
 
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.core.domain.ResponseResult;
 import com.harvest.core.path.HarvestWmsPath;
-import com.harvest.wms.repository.client.warehouse.WarehouseReadClient;
+import com.harvest.wms.client.warehouse.WarehouseReadClient;
 import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

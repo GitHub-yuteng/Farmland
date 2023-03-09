@@ -1,10 +1,10 @@
-package com.harvest.wms.repository.client.callback.order;
+package com.harvest.wms.client.callback.order;
 
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.oms.client.order.OrderAuditClient;
 import com.harvest.oms.request.order.audit.SubmitAuditReturnRequest;
-import com.harvest.wms.repository.constants.HarvestWmsApplications;
+import com.harvest.wms.constants.HarvestWmsApplications;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;

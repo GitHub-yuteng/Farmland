@@ -4,7 +4,7 @@ import com.harvest.basic.domain.shop.ShopDO;
 import com.harvest.oms.domain.logistics.LogisticsChannelDO;
 import com.harvest.oms.domain.order.declare.OrderDeclarationDO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
-import com.harvest.wms.repository.repository.domain.WarehouseDO;
+import com.harvest.wms.domain.WarehouseDO;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

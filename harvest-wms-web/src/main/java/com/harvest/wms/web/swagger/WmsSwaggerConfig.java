@@ -1,4 +1,4 @@
-package com.harvest.wms.repository.web.swagger;
+package com.harvest.wms.web.swagger;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
