@@ -1,6 +1,6 @@
 package com.harvest.wms.repository.mapper;
 
-import com.harvest.wms.repository.service.entity.FarmlandWmsInboundBillItemEntity;
+import com.harvest.wms.repository.entity.FarmlandWmsInboundBillItemEntity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

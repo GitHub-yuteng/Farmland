@@ -1,4 +1,4 @@
-package com.harvest.wms.repository.service.domain.warehouse;
+package com.harvest.wms.repository.domain.warehouse;
 
 import com.harvest.core.domain.CompanyId;
 import com.harvest.core.enums.wms.WarehouseOwnerEnum;

@@ -1,4 +1,4 @@
-package com.harvest.wms.repository.service.entity;
+package com.harvest.wms.repository.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;

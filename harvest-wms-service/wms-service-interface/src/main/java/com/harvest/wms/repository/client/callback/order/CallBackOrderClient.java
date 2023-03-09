@@ -4,7 +4,7 @@ import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.oms.request.order.audit.SubmitAuditReturnRequest;
-import com.harvest.wms.repository.service.constants.HarvestWmsApplications;
+import com.harvest.wms.repository.constants.HarvestWmsApplications;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

@@ -1,4 +1,4 @@
-package com.harvest.wms.repository.service.entity;
+package com.harvest.wms.repository.entity;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -16,9 +16,9 @@ import lombok.Setter;
  */
 @Getter
 @Setter
-@TableName("farmland_wms_inbound_bill_item")
-@ApiModel(value = "FarmlandWmsInboundBillItemEntity对象", description = "")
-public class FarmlandWmsInboundBillItemEntity {
+@TableName("farmland_wms_inbound_bill")
+@ApiModel(value = "FarmlandWmsInboundBillEntity对象", description = "")
+public class FarmlandWmsInboundBillEntity {
 
     @TableId("id")
     private Long id;

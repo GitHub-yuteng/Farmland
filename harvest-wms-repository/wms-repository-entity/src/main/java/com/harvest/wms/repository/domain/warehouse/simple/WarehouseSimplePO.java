@@ -1,8 +1,8 @@
-package com.harvest.wms.repository.service.domain.warehouse.simple;
+package com.harvest.wms.repository.domain.warehouse.simple;
 
-import com.harvest.wms.repository.service.domain.warehouse.WarehouseCore;
-import com.harvest.wms.repository.service.domain.warehouse.base.WarehouseAddress;
-import com.harvest.wms.repository.service.domain.warehouse.base.WarehouseSwitch;
+import com.harvest.wms.repository.domain.warehouse.WarehouseCore;
+import com.harvest.wms.repository.domain.warehouse.base.WarehouseAddress;
+import com.harvest.wms.repository.domain.warehouse.base.WarehouseSwitch;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

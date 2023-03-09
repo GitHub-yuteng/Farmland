@@ -4,7 +4,7 @@ import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.oms.client.order.OrderAuditClient;
 import com.harvest.oms.request.order.audit.SubmitAuditReturnRequest;
-import com.harvest.wms.repository.service.constants.HarvestWmsApplications;
+import com.harvest.wms.repository.constants.HarvestWmsApplications;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;

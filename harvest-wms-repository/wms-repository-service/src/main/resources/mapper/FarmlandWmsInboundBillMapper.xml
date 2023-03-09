@@ -3,7 +3,7 @@
 <mapper namespace="com.harvest.wms.repository.mapper.FarmlandWmsInboundBillMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.harvest.wms.repository.service.entity.FarmlandWmsInboundBillEntity">
+    <resultMap id="BaseResultMap" type="com.harvest.wms.repository.entity.FarmlandWmsInboundBillEntity">
         <id column="id" property="id" />
     </resultMap>
 

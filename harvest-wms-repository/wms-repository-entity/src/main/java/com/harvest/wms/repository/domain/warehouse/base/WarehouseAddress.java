@@ -1,4 +1,4 @@
-package com.harvest.wms.repository.service.domain.warehouse.base;
+package com.harvest.wms.repository.domain.warehouse.base;
 
 import com.harvest.core.domain.address.HarvestAddress;
 import io.swagger.annotations.ApiModelProperty;

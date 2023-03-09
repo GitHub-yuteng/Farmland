@@ -4,7 +4,7 @@ import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.core.domain.ResponseResult;
 import com.harvest.core.path.HarvestWmsPath;
 import com.harvest.wms.repository.client.warehouse.WarehouseReadClient;
-import com.harvest.wms.repository.service.domain.warehouse.simple.WarehouseSimplePO;
+import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;

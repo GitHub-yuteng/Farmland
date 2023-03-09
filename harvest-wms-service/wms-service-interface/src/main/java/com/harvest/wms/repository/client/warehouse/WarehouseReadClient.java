@@ -2,9 +2,9 @@ package com.harvest.wms.repository.client.warehouse;
 
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.core.annotation.feign.HarvestClient;
-import com.harvest.wms.repository.service.constants.HarvestWmsApplications;
-import com.harvest.wms.repository.service.domain.warehouse.simple.WarehouseSimplePO;
-import com.harvest.wms.repository.service.repository.domain.WarehouseDO;
+import com.harvest.wms.repository.constants.HarvestWmsApplications;
+import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
+import com.harvest.wms.repository.repository.domain.WarehouseDO;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;

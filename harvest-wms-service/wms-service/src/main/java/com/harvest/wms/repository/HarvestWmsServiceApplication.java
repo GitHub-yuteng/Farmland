@@ -1,4 +1,4 @@
-package com.harvest.wms.repository.service;
+package com.harvest.wms.repository;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

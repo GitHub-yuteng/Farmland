@@ -1,4 +1,4 @@
-package com.harvest.wms.repository.service.mq;
+package com.harvest.wms.repository.mq;
 
 import com.harvest.core.service.mq.topic.MessageTopic;
 import com.harvest.core.utils.JsonUtils;

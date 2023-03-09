@@ -1,4 +1,4 @@
-package com.harvest.wms.repository.service.constants;
+package com.harvest.wms.repository.constants;
 
 /**
  * @Author: Alodi

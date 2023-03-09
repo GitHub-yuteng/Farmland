@@ -6,8 +6,8 @@ import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.context.SpringHelper;
 import com.harvest.oms.domain.warehouse.WarehouseKey;
 import com.harvest.wms.repository.client.warehouse.WarehouseReadClient;
-import com.harvest.wms.repository.service.domain.warehouse.simple.WarehouseSimplePO;
-import com.harvest.wms.repository.service.repository.domain.WarehouseDO;
+import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
+import com.harvest.wms.repository.repository.domain.WarehouseDO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -1,6 +1,6 @@
-package com.harvest.wms.repository.service.repository.domain;
+package com.harvest.wms.repository.repository.domain;
 
-import com.harvest.wms.repository.service.domain.warehouse.simple.WarehouseSimplePO;
+import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 

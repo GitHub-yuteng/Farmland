@@ -1,11 +1,11 @@
-package com.harvest.wms.repository.service.create;
+package com.harvest.wms.repository.create;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 import com.harvest.core.enums.wms.WarehouseOwnerEnum;
 import com.harvest.core.enums.wms.WarehouseTypeEnum;
 import com.harvest.core.generator.IdGenerator;
-import com.harvest.wms.repository.service.entity.FarmlandWmsWarehouseAddressEntity;
-import com.harvest.wms.repository.service.entity.FarmlandWmsWarehouseEntity;
+import com.harvest.wms.repository.entity.FarmlandWmsWarehouseAddressEntity;
+import com.harvest.wms.repository.entity.FarmlandWmsWarehouseEntity;
 import com.harvest.wms.repository.mapper.FarmlandWmsWarehouseAddressMapper;
 import com.harvest.wms.repository.mapper.FarmlandWmsWarehouseMapper;
 import org.junit.jupiter.api.Test;

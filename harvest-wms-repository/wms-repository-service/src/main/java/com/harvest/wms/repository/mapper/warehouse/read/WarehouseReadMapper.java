@@ -1,7 +1,7 @@
 package com.harvest.wms.repository.mapper.warehouse.read;
 
 import com.harvest.core.constants.GlobalMacroDefinition;
-import com.harvest.wms.repository.service.domain.warehouse.simple.WarehouseSimplePO;
+import com.harvest.wms.repository.domain.warehouse.simple.WarehouseSimplePO;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
