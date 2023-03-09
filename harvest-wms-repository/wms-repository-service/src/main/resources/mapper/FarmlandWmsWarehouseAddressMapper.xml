@@ -3,7 +3,7 @@
 <mapper namespace="com.harvest.wms.repository.mapper.FarmlandWmsWarehouseAddressMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.harvest.wms.service.entity.FarmlandWmsWarehouseAddressEntity">
+    <resultMap id="BaseResultMap" type="com.harvest.wms.repository.service.entity.FarmlandWmsWarehouseAddressEntity">
         <id column="warehouse_id" property="warehouseId" />
         <result column="COMPANY_ID" property="companyId" />
         <result column="address_type" property="addressType" />
