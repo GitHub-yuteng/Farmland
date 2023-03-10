@@ -2,9 +2,11 @@ package com.harvest.oms.client.order;
 
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.batch.BatchExecuteResult;
+import com.harvest.core.context.SpringHelper;
 import com.harvest.core.service.redis.CacheService;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.service.order.AbstractBizOrderService;
+import com.harvest.oms.service.order.handler.delivery.OrderDeliveryExecutor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +33,7 @@ public class OrderDeliveryClientImpl extends AbstractBizOrderService implements 
             return BatchExecuteResult.empty();
         }
         return super.SyncUniqueOrderParallelFailAllowBatchExecute(companyId, orderIds, order -> {
-
+            SpringHelper.getBean(OrderDeliveryExecutor.class).exec(companyId, order);
         });
     }
 }
