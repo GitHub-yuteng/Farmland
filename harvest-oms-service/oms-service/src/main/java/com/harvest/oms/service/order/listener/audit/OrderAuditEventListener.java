@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 public class OrderAuditEventListener implements OrderEventListener {
 
     @Override
-    public void audit(long companyId, OrderInfoDO order) {
+    public void audit(Long companyId, OrderInfoDO order) {
         System.out.println("audit:" + order.getOrderId());
     }
 }

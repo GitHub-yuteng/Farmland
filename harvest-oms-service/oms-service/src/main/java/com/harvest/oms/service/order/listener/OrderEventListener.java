@@ -24,7 +24,7 @@ public interface OrderEventListener {
      * @param companyId 公司id
      * @param order     相关订单
      */
-    default void paid(long companyId, OrderInfoDO order) {
+    default void paid(Long companyId, OrderInfoDO order) {
     }
 
     /**
@@ -33,7 +33,7 @@ public interface OrderEventListener {
      * @param companyId 公司id
      * @param order     相关订单
      */
-    default void audit(long companyId, OrderInfoDO order) {
+    default void audit(Long companyId, OrderInfoDO order) {
     }
 
     /**
@@ -42,7 +42,7 @@ public interface OrderEventListener {
      * @param companyId 公司id
      * @param order     相关订单
      */
-    default void returnAudit(long companyId, OrderInfoDO order) {
+    default void returnAudit(Long companyId, OrderInfoDO order) {
     }
 
     /**
@@ -51,7 +51,7 @@ public interface OrderEventListener {
      * @param companyId 公司id
      * @param order     相关订单
      */
-    default void declare(long companyId, OrderInfoDO order) {
+    default void declare(Long companyId, OrderInfoDO order) {
     }
 
     /**
@@ -60,7 +60,7 @@ public interface OrderEventListener {
      * @param companyId 公司id
      * @param order     相关订单
      */
-    default void delivery(long companyId, OrderInfoDO order) {
+    default void delivery(Long companyId, OrderInfoDO order) {
     }
 
     /**
@@ -69,7 +69,7 @@ public interface OrderEventListener {
      * @param companyId 公司id
      * @param order     相关订单
      */
-    default void finish(long companyId, OrderInfoDO order) {
+    default void finish(Long companyId, OrderInfoDO order) {
     }
 
     /**
@@ -78,7 +78,7 @@ public interface OrderEventListener {
      * @param companyId 公司id
      * @param order     相关订单
      */
-    default void close(long companyId, OrderInfoDO order) {
+    default void close(Long companyId, OrderInfoDO order) {
     }
 
     /**
@@ -87,7 +87,7 @@ public interface OrderEventListener {
      * @param companyId 公司id
      * @param order     相关订单
      */
-    default void delete(long companyId, OrderInfoDO order) {
+    default void delete(Long companyId, OrderInfoDO order) {
     }
 
     /**
@@ -96,7 +96,7 @@ public interface OrderEventListener {
      * @param companyId 公司id
      * @param order     相关订单
      */
-    default void restore(long companyId, OrderInfoDO order) {
+    default void restore(Long companyId, OrderInfoDO order) {
     }
 
     /**
@@ -105,7 +105,7 @@ public interface OrderEventListener {
      * @param companyId 公司id
      * @param order     相关订单
      */
-    default void updateWarehouse(long companyId, OrderInfoDO order) {
+    default void updateWarehouse(Long companyId, OrderInfoDO order) {
     }
 
     /**
@@ -114,7 +114,7 @@ public interface OrderEventListener {
      * @param companyId 公司id
      * @param order     相关订单
      */
-    default void goodsChange(long companyId, OrderInfoDO order) {
+    default void goodsChange(Long companyId, OrderInfoDO order) {
     }
 
     /**
@@ -123,7 +123,7 @@ public interface OrderEventListener {
      * @param companyId 公司id
      * @param order     相关订单
      */
-    default void tagModify(long companyId, OrderInfoDO order) {
+    default void tagModify(Long companyId, OrderInfoDO order) {
     }
 
     /**
@@ -132,7 +132,7 @@ public interface OrderEventListener {
      * @param companyId 公司id
      * @param order     相关订单
      */
-    default void remarkModify(long companyId, OrderInfoDO order) {
+    default void remarkModify(Long companyId, OrderInfoDO order) {
     }
 
     /**
@@ -141,7 +141,7 @@ public interface OrderEventListener {
      * @param companyId 公司id
      * @param order     相关订单
      */
-    default void merged(long companyId, OrderInfoDO order) {
+    default void merged(Long companyId, OrderInfoDO order) {
     }
 
 }

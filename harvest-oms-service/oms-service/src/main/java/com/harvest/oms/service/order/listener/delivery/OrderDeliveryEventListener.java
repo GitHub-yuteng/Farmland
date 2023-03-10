@@ -19,7 +19,7 @@ public class OrderDeliveryEventListener implements OrderEventListener {
      * @param order     相关订单
      */
     @Override
-    public void delivery(long companyId, OrderInfoDO order) {
+    public void delivery(Long companyId, OrderInfoDO order) {
         System.out.println("订单发货");
     }
 }
