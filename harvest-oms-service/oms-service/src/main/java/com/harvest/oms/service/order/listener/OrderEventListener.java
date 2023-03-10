@@ -64,6 +64,15 @@ public interface OrderEventListener {
     }
 
     /**
+     * 订单完成
+     *
+     * @param companyId 公司id
+     * @param order     相关订单
+     */
+    default void finish(long companyId, OrderInfoDO order) {
+    }
+
+    /**
      * 订单退款、关闭
      *
      * @param companyId 公司id

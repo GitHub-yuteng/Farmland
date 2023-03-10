@@ -25,6 +25,9 @@ public enum OrderEventEnum {
     /*订单发货*/
     DELIVERY,
 
+    /*订单完成*/
+    FINISH,
+
     /*订单关闭、退款*/
     CLOSE,
 

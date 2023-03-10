@@ -88,6 +88,9 @@ public class OrderEventPublisher {
                 case DELIVERY:
                     listener.delivery(companyId, order);
                     break;
+                case FINISH:
+                    listener.finish(companyId, order);
+                    break;
                 case CLOSE:
                     listener.close(companyId, order);
                     break;
