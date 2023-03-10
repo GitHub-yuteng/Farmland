@@ -4,6 +4,7 @@ import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.core.service.redis.CacheService;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
+import com.harvest.oms.service.order.AbstractBizOrderService;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,7 +18,7 @@ import java.util.List;
  * @Description: 订单发货
  **/
 @HarvestService(path = HarvestOmsApplications.Path.ORDER_DELIVERY)
-public class OrderDeliveryClientImpl implements OrderDeliveryClient {
+public class OrderDeliveryClientImpl extends AbstractBizOrderService implements OrderDeliveryClient {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(OrderDeliveryClientImpl.class);
 
@@ -29,6 +30,8 @@ public class OrderDeliveryClientImpl implements OrderDeliveryClient {
         if (CollectionUtils.isEmpty(orderIds)) {
             return BatchExecuteResult.empty();
         }
-        return null;
+        return super.SyncUniqueOrderParallelFailAllowBatchExecute(companyId, orderIds, order -> {
+
+        });
     }
 }

@@ -16,6 +16,7 @@ import com.harvest.oms.repository.domain.declare.OrderDeclareSimplePO;
 import com.harvest.oms.repository.domain.declare.OrderItemDeclareSimplePO;
 import com.harvest.oms.repository.enums.declare.DeclareStatusEnum;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
+import com.harvest.oms.service.order.AbstractBizOrderService;
 import com.harvest.oms.service.order.handler.declare.executor.OrderCancelDeclareExecutor;
 import com.harvest.oms.service.order.handler.declare.executor.OrderReacquireFaceSheetExecutor;
 import com.harvest.oms.service.order.handler.declare.executor.OrderRefreshDeclareExecutor;
@@ -41,7 +42,7 @@ import java.util.stream.Collectors;
  * @Description: 订单交运
  **/
 @HarvestService(path = HarvestOmsApplications.Path.ORDER_DECLARE)
-public class OrderDeclareClientImpl implements OrderDeclareClient {
+public class OrderDeclareClientImpl extends AbstractBizOrderService implements OrderDeclareClient {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(OrderDeclareClientImpl.class);
 
@@ -92,14 +93,9 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
     @RepeatSubmit(seconds = 10, remind = "正在取消申报, 请耐心等待～")
     @Override
     public BatchExecuteResult<String> cancelDeclare(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds) {
-        Map<Long, String> orderMap = new ConcurrentHashMap<>(DEFAULT_2);
-        return ActuatorUtils.parallelFailAllowBatchExecute(orderIds.stream().map(BatchId::build).collect(Collectors.toList()), batchId -> {
-                    Long orderId = batchId.getId();
-                    OrderInfoDO order = SpringHelper.getBean(OrderReadClient.class).getOrderRich(companyId, orderId);
-                    orderMap.put(orderId, order.getOrderNo());
-                    SpringHelper.getBean(OrderCancelDeclareExecutor.class).cancleDeclare(companyId, order);
-                }, batchId -> orderMap.get(batchId.getId())
-        );
+        return super.SyncUniqueOrderParallelFailAllowBatchExecute(companyId, orderIds, order -> {
+            SpringHelper.getBean(OrderCancelDeclareExecutor.class).cancleDeclare(companyId, order);
+        });
     }
 
     @Override
