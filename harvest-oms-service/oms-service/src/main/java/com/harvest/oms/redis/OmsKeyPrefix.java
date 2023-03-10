@@ -29,4 +29,12 @@ public class OmsKeyPrefix extends BaseKeyPrefix {
     public String getKeyLock() {
         return OMS_PREFIX + super.getKeyLock();
     }
+
+    /**
+     * 订单全局唯一锁
+     */
+    public final static OmsKeyPrefix ORDER_UNIQUE_KEY = new OmsKeyPrefix(
+            KeyModePrefix.OMS.ORDER_UNIQUE + ":", TEN_SECONDS
+    );
+
 }

@@ -14,12 +14,13 @@ public abstract class BaseKeyPrefix implements KeyPrefix {
 
     private final static Random RANDOM = new Random();
 
-    protected final static int ONE_MINUTE = 60;
-    protected final static int ONE_HOUR = 60 * 60;
-    protected final static int ONE_DAY = 60 * 60 * 24;
-    protected final static int ONE_WEEK = 60 * 60 * 24 * 7;
-    protected final static int ONE_MONTH = 60 * 60 * 24 * 30;
-    protected final static int TWO_MONTH = 60 * 60 * 24 * 30 * 2;
+    protected final static int TEN_SECONDS  = 10;
+    protected final static int ONE_MINUTE   = 60;
+    protected final static int ONE_HOUR     = 60 * 60;
+    protected final static int ONE_DAY      = 60 * 60 * 24;
+    protected final static int ONE_WEEK     = 60 * 60 * 24 * 7;
+    protected final static int ONE_MONTH    = 60 * 60 * 24 * 30;
+    protected final static int TWO_MONTH    = 60 * 60 * 24 * 30 * 2;
 
     /**
      * 分隔符

@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
 import java.util.Collections;
@@ -33,6 +34,10 @@ public class BatchExecuteResult<T> {
 
     @ApiModelProperty("执行成功记录")
     private List<ReasonMap<T>> successList;
+
+    public static BatchExecuteResult<String> empty() {
+        return new BatchExecuteResult<>();
+    }
 
     public BatchExecuteResult() {
         this.successCount = new AtomicInteger();

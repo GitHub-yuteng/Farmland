@@ -8,6 +8,7 @@ import com.harvest.core.service.lock.DistributedLockUtils;
 import com.harvest.core.utils.ActuatorUtils;
 import com.harvest.oms.client.order.OrderReadClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.redis.OmsKeyPrefix;
 import com.harvest.oms.redis.flow.OrderAuditFlowKey;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,12 +40,12 @@ public abstract class AbstractBizOrderService {
      * @param consumer  处理器
      * @return 处理结果
      */
-    protected BatchExecuteResult<String> SyncOrderParallelFailAllowBatchExecute(Long companyId, Collection<Long> orderIds, Consumer<OrderInfoDO> consumer) {
+    protected BatchExecuteResult<String> SyncUniqueOrderParallelFailAllowBatchExecute(Long companyId, Collection<Long> orderIds, Consumer<OrderInfoDO> consumer) {
         Map<Long, String> orderMap = new ConcurrentHashMap<>(2);
         return ActuatorUtils.parallelFailAllowBatchExecute(orderIds.stream().map(BatchId::build).collect(Collectors.toList()),
                 batchId -> {
                     try {
-                        DistributedLockUtils.lock(OrderAuditFlowKey.ORDER_AUDIT_KEY, batchId.getLockKey(),
+                        DistributedLockUtils.lock(OmsKeyPrefix.ORDER_UNIQUE_KEY, batchId.getLockKey(),
                                 () -> {
                                     OrderInfoDO order = orderReadClient.getOrderRich(companyId, batchId.getId());
                                     orderMap.put(batchId.getId(), order.getOrderNo());

@@ -34,9 +34,9 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
     @Override
     public BatchExecuteResult<String> check(Long companyId, Collection<Long> orderIds) {
         if (CollectionUtils.isEmpty(orderIds)) {
-            return new BatchExecuteResult<>();
+            return BatchExecuteResult.empty();
         }
-        return super.SyncOrderParallelFailAllowBatchExecute(companyId, orderIds, order ->
+        return super.SyncUniqueOrderParallelFailAllowBatchExecute(companyId, orderIds, order ->
                 SpringHelper.getBean(OrderAuditCheckExecutor.class).check(order)
         );
     }
@@ -44,7 +44,7 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
     @Override
     public BatchExecuteResult<String> audit(Long companyId, Collection<Long> orderIds) {
         if (CollectionUtils.isEmpty(orderIds)) {
-            return new BatchExecuteResult<>();
+            return BatchExecuteResult.empty();
         }
         return this.auditWithSubmit(companyId, orderIds.stream().map(
                 orderId -> {
@@ -57,12 +57,12 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
     @Override
     public BatchExecuteResult<String> auditWithSubmit(Long companyId, Collection<SubmitAuditRequest> requests) {
         if (CollectionUtils.isEmpty(requests) || requests.parallelStream().allMatch(request -> Objects.isNull(request.getId()))) {
-            return new BatchExecuteResult<>();
+            return BatchExecuteResult.empty();
         }
         Map<Long, SubmitAuditRequest> orderAuditSubmitMap = requests.stream().collect(Collectors.toMap(SubmitAuditRequest::getId, Function.identity(), (k1, k2) -> k1));
         // 记录键值 id-key
         Map<Long, String> orderMap = new HashMap<>(DEFAULT_2);
-        return super.SyncOrderParallelFailAllowBatchExecute(companyId, orderAuditSubmitMap.keySet(),
+        return super.SyncUniqueOrderParallelFailAllowBatchExecute(companyId, orderAuditSubmitMap.keySet(),
                 order -> {
                     SubmitAuditRequest submitAuditRequest = orderAuditSubmitMap.get(order.getOrderId());
                     // 传递订单信息
@@ -75,7 +75,7 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
     @Override
     public BatchExecuteResult<String> returnAudit(Long companyId, Collection<Long> orderIds) {
         if (CollectionUtils.isEmpty(orderIds)) {
-            return new BatchExecuteResult<>();
+            return BatchExecuteResult.empty();
         }
         return this.returnAuditWithSubmit(companyId, orderIds.stream().map(
                 orderId -> {
@@ -93,7 +93,7 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
         Map<Long, SubmitAuditReturnRequest> orderAuditReturnSubmitMap = requests.stream().collect(Collectors.toMap(SubmitAuditReturnRequest::getId, Function.identity(), (k1, k2) -> k1));
         // 记录键值 id-key
         Map<Long, String> orderMap = new HashMap<>(DEFAULT_2);
-        return super.SyncOrderParallelFailAllowBatchExecute(companyId, orderAuditReturnSubmitMap.keySet(),
+        return super.SyncUniqueOrderParallelFailAllowBatchExecute(companyId, orderAuditReturnSubmitMap.keySet(),
                 order -> {
                     SubmitAuditReturnRequest request = orderAuditReturnSubmitMap.get(order.getOrderId());
                     // 传递订单信息

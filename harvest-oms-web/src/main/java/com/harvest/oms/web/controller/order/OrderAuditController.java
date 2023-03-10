@@ -32,7 +32,7 @@ public class OrderAuditController implements GlobalMacroDefinition {
     @Autowired
     private OrderAuditClient orderAuditClient;
 
-    @ApiOperation("订单审核")
+    @ApiOperation("订单审核校验")
     @PostMapping(value = "/check")
     public ResponseResult<BatchExecuteResult<String>> check(@RequestBody List<Long> orderIds) {
         Long companyId = ContextHolder.getContext().getCompanyId();

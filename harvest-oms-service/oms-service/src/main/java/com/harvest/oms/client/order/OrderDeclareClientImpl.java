@@ -20,7 +20,6 @@ import com.harvest.oms.service.order.handler.declare.executor.OrderCancelDeclare
 import com.harvest.oms.service.order.handler.declare.executor.OrderReacquireFaceSheetExecutor;
 import com.harvest.oms.service.order.handler.declare.executor.OrderRefreshDeclareExecutor;
 import com.harvest.oms.service.order.handler.declare.submit.OrderSubmitDeclareExecutor;
-import com.harvest.oms.vo.order.declare.OrderDeclarationVO;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +27,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.*;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -57,7 +59,7 @@ public class OrderDeclareClientImpl implements OrderDeclareClient {
     @Override
     public BatchExecuteResult<String> declare(Long companyId, Collection<SubmitDeclarationRequest> submitDeclarations) {
         if (CollectionUtils.isEmpty(submitDeclarations)) {
-            return new BatchExecuteResult<>();
+            return BatchExecuteResult.empty();
         }
         submitDeclarations = submitDeclarations.stream().filter(request -> Objects.nonNull(request.getId())).collect(Collectors.toList());
         if (CollectionUtils.isEmpty(submitDeclarations)) {
