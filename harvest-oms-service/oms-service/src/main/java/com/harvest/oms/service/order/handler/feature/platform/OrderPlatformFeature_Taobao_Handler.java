@@ -20,9 +20,9 @@ import java.util.Collection;
 @Component
 public class OrderPlatformFeature_Taobao_Handler extends AbstractOrderPlatformFeatureHandler {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderPlatformFeature_Taobao_Handler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderPlatformFeature_Taobao_Handler.class);
 
-    private final static OrderSourceEnum TAOBAO = OrderSourceEnum.Taobao;
+    private static final OrderSourceEnum TAOBAO = OrderSourceEnum.Taobao;
 
     @Override
     public void batchFeatureFill(Long companyId, Collection<OrderInfoDO> orders) {

@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderAuditReturnExecutor {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderAuditReturnExecutor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderAuditReturnExecutor.class);
 
     @Autowired
     private OrderWriteClient orderWriteClient;

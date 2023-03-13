@@ -28,8 +28,8 @@ import javax.sql.DataSource;
 @MapperScan(basePackages = {"com.harvest.basic.repository.mapper"}, sqlSessionFactoryRef = "basicSqlSessionFactory")
 public class JdbcDataSource {
 
-    public final static String BASIC_TRANSACTION_MANAGER = "basicTransactionManager";
-    public final static String BASIC_TRANSACTION_TEMPLATE = "basicTransactionTemplate";
+    public static final String BASIC_TRANSACTION_MANAGER = "basicTransactionManager";
+    public static final String BASIC_TRANSACTION_TEMPLATE = "basicTransactionTemplate";
 
     @Autowired
     private DataSourceProperties dataSourceProperties;

@@ -26,7 +26,7 @@ import java.util.Collection;
 @HarvestService(path = HarvestOmsApplications.Path.ORDER_FRONT)
 public class OrderFrontQueryClientImpl implements OrderFrontQueryClient {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderFrontQueryClientImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderFrontQueryClientImpl.class);
 
     @Autowired
     private OrderRichQueryClient orderRichQueryClient;

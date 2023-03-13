@@ -26,8 +26,8 @@ import java.sql.SQLException;
 @MapperScan(basePackages = {"com.harvest.rule.repository.mapper"}, sqlSessionFactoryRef = "ruleSqlSessionFactory")
 public class JdbcDataSource {
 
-    public final static String RULE_TRANSACTION_MANAGER = "ruleTransactionManager";
-    public final static String RULE_TRANSACTION_TEMPLATE = "ruleTransactionTemplate";
+    public static final String RULE_TRANSACTION_MANAGER = "ruleTransactionManager";
+    public static final String RULE_TRANSACTION_TEMPLATE = "ruleTransactionTemplate";
 
     @Autowired
     private DataSourceProperties dataSourceProperties;

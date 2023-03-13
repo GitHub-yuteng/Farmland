@@ -19,7 +19,7 @@ import org.springframework.util.StopWatch;
 @HarvestService(path = HarvestBasicApplications.Path.LOGISTICS)
 public class BasicLogisticsClientImpl implements BasicLogisticsClient {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(BasicLogisticsClientImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(BasicLogisticsClientImpl.class);
 
     @Autowired
     private PlatformLogisticsService platformLogisticsService;

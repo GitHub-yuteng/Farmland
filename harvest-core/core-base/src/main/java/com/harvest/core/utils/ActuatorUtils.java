@@ -29,11 +29,11 @@ public class ActuatorUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ActuatorUtils.class);
 
-    private final static int DEFAULT_PARTITION_SIZE = 200;
+    private static final int DEFAULT_PARTITION_SIZE = 200;
 
     private static volatile ThreadPoolExecutor PARALLEL_EXECUTOR_POOL = null;
 
-    private final static int MAX_POOL_THREAD = 50;
+    private static final int MAX_POOL_THREAD = 50;
 
 
     /**

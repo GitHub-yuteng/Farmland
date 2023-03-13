@@ -20,7 +20,7 @@ public class FieldUtils {
     public interface SFunction<T, R> extends Function<T, R>, Serializable {
     }
 
-    private final static String GET = "get";
+    private static final String GET = "get";
 
     enum FieldSwitchEnum {
         /**

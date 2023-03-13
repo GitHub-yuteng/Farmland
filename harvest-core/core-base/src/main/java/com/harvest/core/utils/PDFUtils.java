@@ -15,7 +15,7 @@ public class PDFUtils {
     /**
      * 最多允许50个线程同时执行，防止并发量高时导致 OOM
      */
-    private final static Semaphore SEMAPHORE = new Semaphore(50);
+    private static final Semaphore SEMAPHORE = new Semaphore(50);
 
     /**
      * 将远程文件下载转为图片链接

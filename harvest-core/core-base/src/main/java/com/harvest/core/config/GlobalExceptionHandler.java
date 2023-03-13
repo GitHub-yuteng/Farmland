@@ -27,7 +27,7 @@ import java.util.Map;
 @ControllerAdvice(value = "com.harvest")
 public class GlobalExceptionHandler {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     @ExceptionHandler(StandardRuntimeException.class)
     public void standardRuntimeException(HttpServletRequest request, HttpServletResponse response, @NotNull Exception exception) throws IOException {

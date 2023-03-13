@@ -23,9 +23,9 @@ public class MySqlGeneratorUtils {
     private static final String MAPPER_PATH = PARENT_DIR + "/harvest-wms-repository/wms-repository-service/src/main/java/com/harvest/wms/repository/mapper";
     private static final String XML_PATH = PARENT_DIR + "/harvest-wms-repository/wms-repository-service/src/main/resources/mapper";
 
-    private final static String MYSQL_IP = "jdbc:mysql://localhost:3306/farmland_wms";
-    private final static String USERNAME = "root";
-    private final static String PASSWORD = "123456";
+    private static final String MYSQL_IP = "jdbc:mysql://localhost:3306/farmland_wms";
+    private static final String USERNAME = "root";
+    private static final String PASSWORD = "123456";
 
     public static void main(String[] args) {
 

@@ -21,7 +21,7 @@ public class OrderDeliveryFlowKey extends OmsKeyPrefix {
     /**
      * 订单发货
      */
-    public final static OrderDeliveryFlowKey ORDER_DELIVERY_FLOW_KEY = new OrderDeliveryFlowKey(
+    public static final OrderDeliveryFlowKey ORDER_DELIVERY_FLOW_KEY = new OrderDeliveryFlowKey(
             KeyModePrefix.OMS.ORDER_DELIVERY_FLOW, ONE_MINUTE
     );
 

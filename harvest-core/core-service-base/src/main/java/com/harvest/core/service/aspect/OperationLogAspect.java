@@ -30,7 +30,7 @@ public class OperationLogAspect implements InitializingBean {
     @Autowired(required = false)
     private List<BizOperationLog<? extends OperationLog>> bizOperationLogs;
 
-    private final static Map<Class<? extends OperationLog>, BizOperationLog<? extends OperationLog>> LOG_MAP = Maps.newHashMap();
+    private static final Map<Class<? extends OperationLog>, BizOperationLog<? extends OperationLog>> LOG_MAP = Maps.newHashMap();
 
     public void afterPropertiesSet() {
         if (CollectionUtils.isEmpty(bizOperationLogs)) {

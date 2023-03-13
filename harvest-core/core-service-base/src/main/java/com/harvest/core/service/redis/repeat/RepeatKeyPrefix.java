@@ -20,6 +20,6 @@ public class RepeatKeyPrefix extends BaseKeyPrefix {
     /**
      * 重复提交
      */
-    public final static RepeatKeyPrefix INTERVAL_REPEAT = new RepeatKeyPrefix("interval-repeat:", ONE_MINUTE);
+    public static final RepeatKeyPrefix INTERVAL_REPEAT = new RepeatKeyPrefix("interval-repeat:", ONE_MINUTE);
 
 }

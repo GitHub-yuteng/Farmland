@@ -29,7 +29,7 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
     /**
      * 待/审核状态
      */
-    public final static Set<OrderStatusEnum> AUDIT_STATUS_ENUMS = Stream.of(OrderStatusEnum.APPROVE).collect(Collectors.toSet());
+    public static final Set<OrderStatusEnum> AUDIT_STATUS_ENUMS = Stream.of(OrderStatusEnum.APPROVE).collect(Collectors.toSet());
 
     @Override
     public BatchExecuteResult<String> check(Long companyId, Collection<Long> orderIds) {

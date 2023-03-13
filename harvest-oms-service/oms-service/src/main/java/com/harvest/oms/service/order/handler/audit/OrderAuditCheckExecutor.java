@@ -20,9 +20,9 @@ import java.util.stream.Collectors;
 @Component
 public class OrderAuditCheckExecutor {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderAuditCheckExecutor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderAuditCheckExecutor.class);
 
-    public final static Set<OrderStatusEnum> AUDIT_STATUS_ENUMS = OrderAuditClientImpl.AUDIT_STATUS_ENUMS;
+    public static final Set<OrderStatusEnum> AUDIT_STATUS_ENUMS = OrderAuditClientImpl.AUDIT_STATUS_ENUMS;
 
     public void check(OrderInfoDO order) {
         // 可以根据不同类型检查抽取 校验链

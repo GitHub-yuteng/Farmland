@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @HarvestService(path = HarvestOmsApplications.Path.ORDER_WRITE)
 public class OrderWriteClientImpl implements OrderWriteClient {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderWriteClientImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderWriteClientImpl.class);
 
 
     @Autowired

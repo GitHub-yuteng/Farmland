@@ -17,7 +17,7 @@ public class BizLogUtils {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BizLogUtils.class);
 
-    private final static ThreadLocal<List<OperationLog>> LOG_HOLDER = new ThreadLocal<>();
+    private static final ThreadLocal<List<OperationLog>> LOG_HOLDER = new ThreadLocal<>();
 
     public static <T extends OperationLog> void log(T log) {
         if (Objects.isNull(log)) {
@@ -26,14 +26,18 @@ public class BizLogUtils {
         if (LOG_HOLDER.get() == null) {
             LOG_HOLDER.set(Lists.newArrayList());
         }
+        System.out.println(Thread.currentThread().getName());
         LOG_HOLDER.get().add(log);
+        List<OperationLog> operationLogs = LOG_HOLDER.get();
     }
 
     public static List<OperationLog> get() {
+        System.out.println(Thread.currentThread().getName());
         return LOG_HOLDER.get();
     }
 
     public static <T extends OperationLog> void clear() {
+        System.out.println(Thread.currentThread().getName());
         LOG_HOLDER.remove();
     }
 

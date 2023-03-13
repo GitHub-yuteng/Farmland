@@ -24,7 +24,7 @@ import java.util.List;
 @Component
 public class OrderSaveHandler {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderSaveHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderSaveHandler.class);
 
     @Autowired
     private OrderWriteRepositoryClient orderWriteRepositoryClient;

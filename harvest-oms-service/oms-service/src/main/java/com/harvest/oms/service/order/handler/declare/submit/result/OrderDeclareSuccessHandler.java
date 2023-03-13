@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderDeclareSuccessHandler implements OrderDeclareHandler {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderDeclareSuccessHandler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderDeclareSuccessHandler.class);
 
     @Autowired
     private OrderDeclareClient orderDeclareClient;

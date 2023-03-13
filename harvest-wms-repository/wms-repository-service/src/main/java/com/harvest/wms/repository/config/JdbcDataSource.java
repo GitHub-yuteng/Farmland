@@ -31,8 +31,8 @@ import java.sql.SQLException;
 @MapperScan(basePackages = {"com.harvest.wms.repository.mapper"}, sqlSessionFactoryRef = "wmsSqlSessionFactory")
 public class JdbcDataSource {
 
-    public final static String WMS_TRANSACTION_MANAGER = "wmsTransactionManager";
-    public final static String WMS_TRANSACTION_TEMPLATE = "wmsTransactionTemplate";
+    public static final String WMS_TRANSACTION_MANAGER = "wmsTransactionManager";
+    public static final String WMS_TRANSACTION_TEMPLATE = "wmsTransactionTemplate";
 
     @Autowired
     private DataSourceProperties dataSourceProperties;

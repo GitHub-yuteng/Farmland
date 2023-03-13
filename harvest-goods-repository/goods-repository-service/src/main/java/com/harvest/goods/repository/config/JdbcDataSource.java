@@ -31,8 +31,8 @@ import java.sql.SQLException;
 @MapperScan(basePackages = {"com.harvest.goods.repository.mapper"}, sqlSessionFactoryRef = "goodsSqlSessionFactory")
 public class JdbcDataSource {
 
-    public final static String GOODS_TRANSACTION_MANAGER = "goodsTransactionManager";
-    public final static String GOODS_TRANSACTION_TEMPLATE = "goodsTransactionTemplate";
+    public static final String GOODS_TRANSACTION_MANAGER = "goodsTransactionManager";
+    public static final String GOODS_TRANSACTION_TEMPLATE = "goodsTransactionTemplate";
 
     @Autowired
     private DataSourceProperties dataSourceProperties;

@@ -14,11 +14,11 @@ import java.util.stream.Collectors;
  **/
 public class SystemOrderTag {
 
-    private final static int START_VALUE = OrderTagSourceEnum.SYSTEM.getValue();
+    private static final int START_VALUE = OrderTagSourceEnum.SYSTEM.getValue();
 
-    private final static SystemOrderTag INSTANCE = new SystemOrderTag();
+    private static final SystemOrderTag INSTANCE = new SystemOrderTag();
 
-    public final static OrderTagDefinition VIP = build(
+    public static final OrderTagDefinition VIP = build(
             1,
             "VIP",
             "重点客户",
@@ -26,7 +26,7 @@ public class SystemOrderTag {
             "#FFB91B"
     );
 
-    public final static OrderTagDefinition BLACK_USER = build(
+    public static final OrderTagDefinition BLACK_USER = build(
             2,
             "黑",
             "黑名单用户",

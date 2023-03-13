@@ -21,7 +21,7 @@ public class OrderCompanyFeature_Test_Handler extends AbstractOrderCompanyFeatur
     /**
      * 测试公司特性处理
      */
-    private final static Set<Long> TEST_COMPANY_SET = Sets.newHashSet(0L);
+    private static final Set<Long> TEST_COMPANY_SET = Sets.newHashSet(0L);
 
     @Override
     public boolean match(Long companyId) {

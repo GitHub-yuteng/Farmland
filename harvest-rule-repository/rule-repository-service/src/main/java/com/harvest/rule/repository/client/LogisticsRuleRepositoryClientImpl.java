@@ -31,7 +31,7 @@ import java.util.stream.Collectors;
 @HarvestService(path = HarvestRuleRepositoryApplications.LogisticsPath.LOGISTICS_RULE)
 public class LogisticsRuleRepositoryClientImpl implements LogisticsRuleRepositoryClient {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(LogisticsRuleRepositoryClientImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogisticsRuleRepositoryClientImpl.class);
 
     @Autowired
     private FarmlandRuleLogisticsMatchMapper farmlandRuleLogisticsMatchMapper;

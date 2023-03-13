@@ -22,7 +22,7 @@ import java.util.Collection;
 @HarvestService(path = HarvestOmsApplications.Path.ORDER_DELIVERY)
 public class OrderDeliveryClientImpl extends AbstractBizOrderService implements OrderDeliveryClient {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderDeliveryClientImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderDeliveryClientImpl.class);
 
     @Autowired
     private CacheService cacheService;

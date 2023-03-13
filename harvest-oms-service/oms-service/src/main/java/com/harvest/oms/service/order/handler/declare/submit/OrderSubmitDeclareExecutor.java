@@ -34,7 +34,7 @@ import java.util.Objects;
 @Component
 public class OrderSubmitDeclareExecutor implements OrderDeclareProcessor {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderSubmitDeclareExecutor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderSubmitDeclareExecutor.class);
 
     @Autowired
     private BasicLogisticsClient basicLogisticsClient;

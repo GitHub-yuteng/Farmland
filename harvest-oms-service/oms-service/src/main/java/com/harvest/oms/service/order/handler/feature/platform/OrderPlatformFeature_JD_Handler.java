@@ -20,9 +20,9 @@ import java.util.Collection;
 @Component
 public class OrderPlatformFeature_JD_Handler extends AbstractOrderPlatformFeatureHandler {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderPlatformFeature_JD_Handler.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderPlatformFeature_JD_Handler.class);
 
-    private final static OrderSourceEnum JD = OrderSourceEnum.JD;
+    private static final OrderSourceEnum JD = OrderSourceEnum.JD;
 
     @Override
     public void batchFeatureFill(Long companyId, Collection<OrderInfoDO> orders) {

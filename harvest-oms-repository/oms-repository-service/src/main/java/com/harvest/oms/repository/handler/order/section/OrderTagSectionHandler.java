@@ -33,7 +33,7 @@ import java.util.stream.Collectors;
 @Component
 public class OrderTagSectionHandler implements OrderSectionRepositoryHandler<OrderSimplePO> {
 
-    private final static Integer TAG_PARTITION_SIZE = 200;
+    private static final Integer TAG_PARTITION_SIZE = 200;
 
     @Autowired
     private FarmlandOmsOrderTagMapper farmlandOmsOrderTagMapper;

@@ -16,7 +16,7 @@ public class IdGenerator {
 
     private static final Logger logger = LoggerFactory.getLogger(IdGenerator.class);
 
-    private final static String DATE_TIME_PATTERN = "yyyy:MM:dd:HH:mm";
+    private static final String DATE_TIME_PATTERN = "yyyy:MM:dd:HH:mm";
 
     private static final Pattern PATTERN_LONG_ID = Pattern.compile("^([0-9]{15})([0-9a-f]{32})([0-9a-f]{3})$");
 

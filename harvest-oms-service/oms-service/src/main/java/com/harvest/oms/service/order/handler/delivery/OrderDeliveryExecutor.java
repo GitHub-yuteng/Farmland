@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderDeliveryExecutor implements OrderDeliveryProcessor {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderDeliveryExecutor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderDeliveryExecutor.class);
 
     @Autowired
     private OrderWriteClient orderWriteClient;

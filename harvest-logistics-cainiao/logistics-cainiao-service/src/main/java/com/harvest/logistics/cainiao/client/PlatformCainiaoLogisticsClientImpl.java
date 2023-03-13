@@ -23,7 +23,7 @@ import java.util.Date;
 @HarvestService(path = HarvestCainiaoLogisticsApplications.SERVICE_PATH)
 public class PlatformCainiaoLogisticsClientImpl implements PlatformCainiaoLogisticsClient {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(PlatformCainiaoLogisticsClientImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlatformCainiaoLogisticsClientImpl.class);
 
     @Override
     public void getToken(Long companyId) {

@@ -29,12 +29,12 @@ public class HarvestExceptionMonitor implements GlobalMacroDefinition {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HarvestExceptionMonitor.class);
 
-    private final static String MONITOR_POINT = "@annotation(com.harvest.core.annotation.Monitor)";
+    private static final String MONITOR_POINT = "@annotation(com.harvest.core.annotation.Monitor)";
 
     /**
      * 监控通知线程池
      */
-    private final static Executor MONITOR_EVENT_NOTIFY_EXECUTOR = new ThreadPoolExecutor(1, 1, 0, TimeUnit.MILLISECONDS,
+    private static final Executor MONITOR_EVENT_NOTIFY_EXECUTOR = new ThreadPoolExecutor(1, 1, 0, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>(),
             new ThreadFactoryBuilder()
                     .setNameFormat("harvest-monitor-%d")

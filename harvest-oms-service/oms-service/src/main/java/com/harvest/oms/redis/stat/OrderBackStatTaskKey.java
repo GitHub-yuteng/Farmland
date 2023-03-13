@@ -23,28 +23,28 @@ public class OrderBackStatTaskKey extends OmsKeyPrefix {
     /**
      * 时间最小间隔
      */
-    public final static OrderBackStatTaskKey INTERVAL_LIMIT = new OrderBackStatTaskKey(
+    public static final OrderBackStatTaskKey INTERVAL_LIMIT = new OrderBackStatTaskKey(
             KeyModePrefix.OMS.ORDER_BACK_STAT_TASK + "interval-limit:", ONE_MINUTE
     );
 
     /**
      * 缺货标记后台任务
      */
-    public final static OrderBackStatTaskKey STOCK_LACK_KEY = new OrderBackStatTaskKey(
+    public static final OrderBackStatTaskKey STOCK_LACK_KEY = new OrderBackStatTaskKey(
             KeyModePrefix.OMS.ORDER_BACK_STAT_TASK + OrderBackStatTask.BackStatTaskEnum.STOCK_LACK.taskName, ONE_MINUTE
     );
 
     /**
      * 物流追踪后台任务
      */
-    public final static OrderBackStatTaskKey LOGISTICS_TRACKING_KEY = new OrderBackStatTaskKey(
+    public static final OrderBackStatTaskKey LOGISTICS_TRACKING_KEY = new OrderBackStatTaskKey(
             KeyModePrefix.OMS.ORDER_BACK_STAT_TASK + OrderBackStatTask.BackStatTaskEnum.LOGISTICS_TRACKING.taskName, ONE_MINUTE
     );
 
     /**
      * 订单合单标记后台任务
      */
-    public final static OrderBackStatTaskKey MERGE_TAG_MARKING_KEY = new OrderBackStatTaskKey(
+    public static final OrderBackStatTaskKey MERGE_TAG_MARKING_KEY = new OrderBackStatTaskKey(
             KeyModePrefix.OMS.ORDER_BACK_STAT_TASK + OrderBackStatTask.BackStatTaskEnum.MERGE_TAG_MARKING.taskName, ONE_MINUTE
     );
 

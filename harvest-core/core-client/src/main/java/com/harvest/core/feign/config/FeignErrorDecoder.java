@@ -15,7 +15,7 @@ import java.util.Map;
 @Configuration
 public class FeignErrorDecoder implements ErrorDecoder {
 
-    private final static Default DECODER = new Default();
+    private static final Default DECODER = new Default();
 
     @Override
     public Exception decode(final String methodKey, final Response response) {

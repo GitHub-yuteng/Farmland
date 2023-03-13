@@ -20,7 +20,7 @@ import java.sql.SQLException;
 @MappedJdbcTypes(JdbcType.VARCHAR)
 public class ObjectJsonHandler implements TypeHandler<Object> {
 
-    private final static String LIST_JSON_START = "[";
+    private static final String LIST_JSON_START = "[";
 
     private Class<?> clazz;
 

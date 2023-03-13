@@ -17,7 +17,7 @@ import java.util.concurrent.*;
  **/
 public abstract class AbstractBackTaskProcessor {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(AbstractBackTaskProcessor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AbstractBackTaskProcessor.class);
 
     /**
      * 最小执行间隔时间 默认10s

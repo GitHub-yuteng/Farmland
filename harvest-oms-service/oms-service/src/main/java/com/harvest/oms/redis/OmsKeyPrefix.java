@@ -10,7 +10,7 @@ import com.harvest.core.service.redis.prefix.KeyModePrefix;
  **/
 public class OmsKeyPrefix extends BaseKeyPrefix {
 
-    protected final static String OMS_PREFIX = KeyModePrefix.OMS_PREFIX;
+    protected static final String OMS_PREFIX = KeyModePrefix.OMS_PREFIX;
 
     public OmsKeyPrefix(String keyPrefix) {
         super(keyPrefix);
@@ -33,7 +33,7 @@ public class OmsKeyPrefix extends BaseKeyPrefix {
     /**
      * 订单全局唯一锁
      */
-    public final static OmsKeyPrefix ORDER_UNIQUE_KEY = new OmsKeyPrefix(
+    public static final OmsKeyPrefix ORDER_UNIQUE_KEY = new OmsKeyPrefix(
             KeyModePrefix.OMS.ORDER_UNIQUE + ":", TEN_SECONDS
     );
 

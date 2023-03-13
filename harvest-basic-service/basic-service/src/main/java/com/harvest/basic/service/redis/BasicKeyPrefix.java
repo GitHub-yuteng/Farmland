@@ -10,7 +10,7 @@ import com.harvest.core.service.redis.prefix.KeyModePrefix;
  **/
 public class BasicKeyPrefix extends BaseKeyPrefix {
 
-    protected final static String BASIC_PREFIX = KeyModePrefix.BASIC_PREFIX;
+    protected static final String BASIC_PREFIX = KeyModePrefix.BASIC_PREFIX;
 
     public BasicKeyPrefix(String keyPrefix) {
         super(keyPrefix);

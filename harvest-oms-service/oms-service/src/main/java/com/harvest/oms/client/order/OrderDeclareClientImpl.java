@@ -44,7 +44,7 @@ import java.util.stream.Collectors;
 @HarvestService(path = HarvestOmsApplications.Path.ORDER_DECLARE)
 public class OrderDeclareClientImpl extends AbstractBizOrderService implements OrderDeclareClient {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderDeclareClientImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderDeclareClientImpl.class);
 
     @Autowired
     private OrderDeclareRepositoryClient orderDeclareRepositoryClient;

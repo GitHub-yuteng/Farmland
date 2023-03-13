@@ -17,7 +17,7 @@ public class ContextHolder extends CompanyId {
 
     private static final long serialVersionUID = -5962642042152648023L;
 
-    private final static ThreadLocal<Context> CONTEXT = new ThreadLocal<>();
+    private static final ThreadLocal<Context> CONTEXT = new ThreadLocal<>();
 
     public static Context getContext() {
 

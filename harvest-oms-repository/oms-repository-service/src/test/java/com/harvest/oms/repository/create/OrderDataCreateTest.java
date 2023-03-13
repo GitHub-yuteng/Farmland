@@ -26,7 +26,7 @@ import java.util.concurrent.*;
 @SpringBootTest
 public class OrderDataCreateTest {
 
-    private final static Executor EXECUTOR = new ThreadPoolExecutor(10, 20, 2000, TimeUnit.MILLISECONDS,
+    private static final Executor EXECUTOR = new ThreadPoolExecutor(10, 20, 2000, TimeUnit.MILLISECONDS,
             new SynchronousQueue<>(),
             new ThreadFactoryBuilder().setNameFormat("harvest-oms-create-order-%d").build(),
             new ThreadPoolExecutor.CallerRunsPolicy());

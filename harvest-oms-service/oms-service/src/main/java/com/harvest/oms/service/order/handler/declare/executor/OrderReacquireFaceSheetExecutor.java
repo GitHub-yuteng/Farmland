@@ -22,17 +22,17 @@ import java.util.concurrent.*;
 @Component
 public class OrderReacquireFaceSheetExecutor {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderReacquireFaceSheetExecutor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderReacquireFaceSheetExecutor.class);
 
     /**
      * 最多允许20个线程同时执行，防止并发量高时导致oom
      */
-    private final static Semaphore SEMAPHORE = new Semaphore(20);
+    private static final Semaphore SEMAPHORE = new Semaphore(20);
 
     /**
      * 获取面单异步线程池
      */
-    private final static Executor REACQUIRE_FACE_SHEET_EXECUTOR = new ThreadPoolExecutor(25, 25, 2000, TimeUnit.MILLISECONDS,
+    private static final Executor REACQUIRE_FACE_SHEET_EXECUTOR = new ThreadPoolExecutor(25, 25, 2000, TimeUnit.MILLISECONDS,
             new LinkedBlockingDeque<>(),
             new ThreadFactoryBuilder()
                     .setNameFormat("harvest-oms-reacquire-facesheet-%d")

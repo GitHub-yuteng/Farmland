@@ -25,7 +25,7 @@ import java.util.concurrent.*;
 @SpringBootTest
 public class WarehouseDataCreateTest {
 
-    private final static Executor EXECUTOR = new ThreadPoolExecutor(10, 10, 2000, TimeUnit.MILLISECONDS,
+    private static final Executor EXECUTOR = new ThreadPoolExecutor(10, 10, 2000, TimeUnit.MILLISECONDS,
             new SynchronousQueue<>(),
             new ThreadFactoryBuilder().setNameFormat("harvest-wms-create-%d").build(),
             new ThreadPoolExecutor.CallerRunsPolicy());

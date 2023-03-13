@@ -30,8 +30,8 @@ import javax.sql.DataSource;
 @MapperScan(basePackages = {"com.harvest.oms.repository.mapper"}, sqlSessionFactoryRef = "omsSqlSessionFactory")
 public class JdbcDataSource {
 
-    public final static String OMS_TRANSACTION_MANAGER = "omsTransactionManager";
-    public final static String OMS_TRANSACTION_TEMPLATE = "omsTransactionTemplate";
+    public static final String OMS_TRANSACTION_MANAGER = "omsTransactionManager";
+    public static final String OMS_TRANSACTION_TEMPLATE = "omsTransactionTemplate";
 
     @Autowired
     private DataSourceProperties dataSourceProperties;

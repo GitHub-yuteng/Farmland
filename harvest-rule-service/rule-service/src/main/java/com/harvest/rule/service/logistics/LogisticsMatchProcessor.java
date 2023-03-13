@@ -22,7 +22,7 @@ import java.util.Objects;
 @Component
 public class LogisticsMatchProcessor extends RuleContext<LogisticsRule, LogisticsRuleCondition, LogisticsRuleMatch> {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(LogisticsMatchProcessor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogisticsMatchProcessor.class);
 
     @Autowired
     private LogisticsRuleClient logisticsRuleClient;

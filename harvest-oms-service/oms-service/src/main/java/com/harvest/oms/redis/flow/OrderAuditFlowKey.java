@@ -21,7 +21,7 @@ public class OrderAuditFlowKey extends OmsKeyPrefix {
     /**
      * 订单审核
      */
-    public final static OrderAuditFlowKey ORDER_AUDIT_KEY = new OrderAuditFlowKey(
+    public static final OrderAuditFlowKey ORDER_AUDIT_KEY = new OrderAuditFlowKey(
             KeyModePrefix.OMS.ORDER_AUDIT_FLOW, ONE_MINUTE
     );
 

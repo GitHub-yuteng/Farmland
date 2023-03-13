@@ -12,25 +12,25 @@ import java.util.Random;
 @Data
 public abstract class BaseKeyPrefix implements KeyPrefix {
 
-    private final static Random RANDOM = new Random();
+    private static final Random RANDOM = new Random();
 
-    protected final static int TEN_SECONDS  = 10;
-    protected final static int ONE_MINUTE   = 60;
-    protected final static int ONE_HOUR     = 60 * 60;
-    protected final static int ONE_DAY      = 60 * 60 * 24;
-    protected final static int ONE_WEEK     = 60 * 60 * 24 * 7;
-    protected final static int ONE_MONTH    = 60 * 60 * 24 * 30;
-    protected final static int TWO_MONTH    = 60 * 60 * 24 * 30 * 2;
+    protected static final int TEN_SECONDS  = 10;
+    protected static final int ONE_MINUTE   = 60;
+    protected static final int ONE_HOUR     = 60 * 60;
+    protected static final int ONE_DAY      = 60 * 60 * 24;
+    protected static final int ONE_WEEK     = 60 * 60 * 24 * 7;
+    protected static final int ONE_MONTH    = 60 * 60 * 24 * 30;
+    protected static final int TWO_MONTH    = 60 * 60 * 24 * 30 * 2;
 
     /**
      * 分隔符
      */
-    private final static String SPLIT = ":";
+    private static final String SPLIT = ":";
 
     /**
      * lock tag
      */
-    private final static String LOCK = "-lock:";
+    private static final String LOCK = "-lock:";
 
     /**
      * key前缀

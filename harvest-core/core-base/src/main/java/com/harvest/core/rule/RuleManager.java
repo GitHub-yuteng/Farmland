@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @Component
 public class RuleManager {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(RuleManager.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(RuleManager.class);
 
     @Autowired(required = false)
     private Set<RuleMatcher<? extends RuleSection, ?>> matchers;

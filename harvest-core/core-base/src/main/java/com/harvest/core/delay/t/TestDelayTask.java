@@ -13,7 +13,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  **/
 public class TestDelayTask {
 
-    private final static AtomicInteger COUNT = new AtomicInteger();
+    private static final AtomicInteger COUNT = new AtomicInteger();
 
     /**
      * example: 步进 step 为 2s 失败重试5次 {@link com.harvest.core.delay.DelayTask#getDelay(java.util.concurrent.TimeUnit)}

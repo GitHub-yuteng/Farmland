@@ -22,7 +22,7 @@ import java.util.Collection;
 @Component
 public class OrderCompanyFeature_Farmland_Handler extends AbstractOrderCompanyFeatureHandler implements OrderCompanyFeatureHandler {
 
-    public final static Long COMPANY_FARMLAND_ID = CompanyFeatureEnum.Farmalnd.getCompanyId();
+    public static final Long COMPANY_FARMLAND_ID = CompanyFeatureEnum.Farmalnd.getCompanyId();
 
     @Override
     public boolean match(Long companyId) {

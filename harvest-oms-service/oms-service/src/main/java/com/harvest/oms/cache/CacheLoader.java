@@ -28,14 +28,14 @@ import java.util.concurrent.TimeUnit;
  **/
 public class CacheLoader {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(CacheLoader.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CacheLoader.class);
 
-    private final static int DEFAULT_INITIAL_CAPACITY = 64;
+    private static final int DEFAULT_INITIAL_CAPACITY = 64;
 
     /**
      * 专供异步获取缓存的线程池
      */
-    private final static Executor CACHE_LOADER_READ_EXECUTOR = new ThreadPoolExecutor(20, 20, 2000, TimeUnit.MILLISECONDS,
+    private static final Executor CACHE_LOADER_READ_EXECUTOR = new ThreadPoolExecutor(20, 20, 2000, TimeUnit.MILLISECONDS,
             new SynchronousQueue<>(),
             new ThreadFactoryBuilder()
                     .setNameFormat("cache-loader-reading-%d")
@@ -46,7 +46,7 @@ public class CacheLoader {
     /**
      * 公司对应仓库缓存
      */
-    public final static LoadingCache<Long, Collection<WarehouseSimplePO>> COMPANY_ALL_WAREHOUSE_CACHE = Caffeine.newBuilder()
+    public static final LoadingCache<Long, Collection<WarehouseSimplePO>> COMPANY_ALL_WAREHOUSE_CACHE = Caffeine.newBuilder()
             .initialCapacity(DEFAULT_INITIAL_CAPACITY)
             .expireAfterWrite(10, TimeUnit.MINUTES)
             .build(companyId -> SpringHelper.getBean(WarehouseReadClient.class).getByCompanyId(companyId));
@@ -54,7 +54,7 @@ public class CacheLoader {
     /**
      * 缓存仓库信息，只支持单个warehouseId查询缓存
      */
-    public final static LoadingCache<WarehouseKey, WarehouseDO> COMPANY_WAREHOUSE_CACHE = Caffeine.newBuilder()
+    public static final LoadingCache<WarehouseKey, WarehouseDO> COMPANY_WAREHOUSE_CACHE = Caffeine.newBuilder()
             .initialCapacity(DEFAULT_INITIAL_CAPACITY)
             .expireAfterWrite(10, TimeUnit.MINUTES)
             .build(warehouseKey -> SpringHelper.getBean(WarehouseReadClient.class).get(warehouseKey.getCompanyId(), warehouseKey.getWarehouseId()));

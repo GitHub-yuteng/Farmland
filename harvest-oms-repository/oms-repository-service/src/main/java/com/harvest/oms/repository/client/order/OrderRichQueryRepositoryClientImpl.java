@@ -34,22 +34,22 @@ import java.util.concurrent.*;
 @HarvestService(value = HarvestOmsRepositoryApplications.SERVICE_NAME, path = HarvestOmsRepositoryApplications.Path.ORDER_RICH)
 public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryRepositoryClient {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderRichQueryRepositoryClientImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderRichQueryRepositoryClientImpl.class);
 
     /**
      * 查询超时时常警告
      */
-    private final static long TIME_OUT = 1000L;
+    private static final long TIME_OUT = 1000L;
 
     /**
      * 如果订单数超过200则采用并发查询，提高查询效率
      */
-    private final static int ORDER_NUMS = 200;
+    private static final int ORDER_NUMS = 200;
 
     /**
      * 订单扩展信息查询线程池
      */
-    private final static Executor OMS_SECTION_READ_EXECUTOR = new ThreadPoolExecutor(100, 100, 2000, TimeUnit.MILLISECONDS,
+    private static final Executor OMS_SECTION_READ_EXECUTOR = new ThreadPoolExecutor(100, 100, 2000, TimeUnit.MILLISECONDS,
             new SynchronousQueue<>(),
             new ThreadFactoryBuilder()
                     .setNameFormat("harvest-oms-section-repository-reading-%d")

@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderCancelDeclareExecutor {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderCancelDeclareExecutor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderCancelDeclareExecutor.class);
 
     /**
      * 取消申报

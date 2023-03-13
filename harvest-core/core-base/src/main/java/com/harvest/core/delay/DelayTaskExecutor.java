@@ -36,7 +36,7 @@ public class DelayTaskExecutor {
     /**
      * 延迟队列
      */
-    private final static DelayQueue<DelayTask> DELAY_TASK_QUEUE = new DelayQueue<>();
+    private static final DelayQueue<DelayTask> DELAY_TASK_QUEUE = new DelayQueue<>();
 
     /**
      * 延迟任务执行线程池

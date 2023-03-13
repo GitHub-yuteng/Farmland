@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class OrderRefreshDeclareExecutor {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(OrderRefreshDeclareExecutor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(OrderRefreshDeclareExecutor.class);
 
     public void refresh(Long companyId, Long orderId) {
         LOGGER.info("刷新申报信息!");

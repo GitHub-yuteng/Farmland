@@ -36,7 +36,7 @@ public class OrderLogisticsRuleMatchEvent extends AbstractMatchEvent implements 
     public void match(Long companyId, OrderInfoDO order) {
         LogisticsRuleCondition condition = new LogisticsRuleCondition();
         LogisticsRuleMatch match = SpringHelper.getBean(OrderMatchClient.class).matchLogistics(companyId, condition);
-        if(Objects.isNull(match)){
+        if (Objects.isNull(match)) {
             LOGGER.error("");
         }
     }

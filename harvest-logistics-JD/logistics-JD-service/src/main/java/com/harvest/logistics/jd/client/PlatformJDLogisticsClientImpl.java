@@ -16,7 +16,7 @@ import org.slf4j.LoggerFactory;
 @HarvestService(path = HarvestJDLogisticsApplications.SERVICE_PATH)
 public class PlatformJDLogisticsClientImpl implements PlatformJDLogisticsClient {
 
-    private final static Logger LOGGER = LoggerFactory.getLogger(PlatformJDLogisticsClientImpl.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(PlatformJDLogisticsClientImpl.class);
 
     @Override
     public void getToken(Long companyId) {

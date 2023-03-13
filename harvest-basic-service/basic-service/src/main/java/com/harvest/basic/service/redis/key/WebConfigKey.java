@@ -18,6 +18,6 @@ public class WebConfigKey extends BasicKeyPrefix {
         super(keyPrefix, expireSeconds);
     }
 
-    public final static WebConfigKey WEB_CONFIG_KEY = new WebConfigKey(KeyModePrefix.Basic.WEBCONFIG, ONE_HOUR);
+    public static final WebConfigKey WEB_CONFIG_KEY = new WebConfigKey(KeyModePrefix.Basic.WEBCONFIG, ONE_HOUR);
 
 }

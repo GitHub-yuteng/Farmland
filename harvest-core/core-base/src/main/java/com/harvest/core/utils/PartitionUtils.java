@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  **/
 public class PartitionUtils {
 
-    private final static Integer DEFAULT_PARTITION_SIZE = 200;
+    private static final Integer DEFAULT_PARTITION_SIZE = 200;
 
     /**
      * 分批执行器: 比如需要查询1w条数据。如果一次性查询的话可能导致查询效率低或者直接报错（ sql 中in条件可能存在条数限制 ）
