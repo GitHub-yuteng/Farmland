@@ -5,6 +5,7 @@ import com.harvest.core.log.OperationLog;
 import com.harvest.core.service.biz.BizOperationLog;
 import com.harvest.core.service.utils.BizLogUtils;
 import org.apache.commons.collections4.CollectionUtils;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
@@ -42,7 +43,7 @@ public class OperationLogAspect implements InitializingBean {
 
     @Order(-1)
     @After(value = "@annotation(com.harvest.core.annotation.BizLog)")
-    public void execute(ProceedingJoinPoint joinPoint) throws Throwable {
+    public void execute(JoinPoint joinPoint) throws Throwable {
         try {
             List<OperationLog> operationLogs = BizLogUtils.get();
             if (CollectionUtils.isEmpty(operationLogs)) {
