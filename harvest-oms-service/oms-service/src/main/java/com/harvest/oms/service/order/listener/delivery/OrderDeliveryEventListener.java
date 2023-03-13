@@ -1,6 +1,7 @@
 package com.harvest.oms.service.order.listener.delivery;
 
 import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.service.order.listener.OrderEventListener;
 import org.springframework.stereotype.Component;
 
@@ -11,6 +12,11 @@ import org.springframework.stereotype.Component;
  **/
 @Component
 public class OrderDeliveryEventListener implements OrderEventListener {
+
+    @Override
+    public OrderEventEnum type() {
+        return OrderEventEnum.DELIVERY;
+    }
 
     /**
      * 订单发货

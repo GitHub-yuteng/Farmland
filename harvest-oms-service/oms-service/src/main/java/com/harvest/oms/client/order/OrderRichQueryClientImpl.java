@@ -243,7 +243,6 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
      * @return
      */
     private Map<Long, List<OrderItemSimplePO>> partitionBatch(Long companyId, List<Long> orderIds) {
-        // extension 大字段 影响IO 在丰富查询时考虑查询效率则延迟查出，判断存在对应的 tagValue 单独取对应的 扩展信息进行处理
         return PartitionUtils.partitionMapExecute(orderIds, ORDER_NUMS, f -> orderReadClient.mapOrderItemByOrderIds(companyId, f));
     }
 

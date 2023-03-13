@@ -6,12 +6,15 @@ import com.harvest.oms.client.order.OrderReadClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.service.order.listener.OrderEventListener;
+import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,6 +33,13 @@ public class OrderEventPublisher {
 
     @Autowired
     private OrderReadClient orderReadClient;
+
+    public List<OrderEventListener> getListenersByEvent(OrderEventEnum orderEventEnum) {
+        if (CollectionUtils.isEmpty(orderEventListeners) || Objects.isNull(orderEventEnum)) {
+            return Collections.emptyList();
+        }
+        return orderEventListeners.stream().filter(listener -> listener.type().equals(orderEventEnum)).collect(Collectors.toList());
+    }
 
     /**
      * 异步执行监听事件
@@ -56,7 +66,7 @@ public class OrderEventPublisher {
         this.publish(companyId, order, type);
     }
 
-    public void publish(long companyId, OrderInfoDO order, OrderEventEnum type) {
+    private void publish(long companyId, OrderInfoDO order, OrderEventEnum type) {
         this.doPublish(companyId, order, type);
     }
 
