@@ -25,6 +25,9 @@ public class SubmitAuditReturnRequest extends BatchId implements Serializable {
     @ApiModelProperty("强制审核")
     private boolean force;
 
+    @ApiModelProperty("备注")
+    private String remark;
+
     public static class SubmitAuditReturnItemRequest {
 
     }

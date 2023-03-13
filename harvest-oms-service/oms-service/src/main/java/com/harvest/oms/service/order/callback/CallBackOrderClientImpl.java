@@ -6,6 +6,7 @@ import com.harvest.core.context.SpringHelper;
 import com.harvest.oms.client.CallBackOrderClient;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.client.order.OrderAuditClient;
+import com.harvest.oms.client.order.OrderDeliveryClient;
 import com.harvest.oms.request.order.audit.SubmitAuditReturnRequest;
 
 import java.util.Collection;
@@ -20,7 +21,6 @@ public class CallBackOrderClientImpl implements CallBackOrderClient {
 
     @Override
     public BatchExecuteResult<String> returnAudit(Long companyId, Collection<Long> orderIds) {
-        System.out.println("直接打回审核");
         return SpringHelper.getBean(OrderAuditClient.class).returnAudit(companyId, orderIds);
     }
 
@@ -62,5 +62,10 @@ public class CallBackOrderClientImpl implements CallBackOrderClient {
     @Override
     public BatchExecuteResult<String> waitShip(Long companyId, Collection<Long> orderIds) {
         return null;
+    }
+
+    @Override
+    public BatchExecuteResult<String> shipped(Long companyId, Collection<Long> orderIds) {
+        return SpringHelper.getBean(OrderDeliveryClient.class).delivery(companyId, orderIds);
     }
 }

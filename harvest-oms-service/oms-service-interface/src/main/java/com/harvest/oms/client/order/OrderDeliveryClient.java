@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * @Author: Alodi
@@ -21,6 +21,6 @@ public interface OrderDeliveryClient extends GlobalMacroDefinition {
 
     @ApiOperation("订单发货")
     @PostMapping("/delivery")
-    BatchExecuteResult<String> delivery(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
+    BatchExecuteResult<String> delivery(@RequestParam(COMPANY_ID) Long companyId, @RequestBody Collection<Long> orderIds);
 
 }

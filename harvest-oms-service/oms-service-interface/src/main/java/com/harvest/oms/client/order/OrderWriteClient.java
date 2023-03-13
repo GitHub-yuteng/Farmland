@@ -27,4 +27,5 @@ public interface OrderWriteClient extends GlobalMacroDefinition {
 
     @PostMapping("/updateOrderStatus")
     void updateOrderStatus(@RequestParam(COMPANY_ID) Long companyId, @RequestBody OrderInfoDO order);
+
 }

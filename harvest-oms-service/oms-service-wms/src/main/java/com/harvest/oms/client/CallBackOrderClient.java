@@ -21,7 +21,7 @@ import java.util.Collection;
 public interface CallBackOrderClient extends GlobalMacroDefinition {
 
     @ApiOperation("并发打回订单审核")
-    @PostMapping("/return/batch/audit")
+    @PostMapping("/batch/return/audit")
     BatchExecuteResult<String> returnAudit(@RequestParam(COMPANY_ID) Long companyId, @RequestBody Collection<Long> orderIds);
 
     @ApiOperation("并发打回订单审核带提交项目")
@@ -55,4 +55,8 @@ public interface CallBackOrderClient extends GlobalMacroDefinition {
     @ApiOperation("推送待发货状态")
     @PostMapping("/batch/waitShip")
     BatchExecuteResult<String> waitShip(@RequestParam(COMPANY_ID) Long companyId, @RequestBody Collection<Long> orderIds);
+
+    @ApiOperation("推送已发货状态")
+    @PostMapping("/batch/shipped")
+    BatchExecuteResult<String> shipped(@RequestParam(COMPANY_ID) Long companyId, @RequestBody Collection<Long> orderIds);
 }

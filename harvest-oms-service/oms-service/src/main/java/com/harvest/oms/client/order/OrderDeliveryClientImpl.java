@@ -12,7 +12,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.List;
+import java.util.Collection;
 
 /**
  * @Author: Alodi
@@ -28,7 +28,7 @@ public class OrderDeliveryClientImpl extends AbstractBizOrderService implements 
     private CacheService cacheService;
 
     @Override
-    public BatchExecuteResult<String> delivery(Long companyId, List<Long> orderIds) {
+    public BatchExecuteResult<String> delivery(Long companyId, Collection<Long> orderIds) {
         if (CollectionUtils.isEmpty(orderIds)) {
             return BatchExecuteResult.empty();
         }
