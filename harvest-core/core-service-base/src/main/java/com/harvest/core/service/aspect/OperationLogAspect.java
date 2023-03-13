@@ -10,6 +10,7 @@ import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -39,6 +40,7 @@ public class OperationLogAspect implements InitializingBean {
                 .forEach(log -> LOG_MAP.put(log.match(), log));
     }
 
+    @Order(-1)
     @After(value = "@annotation(com.harvest.core.annotation.BizLog)")
     public void execute(ProceedingJoinPoint joinPoint) throws Throwable {
         try {

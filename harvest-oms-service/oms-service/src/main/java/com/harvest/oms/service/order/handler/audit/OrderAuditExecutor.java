@@ -1,12 +1,16 @@
 package com.harvest.oms.service.order.handler.audit;
 
+import com.harvest.core.annotation.BizLog;
 import com.harvest.core.context.SpringHelper;
 import com.harvest.core.enums.oms.OrderStatusEnum;
+import com.harvest.core.log.AbstractOperationLog;
 import com.harvest.core.service.mq.ProducerMessageService;
 import com.harvest.core.service.mq.topic.MessageTopic;
+import com.harvest.core.service.utils.BizLogUtils;
 import com.harvest.oms.client.order.OrderWriteClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.audit.OrderAuditTransferDTO;
+import com.harvest.oms.domain.order.log.OrderOperationLog;
 import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.request.order.audit.SubmitAuditRequest;
 import com.harvest.oms.request.order.warehouse.SubmitWmsOrderMessage;
@@ -66,11 +70,19 @@ public class OrderAuditExecutor implements OrderAuditProcessor {
         return transfer;
     }
 
+    @BizLog
     @Override
     public void processAudit(Long companyId, SubmitAuditRequest request, OrderAuditTransferDTO transfer) {
         OrderInfoDO order = request.getOrder();
-
         orderWriteClient.updateOrderStatus(companyId, order);
+        this.log(order);
+    }
+
+    private void log(OrderInfoDO order) {
+        OrderOperationLog log = OrderOperationLog.init();
+        log.setOrderNo(order.getOrderNo());
+        log.setOperationType(AbstractOperationLog.OperationType.MODIFY);
+        BizLogUtils.log(log);
     }
 
     @Override

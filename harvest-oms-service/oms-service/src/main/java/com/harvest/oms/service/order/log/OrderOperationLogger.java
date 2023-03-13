@@ -28,6 +28,7 @@ public class OrderOperationLogger implements BizOperationLog<OrderOperationLog> 
      */
     @Override
     public void store(OperationLog log) {
-
+        OrderOperationLog operationLog = (OrderOperationLog) log;
+        System.out.println(operationLog.toString());
     }
 }

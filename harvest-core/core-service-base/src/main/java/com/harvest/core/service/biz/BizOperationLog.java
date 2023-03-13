@@ -9,7 +9,6 @@ import com.harvest.core.log.OperationLog;
  **/
 public interface BizOperationLog<T extends OperationLog> {
 
-
     /**
      * 匹配
      */
