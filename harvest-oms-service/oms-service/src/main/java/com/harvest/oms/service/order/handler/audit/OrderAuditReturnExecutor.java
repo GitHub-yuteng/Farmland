@@ -1,5 +1,6 @@
 package com.harvest.oms.service.order.handler.audit;
 
+import com.harvest.core.annotation.BizLog;
 import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.core.service.mq.ProducerMessageService;
 import com.harvest.oms.client.order.OrderWriteClient;
@@ -36,11 +37,11 @@ public class OrderAuditReturnExecutor {
      * @param companyId
      * @param request
      */
+    @BizLog
     public void exec(Long companyId, SubmitAuditReturnRequest request) {
         OrderInfoDO order = request.getOrder();
         order.setOrderStatus(OrderStatusEnum.APPROVE);
         orderWriteClient.updateOrderStatus(companyId, order);
     }
-
 
 }
