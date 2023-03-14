@@ -75,13 +75,16 @@ public class OrderAuditExecutor implements OrderAuditProcessor {
     public void processAudit(Long companyId, SubmitAuditRequest request, OrderAuditTransferDTO transfer) {
         OrderInfoDO order = request.getOrder();
         orderWriteClient.updateOrderStatus(companyId, order);
+        System.out.println(Thread.currentThread().getName());
         this.log(order);
+        System.out.println(Thread.currentThread().getName());
     }
 
     private void log(OrderInfoDO order) {
         OrderOperationLog log = OrderOperationLog.init();
         log.setOrderNo(order.getOrderNo());
         log.setOperationType(AbstractOperationLog.OperationType.MODIFY);
+        System.out.println(Thread.currentThread().getName());
         BizLogUtils.log(log);
     }
 
