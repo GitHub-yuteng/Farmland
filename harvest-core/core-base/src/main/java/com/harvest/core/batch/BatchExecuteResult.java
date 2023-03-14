@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 import java.util.StringJoiner;
@@ -63,7 +62,7 @@ public class BatchExecuteResult<T> {
 
     @Data
     @EqualsAndHashCode(callSuper = true)
-    public static class ReasonMap<T> extends BatchId implements Serializable {
+    public static class ReasonMap<T> extends BatchId {
 
         private static final long serialVersionUID = -5616278702464428044L;
 
