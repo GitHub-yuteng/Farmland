@@ -10,7 +10,7 @@ import java.util.Objects;
 
 /**
  * @Author: Alodi
- * @Date: 2023/3/13 3:27 PM
+ * @Date: 2023/3/13 3: 27 PM
  * @Description: TODO
  **/
 public class BizLogUtils {
@@ -26,18 +26,19 @@ public class BizLogUtils {
         if (LOG_HOLDER.get() == null) {
             LOG_HOLDER.set(Lists.newArrayList());
         }
-        System.out.println(Thread.currentThread().getName());
+        System.out.println("add: " + Thread.currentThread().getName());
         LOG_HOLDER.get().add(log);
         List<OperationLog> operationLogs = LOG_HOLDER.get();
+        System.out.println("logs: " + Thread.currentThread().getName());
     }
 
     public static List<OperationLog> get() {
-        System.out.println(Thread.currentThread().getName());
+        System.out.println("get: " + Thread.currentThread().getName());
         return LOG_HOLDER.get();
     }
 
     public static <T extends OperationLog> void clear() {
-        System.out.println(Thread.currentThread().getName());
+        System.out.println("clear: " + Thread.currentThread().getName());
         LOG_HOLDER.remove();
     }
 

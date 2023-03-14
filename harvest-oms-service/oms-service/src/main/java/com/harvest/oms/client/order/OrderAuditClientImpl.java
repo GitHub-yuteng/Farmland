@@ -56,7 +56,7 @@ public class OrderAuditClientImpl extends AbstractBizOrderService implements Ord
 
     @Override
     public BatchExecuteResult<String> auditWithSubmit(Long companyId, Collection<SubmitAuditRequest> requests) {
-        if (CollectionUtils.isEmpty(requests) || requests.parallelStream().allMatch(request -> Objects.isNull(request.getId()))) {
+        if (CollectionUtils.isEmpty(requests) || requests.stream().allMatch(request -> Objects.isNull(request.getId()))) {
             return BatchExecuteResult.empty();
         }
         Map<Long, SubmitAuditRequest> orderAuditSubmitMap = requests.stream().collect(Collectors.toMap(SubmitAuditRequest::getId, Function.identity(), (k1, k2) -> k1));
