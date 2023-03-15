@@ -4,7 +4,7 @@ import com.harvest.core.monitor.enums.MemberContactEnum;
 import com.harvest.core.monitor.enums.MonitorEventEnum;
 import com.harvest.core.monitor.notify.MonitorNotifyProcessor;
 import com.harvest.core.monitor.notify.ding.DingTalkNotifyProcessor;
-import com.harvest.core.monitor.notify.feishu.FeiShuNotifyProcessor;
+import com.harvest.core.monitor.notify.feishu.FlyBookNotifyProcessor;
 
 import java.lang.annotation.*;
 
@@ -38,7 +38,7 @@ public @interface Monitor {
      */
     Class<? extends MonitorNotifyProcessor>[] processors() default {
             DingTalkNotifyProcessor.class,
-            FeiShuNotifyProcessor.class
+            FlyBookNotifyProcessor.class
     };
 
     /**

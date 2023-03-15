@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Collections;
-import java.util.Map;
 
 /**
  * @Author: Alodi
@@ -16,7 +15,7 @@ import java.util.Map;
  * @Description: TODO
  **/
 @Component
-public class FeiShuNotifyProcessor implements MonitorNotifyProcessor {
+public class FlyBookNotifyProcessor implements MonitorNotifyProcessor {
 
     private static final String WEB_HOOK = "https://open.feishu.cn/open-apis/bot/v2/hook/6c0f90a1-44cc-4802-8bac-1538e9685e3d";
 
@@ -44,6 +43,6 @@ public class FeiShuNotifyProcessor implements MonitorNotifyProcessor {
         HttpHeaders headers = new HttpHeaders();
         headers.put(HttpHeaders.CONTENT_TYPE, Collections.singletonList("application/json;charset=UTF-8"));
         HttpEntity<FlyBook> httpEntity = new HttpEntity<>(flyBook, headers);
-        REST_TEMPLATE.postForEntity(WEB_HOOK, httpEntity, Map.class);
+        REST_TEMPLATE.postForEntity(WEB_HOOK, httpEntity, String.class);
     }
 }

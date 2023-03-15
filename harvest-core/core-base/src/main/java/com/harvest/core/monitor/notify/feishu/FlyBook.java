@@ -1,6 +1,8 @@
 package com.harvest.core.monitor.notify.feishu;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 
 import java.io.Serializable;
 
@@ -9,7 +11,9 @@ import java.io.Serializable;
  * @Date: 2023/3/15 4:21 PM
  * @Description: TODO
  **/
+@Data
 @Builder
+@AllArgsConstructor
 public class FlyBook implements Serializable {
 
     private static final long serialVersionUID = -2751717760075575132L;
@@ -18,7 +22,9 @@ public class FlyBook implements Serializable {
 
     private MarkDown content;
 
+    @Data
     @Builder
+    @AllArgsConstructor
     public static class MarkDown implements Serializable {
 
         private static final long serialVersionUID = -5558448257494802930L;
