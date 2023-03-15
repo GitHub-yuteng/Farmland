@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @Date: 2023/1/7 10:11 PM
  * @Description: TODO
  **/
-public interface IOrderValueMap extends Serializable {
+public interface OrderValueMap extends Serializable {
 
     /**
      * 值类型

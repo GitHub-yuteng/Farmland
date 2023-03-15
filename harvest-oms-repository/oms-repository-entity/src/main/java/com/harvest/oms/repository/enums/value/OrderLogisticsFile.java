@@ -12,7 +12,7 @@ import java.util.List;
  * @Description: 订单物流信息文件
  **/
 @Data
-public class OrderLogisticsFile implements IOrderValueMap {
+public class OrderLogisticsFile implements OrderValueMap {
 
     private static final long serialVersionUID = -5586524607014030675L;
 

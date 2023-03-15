@@ -19,7 +19,7 @@ public enum OrderValueMapEnum implements IEnum<Integer> {
      * 订单业务属性信息
      */
     ORDER_EXT_FILE         (1, "订单扩展文件", OrderExtFile.class),
-    ORDER_LOGISTICS_FILE   (2, "订单扩展文件",OrderLogisticsFile .class);
+    ORDER_LOGISTICS_FILE   (2, "订单物流文件", OrderLogisticsFile .class);
 
 
     private final int type;
