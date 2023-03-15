@@ -43,6 +43,14 @@ public interface OrderAuditProcessor {
     void afterAudit(Long companyId, SubmitAuditRequest request);
 
     /**
+     * 日志
+     *
+     * @param companyId
+     * @param request
+     */
+    void log(Long companyId, SubmitAuditRequest request);
+
+    /**
      * 执行业务流程
      *
      * @param companyId
@@ -53,6 +61,7 @@ public interface OrderAuditProcessor {
         OrderAuditTransferDTO transfer = this.beforeAudit(companyId, request);
         this.processAudit(companyId, request, transfer);
         this.afterAudit(companyId, request);
+        this.log(companyId, request);
     }
 
 }

@@ -47,6 +47,7 @@ public class OrderAuditExecutor implements OrderAuditProcessor {
      * @param companyId
      * @param request
      */
+    @BizLog
     public void exec(Long companyId, SubmitAuditRequest request) {
         this.execute(companyId, request);
     }
@@ -70,19 +71,11 @@ public class OrderAuditExecutor implements OrderAuditProcessor {
         return transfer;
     }
 
-    @BizLog
     @Override
     public void processAudit(Long companyId, SubmitAuditRequest request, OrderAuditTransferDTO transfer) {
         OrderInfoDO order = request.getOrder();
         orderWriteClient.updateOrderStatus(companyId, order);
-        this.log(order);
-    }
 
-    private void log(OrderInfoDO order) {
-        OrderOperationLog log = OrderOperationLog.init();
-        log.setOrderNo(order.getOrderNo());
-        log.setOperationType(AbstractOperationLog.OperationType.MODIFY);
-        BizLogUtils.log(log);
     }
 
     @Override
@@ -90,6 +83,14 @@ public class OrderAuditExecutor implements OrderAuditProcessor {
         SendResult sendResult = this.pushWms(companyId, request);
         // 发布订单审核事件
         orderEventPublisher.publish(companyId, request.getOrder().getOrderId(), OrderEventEnum.AUDIT);
+    }
+
+    @Override
+    public void log(Long companyId, SubmitAuditRequest request) {
+        OrderOperationLog log = OrderOperationLog.init();
+        log.setOrderNo(request.getOrder().getOrderNo());
+        log.setOperationType(AbstractOperationLog.OperationType.MODIFY);
+        BizLogUtils.log(log);
     }
 
     private SendResult pushWms(Long companyId, SubmitAuditRequest request) {

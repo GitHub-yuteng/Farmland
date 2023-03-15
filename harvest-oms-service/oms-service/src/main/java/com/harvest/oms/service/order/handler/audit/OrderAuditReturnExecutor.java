@@ -37,7 +37,6 @@ public class OrderAuditReturnExecutor {
      * @param companyId
      * @param request
      */
-    @BizLog
     public void exec(Long companyId, SubmitAuditReturnRequest request) {
         OrderInfoDO order = request.getOrder();
         order.setOrderStatus(OrderStatusEnum.APPROVE);

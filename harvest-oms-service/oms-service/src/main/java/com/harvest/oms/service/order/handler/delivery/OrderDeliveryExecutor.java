@@ -1,6 +1,5 @@
 package com.harvest.oms.service.order.handler.delivery;
 
-import com.harvest.core.annotation.BizLog;
 import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.core.service.mq.ProducerMessageService;
 import com.harvest.oms.client.order.OrderWriteClient;
@@ -65,7 +64,6 @@ public class OrderDeliveryExecutor implements OrderDeliveryProcessor {
      * @param companyId
      * @param order
      */
-    @BizLog
     @Override
     public void processDelivery(Long companyId, OrderInfoDO order) {
         order.setOrderStatus(OrderStatusEnum.SHIPPED);
