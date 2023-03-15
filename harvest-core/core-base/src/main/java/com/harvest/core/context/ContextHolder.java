@@ -20,7 +20,6 @@ public class ContextHolder extends CompanyId {
     private static final ThreadLocal<Context> CONTEXT = new ThreadLocal<>();
 
     public static Context getContext() {
-
         Context context = CONTEXT.get();
         context = new Context() {
             @Override
@@ -55,6 +54,11 @@ public class ContextHolder extends CompanyId {
 
             @Override
             public Object getLoginAccount() {
+                return null;
+            }
+
+            @Override
+            public Object get(PreferenceName key) {
                 return null;
             }
         };

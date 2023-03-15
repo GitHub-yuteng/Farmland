@@ -28,7 +28,6 @@ public interface Context {
     }
 
     /**
-     *
      * @param key
      * @param value
      */
@@ -44,4 +43,5 @@ public interface Context {
 
     Object getLoginAccount();
 
+    Object get(PreferenceName key);
 }

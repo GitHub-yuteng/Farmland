@@ -5,6 +5,7 @@ import com.harvest.core.annotation.Monitor;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.domain.Page;
 import com.harvest.core.exception.StandardRuntimeException;
+import com.harvest.core.monitor.enums.MonitorEventEnum;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.core.utils.PartitionUtils;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
@@ -112,7 +113,6 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         return page.getData();
     }
 
-    @Monitor(efficiencyWatch = 1000)
     @Override
     public Page<OrderInfoDO> pageQueryOrder(Long companyId, PageOrderConditionQuery condition) {
 
@@ -162,7 +162,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         return page.getData();
     }
 
-    @Monitor(efficiencyWatch = 2000)
+    @Monitor(event = MonitorEventEnum.OMS_ORDER_QUERY, efficiencyWatch = 1000)
     @Override
     public Page<OrderInfoDO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
 

@@ -1,8 +1,14 @@
 package com.harvest.core.monitor;
 
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
-import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.core.annotation.Monitor;
+import com.harvest.core.constants.GlobalMacroDefinition;
+import com.harvest.core.context.ContextHolder;
+import com.harvest.core.context.SpringHelper;
+import com.harvest.core.monitor.domain.MonitorEventMessage;
+import com.harvest.core.monitor.enums.MonitorLevelEnum;
+import com.harvest.core.monitor.enums.MonitorTypeEnum;
+import com.harvest.core.monitor.notify.MonitorNotifyProcessor;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -13,10 +19,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StopWatch;
 
 import java.lang.reflect.Method;
-import java.util.concurrent.Executor;
-import java.util.concurrent.LinkedBlockingQueue;
-import java.util.concurrent.ThreadPoolExecutor;
-import java.util.concurrent.TimeUnit;
+import java.util.Arrays;
+import java.util.Objects;
+import java.util.concurrent.*;
+import java.util.stream.Collectors;
 
 /**
  * @Author: Alodi
@@ -29,12 +35,10 @@ public class HarvestExceptionMonitor implements GlobalMacroDefinition {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(HarvestExceptionMonitor.class);
 
-    private static final String MONITOR_POINT = "@annotation(com.harvest.core.annotation.Monitor)";
-
     /**
      * 监控通知线程池
      */
-    private static final Executor MONITOR_EVENT_NOTIFY_EXECUTOR = new ThreadPoolExecutor(1, 1, 0, TimeUnit.MILLISECONDS,
+    private static final ExecutorService MONITOR_EVENT_NOTIFY_EXECUTOR = new ThreadPoolExecutor(1, 1, 0, TimeUnit.MILLISECONDS,
             new LinkedBlockingQueue<>(),
             new ThreadFactoryBuilder()
                     .setNameFormat("harvest-monitor-%d")
@@ -42,7 +46,7 @@ public class HarvestExceptionMonitor implements GlobalMacroDefinition {
                     .build(),
             new ThreadPoolExecutor.CallerRunsPolicy());
 
-    @Around(MONITOR_POINT)
+    @Around(value = "@annotation(com.harvest.core.annotation.Monitor)")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
         Method method = ((MethodSignature) joinPoint.getSignature()).getMethod();
         Monitor monitor = method.getAnnotation(Monitor.class);
@@ -55,7 +59,7 @@ public class HarvestExceptionMonitor implements GlobalMacroDefinition {
             stopWatch.stop();
             long cost = stopWatch.getTotalTimeMillis();
             if (monitor.efficiencyWatch() > DEFAULT_0 && cost >= monitor.efficiencyWatch()) {
-                System.out.println("告警");
+                this.notifyMonitorEvent(monitor, this.buildEfficiencyMessage(monitor, cost));
             }
         } catch (Throwable e) {
             throwable = e;
@@ -65,6 +69,39 @@ public class HarvestExceptionMonitor implements GlobalMacroDefinition {
             throw throwable;
         }
         return o;
+    }
+
+    private void notifyMonitorEvent(Monitor monitor, MonitorEventMessage message) {
+        try {
+            Future<?> submit = MONITOR_EVENT_NOTIFY_EXECUTOR.submit(() -> Arrays.stream(monitor.processors()).forEach(processor -> {
+                MonitorNotifyProcessor bean = SpringHelper.getBean(processor);
+                if (Objects.isNull(bean)) {
+                    return;
+                }
+                bean.notifyEvent(message);
+            }));
+            submit.get(3, TimeUnit.SECONDS);
+        } catch (Exception e) {
+            LOGGER.error("HarvestExceptionMonitor#notifyMonitorEvent#通知失败！", e);
+        }
+    }
+
+    /**
+     * 构建效率信息
+     *
+     * @param monitor
+     * @param cost
+     * @return
+     */
+    private MonitorEventMessage buildEfficiencyMessage(Monitor monitor, long cost) {
+        MonitorEventMessage message = new MonitorEventMessage(ContextHolder.getContext());
+        message.setMonitor(monitor.event().name());
+        message.setEvent(monitor.event());
+        message.setLevel(MonitorLevelEnum.NORMAL);
+        message.setType(MonitorTypeEnum.EFFICIENCY);
+        message.setExecuteCost(cost);
+        message.setAtMembers(Arrays.stream(monitor.atMember()).collect(Collectors.toSet()));
+        return message;
     }
 
 }

@@ -11,11 +11,12 @@ import java.util.Date;
  **/
 public class DateUtils {
 
-    public static String DATE_FORMAT = "yyyy-MM-dd";
-    public static String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
-    public static String MILLISECOND_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
-    public static String YEAR_FORMAT = "yyyy";
-    public static String MOUTH_FORMAT = "MM";
+    public static final String DATE_FORMAT = "yyyy-MM-dd";
+    public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
+    public static final String MILLISECOND_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss.SSS";
+
+    public static final String YEAR_FORMAT = "yyyy";
+    public static final String MOUTH_FORMAT = "MM";
     public static final String YEAR_MOUTH_FORMAT = "yyyy-MM";
 
     public static final SimpleDateFormat FORMAT = new SimpleDateFormat(DATE_TIME_FORMAT);
