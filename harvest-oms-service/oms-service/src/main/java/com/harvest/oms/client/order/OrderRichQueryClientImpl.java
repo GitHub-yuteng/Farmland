@@ -162,7 +162,7 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
         return page.getData();
     }
 
-    @Monitor(event = MonitorEventEnum.OMS_ORDER_QUERY, efficiencyWatch = 1000)
+    @Monitor(event = MonitorEventEnum.OMS_ORDER_QUERY, efficiencyWatch = 50)
     @Override
     public Page<OrderInfoDO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
 

@@ -1,7 +1,6 @@
 package com.harvest.core.monitor.notify.ding;
 
 import com.harvest.core.monitor.domain.MonitorEventMessage;
-import com.harvest.core.monitor.notify.AbstractMonitorNotifyProcessor;
 import com.harvest.core.monitor.notify.MonitorNotifyProcessor;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +10,7 @@ import org.springframework.stereotype.Component;
  * @Description: TODO
  **/
 @Component
-public class DingTalkNotifyProcessor extends AbstractMonitorNotifyProcessor implements MonitorNotifyProcessor {
+public class DingTalkNotifyProcessor implements MonitorNotifyProcessor {
 
     @Override
     public void notifyEvent(MonitorEventMessage message) {
