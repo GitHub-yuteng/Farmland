@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.harvest.inventory.repository.mapper.FarmlandInventoryMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.harvest.inventory.repository.entity.FarmlandInventoryEntity">
+        <id column="id" property="id" />
+        <result column="COMPANY_ID" property="companyId" />
+        <result column="warehouse_id" property="warehouseId" />
+        <result column="spu_id" property="spuId" />
+        <result column="sku_id" property="skuId" />
+        <result column="actual_quantity" property="actualQuantity" />
+        <result column="lock_quantity" property="lockQuantity" />
+        <result column="underway_quantity" property="underwayQuantity" />
+        <result column="safety_quantity" property="safetyQuantity" />
+        <result column="warn_up" property="warnUp" />
+        <result column="warn_low" property="warnLow" />
+        <result column="goods_cost" property="goodsCost" />
+        <result column="warehouse_cost" property="warehouseCost" />
+        <result column="actual_quantity_defect" property="actualQuantityDefect" />
+        <result column="lock_quantity_defect" property="lockQuantityDefect" />
+        <result column="underway_quantity_defect" property="underwayQuantityDefect" />
+        <result column="status" property="status" />
+        <result column="if_deleted" property="ifDeleted" />
+        <result column="rc_time" property="rcTime" />
+        <result column="rm_time" property="rmTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id, COMPANY_ID, warehouse_id, spu_id, sku_id, actual_quantity, lock_quantity, underway_quantity, safety_quantity, warn_up, warn_low, goods_cost, warehouse_cost, actual_quantity_defect, lock_quantity_defect, underway_quantity_defect, status, if_deleted, rc_time, rm_time
+    </sql>
+
+</mapper>
