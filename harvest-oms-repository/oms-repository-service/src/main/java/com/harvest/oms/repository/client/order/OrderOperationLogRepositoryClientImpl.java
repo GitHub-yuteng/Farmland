@@ -40,7 +40,7 @@ public class OrderOperationLogRepositoryClientImpl implements OrderOperationLogR
     public FarmlandOmsOrderOperationLogEntity convert(OrderOperationLog source) {
         FarmlandOmsOrderOperationLogEntity farmlandOmsOrderOperationLogEntity = new FarmlandOmsOrderOperationLogEntity();
         farmlandOmsOrderOperationLogEntity.setId(source.getId());
-        farmlandOmsOrderOperationLogEntity.setOrderId(source.getId());
+        farmlandOmsOrderOperationLogEntity.setOrderId(source.getBusinessId());
         farmlandOmsOrderOperationLogEntity.setCompanyId(source.getCompanyId());
         farmlandOmsOrderOperationLogEntity.setOperationType(source.getOperationType().getType());
         farmlandOmsOrderOperationLogEntity.setContent(source.getContent());
