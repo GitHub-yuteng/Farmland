@@ -27,180 +27,180 @@ public enum OrderStatusEnum implements IEnum<Integer> {
      */
     WAIT_PAY(1, "待付款", true) {
         @Override
-        List<OrderStatusEnum> back() {
+        public List<OrderStatusEnum> back() {
             throw new StandardRuntimeException(ExceptionCodes.CORE_MODULE_ERROR, "最前置状态！");
         }
 
         @Override
-        List<OrderStatusEnum> next() {
+        public List<OrderStatusEnum> next() {
             return Collections.singletonList(APPROVE);
         }
     },
 
     APPROVE(10, "待审核", false) {
         @Override
-        List<OrderStatusEnum> back() {
+        public List<OrderStatusEnum> back() {
             throw new StandardRuntimeException(ExceptionCodes.CORE_MODULE_ERROR, "不可回退！");
         }
 
         @Override
-        List<OrderStatusEnum> next() {
+        public List<OrderStatusEnum> next() {
             return Collections.unmodifiableList(Arrays.asList(FINANCE_APPROVE, ALLOCATE));
         }
     },
 
     FINANCE_APPROVE(20, "财务审核", false) {
         @Override
-        List<OrderStatusEnum> back() {
+        public List<OrderStatusEnum> back() {
             return Collections.singletonList(APPROVE);
         }
 
         @Override
-        List<OrderStatusEnum> next() {
+        public List<OrderStatusEnum> next() {
             return Collections.unmodifiableList(Arrays.asList(APPROVE, ALLOCATE, PRINT));
         }
     },
 
     WAIT_DECLARATION(25, "待交运", false) {
         @Override
-        List<OrderStatusEnum> back() {
+        public List<OrderStatusEnum> back() {
             return Collections.unmodifiableList(Arrays.asList(APPROVE, FINANCE_APPROVE));
         }
 
         @Override
-        List<OrderStatusEnum> next() {
+        public List<OrderStatusEnum> next() {
             return Collections.unmodifiableList(Arrays.asList(ALLOCATE, PRINT));
         }
     },
 
     ALLOCATE(27, "待分配", false) {
         @Override
-        List<OrderStatusEnum> back() {
+        public List<OrderStatusEnum> back() {
             return Collections.unmodifiableList(Arrays.asList(APPROVE, FINANCE_APPROVE, WAIT_DECLARATION));
         }
 
         @Override
-        List<OrderStatusEnum> next() {
+        public List<OrderStatusEnum> next() {
             return Collections.singletonList(PRINT);
         }
     },
 
     PRINT(30, "打单配货", true) {
         @Override
-        List<OrderStatusEnum> back() {
+        public List<OrderStatusEnum> back() {
             return Collections.unmodifiableList(Arrays.asList(APPROVE, FINANCE_APPROVE, WAIT_DECLARATION, ALLOCATE));
         }
 
         @Override
-        List<OrderStatusEnum> next() {
+        public List<OrderStatusEnum> next() {
             return Collections.singletonList(COLLECT);
         }
     },
 
     COLLECT(31, "待拣货", true) {
         @Override
-        List<OrderStatusEnum> back() {
+        public List<OrderStatusEnum> back() {
             return Collections.unmodifiableList(Arrays.asList(APPROVE, FINANCE_APPROVE, WAIT_DECLARATION, ALLOCATE, PRINT));
         }
 
         @Override
-        List<OrderStatusEnum> next() {
+        public List<OrderStatusEnum> next() {
             return Collections.singletonList(CHECK);
         }
     },
 
     CHECK(32, "验货", true) {
         @Override
-        List<OrderStatusEnum> back() {
+        public List<OrderStatusEnum> back() {
             return Collections.unmodifiableList(Arrays.asList(APPROVE, FINANCE_APPROVE, WAIT_DECLARATION, ALLOCATE, PRINT, COLLECT));
         }
 
         @Override
-        List<OrderStatusEnum> next() {
+        public List<OrderStatusEnum> next() {
             return Collections.singletonList(PACKAGE);
         }
     },
 
     PACKAGE(33, "打包", true) {
         @Override
-        List<OrderStatusEnum> back() {
+        public List<OrderStatusEnum> back() {
             return Collections.unmodifiableList(Arrays.asList(APPROVE, FINANCE_APPROVE, WAIT_DECLARATION, ALLOCATE, PRINT, COLLECT, CHECK));
         }
 
         @Override
-        List<OrderStatusEnum> next() {
+        public List<OrderStatusEnum> next() {
             return Collections.singletonList(WEIGH);
         }
     },
 
     WEIGH(34, "称重", true) {
         @Override
-        List<OrderStatusEnum> back() {
+        public List<OrderStatusEnum> back() {
             return Collections.unmodifiableList(Arrays.asList(APPROVE, FINANCE_APPROVE, WAIT_DECLARATION, ALLOCATE, PRINT, COLLECT, CHECK, PACKAGE));
         }
 
         @Override
-        List<OrderStatusEnum> next() {
+        public List<OrderStatusEnum> next() {
             return Collections.singletonList(WAIT_SHIP);
         }
     },
 
     WAIT_SHIP(40, "待发货", true) {
         @Override
-        List<OrderStatusEnum> back() {
+        public List<OrderStatusEnum> back() {
             return Collections.unmodifiableList(Arrays.asList(APPROVE, FINANCE_APPROVE, WAIT_DECLARATION, ALLOCATE, PRINT, COLLECT, CHECK, PACKAGE, WEIGH));
         }
 
         @Override
-        List<OrderStatusEnum> next() {
+        public List<OrderStatusEnum> next() {
             return Collections.unmodifiableList(Arrays.asList(PART_SHIP, SHIPPED));
         }
     },
 
     PART_SHIP(41, "部分发货", true) {
         @Override
-        List<OrderStatusEnum> back() {
+        public List<OrderStatusEnum> back() {
             throw new StandardRuntimeException(ExceptionCodes.CORE_MODULE_ERROR, "状态不可改变！");
         }
 
         @Override
-        List<OrderStatusEnum> next() {
+        public List<OrderStatusEnum> next() {
             return Collections.unmodifiableList(Arrays.asList(SHIPPED, FINISHED));
         }
     },
 
     SHIPPED(50, "已发货", true) {
         @Override
-        List<OrderStatusEnum> back() {
+        public List<OrderStatusEnum> back() {
             throw new StandardRuntimeException(ExceptionCodes.CORE_MODULE_ERROR, "状态不可改变！");
         }
 
         @Override
-        List<OrderStatusEnum> next() {
+        public List<OrderStatusEnum> next() {
             return Collections.unmodifiableList(Arrays.asList(FINISHED, CLOSED));
         }
     },
 
     FINISHED(90, "已完成", true) {
         @Override
-        List<OrderStatusEnum> back() {
+        public List<OrderStatusEnum> back() {
             throw new StandardRuntimeException(ExceptionCodes.CORE_MODULE_ERROR, "状态不可改变！");
         }
 
         @Override
-        List<OrderStatusEnum> next() {
+        public List<OrderStatusEnum> next() {
             throw new StandardRuntimeException(ExceptionCodes.CORE_MODULE_ERROR, "最终状态, 不可改变！");
         }
     },
 
     CLOSED(-1, "关闭/已退款", true) {
         @Override
-        List<OrderStatusEnum> back() {
+        public List<OrderStatusEnum> back() {
             throw new StandardRuntimeException(ExceptionCodes.CORE_MODULE_ERROR, "状态不可改变！");
         }
 
         @Override
-        List<OrderStatusEnum> next() {
+        public List<OrderStatusEnum> next() {
             throw new StandardRuntimeException(ExceptionCodes.CORE_MODULE_ERROR, "最终状态, 不可改变！");
         }
     };
@@ -235,11 +235,11 @@ public enum OrderStatusEnum implements IEnum<Integer> {
         return CACHE.get(status);
     }
 
-    abstract List<OrderStatusEnum> back();
+    public abstract List<OrderStatusEnum> back();
 
-    abstract List<OrderStatusEnum> next();
+    public abstract List<OrderStatusEnum> next();
 
-    boolean skip(OrderStatusEnum status) {
+    public boolean skip(OrderStatusEnum status) {
         return this.back().contains(status) || this.next().contains(status);
     }
 }
