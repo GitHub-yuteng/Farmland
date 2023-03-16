@@ -32,9 +32,9 @@ import java.util.stream.Collectors;
  **/
 @Aspect
 @Component
-public class HarvestExceptionMonitor implements GlobalMacroDefinition {
+public class HarvestMonitor implements GlobalMacroDefinition {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HarvestExceptionMonitor.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(HarvestMonitor.class);
 
     /**
      * 监控通知线程池
@@ -67,13 +67,18 @@ public class HarvestExceptionMonitor implements GlobalMacroDefinition {
         }
         /*原样抛出异常信息*/
         if (throwable != null) {
-            this.notifyMonitorEvent(monitor, this.buildErrorMessage(monitor, throwable, joinPoint.getArgs()));
+            if (this.needNotify(monitor, throwable)) {
+                this.notifyMonitorEvent(monitor, this.buildErrorMessage(monitor, throwable, joinPoint.getArgs()));
+            }
             throw throwable;
         }
         return o;
     }
 
     private void notifyMonitorEvent(Monitor monitor, MonitorEventMessage message) {
+        if (Objects.isNull(message)) {
+            return;
+        }
         try {
             Future<?> submit = MONITOR_EVENT_NOTIFY_EXECUTOR.submit(() -> Arrays.stream(monitor.processors()).forEach(processor -> {
                 MonitorNotifyProcessor bean = SpringHelper.getBean(processor);
@@ -130,6 +135,18 @@ public class HarvestExceptionMonitor implements GlobalMacroDefinition {
             return;
         }
         message.setParams(Arrays.stream(args).map(arg -> JsonUtils.object2Json(args)).reduce((o1, o2) -> o1 + "\r\n" + o2).get());
+    }
+
+    private boolean needNotify(Monitor monitor, Throwable throwable) {
+        if (Objects.isNull(throwable)) {
+            return false;
+        }
+        /*有异常，并且忽略异常为空*/
+        if (monitor.ignoreException() == null || monitor.ignoreException().length == 0) {
+            return true;
+        }
+        /*有异常，有忽略，判断忽略异常中是否包含该异常*/
+        return Arrays.stream(monitor.ignoreException()).noneMatch(e -> throwable.getClass().equals(e));
     }
 
 }
