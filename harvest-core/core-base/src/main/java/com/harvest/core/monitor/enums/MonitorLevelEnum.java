@@ -7,6 +7,9 @@ package com.harvest.core.monitor.enums;
  **/
 public enum MonitorLevelEnum {
 
-    NORMAL
+    /**
+     * 监控级别
+     */
+    NORMAL, ERROR, SERIOUS
 
 }

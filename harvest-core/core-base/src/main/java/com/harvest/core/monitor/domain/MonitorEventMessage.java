@@ -1,12 +1,14 @@
 package com.harvest.core.monitor.domain;
 
 import com.harvest.core.context.Context;
+import com.harvest.core.domain.CompanyId;
 import com.harvest.core.monitor.enums.MemberContactEnum;
 import com.harvest.core.monitor.enums.MonitorEventEnum;
 import com.harvest.core.monitor.enums.MonitorLevelEnum;
 import com.harvest.core.monitor.enums.MonitorTypeEnum;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import java.time.LocalDateTime;
 import java.util.Set;
@@ -17,10 +19,11 @@ import java.util.Set;
  * @Description: 事件消息
  **/
 @Data
-public class MonitorEventMessage {
+@EqualsAndHashCode(callSuper = true)
+public class MonitorEventMessage extends CompanyId {
 
-    @ApiModelProperty("公司Id")
-    private long companyId;
+    private static final long serialVersionUID = -1381850067122598748L;
+
     @ApiModelProperty("请求Id")
     private String requestId;
     @ApiModelProperty("监控名称")

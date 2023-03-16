@@ -9,6 +9,7 @@ import com.harvest.core.monitor.domain.MonitorEventMessage;
 import com.harvest.core.monitor.enums.MonitorLevelEnum;
 import com.harvest.core.monitor.enums.MonitorTypeEnum;
 import com.harvest.core.monitor.notify.MonitorNotifyProcessor;
+import com.harvest.core.utils.JsonUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -66,6 +67,7 @@ public class HarvestExceptionMonitor implements GlobalMacroDefinition {
         }
         /*原样抛出异常信息*/
         if (throwable != null) {
+            this.notifyMonitorEvent(monitor, this.buildErrorMessage(monitor, throwable, joinPoint.getArgs()));
             throw throwable;
         }
         return o;
@@ -102,6 +104,32 @@ public class HarvestExceptionMonitor implements GlobalMacroDefinition {
         message.setExecuteCost(cost);
         message.setAtMembers(Arrays.stream(monitor.atMember()).collect(Collectors.toSet()));
         return message;
+    }
+
+    /**
+     * 构建异常信息
+     *
+     * @param monitor
+     * @param throwable
+     * @param args
+     * @return
+     */
+    private MonitorEventMessage buildErrorMessage(Monitor monitor, Throwable throwable, Object[] args) {
+        MonitorEventMessage message = new MonitorEventMessage(ContextHolder.getContext());
+        message.setMonitor(monitor.event().name());
+        message.setEvent(monitor.event());
+        message.setLevel(MonitorLevelEnum.ERROR);
+        message.setType(MonitorTypeEnum.EXCEPTION);
+        message.setCause(throwable.getMessage());
+        this.setParams(message, args);
+        return message;
+    }
+
+    private void setParams(MonitorEventMessage message, Object[] args) {
+        if (Objects.isNull(args) || args.length <= 0) {
+            return;
+        }
+        message.setParams(Arrays.stream(args).map(arg -> JsonUtils.object2Json(args)).reduce((o1, o2) -> o1 + "\r\n" + o2).get());
     }
 
 }
