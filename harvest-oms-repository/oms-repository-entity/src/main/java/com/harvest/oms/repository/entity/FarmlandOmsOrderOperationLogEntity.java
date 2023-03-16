@@ -3,11 +3,11 @@ package com.harvest.oms.repository.entity;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import java.time.LocalDateTime;
 import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -15,7 +15,7 @@ import lombok.Setter;
  * </p>
  *
  * @author Alodi
- * @since 2023-02-13 15:05:21
+ * @since 2023-03-16 11:38:37
  */
 @Getter
 @Setter
@@ -32,8 +32,17 @@ public class FarmlandOmsOrderOperationLogEntity {
     @TableField("operation_type")
     private Integer operationType;
 
-    @TableField("log")
-    private String log;
+    @TableField("content")
+    private String content;
+
+    @TableField("remark")
+    private String remark;
+
+    @TableField("internal")
+    private Boolean internal;
+
+    @TableField("user_id")
+    private Long userId;
 
     @TableField("operation_time")
     private LocalDateTime operationTime;

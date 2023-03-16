@@ -1,4 +1,4 @@
-package com.harvest.oms.domain.order.log;
+package com.harvest.oms.repository.domain.order.base;
 
 import com.harvest.core.context.ContextHolder;
 import com.harvest.core.enums.log.OperationLogEnum;
@@ -35,6 +35,8 @@ public class OrderOperationLog extends AbstractOperationLog implements Operation
         log.setId(IdGenerator.generate());
         log.setUserId(ContextHolder.getContext().getUserId());
         log.setLogTime(LocalDateTime.now());
+        log.setInternal(false);
+        log.setException(false);
         return log;
     }
 

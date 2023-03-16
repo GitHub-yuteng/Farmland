@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 /**
  * @Author: Alodi
@@ -43,23 +44,27 @@ public class OperationLogAspect implements InitializingBean {
     @After(value = "@annotation(com.harvest.core.annotation.BizLog)")
     public void after(JoinPoint joinPoint) {
         try {
-            // 在这里已经线程变了
-            System.out.println("change: " + Thread.currentThread().getName());
             List<OperationLog> operationLogs = BizLogUtils.get();
             if (CollectionUtils.isEmpty(operationLogs)) {
                 return;
             }
-            operationLogs.forEach(this::store);
+            this.store(operationLogs);
         } finally {
             BizLogUtils.clear();
         }
     }
 
-    public void store(OperationLog log) {
-        BizOperationLog<? extends OperationLog> bizOperationLog = LOG_MAP.get(log.getClass());
-        if (Objects.isNull(bizOperationLog)) {
-            return;
-        }
-        bizOperationLog.store(log);
+    public void store(List<OperationLog> operationLogs) {
+        Map<? extends Class<? extends OperationLog>, List<OperationLog>> clazzMap = operationLogs.stream().collect(
+                Collectors.groupingBy(OperationLog::getClass)
+        );
+
+        clazzMap.forEach((clazz, logs) -> {
+            BizOperationLog<? extends OperationLog> bizOperationLog = LOG_MAP.get(clazz);
+            if (Objects.isNull(bizOperationLog)) {
+                return;
+            }
+            bizOperationLog.batchStore(logs);
+        });
     }
 }

@@ -10,8 +10,8 @@ import com.harvest.core.service.utils.BizLogUtils;
 import com.harvest.oms.client.order.OrderWriteClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.audit.OrderAuditTransferDTO;
-import com.harvest.oms.domain.order.log.OrderOperationLog;
 import com.harvest.oms.enums.OrderEventEnum;
+import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.request.order.audit.SubmitAuditRequest;
 import com.harvest.oms.request.order.warehouse.SubmitWmsOrderMessage;
 import com.harvest.oms.service.order.event.OrderEventPublisher;
@@ -88,6 +88,8 @@ public class OrderAuditExecutor implements OrderAuditProcessor {
     @Override
     public void log(Long companyId, SubmitAuditRequest request) {
         OrderOperationLog log = OrderOperationLog.init();
+        log.setId(request.getOrder().getOrderId());
+        log.setBusinessId(request.getOrder().getOrderId());
         log.setOrderNo(request.getOrder().getOrderNo());
         log.setOperationType(AbstractOperationLog.OperationType.MODIFY);
         BizLogUtils.log(log);

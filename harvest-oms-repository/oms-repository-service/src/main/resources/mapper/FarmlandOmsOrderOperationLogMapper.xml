@@ -7,13 +7,16 @@
         <id column="order_id" property="orderId" />
         <result column="COMPANY_ID" property="companyId" />
         <result column="operation_type" property="operationType" />
-        <result column="log" property="log" />
+        <result column="content" property="content" />
+        <result column="remark" property="remark" />
+        <result column="internal" property="internal" />
+        <result column="user_id" property="userId" />
         <result column="operation_time" property="operationTime" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        order_id, COMPANY_ID, operation_type, log, operation_time
+        order_id, COMPANY_ID, operation_type, content, remark, internal, user_id, operation_time
     </sql>
 
 </mapper>

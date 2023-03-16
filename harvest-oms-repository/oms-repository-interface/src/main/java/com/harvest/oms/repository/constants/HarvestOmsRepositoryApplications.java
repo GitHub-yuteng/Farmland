@@ -13,10 +13,11 @@ public interface HarvestOmsRepositoryApplications {
 
     interface Path {
 
-        String ORDER_RICH    = OMS_PATH + "/OrderRichQueryRepositoryClient";
-        String ORDER_READ    = OMS_PATH + "/OrderReadRepositoryClient";
-        String ORDER_DECLARE = OMS_PATH + "/OrderDeclareRepositoryClient";
-        String ORDER_WRITE   = OMS_PATH + "/OrderWriteRepositoryClient";
+        String ORDER_RICH           = OMS_PATH + "/OrderRichQueryRepositoryClient";
+        String ORDER_READ           = OMS_PATH + "/OrderReadRepositoryClient";
+        String ORDER_DECLARE        = OMS_PATH + "/OrderDeclareRepositoryClient";
+        String ORDER_WRITE          = OMS_PATH + "/OrderWriteRepositoryClient";
+        String ORDER_OPERATION_LOG  = OMS_PATH + "/OrderOperationLogRepositoryClient";
 
     }
 
