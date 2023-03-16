@@ -17,7 +17,7 @@ import java.util.Collection;
 @HarvestClient(value = HarvestOmsRepositoryApplications.SERVICE_NAME, path = HarvestOmsRepositoryApplications.Path.ORDER_OPERATION_LOG)
 public interface OrderOperationLogRepositoryClient {
 
-    @ApiOperation("查询报关信息")
+    @ApiOperation("批量保存操作日志")
     @PostMapping("/batchStore")
     void batchStore(@RequestBody Collection<OrderOperationLog> logs);
 
