@@ -39,6 +39,7 @@ public class OrderOperationLogRepositoryClientImpl implements OrderOperationLogR
     @Override
     public FarmlandOmsOrderOperationLogEntity convert(OrderOperationLog source) {
         FarmlandOmsOrderOperationLogEntity farmlandOmsOrderOperationLogEntity = new FarmlandOmsOrderOperationLogEntity();
+        farmlandOmsOrderOperationLogEntity.setId(source.getId());
         farmlandOmsOrderOperationLogEntity.setOrderId(source.getId());
         farmlandOmsOrderOperationLogEntity.setCompanyId(source.getCompanyId());
         farmlandOmsOrderOperationLogEntity.setOperationType(source.getOperationType().getType());

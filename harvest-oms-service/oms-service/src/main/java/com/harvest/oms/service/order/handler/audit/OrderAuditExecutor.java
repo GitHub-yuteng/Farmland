@@ -89,7 +89,6 @@ public class OrderAuditExecutor implements OrderAuditProcessor {
     public void log(Long companyId, SubmitAuditRequest request) {
         OrderOperationLog log = OrderOperationLog.init();
         log.setCompanyId(companyId);
-        log.setId(request.getOrder().getOrderId());
         log.setBusinessId(request.getOrder().getOrderId());
         log.setOrderNo(request.getOrder().getOrderNo());
         log.setOperationType(AbstractOperationLog.OperationType.MODIFY);
