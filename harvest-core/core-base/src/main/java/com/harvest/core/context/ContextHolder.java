@@ -43,6 +43,11 @@ public class ContextHolder extends CompanyId {
             }
 
             @Override
+            public Long getRequestId() {
+                return null;
+            }
+
+            @Override
             public Long getAccountId() {
                 return null;
             }

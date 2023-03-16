@@ -34,6 +34,7 @@ public class OrderOperationLog extends AbstractOperationLog implements Operation
         OrderOperationLog log = new OrderOperationLog();
         log.setId(IdGenerator.generate());
         log.setUserId(ContextHolder.getContext().getUserId());
+        log.setRequestId(ContextHolder.getContext().getRequestId());
         log.setLogTime(LocalDateTime.now());
         log.setInternal(false);
         log.setException(false);

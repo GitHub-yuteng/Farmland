@@ -25,6 +25,9 @@ public class AbstractOperationLog extends CompanyId {
     protected Long id;
 
     @ApiModelProperty("业务主键id eg:order_id")
+    protected Long requestId;
+
+    @ApiModelProperty("业务主键id eg:order_id")
     protected Long businessId;
 
     @ApiModelProperty("日志内容")
@@ -34,13 +37,13 @@ public class AbstractOperationLog extends CompanyId {
     protected OperationType operationType;
 
     @ApiModelProperty("日志备注信息")
-    private String remark;
+    protected String remark;
 
     @ApiModelProperty("内部日志")
-    private boolean internal;
+    protected boolean internal;
 
     @ApiModelProperty("异常日志")
-    private boolean exception;
+    protected boolean exception;
 
     @ApiModelProperty("操作人")
     protected Long userId;
@@ -55,7 +58,7 @@ public class AbstractOperationLog extends CompanyId {
         /**
          * 操作类型
          */
-        MODIFY(1,"【修改】"),
+        MODIFY(1, "【修改】"),
 
         ;
 

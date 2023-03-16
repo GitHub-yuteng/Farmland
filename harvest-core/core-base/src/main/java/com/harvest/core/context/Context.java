@@ -37,6 +37,8 @@ public interface Context {
 
     Long getUserId();
 
+    Long getRequestId();
+
     Long getAccountId();
 
     int getApplicationType();
