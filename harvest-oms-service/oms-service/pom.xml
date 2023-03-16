@@ -32,7 +32,7 @@
       <artifactId>oms-service-wms</artifactId>
       <version>0.0.1-SNAPSHOT</version>
     </dependency>
-  
+    
     <dependency>
       <groupId>com.harvest</groupId>
       <artifactId>basic-service-interface</artifactId>
@@ -52,6 +52,12 @@
       <groupId>com.harvest</groupId>
       <artifactId>rule-service-interface</artifactId>
       <version>0.0.1-SNAPSHOT</version>
+    </dependency>
+    
+    <dependency>
+      <groupId>org.springframework.statemachine</groupId>
+      <artifactId>spring-statemachine-core</artifactId>
+      <version>2.5.1</version>
     </dependency>
   </dependencies>
   

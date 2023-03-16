@@ -4,6 +4,11 @@ import com.harvest.core.enums.IEnum;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
+
 /**
  * @Author: Alodi
  * @Date: 2022/12/11 1:31 AM
@@ -24,15 +29,15 @@ public enum OrderStatusEnum implements IEnum<Integer> {
 
     ALLOCATE       (21, "待分配", false),
 
-    PRINT           (30, "打单配货", false),
+    PRINT           (30, "打单配货", true),
 
-    COLLECT         (31, "待拣货", false),
+    COLLECT         (31, "待拣货", true),
 
-    CHECK           (32, "验货", false),
+    CHECK           (32, "验货", true),
 
-    PACKAGE         (33, "打包", false),
+    PACKAGE         (33, "打包", true),
 
-    WEIGH           (34, "称重", false),
+    WEIGH           (34, "称重", true),
 
     WAIT_SHIP       (40, "待发货", true),
 
@@ -62,5 +67,15 @@ public enum OrderStatusEnum implements IEnum<Integer> {
     @Override
     public Integer getKey() {
         return this.status;
+    }
+
+    private static final Map<Integer,OrderStatusEnum> CACHE;
+
+    static {
+        CACHE = Arrays.stream(OrderStatusEnum.values()).collect(Collectors.toMap(OrderStatusEnum::getStatus, Function.identity()));
+    }
+
+    public static OrderStatusEnum getByStatus(Integer status) {
+        return CACHE.get(status);
     }
 }

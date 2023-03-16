@@ -32,6 +32,9 @@ public class FarmlandOmsOrderOperationLogEntity {
     @TableField("order_id")
     private Long orderId;
 
+    @TableField("order_item_id")
+    private Long orderItemId;
+
     @TableField("operation_type")
     private Integer operationType;
 
