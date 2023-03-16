@@ -160,7 +160,7 @@ public enum OrderStatusEnum implements IEnum<Integer> {
     PART_SHIP(41, "部分发货", true) {
         @Override
         List<OrderStatusEnum> back() {
-            return null;
+            throw new StandardRuntimeException(ExceptionCodes.CORE_MODULE_ERROR, "状态不可改变！");
         }
 
         @Override
