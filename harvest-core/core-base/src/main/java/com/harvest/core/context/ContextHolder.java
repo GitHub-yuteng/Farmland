@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.UUID;
 
 /**
  * @Author: Alodi
@@ -43,8 +44,8 @@ public class ContextHolder extends CompanyId {
             }
 
             @Override
-            public Long getRequestId() {
-                return null;
+            public String getRequestId() {
+                return UUID.randomUUID().toString();
             }
 
             @Override

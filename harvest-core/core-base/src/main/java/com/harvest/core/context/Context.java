@@ -37,7 +37,7 @@ public interface Context {
 
     Long getUserId();
 
-    Long getRequestId();
+    String getRequestId();
 
     Long getAccountId();
 

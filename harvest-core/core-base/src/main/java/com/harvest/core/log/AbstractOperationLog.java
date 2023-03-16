@@ -24,8 +24,8 @@ public class AbstractOperationLog extends CompanyId {
     @ApiModelProperty("表主键id")
     protected Long id;
 
-    @ApiModelProperty("业务主键id eg:order_id")
-    protected Long requestId;
+    @ApiModelProperty("请求记录id")
+    protected String requestId;
 
     @ApiModelProperty("业务主键id eg:order_id")
     protected Long businessId;
