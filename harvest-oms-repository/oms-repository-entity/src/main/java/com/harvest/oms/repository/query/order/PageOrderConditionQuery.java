@@ -5,6 +5,7 @@ import com.harvest.oms.repository.query.order.pack.*;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.Getter;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -58,4 +59,19 @@ public class PageOrderConditionQuery extends PageQuery implements Serializable {
 
     @ApiModelProperty("是否是异常订单 0否 1是")
     private Boolean abnormal;
+
+    @ApiModelProperty("排序列")
+    private ColumnSort columnSort;
+
+    @Getter
+    public enum ColumnSort {
+
+        /**
+         * 排序
+         */
+        CREATED_TIME,
+        PAID_TIME,
+        DEADLINE_TIME,
+
+    }
 }
