@@ -39,7 +39,12 @@ public class OrderSubmitUpdateField extends CompanyId {
         /**
          * 更新类型
          */
-        WAREHOUSE, LOGISTICS, REMARK
+        WAREHOUSE, LOGISTICS, REMARK,
+
+        /**
+         * 匹配更新
+         */
+        MATCH_WAREHOUSE, MATCH_LOGISTICS, MATCH_GOODS_GIFT
     }
 
 }
