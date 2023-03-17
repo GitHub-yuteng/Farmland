@@ -142,6 +142,12 @@ public class OrderWriteRepositoryClientImpl implements OrderWriteRepositoryClien
 
     @Override
     public void updateWarehouse(Long companyId, Long orderId, OrderWarehouse orderWarehouse) {
-
+        FarmlandOmsOrderEntity entity = new FarmlandOmsOrderEntity();
+        entity.setWarehouseId(orderWarehouse.getWarehouseId());
+        entity.setWarehouseOwner(orderWarehouse.getWarehouseOwner().getType());
+        farmlandOmsOrderMapper.update(entity, new UpdateWrapper<FarmlandOmsOrderEntity>().lambda()
+                .eq(FarmlandOmsOrderEntity::getId, orderId)
+                .eq(FarmlandOmsOrderEntity::getCompanyId, companyId)
+        );
     }
 }

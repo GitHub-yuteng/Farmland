@@ -24,7 +24,7 @@ import java.util.Objects;
 /**
  * @Author: Alodi
  * @Date: 2023/3/17 10:54 AM
- * @Description: TODO
+ * @Description: 订单更新仓库
  **/
 @Component
 public class OrderUpdateWarehouseHandler extends AbstractBizOrderHandler implements OrderUpdateHandler {
@@ -48,7 +48,7 @@ public class OrderUpdateWarehouseHandler extends AbstractBizOrderHandler impleme
      * @param order
      */
     @Override
-    public void check(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
+    public boolean check(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
         Long warehouseId = field.getWarehouseId();
         if (Objects.isNull(warehouseId)) {
             throw new StandardRuntimeException(ExceptionCodes.OMS_MODULE_ERROR, "请检查仓库Id！");
@@ -57,16 +57,19 @@ public class OrderUpdateWarehouseHandler extends AbstractBizOrderHandler impleme
         if (Objects.isNull(warehouse)) {
             throw new StandardRuntimeException(ExceptionCodes.OMS_MODULE_ERROR, "该公司不存在该仓库！");
         }
+        if (Objects.nonNull(order.getWarehouse()) && order.getWarehouse().getWarehouseId().equals(warehouseId)) {
+            return false;
+        }
+        return true;
     }
 
     @BizLog
     @Override
     public void handle(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
-        this.check(companyId, field, order);
-        Long warehouseId = field.getWarehouseId();
-        if (Objects.nonNull(order.getWarehouse()) && order.getWarehouse().getWarehouseId().equals(warehouseId)) {
+        if (!this.check(companyId, field, order)) {
             return;
         }
+        Long warehouseId = field.getWarehouseId();
         WarehouseDO warehouse = CacheLoader.COMPANY_WAREHOUSE_CACHE.get(WarehouseKey.build(companyId, warehouseId));
         OrderWarehouse orderWarehouse = new OrderWarehouse();
         orderWarehouse.setWarehouseId(warehouseId);
@@ -98,7 +101,6 @@ public class OrderUpdateWarehouseHandler extends AbstractBizOrderHandler impleme
                 LINE_FEED +
                 Log.CHANGE + warehouseId + ":" + Objects.requireNonNull(warehouse).getWarehouse()
         );
-
         BizLogUtils.log(operationLog);
     }
 

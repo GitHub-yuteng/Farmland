@@ -26,7 +26,8 @@ public interface OrderUpdateHandler {
      * @param field
      * @param order
      */
-    default void check(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
+    default boolean check(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
+        return false;
     }
 
     /**

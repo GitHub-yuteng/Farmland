@@ -25,14 +25,16 @@ public class OrderUpdateLogisticsHandler extends AbstractBizOrderHandler impleme
     }
 
     @Override
-    public void check(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
-        OrderUpdateHandler.super.check(companyId, field, order);
+    public boolean check(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
+        return OrderUpdateHandler.super.check(companyId, field, order);
     }
 
     @BizLog
     @Override
     public void handle(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
-
+        if (!this.check(companyId, field, order)) {
+            return;
+        }
         this.log(companyId, field, order);
     }
 
