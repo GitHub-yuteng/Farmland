@@ -2,6 +2,7 @@ package com.harvest.oms.repository.domain.order.base;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
+import lombok.Getter;
 
 import java.io.Serializable;
 
@@ -29,4 +30,13 @@ public class OrderRemark implements Serializable {
 
     @ApiModelProperty("需要打印备注")
     private String printRemark;
+
+    @Getter
+    public enum RemarkEnum {
+
+        /**
+         * 备注类型
+         */
+        SELLER, BUYER, SYSTEM, PRINT
+    }
 }

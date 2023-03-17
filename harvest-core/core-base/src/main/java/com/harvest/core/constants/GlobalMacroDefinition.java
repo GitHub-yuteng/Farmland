@@ -133,4 +133,5 @@ public interface GlobalMacroDefinition {
 
     int DEFAULT_INITIAL_CAPACITY = 64;
 
+    String LINE_FEED = "\r\n";
 }

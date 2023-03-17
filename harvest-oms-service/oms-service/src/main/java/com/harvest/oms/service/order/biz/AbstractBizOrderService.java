@@ -1,4 +1,4 @@
-package com.harvest.oms.service.order;
+package com.harvest.oms.service.order.biz;
 
 import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.core.batch.BatchId;
@@ -47,7 +47,7 @@ public abstract class AbstractBizOrderService {
                     try {
                         DistributedLockUtils.lock(OmsKeyPrefix.ORDER_UNIQUE_KEY, batchId.getLockKey(),
                                 () -> {
-                                    OrderInfoDO order = orderReadClient.getOrderRich(companyId, batchId.getId());
+                                    OrderInfoDO order = this.getOrderRich(companyId, batchId.getId());
                                     orderMap.put(batchId.getId(), order.getOrderNo());
                                     consumer.accept(order);
                                 }
@@ -58,6 +58,10 @@ public abstract class AbstractBizOrderService {
                     }
                 },
                 batchId -> orderMap.get(batchId.getId()));
+    }
+
+    protected OrderInfoDO getOrderRich(Long companyId, Long orderId) {
+        return orderReadClient.getOrderRich(companyId, orderId);
     }
 
 }

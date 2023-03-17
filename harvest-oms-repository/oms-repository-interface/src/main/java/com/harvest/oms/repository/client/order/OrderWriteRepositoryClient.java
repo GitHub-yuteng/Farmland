@@ -6,6 +6,7 @@ import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;
 import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
+import com.harvest.oms.repository.domain.order.update.remark.OrderUpdateRemark;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -37,4 +38,9 @@ public interface OrderWriteRepositoryClient extends GlobalMacroDefinition {
     @PostMapping("/updateOrderStatus")
     void updateOrderStatus(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId,
                            @RequestParam(OMS.ORDER_STATUS) OrderStatusEnum orderStatus);
+
+    @ApiOperation("更新订单备注")
+    @PostMapping("/updateRemark")
+    void updateRemark(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId,
+                      @RequestBody OrderUpdateRemark remark);
 }

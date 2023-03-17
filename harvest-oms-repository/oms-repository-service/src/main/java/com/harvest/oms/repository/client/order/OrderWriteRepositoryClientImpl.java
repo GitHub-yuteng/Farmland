@@ -7,11 +7,15 @@ import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.core.generator.IdGenerator;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;
+import com.harvest.oms.repository.domain.order.base.OrderRemark;
 import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
+import com.harvest.oms.repository.domain.order.update.remark.OrderUpdateRemark;
 import com.harvest.oms.repository.entity.FarmlandOmsOrderEntity;
+import com.harvest.oms.repository.entity.FarmlandOmsOrderRemarkEntity;
 import com.harvest.oms.repository.mapper.FarmlandOmsOrderItemMapper;
 import com.harvest.oms.repository.mapper.FarmlandOmsOrderMapper;
+import com.harvest.oms.repository.mapper.FarmlandOmsOrderRemarkMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
@@ -29,6 +33,8 @@ public class OrderWriteRepositoryClientImpl implements OrderWriteRepositoryClien
     private FarmlandOmsOrderMapper farmlandOmsOrderMapper;
     @Autowired
     private FarmlandOmsOrderItemMapper farmlandOmsOrderItemMapper;
+    @Autowired
+    private FarmlandOmsOrderRemarkMapper farmlandOmsOrderRemarkMapper;
 
     @Override
     public void insert(Long companyId, OrderSimplePO orderSimplePO) {
@@ -102,6 +108,34 @@ public class OrderWriteRepositoryClientImpl implements OrderWriteRepositoryClien
         farmlandOmsOrderMapper.update(entity, new UpdateWrapper<FarmlandOmsOrderEntity>().lambda()
                 .eq(FarmlandOmsOrderEntity::getId, orderId)
                 .eq(FarmlandOmsOrderEntity::getCompanyId, companyId)
+        );
+    }
+
+    @Override
+    public void updateRemark(Long companyId, Long orderId, OrderUpdateRemark remark) {
+        FarmlandOmsOrderRemarkEntity entity = new FarmlandOmsOrderRemarkEntity();
+
+        OrderRemark.RemarkEnum remarkEnum = remark.getRemarkEnum();
+        switch (remarkEnum) {
+            case SELLER:
+                entity.setSellerRemark(remark.getSellerRemark());
+                break;
+            case BUYER:
+                entity.setBuyerRemark(remark.getBuyerRemark());
+                break;
+            case SYSTEM:
+                entity.setSystemRemark(remark.getSystemRemark());
+                break;
+            case PRINT:
+                entity.setPrintRemark(remark.getPrintRemark());
+                break;
+            default:
+                break;
+        }
+
+        farmlandOmsOrderRemarkMapper.update(entity, new UpdateWrapper<FarmlandOmsOrderRemarkEntity>().lambda()
+                .eq(FarmlandOmsOrderRemarkEntity::getCompanyId, companyId)
+                .eq(FarmlandOmsOrderRemarkEntity::getOrderId, orderId)
         );
     }
 }

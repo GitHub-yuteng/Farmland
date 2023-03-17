@@ -16,7 +16,7 @@ import com.harvest.oms.repository.domain.declare.OrderDeclareSimplePO;
 import com.harvest.oms.repository.domain.declare.OrderItemDeclareSimplePO;
 import com.harvest.oms.repository.enums.declare.DeclareStatusEnum;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
-import com.harvest.oms.service.order.AbstractBizOrderService;
+import com.harvest.oms.service.order.biz.AbstractBizOrderService;
 import com.harvest.oms.service.order.handler.declare.executor.OrderCancelDeclareExecutor;
 import com.harvest.oms.service.order.handler.declare.executor.OrderReacquireFaceSheetExecutor;
 import com.harvest.oms.service.order.handler.declare.executor.OrderRefreshDeclareExecutor;

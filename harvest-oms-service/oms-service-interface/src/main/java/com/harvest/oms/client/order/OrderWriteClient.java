@@ -1,12 +1,16 @@
 package com.harvest.oms.client.order;
 
 import com.harvest.core.annotation.feign.HarvestClient;
+import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * @Author: Alodi
@@ -27,5 +31,8 @@ public interface OrderWriteClient extends GlobalMacroDefinition {
 
     @PostMapping("/updateOrderStatus")
     void updateOrderStatus(@RequestParam(COMPANY_ID) Long companyId, @RequestBody OrderInfoDO order);
+
+    @PostMapping("/batch/update")
+    BatchExecuteResult<String> batchUpdate(@RequestParam(COMPANY_ID) Long companyId, @RequestBody OrderSubmitUpdateField field);
 
 }

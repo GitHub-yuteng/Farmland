@@ -33,8 +33,10 @@ public class BatchExecuteResult<T> {
     @ApiModelProperty("执行成功记录")
     private List<ReasonMap<T>> successList;
 
+    public static final BatchExecuteResult<String> EMPTY = new BatchExecuteResult<>();
+
     public static BatchExecuteResult<String> empty() {
-        return new BatchExecuteResult<>();
+        return BatchExecuteResult.EMPTY;
     }
 
     public BatchExecuteResult() {

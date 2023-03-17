@@ -5,7 +5,7 @@ import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.core.context.SpringHelper;
 import com.harvest.core.service.redis.CacheService;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
-import com.harvest.oms.service.order.AbstractBizOrderService;
+import com.harvest.oms.service.order.biz.AbstractBizOrderService;
 import com.harvest.oms.service.order.handler.delivery.OrderDeliveryExecutor;
 import org.apache.commons.collections4.CollectionUtils;
 import org.slf4j.Logger;

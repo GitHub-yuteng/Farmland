@@ -3,7 +3,7 @@ package com.harvest.oms.client.order;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.context.SpringHelper;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
-import com.harvest.oms.service.order.AbstractBizOrderService;
+import com.harvest.oms.service.order.biz.AbstractBizOrderService;
 import com.harvest.rule.client.logistics.LogisticsRuleClient;
 import com.harvest.rule.client.warehouse.WarehouseRuleClient;
 import com.harvest.rule.domain.logistics.LogisticsRuleMatch;

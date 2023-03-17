@@ -231,7 +231,7 @@ public enum OrderStatusEnum implements IEnum<Integer> {
         CACHE = Arrays.stream(OrderStatusEnum.values()).collect(Collectors.toMap(OrderStatusEnum::getStatus, Function.identity()));
     }
 
-    public static OrderStatusEnum getByStatus(Integer status) {
+    public static OrderStatusEnum getEnumByStatus(Integer status) {
         return CACHE.get(status);
     }
 
