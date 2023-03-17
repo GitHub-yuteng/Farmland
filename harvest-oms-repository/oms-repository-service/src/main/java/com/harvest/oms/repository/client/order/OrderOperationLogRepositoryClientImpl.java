@@ -43,6 +43,7 @@ public class OrderOperationLogRepositoryClientImpl implements OrderOperationLogR
         farmlandOmsOrderOperationLogEntity.setOrderId(source.getBusinessId());
         farmlandOmsOrderOperationLogEntity.setCompanyId(source.getCompanyId());
         farmlandOmsOrderOperationLogEntity.setOperationType(source.getOperationType().getType());
+        farmlandOmsOrderOperationLogEntity.setPrefix(source.getPrefix());
         farmlandOmsOrderOperationLogEntity.setContent(source.getContent());
         farmlandOmsOrderOperationLogEntity.setRemark(source.getRemark());
         farmlandOmsOrderOperationLogEntity.setInternal(source.isInternal());

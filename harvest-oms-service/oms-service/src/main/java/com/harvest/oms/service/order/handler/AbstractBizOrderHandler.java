@@ -9,5 +9,11 @@ import com.harvest.core.constants.GlobalMacroDefinition;
  **/
 public abstract class AbstractBizOrderHandler implements GlobalMacroDefinition {
 
+    /**
+     * 更新
+     *
+     * @return
+     */
+    protected abstract String update();
 
 }

@@ -104,6 +104,7 @@ public class OrderUpdateRemarkHandler extends AbstractBizOrderHandler implements
         switch (remarkEnum) {
             case SELLER:
                 if (!StringUtils.equals(orderRemark.getSellerRemark(), updateRemark.getSellerRemark())) {
+                    operationLog.setPrefix(this.update() + " | 卖家备注");
                     builder.append(orderRemark.getSellerRemark()).append(Log.CHANGE).append(updateRemark.getSellerRemark());
                     operationLog.setContent(builder.toString());
                     BizLogUtils.log(operationLog);
@@ -111,6 +112,7 @@ public class OrderUpdateRemarkHandler extends AbstractBizOrderHandler implements
                 break;
             case BUYER:
                 if (!StringUtils.equals(orderRemark.getBuyerRemark(), updateRemark.getBuyerRemark())) {
+                    operationLog.setPrefix(this.update() + " | 买家备注");
                     builder.append(orderRemark.getBuyerRemark()).append(Log.CHANGE).append(updateRemark.getBuyerRemark());
                     operationLog.setContent(builder.toString());
                     BizLogUtils.log(operationLog);
@@ -118,6 +120,7 @@ public class OrderUpdateRemarkHandler extends AbstractBizOrderHandler implements
                 break;
             case SYSTEM:
                 if (!StringUtils.equals(orderRemark.getSystemRemark(), updateRemark.getSystemRemark())) {
+                    operationLog.setPrefix(this.update() + " | 系统备注");
                     builder.append(orderRemark.getSystemRemark()).append(Log.CHANGE).append(updateRemark.getSystemRemark());
                     operationLog.setContent(builder.toString());
                     BizLogUtils.log(operationLog);
@@ -125,6 +128,7 @@ public class OrderUpdateRemarkHandler extends AbstractBizOrderHandler implements
                 break;
             case PRINT:
                 if (!StringUtils.equals(orderRemark.getPrintRemark(), updateRemark.getPrintRemark())) {
+                    operationLog.setPrefix(this.update() + " | 打印备注");
                     builder.append(orderRemark.getPrintRemark()).append(Log.CHANGE).append(updateRemark.getPrintRemark());
                     operationLog.setContent(builder.toString());
                     BizLogUtils.log(operationLog);
@@ -133,5 +137,10 @@ public class OrderUpdateRemarkHandler extends AbstractBizOrderHandler implements
             default:
                 break;
         }
+    }
+
+    @Override
+    protected String update() {
+        return "更新订单备注";
     }
 }

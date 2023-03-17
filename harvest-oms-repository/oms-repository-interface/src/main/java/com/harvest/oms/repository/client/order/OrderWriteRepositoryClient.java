@@ -4,6 +4,7 @@ import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;
+import com.harvest.oms.repository.domain.order.base.OrderWarehouse;
 import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.domain.order.update.remark.OrderUpdateRemark;
@@ -43,4 +44,9 @@ public interface OrderWriteRepositoryClient extends GlobalMacroDefinition {
     @PostMapping("/updateRemark")
     void updateRemark(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId,
                       @RequestBody OrderUpdateRemark remark);
+
+    @ApiOperation("更新订单仓库")
+    @PostMapping("/updateWarehouse")
+    void updateWarehouse(Long companyId, Long orderId, OrderWarehouse orderWarehouse);
+
 }

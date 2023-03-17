@@ -8,6 +8,7 @@ import com.harvest.core.generator.IdGenerator;
 import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;
 import com.harvest.oms.repository.domain.order.base.OrderRemark;
+import com.harvest.oms.repository.domain.order.base.OrderWarehouse;
 import com.harvest.oms.repository.domain.order.simple.OrderItemSimplePO;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.domain.order.update.remark.OrderUpdateRemark;
@@ -137,5 +138,10 @@ public class OrderWriteRepositoryClientImpl implements OrderWriteRepositoryClien
                 .eq(FarmlandOmsOrderRemarkEntity::getCompanyId, companyId)
                 .eq(FarmlandOmsOrderRemarkEntity::getOrderId, orderId)
         );
+    }
+
+    @Override
+    public void updateWarehouse(Long companyId, Long orderId, OrderWarehouse orderWarehouse) {
+
     }
 }

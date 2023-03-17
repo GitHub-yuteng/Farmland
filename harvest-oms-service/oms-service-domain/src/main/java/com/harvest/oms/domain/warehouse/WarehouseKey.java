@@ -2,8 +2,10 @@ package com.harvest.oms.domain.warehouse;
 
 import com.harvest.core.domain.CompanyId;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 /**
  * @Author: Alodi
@@ -11,6 +13,8 @@ import lombok.EqualsAndHashCode;
  * @Description: TODO
  **/
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class WarehouseKey extends CompanyId {
 
@@ -22,5 +26,12 @@ public class WarehouseKey extends CompanyId {
     public WarehouseKey(Long companyId, Long warehouseId) {
         super(companyId);
         this.warehouseId = warehouseId;
+    }
+
+    public static WarehouseKey build(Long companyId, Long warehouseId) {
+        WarehouseKey warehouseKey = new WarehouseKey();
+        warehouseKey.setCompanyId(companyId);
+        warehouseKey.setWarehouseId(warehouseId);
+        return warehouseKey;
     }
 }

@@ -20,6 +20,16 @@ public interface OrderUpdateHandler {
     boolean match(Long companyId, OrderSubmitUpdateField.UpdateEnum updateEnum);
 
     /**
+     * 检查
+     *
+     * @param companyId
+     * @param field
+     * @param order
+     */
+    default void check(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
+    }
+
+    /**
      * 处理
      *
      * @param companyId

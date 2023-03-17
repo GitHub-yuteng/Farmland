@@ -30,11 +30,14 @@ public class AbstractOperationLog extends CompanyId {
     @ApiModelProperty("业务主键id eg:order_id")
     protected Long businessId;
 
-    @ApiModelProperty("日志内容")
-    protected String content;
-
     @ApiModelProperty("操作类型")
     protected OperationType operationType;
+
+    @ApiModelProperty("日志修改类型前缀")
+    protected String prefix;
+
+    @ApiModelProperty("日志内容")
+    protected String content;
 
     @ApiModelProperty("日志备注信息")
     protected String remark;
