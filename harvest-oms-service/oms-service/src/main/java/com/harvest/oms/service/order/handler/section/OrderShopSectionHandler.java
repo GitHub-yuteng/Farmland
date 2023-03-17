@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 /**
  * @Author: Alodi
  * @Date: 2023/2/6 12:30 AM
- * @Description: 订单自定义标签
+ * @Description: 订单店铺信息
  **/
 @Order(OrderSectionHandler.Order.ORDER_SHOP)
 @Component
@@ -31,7 +31,7 @@ public class OrderShopSectionHandler implements OrderSectionHandler {
             return;
         }
 
-        List<Long> shopIds = orders.parallelStream().map(OrderInfoDO::getShopId).filter(Objects::nonNull).distinct().collect(Collectors.toList());
+        List<Long> shopIds = orders.stream().map(OrderInfoDO::getShopId).filter(Objects::nonNull).distinct().collect(Collectors.toList());
 
     }
 }
