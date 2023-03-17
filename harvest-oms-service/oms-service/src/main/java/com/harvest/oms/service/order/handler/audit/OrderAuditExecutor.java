@@ -87,13 +87,13 @@ public class OrderAuditExecutor implements OrderAuditProcessor {
 
     @Override
     public void log(Long companyId, SubmitAuditRequest request) {
-        OrderOperationLog log = OrderOperationLog.init();
-        log.setCompanyId(companyId);
-        log.setBusinessId(request.getOrder().getOrderId());
-        log.setOrderNo(request.getOrder().getOrderNo());
-        log.setOperationType(AbstractOperationLog.OperationType.MODIFY);
-        log.setContent("订单审核");
-        BizLogUtils.log(log);
+        OrderOperationLog operationLog = OrderOperationLog.init();
+        operationLog.setBusinessId(request.getOrder().getOrderId());
+        operationLog.setOrderNo(request.getOrder().getOrderNo());
+        operationLog.setOperationType(AbstractOperationLog.OperationType.MODIFY);
+        operationLog.setPrefix("订单审核");
+        operationLog.setContent("订单审核");
+        BizLogUtils.log(operationLog);
     }
 
     private SendResult pushWms(Long companyId, SubmitAuditRequest request) {
