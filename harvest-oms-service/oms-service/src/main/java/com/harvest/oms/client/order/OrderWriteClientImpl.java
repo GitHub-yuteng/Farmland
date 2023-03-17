@@ -64,7 +64,7 @@ public class OrderWriteClientImpl extends AbstractBizOrderService implements Ord
         }
         return super.SyncUniqueOrderParallelFailAllowBatchExecute(companyId, orderIds,
                 order -> orderUpdateHandlers.forEach(handler -> {
-                    if (handler.match(companyId, field.getUpdateType())) {
+                    if (handler.match(companyId, field.getUpdateEnum())) {
                         handler.handle(companyId, field, order);
                     }
                 }));

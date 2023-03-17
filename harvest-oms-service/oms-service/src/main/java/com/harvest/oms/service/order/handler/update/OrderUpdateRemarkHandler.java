@@ -76,6 +76,8 @@ public class OrderUpdateRemarkHandler extends AbstractBizOrderHandler implements
             }
         }
         orderWriteRepositoryClient.updateRemark(companyId, order.getOrderId(), updateRemark);
+
+        this.log(companyId, field, order);
     }
 
     /**
