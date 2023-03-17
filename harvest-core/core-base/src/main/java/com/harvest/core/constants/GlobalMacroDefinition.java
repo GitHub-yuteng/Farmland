@@ -124,6 +124,11 @@ public interface GlobalMacroDefinition {
 
     }
 
+    interface Log {
+        String ORIGINAL = "【原】: ";
+        String CHANGE   = "【改】: ";
+    }
+
     /**
      * 常用属性参数 无特殊意义定义
      */

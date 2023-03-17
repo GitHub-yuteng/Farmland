@@ -3,8 +3,11 @@ package com.harvest.oms.service.order.handler.update;
 import com.harvest.core.annotation.BizLog;
 import com.harvest.core.exception.ExceptionCodes;
 import com.harvest.core.exception.StandardRuntimeException;
+import com.harvest.core.log.AbstractOperationLog;
+import com.harvest.core.service.utils.BizLogUtils;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.client.order.OrderWriteRepositoryClient;
+import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.repository.domain.order.base.OrderRemark;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
 import com.harvest.oms.repository.domain.order.update.remark.OrderUpdateRemark;
@@ -84,6 +87,47 @@ public class OrderUpdateRemarkHandler extends AbstractBizOrderHandler implements
      */
     @Override
     public void log(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
-        
+        OrderRemark orderRemark = order.getOrderRemark();
+        OrderUpdateRemark updateRemark = field.getRemark();
+
+        OrderOperationLog operationLog = OrderOperationLog.init();
+        operationLog.setBusinessId(order.getOrderId());
+        operationLog.setOrderNo(order.getOrderNo());
+        operationLog.setOperationType(AbstractOperationLog.OperationType.MODIFY);
+
+        StringBuilder builder = new StringBuilder();
+        builder.append(Log.ORIGINAL);
+
+        OrderRemark.RemarkEnum remarkEnum = updateRemark.getRemarkEnum();
+        switch (remarkEnum) {
+            case SELLER:
+                if (!StringUtils.equals(orderRemark.getSellerRemark(), updateRemark.getSellerRemark())) {
+                    builder.append(orderRemark.getSellerRemark()).append(Log.CHANGE).append(updateRemark.getSellerRemark());
+                    operationLog.setContent(builder.toString());
+                }
+                break;
+            case BUYER:
+                if (!StringUtils.equals(orderRemark.getBuyerRemark(), updateRemark.getBuyerRemark())) {
+                    builder.append(orderRemark.getBuyerRemark()).append(Log.CHANGE).append(updateRemark.getBuyerRemark());
+                    operationLog.setContent(builder.toString());
+                }
+                break;
+            case SYSTEM:
+                if (!StringUtils.equals(orderRemark.getSystemRemark(), updateRemark.getSystemRemark())) {
+                    builder.append(orderRemark.getSystemRemark()).append(Log.CHANGE).append(updateRemark.getSystemRemark());
+                    operationLog.setContent(builder.toString());
+                }
+                break;
+            case PRINT:
+                if (!StringUtils.equals(orderRemark.getPrintRemark(), updateRemark.getPrintRemark())) {
+                    builder.append(orderRemark.getPrintRemark()).append(Log.CHANGE).append(updateRemark.getPrintRemark());
+                    operationLog.setContent(builder.toString());
+                }
+                break;
+            default:
+                break;
+        }
+
+        BizLogUtils.log(operationLog);
     }
 }
