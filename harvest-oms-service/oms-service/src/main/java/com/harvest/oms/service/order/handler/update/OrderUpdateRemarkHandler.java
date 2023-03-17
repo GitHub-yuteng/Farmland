@@ -106,30 +106,32 @@ public class OrderUpdateRemarkHandler extends AbstractBizOrderHandler implements
                 if (!StringUtils.equals(orderRemark.getSellerRemark(), updateRemark.getSellerRemark())) {
                     builder.append(orderRemark.getSellerRemark()).append(Log.CHANGE).append(updateRemark.getSellerRemark());
                     operationLog.setContent(builder.toString());
+                    BizLogUtils.log(operationLog);
                 }
                 break;
             case BUYER:
                 if (!StringUtils.equals(orderRemark.getBuyerRemark(), updateRemark.getBuyerRemark())) {
                     builder.append(orderRemark.getBuyerRemark()).append(Log.CHANGE).append(updateRemark.getBuyerRemark());
                     operationLog.setContent(builder.toString());
+                    BizLogUtils.log(operationLog);
                 }
                 break;
             case SYSTEM:
                 if (!StringUtils.equals(orderRemark.getSystemRemark(), updateRemark.getSystemRemark())) {
                     builder.append(orderRemark.getSystemRemark()).append(Log.CHANGE).append(updateRemark.getSystemRemark());
                     operationLog.setContent(builder.toString());
+                    BizLogUtils.log(operationLog);
                 }
                 break;
             case PRINT:
                 if (!StringUtils.equals(orderRemark.getPrintRemark(), updateRemark.getPrintRemark())) {
                     builder.append(orderRemark.getPrintRemark()).append(Log.CHANGE).append(updateRemark.getPrintRemark());
                     operationLog.setContent(builder.toString());
+                    BizLogUtils.log(operationLog);
                 }
                 break;
             default:
                 break;
         }
-
-        BizLogUtils.log(operationLog);
     }
 }
