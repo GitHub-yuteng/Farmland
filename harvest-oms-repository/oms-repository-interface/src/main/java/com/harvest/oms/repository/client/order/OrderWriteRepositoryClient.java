@@ -47,6 +47,7 @@ public interface OrderWriteRepositoryClient extends GlobalMacroDefinition {
 
     @ApiOperation("更新订单仓库")
     @PostMapping("/updateWarehouse")
-    void updateWarehouse(Long companyId, Long orderId, OrderWarehouse orderWarehouse);
+    void updateWarehouse(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId,
+                         @RequestBody OrderWarehouse orderWarehouse);
 
 }
