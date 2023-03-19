@@ -12,10 +12,8 @@ import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.repository.domain.order.base.OrderWarehouse;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
-import com.harvest.oms.service.order.event.OrderEventPublisher;
 import com.harvest.oms.service.order.handler.AbstractBizOrderHandler;
 import com.harvest.wms.domain.WarehouseDO;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Objects;
@@ -27,9 +25,6 @@ import java.util.Objects;
  **/
 @Component
 public class OrderUpdateWarehouseHandler extends AbstractBizOrderHandler implements OrderUpdateHandler {
-
-    @Autowired
-    private OrderEventPublisher orderEventPublisher;
 
     @Override
     protected String update() {

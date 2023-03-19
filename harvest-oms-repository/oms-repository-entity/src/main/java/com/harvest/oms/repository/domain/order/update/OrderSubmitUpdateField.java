@@ -34,6 +34,9 @@ public class OrderSubmitUpdateField extends CompanyId {
     @ApiModelProperty("提交异常")
     private Boolean abnormal;
 
+    @ApiModelProperty("标记")
+    private List<Integer> tagValues;
+
     /**
      * 更新
      */
@@ -43,6 +46,11 @@ public class OrderSubmitUpdateField extends CompanyId {
          * 更新类型
          */
         WAREHOUSE, LOGISTICS, REMARK, ABNORMAL,
+
+        /**
+         * 标记
+         */
+        TAG_ADD, TAG_REMOVE, TAG_REMOVE_ALL,
 
         /**
          * 匹配更新

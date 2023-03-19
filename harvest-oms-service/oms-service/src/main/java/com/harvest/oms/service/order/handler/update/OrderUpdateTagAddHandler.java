@@ -3,27 +3,32 @@ package com.harvest.oms.service.order.handler.update;
 import com.harvest.core.annotation.BizLog;
 import com.harvest.core.log.RecordLog;
 import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
+import com.harvest.oms.repository.domain.order.base.OrderTag;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
 import com.harvest.oms.service.order.handler.AbstractBizOrderHandler;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
+
+import java.util.List;
 
 /**
  * @Author: Alodi
  * @Date: 2023/3/19 3:39 PM
- * @Description: 提交异常
+ * @Description: 移除标记
  **/
 @Component
-public class OrderUpdateAbnormalHandler extends AbstractBizOrderHandler implements OrderUpdateHandler {
+public class OrderUpdateTagAddHandler extends AbstractBizOrderHandler implements OrderUpdateHandler {
 
     @Override
     protected String update() {
-        return "提交异常";
+        return "添加订单标记";
     }
 
     @Override
     public boolean match(Long companyId, OrderSubmitUpdateField.UpdateEnum updateEnum) {
-        return OrderSubmitUpdateField.UpdateEnum.ABNORMAL.equals(updateEnum);
+        return OrderSubmitUpdateField.UpdateEnum.TAG_ADD.equals(updateEnum);
     }
 
     @Override
@@ -37,12 +42,16 @@ public class OrderUpdateAbnormalHandler extends AbstractBizOrderHandler implemen
         if (!this.check(companyId, field, order)) {
             return;
         }
-        orderWriteRepositoryClient.abnormal(companyId, true, order.getOrderId());
+        List<OrderTag> orderTags = order.getOrderTags();
+        if (CollectionUtils.isNotEmpty(orderTags)) {
+
+        }
+        orderEventPublisher.publish(companyId, order.getOrderId(), OrderEventEnum.TAG_MODIFY);
         this.log(companyId, field, order);
     }
 
     @Override
     public void log(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
-        OrderOperationLog.build(order.getOrderId(), RecordLog.OperationType.MODIFY, "提交异常", "提交异常");
+        OrderOperationLog.build(order.getOrderId(), RecordLog.OperationType.MODIFY, this.update(), "添加订单标记");
     }
 }

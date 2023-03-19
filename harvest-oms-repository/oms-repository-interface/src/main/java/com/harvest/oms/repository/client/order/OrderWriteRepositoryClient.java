@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @Author: Alodi
@@ -50,8 +51,18 @@ public interface OrderWriteRepositoryClient extends GlobalMacroDefinition {
     void updateWarehouse(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId,
                          @RequestBody OrderWarehouse orderWarehouse);
 
-    @ApiOperation("更新订单仓库")
-    @PostMapping("/updateWarehouse")
+    @ApiOperation("提交异常")
+    @PostMapping("/abnormal")
     void abnormal(@RequestParam(COMPANY_ID) Long companyId, @RequestParam("abnormal") boolean abnormal,
                   @RequestParam(OMS.ORDER_ID) Long orderId);
+
+    @ApiOperation("移除全部订单标记")
+    @PostMapping("/tagRemoveAll")
+    void tagRemoveAll(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId);
+
+    @ApiOperation("移除订单标记")
+    @PostMapping("/tagRemove")
+    void tagRemove(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId,
+                   @RequestBody List<Integer> tagValues);
+
 }

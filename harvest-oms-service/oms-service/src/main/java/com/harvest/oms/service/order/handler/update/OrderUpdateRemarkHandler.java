@@ -6,6 +6,7 @@ import com.harvest.core.exception.StandardRuntimeException;
 import com.harvest.core.log.RecordLog;
 import com.harvest.core.service.utils.BizLogUtils;
 import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.repository.domain.order.base.OrderRemark;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
@@ -76,7 +77,7 @@ public class OrderUpdateRemarkHandler extends AbstractBizOrderHandler implements
             }
         }
         orderWriteRepositoryClient.updateRemark(companyId, order.getOrderId(), updateRemark);
-
+        orderEventPublisher.publish(companyId, order.getOrderId(), OrderEventEnum.REMARK_MODIFY);
         this.log(companyId, field, order);
     }
 

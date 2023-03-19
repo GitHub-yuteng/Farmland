@@ -14,13 +14,18 @@ import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.domain.order.update.remark.OrderUpdateRemark;
 import com.harvest.oms.repository.entity.FarmlandOmsOrderEntity;
 import com.harvest.oms.repository.entity.FarmlandOmsOrderRemarkEntity;
+import com.harvest.oms.repository.entity.FarmlandOmsOrderTagEntity;
+import com.harvest.oms.repository.enums.tag.OrderTagTypeEnum;
 import com.harvest.oms.repository.mapper.FarmlandOmsOrderItemMapper;
 import com.harvest.oms.repository.mapper.FarmlandOmsOrderMapper;
 import com.harvest.oms.repository.mapper.FarmlandOmsOrderRemarkMapper;
+import com.harvest.oms.repository.mapper.FarmlandOmsOrderTagMapper;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * @Author: Alodi
@@ -36,6 +41,8 @@ public class OrderWriteRepositoryClientImpl implements OrderWriteRepositoryClien
     private FarmlandOmsOrderItemMapper farmlandOmsOrderItemMapper;
     @Autowired
     private FarmlandOmsOrderRemarkMapper farmlandOmsOrderRemarkMapper;
+    @Autowired
+    private FarmlandOmsOrderTagMapper farmlandOmsOrderTagMapper;
 
     @Override
     public void insert(Long companyId, OrderSimplePO orderSimplePO) {
@@ -158,6 +165,32 @@ public class OrderWriteRepositoryClientImpl implements OrderWriteRepositoryClien
         farmlandOmsOrderMapper.update(entity, new UpdateWrapper<FarmlandOmsOrderEntity>().lambda()
                 .eq(FarmlandOmsOrderEntity::getId, orderId)
                 .eq(FarmlandOmsOrderEntity::getCompanyId, companyId)
+        );
+    }
+
+    @Override
+    public void tagRemoveAll(Long companyId, Long orderId) {
+        FarmlandOmsOrderTagEntity entity = new FarmlandOmsOrderTagEntity();
+        entity.setIsDeleted(true);
+        farmlandOmsOrderTagMapper.update(entity, new UpdateWrapper<FarmlandOmsOrderTagEntity>().lambda()
+                .eq(FarmlandOmsOrderTagEntity::getCompanyId, companyId)
+                .eq(FarmlandOmsOrderTagEntity::getRecordId, orderId)
+                .eq(FarmlandOmsOrderTagEntity::getRecordType, OrderTagTypeEnum.ORDER)
+        );
+    }
+
+    @Override
+    public void tagRemove(Long companyId, Long orderId, List<Integer> tagValues) {
+        if (CollectionUtils.isEmpty(tagValues)) {
+            return;
+        }
+        FarmlandOmsOrderTagEntity entity = new FarmlandOmsOrderTagEntity();
+        entity.setIsDeleted(true);
+        farmlandOmsOrderTagMapper.update(entity, new UpdateWrapper<FarmlandOmsOrderTagEntity>().lambda()
+                .eq(FarmlandOmsOrderTagEntity::getCompanyId, companyId)
+                .eq(FarmlandOmsOrderTagEntity::getRecordId, orderId)
+                .eq(FarmlandOmsOrderTagEntity::getRecordType, OrderTagTypeEnum.ORDER)
+                .in(FarmlandOmsOrderTagEntity::getTagValue, tagValues)
         );
     }
 }
