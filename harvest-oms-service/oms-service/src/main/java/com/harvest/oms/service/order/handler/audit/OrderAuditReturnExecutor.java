@@ -2,7 +2,7 @@ package com.harvest.oms.service.order.handler.audit;
 
 import com.harvest.core.annotation.BizLog;
 import com.harvest.core.enums.oms.OrderStatusEnum;
-import com.harvest.core.log.AbstractOperationLog;
+import com.harvest.core.log.RecordLog;
 import com.harvest.core.service.mq.ProducerMessageService;
 import com.harvest.core.service.utils.BizLogUtils;
 import com.harvest.oms.client.order.OrderWriteClient;
@@ -49,12 +49,12 @@ public class OrderAuditReturnExecutor {
     }
 
     public void log(Long companyId, SubmitAuditReturnRequest request) {
-        OrderOperationLog log = OrderOperationLog.init();
-        log.setCompanyId(companyId);
-        log.setBusinessId(request.getOrder().getOrderId());
-        log.setOrderNo(request.getOrder().getOrderNo());
-        log.setOperationType(AbstractOperationLog.OperationType.MODIFY);
-        log.setContent("订单打回审核");
+        OrderOperationLog log = OrderOperationLog.build(
+                request.getOrder().getOrderId(),
+                RecordLog.OperationType.MODIFY,
+                "打回审核",
+                "订单打回审核"
+        );
         BizLogUtils.log(log);
     }
 

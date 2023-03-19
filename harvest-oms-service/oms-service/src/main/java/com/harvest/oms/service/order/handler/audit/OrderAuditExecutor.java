@@ -3,7 +3,7 @@ package com.harvest.oms.service.order.handler.audit;
 import com.harvest.core.annotation.BizLog;
 import com.harvest.core.context.SpringHelper;
 import com.harvest.core.enums.oms.OrderStatusEnum;
-import com.harvest.core.log.AbstractOperationLog;
+import com.harvest.core.log.RecordLog;
 import com.harvest.core.service.mq.ProducerMessageService;
 import com.harvest.core.service.mq.topic.MessageTopic;
 import com.harvest.core.service.utils.BizLogUtils;
@@ -87,12 +87,12 @@ public class OrderAuditExecutor implements OrderAuditProcessor {
 
     @Override
     public void log(Long companyId, SubmitAuditRequest request) {
-        OrderOperationLog operationLog = OrderOperationLog.init();
-        operationLog.setBusinessId(request.getOrder().getOrderId());
-        operationLog.setOrderNo(request.getOrder().getOrderNo());
-        operationLog.setOperationType(AbstractOperationLog.OperationType.MODIFY);
-        operationLog.setPrefix("订单审核");
-        operationLog.setContent("订单审核");
+        OrderOperationLog operationLog = OrderOperationLog.build(
+                request.getOrder().getOrderId(),
+                RecordLog.OperationType.MODIFY,
+                "订单审核",
+                "订单审核"
+        );
         BizLogUtils.log(operationLog);
     }
 

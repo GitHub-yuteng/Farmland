@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  **/
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class AbstractOperationLog extends CompanyId {
+public class RecordLog extends CompanyId {
 
     private static final long serialVersionUID = 4035269531031643140L;
 

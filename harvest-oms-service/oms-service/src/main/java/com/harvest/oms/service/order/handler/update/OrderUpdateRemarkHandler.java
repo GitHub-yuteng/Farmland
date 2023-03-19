@@ -3,7 +3,7 @@ package com.harvest.oms.service.order.handler.update;
 import com.harvest.core.annotation.BizLog;
 import com.harvest.core.exception.ExceptionCodes;
 import com.harvest.core.exception.StandardRuntimeException;
-import com.harvest.core.log.AbstractOperationLog;
+import com.harvest.core.log.RecordLog;
 import com.harvest.core.service.utils.BizLogUtils;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.client.order.OrderWriteRepositoryClient;
@@ -94,8 +94,7 @@ public class OrderUpdateRemarkHandler extends AbstractBizOrderHandler implements
 
         OrderOperationLog operationLog = OrderOperationLog.init();
         operationLog.setBusinessId(order.getOrderId());
-        operationLog.setOrderNo(order.getOrderNo());
-        operationLog.setOperationType(AbstractOperationLog.OperationType.MODIFY);
+        operationLog.setOperationType(RecordLog.OperationType.MODIFY);
 
         StringBuilder builder = new StringBuilder();
         builder.append(Log.ORIGINAL);

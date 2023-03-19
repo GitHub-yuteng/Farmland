@@ -3,8 +3,8 @@ package com.harvest.oms.repository.domain.order.base;
 import com.harvest.core.context.ContextHolder;
 import com.harvest.core.enums.log.OperationLogEnum;
 import com.harvest.core.generator.IdGenerator;
-import com.harvest.core.log.AbstractOperationLog;
 import com.harvest.core.log.OperationLog;
+import com.harvest.core.log.RecordLog;
 import lombok.*;
 
 import java.time.LocalDateTime;
@@ -19,7 +19,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
-public class OrderOperationLog extends AbstractOperationLog implements OperationLog {
+public class OrderOperationLog extends RecordLog implements OperationLog {
 
     private static final long serialVersionUID = 4087359112058852127L;
 
@@ -28,7 +28,7 @@ public class OrderOperationLog extends AbstractOperationLog implements Operation
         return OperationLogEnum.ORDER;
     }
 
-    private String orderNo;
+    private Long orderItemId;
 
     public static OrderOperationLog init() {
         OrderOperationLog log = new OrderOperationLog();
@@ -40,6 +40,15 @@ public class OrderOperationLog extends AbstractOperationLog implements Operation
         log.setInternal(false);
         log.setException(false);
         return log;
+    }
+
+    public static OrderOperationLog build(Long businessId, OperationType operationType, String prefix, String content) {
+        OrderOperationLog build = init();
+        build.setBusinessId(businessId);
+        build.setOperationType(operationType);
+        build.setPrefix(prefix);
+        build.setContent(content);
+        return build;
     }
 
 }

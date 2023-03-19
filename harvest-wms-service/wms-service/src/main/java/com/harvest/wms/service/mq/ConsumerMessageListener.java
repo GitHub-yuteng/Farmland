@@ -2,7 +2,7 @@ package com.harvest.wms.service.mq;
 
 import com.harvest.core.service.mq.topic.MessageTopic;
 import com.harvest.core.utils.JsonUtils;
-import com.harvest.oms.client.CallBackOrderClient;
+import com.harvest.oms.client.wms.CallBackOrderClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.request.order.warehouse.SubmitWmsOrderMessage;
 import org.apache.rocketmq.spring.annotation.RocketMQMessageListener;

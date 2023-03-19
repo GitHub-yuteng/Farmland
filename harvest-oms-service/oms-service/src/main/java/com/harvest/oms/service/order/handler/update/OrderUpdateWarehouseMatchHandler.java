@@ -3,7 +3,7 @@ package com.harvest.oms.service.order.handler.update;
 import com.harvest.core.annotation.BizLog;
 import com.harvest.core.exception.ExceptionCodes;
 import com.harvest.core.exception.StandardRuntimeException;
-import com.harvest.core.log.AbstractOperationLog;
+import com.harvest.core.log.RecordLog;
 import com.harvest.core.service.utils.BizLogUtils;
 import com.harvest.oms.cache.CacheLoader;
 import com.harvest.oms.client.order.OrderMatchClient;
@@ -80,13 +80,12 @@ public class OrderUpdateWarehouseMatchHandler extends AbstractBizOrderHandler im
 
         OrderOperationLog operationLog = OrderOperationLog.init();
         operationLog.setBusinessId(order.getOrderId());
-        operationLog.setOrderNo(order.getOrderNo());
-        operationLog.setOperationType(AbstractOperationLog.OperationType.MODIFY);
+        operationLog.setOperationType(RecordLog.OperationType.MODIFY);
         operationLog.setPrefix(this.update());
         operationLog.setContent(
                 Log.ORIGINAL + (order.getWarehouse() != null ? order.getWarehouse().getWarehouseId() + ":" + order.getWarehouse().getWarehouse() : "") +
-                LINE_FEED +
-                Log.CHANGE + warehouseId + ":" + Objects.requireNonNull(warehouse).getWarehouse()
+                        LINE_FEED +
+                        Log.CHANGE + warehouseId + ":" + Objects.requireNonNull(warehouse).getWarehouse()
         );
         BizLogUtils.log(operationLog);
     }

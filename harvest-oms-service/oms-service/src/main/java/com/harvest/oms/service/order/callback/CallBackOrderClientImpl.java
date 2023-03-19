@@ -3,10 +3,10 @@ package com.harvest.oms.service.order.callback;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.core.context.SpringHelper;
-import com.harvest.oms.client.CallBackOrderClient;
 import com.harvest.oms.client.constants.HarvestOmsApplications;
 import com.harvest.oms.client.order.OrderAuditClient;
 import com.harvest.oms.client.order.OrderDeliveryClient;
+import com.harvest.oms.client.wms.CallBackOrderClient;
 import com.harvest.oms.request.order.audit.SubmitAuditReturnRequest;
 
 import java.util.Collection;
