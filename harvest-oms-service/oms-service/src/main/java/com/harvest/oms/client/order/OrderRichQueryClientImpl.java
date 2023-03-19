@@ -91,6 +91,10 @@ public class OrderRichQueryClientImpl implements OrderRichQueryClient {
     @Autowired(required = false)
     private List<OrderLogisticsFeatureHandler> orderLogisticsFeatureHandlers;
 
+    @Override
+    public Long frontCountQueryOrder(Long companyId, PageOrderConditionQuery condition) {
+        return orderRichQueryRepositoryClient.frontCountQueryOrder(companyId, condition);
+    }
 
     @Override
     public OrderInfoDO getOrder(Long companyId, Long orderId) {

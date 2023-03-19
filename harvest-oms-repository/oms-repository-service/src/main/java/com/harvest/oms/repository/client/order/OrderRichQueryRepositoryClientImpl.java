@@ -23,6 +23,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StopWatch;
 
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.*;
 
@@ -66,6 +67,16 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
     @Autowired
     private List<OrderOptimizeQueryConvertor> orderOptimizeQueryConvertors;
 
+    @Override
+    public Long frontCountQueryOrder(Long companyId, PageOrderConditionQuery condition) {
+        Map<String, Object> paramsMap = this.conventParams(companyId, condition);
+        this.getOptimizeQueryConvertor(companyId, condition, paramsMap);
+        List<Long> orderIds = (List<Long>) paramsMap.get(FieldUtils.getFieldName(PageOrderConditionQuery::getOrderIds));
+        if (CollectionUtils.isNotEmpty(orderIds) && orderIds.contains(0L)) {
+            return BigDecimal.ZERO.longValue();
+        }
+        return orderRichConditionQueryMapper.countQueryOrderWithRichCondition(paramsMap);
+    }
 
     @Override
     public Page<OrderSimplePO> pageQueryOrderRich(Long companyId, PageOrderConditionQuery condition) {
@@ -78,9 +89,7 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
         stopWatch.stop();
 
         stopWatch.start("拆分查询");
-        Optional<OrderOptimizeQueryConvertor> optimizeConvertor = orderOptimizeQueryConvertors.stream()
-                .filter(convertor -> convertor.process(companyId, condition, paramsMap))
-                .findAny();
+        Optional<OrderOptimizeQueryConvertor> optimizeConvertor = this.getOptimizeQueryConvertor(companyId, condition, paramsMap);
         stopWatch.stop();
 
         List<Long> orderIds = (List<Long>) paramsMap.get(FieldUtils.getFieldName(PageOrderConditionQuery::getOrderIds));
@@ -90,13 +99,17 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
             return page;
         }
 
-        stopWatch.start("订单总数查询");
-        Long count = orderRichConditionQueryMapper.countQueryOrderWithRichCondition(paramsMap);
-        stopWatch.stop();
+        Long count = BigDecimal.ZERO.longValue();
 
-        if (count == 0) {
-            LOGGER.warn("Rich#订单查询为空, companyId:{}, condition:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
-            return page;
+        if (Objects.isNull(condition.getNoCount()) || !condition.getNoCount()) {
+            stopWatch.start("订单总数查询");
+            count = orderRichConditionQueryMapper.countQueryOrderWithRichCondition(paramsMap);
+            stopWatch.stop();
+
+            if (count == 0) {
+                LOGGER.warn("Rich#订单查询为空, companyId:{}, condition:{}, \nstopWatch:{}", companyId, JsonUtils.object2Json(condition), stopWatch.prettyPrint());
+                return page;
+            }
         }
 
         // 总数
@@ -116,6 +129,18 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
         }
 
         return page;
+    }
+
+    /**
+     * 优化查询
+     *
+     * @param companyId
+     * @param condition
+     * @param paramsMap
+     * @return
+     */
+    private Optional<OrderOptimizeQueryConvertor> getOptimizeQueryConvertor(Long companyId, PageOrderConditionQuery condition, Map<String, Object> paramsMap) {
+        return orderOptimizeQueryConvertors.stream().filter(convertor -> convertor.process(companyId, condition, paramsMap)).findAny();
     }
 
     /**

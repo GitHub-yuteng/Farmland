@@ -60,6 +60,9 @@ public class PageOrderConditionQuery extends PageQuery implements Serializable {
     @ApiModelProperty("是否是异常订单 0否 1是")
     private Boolean abnormal;
 
+    @ApiModelProperty("分页不查总数-需要前端处理分页")
+    private Boolean noCount;
+
     @ApiModelProperty("排序列")
     private ColumnSort columnSort;
 

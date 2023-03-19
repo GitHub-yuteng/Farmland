@@ -23,8 +23,13 @@ public interface OrderFrontQueryClient extends GlobalMacroDefinition {
     @PostMapping(value = "/front/page/order")
     Page<OrderInfoVO> frontPageQueryOrder(@RequestParam(COMPANY_ID) Long companyId, @RequestBody PageOrderConditionQuery condition);
 
+    @ApiOperation("分页订单信息查询-特定供前端调用")
+    @PostMapping(value = "/front/count/order")
+    Long frontCountQueryOrder(@RequestParam(COMPANY_ID) Long companyId, @RequestBody PageOrderConditionQuery condition);
+
     @ApiOperation("订单信息查询-特定供前端调用")
     @PostMapping(value = "/front/order")
     OrderInfoVO frontQueryOrder(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId);
+
 
 }

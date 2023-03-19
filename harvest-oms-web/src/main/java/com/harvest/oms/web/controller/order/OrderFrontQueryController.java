@@ -35,6 +35,14 @@ public class OrderFrontQueryController implements GlobalMacroDefinition {
         return ResponseResult.success(page);
     }
 
+    @ApiOperation("订单总数")
+    @PostMapping(value = "/count")
+    public ResponseResult<Long> frontCountQueryOrder(@RequestBody PageOrderConditionQuery condition) {
+        Context context = ContextHolder.getContext();
+        Long count = orderFrontQueryClient.frontCountQueryOrder(context.getCompanyId(), condition);
+        return ResponseResult.success(count);
+    }
+
     @ApiOperation("订单查询")
     @GetMapping(value = "/get")
     public ResponseResult<OrderInfoVO> frontQueryOrder(@RequestParam(OMS.ORDER_ID) Long orderId) {

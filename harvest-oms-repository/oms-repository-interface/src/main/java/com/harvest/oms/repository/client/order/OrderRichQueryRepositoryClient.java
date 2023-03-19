@@ -1,8 +1,8 @@
 package com.harvest.oms.repository.client.order;
 
+import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.core.constants.GlobalMacroDefinition;
 import com.harvest.core.domain.Page;
-import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.oms.repository.constants.HarvestOmsRepositoryApplications;
 import com.harvest.oms.repository.domain.order.simple.OrderSimplePO;
 import com.harvest.oms.repository.query.order.PageOrderConditionQuery;
@@ -20,6 +20,10 @@ import java.util.Collection;
  **/
 @HarvestClient(value = HarvestOmsRepositoryApplications.SERVICE_NAME, path = HarvestOmsRepositoryApplications.Path.ORDER_RICH)
 public interface OrderRichQueryRepositoryClient extends GlobalMacroDefinition {
+
+    @ApiOperation("订单总数")
+    @PostMapping(value = "/frontCountQueryOrder")
+    Long frontCountQueryOrder(@RequestParam(COMPANY_ID) Long companyId, @RequestBody PageOrderConditionQuery condition);
 
     @ApiOperation("分页订单信息查询")
     @PostMapping(value = "/pageQueryOrderRich")

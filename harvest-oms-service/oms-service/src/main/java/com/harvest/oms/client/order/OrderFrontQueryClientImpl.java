@@ -92,6 +92,11 @@ public class OrderFrontQueryClientImpl implements OrderFrontQueryClient {
     }
 
     @Override
+    public Long frontCountQueryOrder(Long companyId, PageOrderConditionQuery condition) {
+        return orderRichQueryClient.frontCountQueryOrder(companyId, condition);
+    }
+
+    @Override
     public OrderInfoVO frontQueryOrder(Long companyId, Long orderId) {
         OrderInfoDO order = orderRichQueryClient.getOrderRich(companyId, orderId);
         return orderConvertor.convert(order);
