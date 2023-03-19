@@ -2,6 +2,7 @@ package com.harvest.oms.service.order.handler.update;
 
 import com.harvest.core.annotation.BizLog;
 import com.harvest.core.log.RecordLog;
+import com.harvest.core.service.utils.BizLogUtils;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
@@ -52,6 +53,7 @@ public class OrderUpdateTagAddHandler extends AbstractBizOrderHandler implements
 
     @Override
     public void log(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
-        OrderOperationLog.build(order.getOrderId(), RecordLog.OperationType.MODIFY, this.update(), "添加订单标记");
+        OrderOperationLog operationLog = OrderOperationLog.build(order.getOrderId(), RecordLog.OperationType.MODIFY, this.update(), "添加订单标记");
+        BizLogUtils.log(operationLog);
     }
 }

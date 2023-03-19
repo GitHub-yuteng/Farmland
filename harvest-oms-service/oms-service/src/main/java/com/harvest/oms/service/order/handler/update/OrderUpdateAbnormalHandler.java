@@ -2,6 +2,7 @@ package com.harvest.oms.service.order.handler.update;
 
 import com.harvest.core.annotation.BizLog;
 import com.harvest.core.log.RecordLog;
+import com.harvest.core.service.utils.BizLogUtils;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
@@ -43,6 +44,7 @@ public class OrderUpdateAbnormalHandler extends AbstractBizOrderHandler implemen
 
     @Override
     public void log(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
-        OrderOperationLog.build(order.getOrderId(), RecordLog.OperationType.MODIFY, "提交异常", "提交异常");
+        OrderOperationLog operationLog = OrderOperationLog.build(order.getOrderId(), RecordLog.OperationType.MODIFY, this.update(), "提交异常");
+        BizLogUtils.log(operationLog);
     }
 }

@@ -2,12 +2,18 @@ package com.harvest.oms.service.order.handler.update;
 
 import com.harvest.core.annotation.BizLog;
 import com.harvest.core.log.RecordLog;
+import com.harvest.core.service.utils.BizLogUtils;
+import com.harvest.core.utils.JsonUtils;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
+import com.harvest.oms.repository.domain.order.base.OrderTag;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
 import com.harvest.oms.service.order.handler.AbstractBizOrderHandler;
+import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
+
+import java.util.stream.Collectors;
 
 /**
  * @Author: Alodi
@@ -29,7 +35,10 @@ public class OrderUpdateTagRemoveAllHandler extends AbstractBizOrderHandler impl
 
     @Override
     public boolean check(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
-        return OrderUpdateHandler.super.check(companyId, field, order);
+        if (CollectionUtils.isEmpty(order.getOrderTags())) {
+            return false;
+        }
+        return true;
     }
 
     @BizLog
@@ -45,6 +54,11 @@ public class OrderUpdateTagRemoveAllHandler extends AbstractBizOrderHandler impl
 
     @Override
     public void log(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
-        OrderOperationLog.build(order.getOrderId(), RecordLog.OperationType.MODIFY, this.update(), "移除全部订单标记");
+        if (CollectionUtils.isEmpty(order.getOrderTags())) {
+            return;
+        }
+        OrderOperationLog operationLog = OrderOperationLog.build(order.getOrderId(), RecordLog.OperationType.MODIFY, this.update(),
+                "移除全部订单标记: " + JsonUtils.object2Json(order.getOrderTags().stream().map(OrderTag::getTagValue).collect(Collectors.toList())));
+        BizLogUtils.log(operationLog);
     }
 }
