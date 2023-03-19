@@ -29,7 +29,7 @@ public class OrderUpdateAbnormalHandler extends AbstractBizOrderHandler implemen
 
     @Override
     public boolean check(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
-        return OrderUpdateHandler.super.check(companyId, field, order);
+        return true;
     }
 
     @BizLog
