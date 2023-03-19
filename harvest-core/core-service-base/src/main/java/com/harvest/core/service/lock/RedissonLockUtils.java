@@ -75,6 +75,8 @@ public class RedissonLockUtils {
             if (getRedisLock(lock, waitTime, leaseTime, tryTimes)) {
                 runnable.run();
             }
+        } catch (NullPointerException e) {
+            throw e;
         } catch (Exception e) {
             LOGGER.error("分布式锁 键值：{} 排队超时。超时时间:{} 秒", lockKey, waitTime);
             throw new StandardRuntimeException(ExceptionCodes.CORE_MODULE_ERROR, e.getMessage());
@@ -142,6 +144,9 @@ public class RedissonLockUtils {
             return result;
         } catch (InterruptedException e) {
             LOGGER.error("分布式锁 键值：{} 排队超时。超时时间:{} 秒", lockKey, waitTime);
+            throw e;
+        } catch (Exception e) {
+            e.printStackTrace();
             throw new StandardRuntimeException(ExceptionCodes.CORE_MODULE_ERROR, e.getMessage());
         } finally {
             if (lock != null && lock.isLocked() && lock.isHeldByCurrentThread()) {
@@ -170,6 +175,7 @@ public class RedissonLockUtils {
                 Thread.sleep(100);
             } catch (Exception e) {
                 LOGGER.error("获取分布式锁失败!", e);
+                e.printStackTrace();
             }
             tryTimes--;
         }

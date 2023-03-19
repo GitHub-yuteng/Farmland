@@ -45,7 +45,7 @@ public class OrderSubmitUpdateField extends CompanyId {
         /**
          * 更新类型
          */
-        WAREHOUSE, LOGISTICS, REMARK, ABNORMAL,
+        WAREHOUSE, LOGISTICS, REMARK, ABNORMAL, CLOSE,
 
         /**
          * 标记

@@ -26,7 +26,7 @@ public class OrderUpdateCloseHandler extends AbstractBizOrderHandler implements 
 
     @Override
     public boolean match(Long companyId, OrderSubmitUpdateField.UpdateEnum updateEnum) {
-        return OrderSubmitUpdateField.UpdateEnum.ABNORMAL.equals(updateEnum);
+        return OrderSubmitUpdateField.UpdateEnum.CLOSE.equals(updateEnum);
     }
 
     @Override
