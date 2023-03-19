@@ -104,6 +104,9 @@ public class OrderEventPublisher {
                 case CLOSE:
                     listener.close(companyId, order);
                     break;
+                case ABNORMAL:
+                    listener.abnormal(companyId, order);
+                    break;
                 default:
                     break;
             }

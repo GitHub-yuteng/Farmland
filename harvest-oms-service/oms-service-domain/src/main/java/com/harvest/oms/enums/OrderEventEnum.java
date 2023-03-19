@@ -46,6 +46,9 @@ public enum OrderEventEnum {
     /*订单标签变更*/
     TAG_MODIFY,
 
+    /*异常单*/
+    ABNORMAL,
+
     /*订单备注变更*/
     REMARK_MODIFY,
 

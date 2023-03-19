@@ -4,6 +4,7 @@ import com.harvest.core.annotation.BizLog;
 import com.harvest.core.log.RecordLog;
 import com.harvest.core.service.utils.BizLogUtils;
 import com.harvest.oms.domain.order.OrderInfoDO;
+import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
 import com.harvest.oms.service.order.handler.AbstractBizOrderHandler;
@@ -39,6 +40,7 @@ public class OrderUpdateAbnormalHandler extends AbstractBizOrderHandler implemen
             return;
         }
         orderWriteRepositoryClient.abnormal(companyId, true, order.getOrderId());
+        orderEventPublisher.publish(companyId, order.getOrderId(), OrderEventEnum.ABNORMAL);
         this.log(companyId, field, order);
     }
 

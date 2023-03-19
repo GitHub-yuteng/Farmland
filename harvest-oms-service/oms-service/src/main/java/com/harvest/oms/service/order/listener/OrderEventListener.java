@@ -152,4 +152,14 @@ public interface OrderEventListener {
     default void merged(Long companyId, OrderInfoDO order) {
     }
 
+    /**
+     * 异常单
+     *
+     * @param companyId 公司id
+     * @param order     相关订单
+     */
+    default void abnormal(long companyId, OrderInfoDO order) {
+    }
+
 }
+
