@@ -170,12 +170,10 @@ public class OrderWriteRepositoryClientImpl implements OrderWriteRepositoryClien
 
     @Override
     public void tagRemoveAll(Long companyId, Long orderId) {
-        FarmlandOmsOrderTagEntity entity = new FarmlandOmsOrderTagEntity();
-        entity.setIsDeleted(true);
-        farmlandOmsOrderTagMapper.update(entity, new UpdateWrapper<FarmlandOmsOrderTagEntity>().lambda()
+        farmlandOmsOrderTagMapper.delete(new UpdateWrapper<FarmlandOmsOrderTagEntity>().lambda()
                 .eq(FarmlandOmsOrderTagEntity::getCompanyId, companyId)
                 .eq(FarmlandOmsOrderTagEntity::getRecordId, orderId)
-                .eq(FarmlandOmsOrderTagEntity::getRecordType, OrderTagTypeEnum.ORDER)
+                .eq(FarmlandOmsOrderTagEntity::getRecordType, OrderTagTypeEnum.ORDER.getType())
         );
     }
 
@@ -184,12 +182,10 @@ public class OrderWriteRepositoryClientImpl implements OrderWriteRepositoryClien
         if (CollectionUtils.isEmpty(tagValues)) {
             return;
         }
-        FarmlandOmsOrderTagEntity entity = new FarmlandOmsOrderTagEntity();
-        entity.setIsDeleted(true);
-        farmlandOmsOrderTagMapper.update(entity, new UpdateWrapper<FarmlandOmsOrderTagEntity>().lambda()
+        farmlandOmsOrderTagMapper.delete(new UpdateWrapper<FarmlandOmsOrderTagEntity>().lambda()
                 .eq(FarmlandOmsOrderTagEntity::getCompanyId, companyId)
                 .eq(FarmlandOmsOrderTagEntity::getRecordId, orderId)
-                .eq(FarmlandOmsOrderTagEntity::getRecordType, OrderTagTypeEnum.ORDER)
+                .eq(FarmlandOmsOrderTagEntity::getRecordType, OrderTagTypeEnum.ORDER.getType())
                 .in(FarmlandOmsOrderTagEntity::getTagValue, tagValues)
         );
     }

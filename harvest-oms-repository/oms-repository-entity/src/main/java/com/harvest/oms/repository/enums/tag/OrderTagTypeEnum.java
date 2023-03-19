@@ -18,5 +18,5 @@ public enum OrderTagTypeEnum {
     ORDER       (1),
     ORDER_ITEM  (2);
 
-    private final Integer value;
+    private final Integer type;
 }
