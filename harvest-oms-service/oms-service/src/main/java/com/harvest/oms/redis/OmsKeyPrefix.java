@@ -34,7 +34,7 @@ public class OmsKeyPrefix extends BaseKeyPrefix {
      * 订单全局唯一锁
      */
     public static final OmsKeyPrefix ORDER_UNIQUE_KEY = new OmsKeyPrefix(
-            KeyModePrefix.OMS.ORDER_UNIQUE + ":", TEN_SECONDS
+            KeyModePrefix.OMS.ORDER_UNIQUE, TEN_SECONDS
     );
 
 }

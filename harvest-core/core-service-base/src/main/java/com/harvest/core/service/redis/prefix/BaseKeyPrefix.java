@@ -30,7 +30,7 @@ public abstract class BaseKeyPrefix implements KeyPrefix {
     /**
      * lock tag
      */
-    private static final String LOCK = "-lock:";
+    private static final String LOCK = "lock:";
 
     /**
      * key前缀
