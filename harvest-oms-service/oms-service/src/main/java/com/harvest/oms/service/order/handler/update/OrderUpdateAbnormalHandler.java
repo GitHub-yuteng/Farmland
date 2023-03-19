@@ -39,14 +39,14 @@ public class OrderUpdateAbnormalHandler extends AbstractBizOrderHandler implemen
         if (!this.check(companyId, field, order)) {
             return;
         }
-        orderWriteRepositoryClient.abnormal(companyId, true, order.getOrderId());
+        orderWriteRepositoryClient.abnormal(companyId, field.getAbnormal(), order.getOrderId());
         orderEventPublisher.publish(companyId, order.getOrderId(), OrderEventEnum.ABNORMAL);
         this.log(companyId, field, order);
     }
 
     @Override
     public void log(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
-        OrderOperationLog operationLog = OrderOperationLog.build(order.getOrderId(), RecordLog.OperationType.MODIFY, this.update(), "提交异常");
+        OrderOperationLog operationLog = OrderOperationLog.build(order.getOrderId(), RecordLog.OperationType.MODIFY, this.update(), field.getAbnormal() ? "提交异常" : "恢复正常");
         BizLogUtils.log(operationLog);
     }
 }
