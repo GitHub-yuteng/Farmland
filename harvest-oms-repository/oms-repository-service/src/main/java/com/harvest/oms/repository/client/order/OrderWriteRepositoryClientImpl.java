@@ -26,6 +26,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Author: Alodi
@@ -111,6 +112,9 @@ public class OrderWriteRepositoryClientImpl implements OrderWriteRepositoryClien
 
     @Override
     public void updateOrderStatus(Long companyId, Long orderId, OrderStatusEnum orderStatus) {
+        if (Objects.isNull(orderStatus)) {
+            return;
+        }
         FarmlandOmsOrderEntity entity = new FarmlandOmsOrderEntity();
         entity.setOrderStatus(orderStatus.getStatus());
         farmlandOmsOrderMapper.update(entity, new UpdateWrapper<FarmlandOmsOrderEntity>().lambda()
