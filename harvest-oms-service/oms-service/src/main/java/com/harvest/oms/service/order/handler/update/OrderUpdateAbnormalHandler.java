@@ -8,20 +8,20 @@ import org.springframework.stereotype.Component;
 
 /**
  * @Author: Alodi
- * @Date: 2023/3/17 10:54 AM
+ * @Date: 2023/3/19 3:39 PM
  * @Description: TODO
  **/
 @Component
-public class OrderUpdateLogisticsHandler extends AbstractBizOrderHandler implements OrderUpdateHandler {
+public class OrderUpdateAbnormalHandler extends AbstractBizOrderHandler implements OrderUpdateHandler {
 
     @Override
     protected String update() {
-        return "更新订单物流";
+        return "提交异常";
     }
 
     @Override
     public boolean match(Long companyId, OrderSubmitUpdateField.UpdateEnum updateEnum) {
-        return OrderSubmitUpdateField.UpdateEnum.LOGISTICS.equals(updateEnum);
+        return OrderSubmitUpdateField.UpdateEnum.ABNORMAL.equals(updateEnum);
     }
 
     @Override
@@ -35,16 +35,10 @@ public class OrderUpdateLogisticsHandler extends AbstractBizOrderHandler impleme
         if (!this.check(companyId, field, order)) {
             return;
         }
+        orderWriteRepositoryClient.abnormal(companyId, field.getAbnormal(), order.getOrderId());
         this.log(companyId, field, order);
     }
 
-    /**
-     * 记录处理日志
-     *
-     * @param companyId
-     * @param field
-     * @param order
-     */
     @Override
     public void log(Long companyId, OrderSubmitUpdateField field, OrderInfoDO order) {
 

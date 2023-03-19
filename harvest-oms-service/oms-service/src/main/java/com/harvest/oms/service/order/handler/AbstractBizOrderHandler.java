@@ -1,6 +1,8 @@
 package com.harvest.oms.service.order.handler;
 
 import com.harvest.core.constants.GlobalMacroDefinition;
+import com.harvest.oms.repository.client.order.OrderWriteRepositoryClient;
+import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @Author: Alodi
@@ -8,6 +10,9 @@ import com.harvest.core.constants.GlobalMacroDefinition;
  * @Description: TODO
  **/
 public abstract class AbstractBizOrderHandler implements GlobalMacroDefinition {
+
+    @Autowired
+    protected OrderWriteRepositoryClient orderWriteRepositoryClient;
 
     /**
      * 更新

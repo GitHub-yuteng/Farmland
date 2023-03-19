@@ -150,4 +150,14 @@ public class OrderWriteRepositoryClientImpl implements OrderWriteRepositoryClien
                 .eq(FarmlandOmsOrderEntity::getCompanyId, companyId)
         );
     }
+
+    @Override
+    public void abnormal(Long companyId, boolean abnormal, Long orderId) {
+        FarmlandOmsOrderEntity entity = new FarmlandOmsOrderEntity();
+        entity.setIsAbnormal(abnormal);
+        farmlandOmsOrderMapper.update(entity, new UpdateWrapper<FarmlandOmsOrderEntity>().lambda()
+                .eq(FarmlandOmsOrderEntity::getId, orderId)
+                .eq(FarmlandOmsOrderEntity::getCompanyId, companyId)
+        );
+    }
 }

@@ -33,13 +33,15 @@ import java.util.Objects;
 public class OrderUpdateWarehouseMatchHandler extends AbstractBizOrderHandler implements OrderUpdateHandler {
 
     @Autowired
-    private OrderWriteRepositoryClient orderWriteRepositoryClient;
-
-    @Autowired
     private OrderMatchClient orderMatchClient;
 
     @Autowired
     private OrderEventPublisher orderEventPublisher;
+
+    @Override
+    protected String update() {
+        return "更新订单仓库[匹配]";
+    }
 
     @Override
     public boolean match(Long companyId, OrderSubmitUpdateField.UpdateEnum updateEnum) {
@@ -90,8 +92,4 @@ public class OrderUpdateWarehouseMatchHandler extends AbstractBizOrderHandler im
         BizLogUtils.log(operationLog);
     }
 
-    @Override
-    protected String update() {
-        return "更新订单仓库[匹配]";
-    }
 }

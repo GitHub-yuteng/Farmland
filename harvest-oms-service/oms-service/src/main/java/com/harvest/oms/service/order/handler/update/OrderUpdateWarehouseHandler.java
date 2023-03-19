@@ -9,7 +9,6 @@ import com.harvest.oms.cache.CacheLoader;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.warehouse.WarehouseKey;
 import com.harvest.oms.enums.OrderEventEnum;
-import com.harvest.oms.repository.client.order.OrderWriteRepositoryClient;
 import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.repository.domain.order.base.OrderWarehouse;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
@@ -30,10 +29,12 @@ import java.util.Objects;
 public class OrderUpdateWarehouseHandler extends AbstractBizOrderHandler implements OrderUpdateHandler {
 
     @Autowired
-    private OrderWriteRepositoryClient orderWriteRepositoryClient;
-
-    @Autowired
     private OrderEventPublisher orderEventPublisher;
+
+    @Override
+    protected String update() {
+        return "更新订单仓库";
+    }
 
     @Override
     public boolean match(Long companyId, OrderSubmitUpdateField.UpdateEnum updateEnum) {
@@ -97,14 +98,10 @@ public class OrderUpdateWarehouseHandler extends AbstractBizOrderHandler impleme
         operationLog.setPrefix(this.update());
         operationLog.setContent(
                 Log.ORIGINAL + (order.getWarehouse() != null ? order.getWarehouse().getWarehouseId() + ":" + order.getWarehouse().getWarehouse() : "") +
-                LINE_FEED +
-                Log.CHANGE + warehouseId + ":" + Objects.requireNonNull(warehouse).getWarehouse()
+                        LINE_FEED +
+                        Log.CHANGE + warehouseId + ":" + Objects.requireNonNull(warehouse).getWarehouse()
         );
         BizLogUtils.log(operationLog);
     }
 
-    @Override
-    protected String update() {
-        return "更新订单仓库";
-    }
 }

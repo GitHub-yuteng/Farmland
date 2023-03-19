@@ -31,6 +31,9 @@ public class OrderSubmitUpdateField extends CompanyId {
     @ApiModelProperty("更新备注")
     private OrderUpdateRemark remark;
 
+    @ApiModelProperty("提交异常")
+    private Boolean abnormal;
+
     /**
      * 更新
      */
@@ -39,7 +42,7 @@ public class OrderSubmitUpdateField extends CompanyId {
         /**
          * 更新类型
          */
-        WAREHOUSE, LOGISTICS, REMARK,
+        WAREHOUSE, LOGISTICS, REMARK, ABNORMAL,
 
         /**
          * 匹配更新
