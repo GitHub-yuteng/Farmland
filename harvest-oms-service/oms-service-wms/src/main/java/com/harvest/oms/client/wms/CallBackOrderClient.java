@@ -1,4 +1,4 @@
-package com.harvest.oms.client;
+package com.harvest.oms.client.wms;
 
 import com.harvest.core.annotation.feign.HarvestClient;
 import com.harvest.core.batch.BatchExecuteResult;
