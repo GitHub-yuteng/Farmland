@@ -20,6 +20,7 @@
       </foreach>
     </if>
     <if test="statuses != null and statuses.size() > 0">
+      AND o.ORDER_STATUS IN
       <foreach collection="statuses" item="status" open="(" close=")" separator=",">
         #{status}
       </foreach>
