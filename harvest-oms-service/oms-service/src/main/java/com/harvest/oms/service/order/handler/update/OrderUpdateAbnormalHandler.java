@@ -7,6 +7,7 @@ import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
+import com.harvest.oms.repository.enums.OperationPrefixEnum;
 import com.harvest.oms.service.order.handler.AbstractBizOrderHandler;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +21,7 @@ public class OrderUpdateAbnormalHandler extends AbstractBizOrderHandler implemen
 
     @Override
     protected String update() {
-        return "提交异常";
+        return OperationPrefixEnum.ABNORMAL.getPrefix();
     }
 
     @Override

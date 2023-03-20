@@ -12,6 +12,7 @@ import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.domain.order.audit.OrderAuditTransferDTO;
 import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
+import com.harvest.oms.repository.enums.OperationPrefixEnum;
 import com.harvest.oms.request.order.audit.SubmitAuditRequest;
 import com.harvest.oms.request.order.warehouse.SubmitWmsOrderMessage;
 import com.harvest.oms.service.order.event.OrderEventPublisher;
@@ -90,7 +91,7 @@ public class OrderAuditExecutor implements OrderAuditProcessor {
         OrderOperationLog operationLog = OrderOperationLog.build(
                 request.getOrder().getOrderId(),
                 RecordLog.OperationType.MODIFY,
-                "订单审核",
+                OperationPrefixEnum.AUDIT.getPrefix(),
                 "订单审核"
         );
         BizLogUtils.log(operationLog);

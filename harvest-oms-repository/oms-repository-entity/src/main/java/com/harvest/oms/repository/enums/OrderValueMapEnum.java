@@ -1,8 +1,8 @@
 package com.harvest.oms.repository.enums;
 
 import com.harvest.core.enums.IEnum;
-import com.harvest.oms.repository.enums.value.OrderExtFile;
-import com.harvest.oms.repository.enums.value.OrderLogisticsFile;
+import com.harvest.oms.repository.domain.value.OrderExtFile;
+import com.harvest.oms.repository.domain.value.OrderLogisticsFile;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

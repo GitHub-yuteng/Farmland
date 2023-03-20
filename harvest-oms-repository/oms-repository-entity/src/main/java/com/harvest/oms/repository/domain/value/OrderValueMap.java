@@ -1,4 +1,4 @@
-package com.harvest.oms.repository.enums.value;
+package com.harvest.oms.repository.domain.value;
 
 import com.harvest.oms.repository.enums.OrderValueMapEnum;
 
