@@ -21,6 +21,7 @@ import com.harvest.oms.repository.mapper.FarmlandOmsOrderMapper;
 import com.harvest.oms.repository.mapper.FarmlandOmsOrderRemarkMapper;
 import com.harvest.oms.repository.mapper.FarmlandOmsOrderTagMapper;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
@@ -130,15 +131,27 @@ public class OrderWriteRepositoryClientImpl implements OrderWriteRepositoryClien
         OrderRemark.RemarkEnum remarkEnum = remark.getRemarkEnum();
         switch (remarkEnum) {
             case SELLER:
+                if (StringUtils.isEmpty(remark.getSellerRemark())) {
+                    return;
+                }
                 entity.setSellerRemark(remark.getSellerRemark());
                 break;
             case BUYER:
+                if (StringUtils.isEmpty(remark.getBuyerRemark())) {
+                    return;
+                }
                 entity.setBuyerRemark(remark.getBuyerRemark());
                 break;
             case SYSTEM:
+                if (StringUtils.isEmpty(remark.getSystemRemark())) {
+                    return;
+                }
                 entity.setSystemRemark(remark.getSystemRemark());
                 break;
             case PRINT:
+                if (StringUtils.isEmpty(remark.getPrintRemark())) {
+                    return;
+                }
                 entity.setPrintRemark(remark.getPrintRemark());
                 break;
             default:
