@@ -20,6 +20,8 @@ public enum OperationPrefixEnum implements IEnum<Integer> {
 
     ABNORMAL    (20, "提交异常"),
 
+    REMARK      (21, "更新订单备注"),
+
     ;
 
 

@@ -11,6 +11,7 @@ import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.repository.domain.order.base.OrderRemark;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
 import com.harvest.oms.repository.domain.order.update.remark.OrderUpdateRemark;
+import com.harvest.oms.repository.enums.OperationPrefixEnum;
 import com.harvest.oms.service.order.handler.AbstractBizOrderHandler;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
@@ -27,7 +28,7 @@ public class OrderUpdateRemarkHandler extends AbstractBizOrderHandler implements
 
     @Override
     protected String update() {
-        return "更新订单备注";
+        return OperationPrefixEnum.REMARK.getPrefix();
     }
 
     @Override
