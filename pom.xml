@@ -45,6 +45,7 @@
     <module>harvest-cloud-NLP</module>
     <module>harvest-upload</module>
     <module>harvest-open-api</module>
+    <module>harvest-seckill</module>
     <!--物流-->
     <module>harvest-logistics</module>
     <module>harvest-logistics-SF</module>
