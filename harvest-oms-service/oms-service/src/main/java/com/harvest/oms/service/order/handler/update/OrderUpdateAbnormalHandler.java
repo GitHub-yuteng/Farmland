@@ -1,14 +1,14 @@
 package com.harvest.oms.service.order.handler.update;
 
-import com.harvest.core.service.annotation.BizLog;
 import com.harvest.core.log.RecordLog;
+import com.harvest.core.service.annotation.BizLog;
 import com.harvest.core.service.utils.BizLogUtils;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
 import com.harvest.oms.repository.enums.OperationPrefixEnum;
-import com.harvest.oms.service.order.handler.AbstractBizOrderHandler;
+import com.harvest.oms.service.order.handler.AbstractBizOrderUpdateHandler;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * @Description: 提交异常
  **/
 @Component
-public class OrderUpdateAbnormalHandler extends AbstractBizOrderHandler implements OrderUpdateHandler {
+public class OrderUpdateAbnormalHandler extends AbstractBizOrderUpdateHandler implements OrderUpdateHandler {
 
     @Override
     protected String update() {

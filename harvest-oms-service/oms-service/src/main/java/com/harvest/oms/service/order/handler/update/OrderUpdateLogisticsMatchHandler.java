@@ -4,7 +4,7 @@ import com.harvest.core.service.annotation.BizLog;
 import com.harvest.oms.client.order.OrderMatchClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
-import com.harvest.oms.service.order.handler.AbstractBizOrderHandler;
+import com.harvest.oms.service.order.handler.AbstractBizOrderUpdateHandler;
 import com.harvest.rule.domain.logistics.LogisticsRuleMatch;
 import com.harvest.rule.repository.domain.match.logistics.LogisticsRuleCondition;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
  * @Description: TODO
  **/
 @Component
-public class OrderUpdateLogisticsMatchHandler extends AbstractBizOrderHandler implements OrderUpdateHandler {
+public class OrderUpdateLogisticsMatchHandler extends AbstractBizOrderUpdateHandler implements OrderUpdateHandler {
 
     @Autowired
     private OrderMatchClient orderMatchClient;

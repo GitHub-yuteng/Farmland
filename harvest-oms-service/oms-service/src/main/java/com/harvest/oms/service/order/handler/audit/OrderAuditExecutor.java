@@ -1,9 +1,9 @@
 package com.harvest.oms.service.order.handler.audit;
 
-import com.harvest.core.service.annotation.BizLog;
 import com.harvest.core.context.SpringHelper;
 import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.core.log.RecordLog;
+import com.harvest.core.service.annotation.BizLog;
 import com.harvest.core.service.mq.ProducerMessageService;
 import com.harvest.core.service.mq.topic.MessageTopic;
 import com.harvest.core.service.utils.BizLogUtils;
@@ -16,6 +16,7 @@ import com.harvest.oms.repository.enums.OperationPrefixEnum;
 import com.harvest.oms.request.order.audit.SubmitAuditRequest;
 import com.harvest.oms.request.order.warehouse.SubmitWmsOrderMessage;
 import com.harvest.oms.service.order.event.OrderEventPublisher;
+import com.harvest.oms.service.order.handler.AbstractBizOrderHandler;
 import com.harvest.oms.service.order.processor.OrderAuditProcessor;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.slf4j.Logger;
@@ -29,7 +30,7 @@ import org.springframework.stereotype.Component;
  * @Description: 订单审核执行器
  **/
 @Component
-public class OrderAuditExecutor implements OrderAuditProcessor {
+public class OrderAuditExecutor extends AbstractBizOrderHandler implements OrderAuditProcessor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderAuditExecutor.class);
 
@@ -81,7 +82,7 @@ public class OrderAuditExecutor implements OrderAuditProcessor {
 
     @Override
     public void afterAudit(Long companyId, SubmitAuditRequest request) {
-        SendResult sendResult = this.pushWms(companyId, request);
+        SendResult sendResult = this.pushWms(companyId, request.getOrder());
         // 发布订单审核事件
         orderEventPublisher.publish(companyId, request.getOrder().getOrderId(), OrderEventEnum.AUDIT);
     }
@@ -97,11 +98,13 @@ public class OrderAuditExecutor implements OrderAuditProcessor {
         BizLogUtils.log(operationLog);
     }
 
-    private SendResult pushWms(Long companyId, SubmitAuditRequest request) {
+    private SendResult pushWms(Long companyId, OrderInfoDO order) {
+        OrderInfoDO pushOrder = super.filterOrderItems(order);
         // 推送wms
         SubmitWmsOrderMessage submitWmsOrderMessage = new SubmitWmsOrderMessage();
         submitWmsOrderMessage.setCompanyId(companyId);
-        submitWmsOrderMessage.setOrder(request.getOrder());
+        submitWmsOrderMessage.setOrder(pushOrder);
         return producerMessageService.syncSend(MessageTopic.ORDER_PUSH_WMS, submitWmsOrderMessage);
     }
+
 }

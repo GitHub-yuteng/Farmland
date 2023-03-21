@@ -1,14 +1,14 @@
 package com.harvest.oms.service.order.handler.update;
 
-import com.harvest.core.service.annotation.BizLog;
 import com.harvest.core.log.RecordLog;
+import com.harvest.core.service.annotation.BizLog;
 import com.harvest.core.service.utils.BizLogUtils;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.repository.domain.order.base.OrderTag;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
-import com.harvest.oms.service.order.handler.AbstractBizOrderHandler;
+import com.harvest.oms.service.order.handler.AbstractBizOrderUpdateHandler;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +20,7 @@ import java.util.List;
  * @Description: 移除标记
  **/
 @Component
-public class OrderUpdateTagAddHandler extends AbstractBizOrderHandler implements OrderUpdateHandler {
+public class OrderUpdateTagAddHandler extends AbstractBizOrderUpdateHandler implements OrderUpdateHandler {
 
     @Override
     protected String update() {

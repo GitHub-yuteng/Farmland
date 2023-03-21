@@ -1,9 +1,9 @@
 package com.harvest.oms.service.order.handler.update;
 
-import com.harvest.core.service.annotation.BizLog;
 import com.harvest.core.exception.ExceptionCodes;
 import com.harvest.core.exception.StandardRuntimeException;
 import com.harvest.core.log.RecordLog;
+import com.harvest.core.service.annotation.BizLog;
 import com.harvest.core.service.utils.BizLogUtils;
 import com.harvest.oms.cache.CacheLoader;
 import com.harvest.oms.client.order.OrderMatchClient;
@@ -14,7 +14,7 @@ import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.repository.domain.order.base.OrderWarehouse;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
 import com.harvest.oms.service.order.event.OrderEventPublisher;
-import com.harvest.oms.service.order.handler.AbstractBizOrderHandler;
+import com.harvest.oms.service.order.handler.AbstractBizOrderUpdateHandler;
 import com.harvest.rule.domain.warehouse.WarehouseRuleMatch;
 import com.harvest.rule.repository.domain.match.warehouse.WarehouseRuleCondition;
 import com.harvest.wms.domain.WarehouseDO;
@@ -29,7 +29,7 @@ import java.util.Objects;
  * @Description: 订单更新匹配仓库
  **/
 @Component
-public class OrderUpdateWarehouseMatchHandler extends AbstractBizOrderHandler implements OrderUpdateHandler {
+public class OrderUpdateWarehouseMatchHandler extends AbstractBizOrderUpdateHandler implements OrderUpdateHandler {
 
     @Autowired
     private OrderMatchClient orderMatchClient;

@@ -1,14 +1,14 @@
 package com.harvest.oms.service.order.handler.update;
 
-import com.harvest.core.service.annotation.BizLog;
 import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.core.log.RecordLog;
+import com.harvest.core.service.annotation.BizLog;
 import com.harvest.core.service.utils.BizLogUtils;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
-import com.harvest.oms.service.order.handler.AbstractBizOrderHandler;
+import com.harvest.oms.service.order.handler.AbstractBizOrderUpdateHandler;
 import org.springframework.stereotype.Component;
 
 /**
@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  * @Description: 关闭订单
  **/
 @Component
-public class OrderUpdateCloseHandler extends AbstractBizOrderHandler implements OrderUpdateHandler {
+public class OrderUpdateCloseHandler extends AbstractBizOrderUpdateHandler implements OrderUpdateHandler {
 
     @Override
     protected String update() {

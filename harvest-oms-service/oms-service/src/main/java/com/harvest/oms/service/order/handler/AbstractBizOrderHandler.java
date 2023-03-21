@@ -1,6 +1,8 @@
 package com.harvest.oms.service.order.handler;
 
 import com.harvest.core.constants.GlobalMacroDefinition;
+import com.harvest.core.utils.BeanUtils;
+import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.client.order.OrderWriteRepositoryClient;
 import com.harvest.oms.service.order.event.OrderEventPublisher;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,10 +21,15 @@ public abstract class AbstractBizOrderHandler implements GlobalMacroDefinition {
     protected OrderEventPublisher orderEventPublisher;
 
     /**
-     * 更新
+     * 过滤关闭的订单明细
      *
+     * @param order
      * @return
      */
-    protected abstract String update();
+    protected OrderInfoDO filterOrderItems(OrderInfoDO order) {
+        OrderInfoDO clone = BeanUtils.clone(order);
+        clone.getOrderItems().removeIf(item -> item.getOrderTags().contains(1));
+        return clone;
+    }
 
 }
