@@ -12,5 +12,6 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface RateLimit {
 
+    double permits() default Double.MAX_VALUE;
 
 }

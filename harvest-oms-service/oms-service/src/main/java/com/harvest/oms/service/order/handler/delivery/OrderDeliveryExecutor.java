@@ -1,6 +1,7 @@
 package com.harvest.oms.service.order.handler.delivery;
 
 import com.harvest.core.enums.oms.OrderStatusEnum;
+import com.harvest.core.service.annotation.RateLimit;
 import com.harvest.core.service.mq.ProducerMessageService;
 import com.harvest.oms.client.order.OrderWriteClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
@@ -30,6 +31,7 @@ public class OrderDeliveryExecutor implements OrderDeliveryProcessor {
     @Autowired
     private OrderEventPublisher orderEventPublisher;
 
+    @RateLimit(permits= 5)
     public void exec(Long companyId, OrderInfoDO order) {
         this.execute(companyId, order);
     }

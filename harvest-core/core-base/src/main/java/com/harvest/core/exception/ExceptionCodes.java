@@ -18,6 +18,11 @@ public interface ExceptionCodes {
     int CORE_MODULE_ERROR = 1;
 
     /**
+     * 限流异常
+     */
+    int RATE_LIMIT_ERROR = -99;
+
+    /**
      * 通用异常
      */
     int BASE_MODULE_ERROR = 100;
