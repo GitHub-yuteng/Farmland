@@ -17,7 +17,7 @@ import java.util.concurrent.ConcurrentHashMap;
 /**
  * @Author: Alodi
  * @Date: 2023/3/21 11:21 AM
- * @Description: TODO
+ * @Description: 限流切面
  **/
 @Aspect
 @Component
