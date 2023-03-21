@@ -50,6 +50,11 @@
       <groupId>com.squareup.okhttp3</groupId>
       <artifactId>okhttp</artifactId>
     </dependency>
+    <dependency>
+      <groupId>cn.hutool</groupId>
+      <artifactId>hutool-all</artifactId>
+      <version>5.8.15</version>
+    </dependency>
     <!--Java 瑞士军刀-->
     <dependency>
       <groupId>org.jodd</groupId>
