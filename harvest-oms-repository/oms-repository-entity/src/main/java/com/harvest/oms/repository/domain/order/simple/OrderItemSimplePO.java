@@ -2,6 +2,7 @@ package com.harvest.oms.repository.domain.order.simple;
 
 import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.oms.repository.domain.amount.OrderAmount;
+import com.harvest.oms.repository.domain.order.base.OrderTag;
 import com.harvest.oms.repository.domain.order.base.OrderTime;
 import com.harvest.oms.repository.domain.order.OrderCore;
 import io.swagger.annotations.ApiModelProperty;
@@ -10,6 +11,7 @@ import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @Author: Alodi
@@ -72,5 +74,8 @@ public class OrderItemSimplePO extends OrderCore implements Serializable {
 
     @ApiModelProperty("商品外部图片")
     private String pictureOssUrl;
+
+    @ApiModelProperty("订单明细标签")
+    private List<OrderTag> orderTags;
 
 }
