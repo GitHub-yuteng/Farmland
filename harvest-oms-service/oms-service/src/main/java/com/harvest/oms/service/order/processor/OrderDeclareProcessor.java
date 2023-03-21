@@ -1,7 +1,6 @@
 package com.harvest.oms.service.order.processor;
 
 import com.harvest.basic.domain.logistics.DeclarationResponse;
-import com.harvest.core.annotation.BizLog;
 import com.harvest.oms.request.order.declare.SubmitDeclarationRequest;
 
 /**

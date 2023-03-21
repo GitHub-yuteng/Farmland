@@ -1,6 +1,6 @@
 package com.harvest.oms.service.order.handler.update;
 
-import com.harvest.core.annotation.BizLog;
+import com.harvest.core.service.annotation.BizLog;
 import com.harvest.oms.client.order.OrderMatchClient;
 import com.harvest.oms.domain.order.OrderInfoDO;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;

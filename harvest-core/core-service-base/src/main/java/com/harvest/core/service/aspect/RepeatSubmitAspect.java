@@ -1,6 +1,6 @@
 package com.harvest.core.service.aspect;
 
-import com.harvest.core.annotation.RepeatSubmit;
+import com.harvest.core.service.annotation.RepeatSubmit;
 import com.harvest.core.context.ContextHolder;
 import com.harvest.core.exception.ExceptionCodes;
 import com.harvest.core.exception.StandardRuntimeException;
@@ -32,7 +32,7 @@ public class RepeatSubmitAspect {
     @Autowired
     private CacheService cacheService;
 
-    @Around(value = "@annotation(com.harvest.core.annotation.RepeatSubmit)")
+    @Around(value = "@annotation(com.harvest.core.service.annotation.RepeatSubmit)")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Method method = methodSignature.getMethod();

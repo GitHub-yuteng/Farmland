@@ -1,6 +1,6 @@
 package com.harvest.oms.service.order.handler.audit;
 
-import com.harvest.core.annotation.BizLog;
+import com.harvest.core.service.annotation.BizLog;
 import com.harvest.core.context.SpringHelper;
 import com.harvest.core.enums.oms.OrderStatusEnum;
 import com.harvest.core.log.RecordLog;

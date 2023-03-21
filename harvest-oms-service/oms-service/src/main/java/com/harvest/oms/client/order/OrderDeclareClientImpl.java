@@ -1,7 +1,7 @@
 package com.harvest.oms.client.order;
 
 import com.harvest.basic.domain.logistics.DeclarationResponse;
-import com.harvest.core.annotation.RepeatSubmit;
+import com.harvest.core.service.annotation.RepeatSubmit;
 import com.harvest.core.annotation.feign.HarvestService;
 import com.harvest.core.batch.BatchExecuteResult;
 import com.harvest.core.batch.BatchId;

@@ -1,4 +1,4 @@
-package com.harvest.core.annotation;
+package com.harvest.core.service.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

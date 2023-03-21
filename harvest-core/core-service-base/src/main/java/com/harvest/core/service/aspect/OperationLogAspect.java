@@ -41,7 +41,7 @@ public class OperationLogAspect implements InitializingBean {
                 .forEach(log -> LOG_MAP.put(log.match(), log));
     }
 
-    @After(value = "@annotation(com.harvest.core.annotation.BizLog)")
+    @After(value = "@annotation(com.harvest.core.service.annotation.BizLog)")
     public void after(JoinPoint joinPoint) {
         try {
             List<OperationLog> operationLogs = BizLogUtils.get();

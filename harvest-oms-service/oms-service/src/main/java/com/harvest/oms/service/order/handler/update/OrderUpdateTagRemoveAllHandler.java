@@ -1,6 +1,6 @@
 package com.harvest.oms.service.order.handler.update;
 
-import com.harvest.core.annotation.BizLog;
+import com.harvest.core.service.annotation.BizLog;
 import com.harvest.core.log.RecordLog;
 import com.harvest.core.service.utils.BizLogUtils;
 import com.harvest.core.utils.JsonUtils;
