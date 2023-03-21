@@ -15,7 +15,6 @@ import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.repository.enums.OperationPrefixEnum;
 import com.harvest.oms.request.order.audit.SubmitAuditRequest;
 import com.harvest.oms.request.order.warehouse.SubmitWmsOrderMessage;
-import com.harvest.oms.service.order.event.OrderEventPublisher;
 import com.harvest.oms.service.order.handler.AbstractBizOrderHandler;
 import com.harvest.oms.service.order.processor.OrderAuditProcessor;
 import org.apache.rocketmq.client.producer.SendResult;
@@ -39,9 +38,6 @@ public class OrderAuditExecutor extends AbstractBizOrderHandler implements Order
 
     @Autowired
     private ProducerMessageService producerMessageService;
-
-    @Autowired
-    private OrderEventPublisher orderEventPublisher;
 
     /**
      * 执行处理
