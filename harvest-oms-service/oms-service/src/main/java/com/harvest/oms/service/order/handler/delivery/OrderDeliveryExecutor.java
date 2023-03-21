@@ -1,6 +1,8 @@
 package com.harvest.oms.service.order.handler.delivery;
 
 import com.harvest.core.enums.oms.OrderStatusEnum;
+import com.harvest.core.exception.ExceptionCodes;
+import com.harvest.core.exception.StandardRuntimeException;
 import com.harvest.core.service.annotation.RateLimit;
 import com.harvest.core.service.mq.ProducerMessageService;
 import com.harvest.oms.client.order.OrderWriteClient;
@@ -31,7 +33,7 @@ public class OrderDeliveryExecutor implements OrderDeliveryProcessor {
     @Autowired
     private OrderEventPublisher orderEventPublisher;
 
-    @RateLimit(permits= 5)
+    @RateLimit(permits = 5)
     public void exec(Long companyId, OrderInfoDO order) {
         this.execute(companyId, order);
     }
@@ -45,7 +47,9 @@ public class OrderDeliveryExecutor implements OrderDeliveryProcessor {
      */
     @Override
     public void check(Long companyId, OrderInfoDO order) {
-
+        if (OrderStatusEnum.SHIPPED.equals(order.getOrderStatus())) {
+            throw new StandardRuntimeException(ExceptionCodes.OMS_MODULE_ERROR, "订单已为发货状态！");
+        }
     }
 
     /**
