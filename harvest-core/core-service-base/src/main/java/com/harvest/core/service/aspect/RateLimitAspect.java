@@ -27,6 +27,7 @@ public class RateLimitAspect {
 
     @Around(value = "@annotation(com.harvest.core.service.annotation.RateLimit)")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
+        String clazzName = joinPoint.getTarget().getClass().getName();
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Method method = methodSignature.getMethod();
         if (!method.isAnnotationPresent(RateLimit.class)) {
@@ -35,12 +36,19 @@ public class RateLimitAspect {
 
         RateLimit rateLimit = method.getAnnotation(RateLimit.class);
 
+        String realKey = clazzName + "#" + method.getName();
         final RateLimiter rateLimiter;
-        if (RATE_LIMITER_MAP.containsKey(method.getName())) {
-            rateLimiter = RATE_LIMITER_MAP.get(method.getName());
+        if (RATE_LIMITER_MAP.containsKey(realKey)) {
+            rateLimiter = RATE_LIMITER_MAP.get(realKey);
         } else {
-            RATE_LIMITER_MAP.put(method.getName(), RateLimiter.create(rateLimit.permits()));
-            rateLimiter = RATE_LIMITER_MAP.get(method.getName());
+            synchronized (realKey.intern()) {
+                if (RATE_LIMITER_MAP.containsKey(realKey)) {
+                    rateLimiter = RATE_LIMITER_MAP.get(realKey);
+                } else {
+                    RATE_LIMITER_MAP.put(realKey, RateLimiter.create(rateLimit.permits()));
+                    rateLimiter = RATE_LIMITER_MAP.get(realKey);
+                }
+            }
         }
 
         if (!rateLimiter.tryAcquire()) {
