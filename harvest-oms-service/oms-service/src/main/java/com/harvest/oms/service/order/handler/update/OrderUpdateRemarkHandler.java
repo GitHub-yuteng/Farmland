@@ -12,7 +12,7 @@ import com.harvest.oms.repository.domain.order.base.OrderRemark;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
 import com.harvest.oms.repository.domain.order.update.remark.OrderUpdateRemark;
 import com.harvest.oms.repository.enums.OperationPrefixEnum;
-import com.harvest.oms.service.order.handler.AbstractBizOrderUpdateHandler;
+import com.harvest.oms.service.order.handler.AbstractOrderUpdateHandler;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +24,7 @@ import java.util.Objects;
  * @Description: TODO
  **/
 @Component
-public class OrderUpdateRemarkHandler extends AbstractBizOrderUpdateHandler implements OrderUpdateHandler {
+public class OrderUpdateRemarkHandler extends AbstractOrderUpdateHandler implements OrderUpdateHandler {
 
     @Override
     protected String update() {

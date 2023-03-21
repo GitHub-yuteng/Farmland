@@ -25,6 +25,18 @@
         #{status}
       </foreach>
     </if>
+    <if test="buyerRemark != null">
+      AND o.buyer_remark LIKE CONCAT('%', #{buyerRemark}, '%')
+    </if>
+    <if test="buyerRemark != null">
+      AND o.system_remark LIKE CONCAT('%', #{systemRemark}, '%')
+    </if>
+    <if test="buyerRemark != null">
+      AND o.seller_remark LIKE CONCAT('%', #{sellerRemark}, '%')
+    </if>
+    <if test="buyerRemark != null">
+      AND o.print_remark LIKE CONCAT('%', #{printRemark}, '%')
+    </if>
   </sql>
 
 </mapper>

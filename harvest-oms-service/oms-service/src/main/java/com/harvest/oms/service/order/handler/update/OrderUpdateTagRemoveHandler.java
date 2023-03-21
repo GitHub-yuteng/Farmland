@@ -9,7 +9,7 @@ import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.repository.domain.order.base.OrderTag;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
-import com.harvest.oms.service.order.handler.AbstractBizOrderUpdateHandler;
+import com.harvest.oms.service.order.handler.AbstractOrderUpdateHandler;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
  * @Description: 移除标记
  **/
 @Component
-public class OrderUpdateTagRemoveHandler extends AbstractBizOrderUpdateHandler implements OrderUpdateHandler {
+public class OrderUpdateTagRemoveHandler extends AbstractOrderUpdateHandler implements OrderUpdateHandler {
 
     @Override
     protected String update() {

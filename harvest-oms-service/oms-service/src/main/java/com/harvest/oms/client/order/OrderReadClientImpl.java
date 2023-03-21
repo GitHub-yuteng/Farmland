@@ -35,7 +35,7 @@ public class OrderReadClientImpl implements OrderReadClient {
     }
 
     @Override
-    public Collection<OrderInfoDO> listOrderRichByOrderIds(Long companyId, List<Long> orderIds) {
+    public Collection<OrderInfoDO> listOrderRich(Long companyId, List<Long> orderIds) {
         PageOrderConditionQuery condition = new PageOrderConditionQuery();
         condition.setOrderIds(orderIds);
         return SpringHelper.getBean(OrderRichQueryClient.class).listQueryOrderRich(companyId, condition);

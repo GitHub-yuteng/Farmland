@@ -27,8 +27,8 @@ public interface OrderReadClient extends GlobalMacroDefinition {
     OrderInfoDO getOrderRich(@RequestParam(COMPANY_ID) Long companyId, @RequestParam(OMS.ORDER_ID) Long orderId);
 
     @ApiOperation("查询订单信息")
-    @PostMapping(value = "/listOrderByOrderIds")
-    Collection<OrderInfoDO> listOrderRichByOrderIds(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
+    @PostMapping(value = "/listOrderRich")
+    Collection<OrderInfoDO> listOrderRich(@RequestParam(COMPANY_ID) Long companyId, @RequestBody List<Long> orderIds);
 
     @ApiOperation("订单明细信息查询")
     @PostMapping(value = "/listOrderItemByOrderIds")

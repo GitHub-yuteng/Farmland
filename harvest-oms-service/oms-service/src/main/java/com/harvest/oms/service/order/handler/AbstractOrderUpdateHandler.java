@@ -5,7 +5,7 @@ package com.harvest.oms.service.order.handler;
  * @Date: 2023/3/17 11:04 AM
  * @Description: TODO
  **/
-public abstract class AbstractBizOrderUpdateHandler extends AbstractBizOrderHandler {
+public abstract class AbstractOrderUpdateHandler extends AbstractOrderHandler {
 
     /**
      * 更新

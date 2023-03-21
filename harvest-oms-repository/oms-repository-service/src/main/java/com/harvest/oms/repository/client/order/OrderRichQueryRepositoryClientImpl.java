@@ -241,14 +241,25 @@ public class OrderRichQueryRepositoryClientImpl implements OrderRichQueryReposit
             // 后续补充
         }
 
-        //TODO 订单备注
+        /* 订单备注 */
         OrderRemarkQuery orderRemark = condition.getOrderRemark();
         if (Objects.nonNull(orderRemark)) {
             OrderRemarkQuery.OrderRemark buyerRemark = orderRemark.getBuyer();
             if (Objects.nonNull(buyerRemark) && !buyerRemark.isEmpty()) {
                 paramsMap.put("buyerRemark", buyerRemark.getRemark());
             }
-            // 后续补充
+            OrderRemarkQuery.OrderRemark systemRemark = orderRemark.getSystem();
+            if (Objects.nonNull(systemRemark) && !systemRemark.isEmpty()) {
+                paramsMap.put("systemRemark", systemRemark.getRemark());
+            }
+            OrderRemarkQuery.OrderRemark sellerRemark = orderRemark.getSeller();
+            if (Objects.nonNull(sellerRemark) && !sellerRemark.isEmpty()) {
+                paramsMap.put("sellerRemark", sellerRemark.getRemark());
+            }
+            OrderRemarkQuery.OrderRemark printRemark = orderRemark.getPrint();
+            if (Objects.nonNull(printRemark) && !printRemark.isEmpty()) {
+                paramsMap.put("printRemark", printRemark.getRemark());
+            }
         }
 
         //TODO 订单级别单号查询

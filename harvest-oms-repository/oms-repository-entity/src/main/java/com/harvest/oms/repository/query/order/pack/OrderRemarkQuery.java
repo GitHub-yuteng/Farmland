@@ -20,6 +20,9 @@ public class OrderRemarkQuery {
     @ApiModelProperty("系统备注")
     private OrderRemark system;
 
+    @ApiModelProperty("打印备注")
+    private OrderRemark print;
+
     @Data
     public static class OrderRemark {
 

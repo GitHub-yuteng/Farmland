@@ -12,7 +12,7 @@ import com.harvest.oms.enums.OrderEventEnum;
 import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.repository.domain.order.base.OrderWarehouse;
 import com.harvest.oms.repository.domain.order.update.OrderSubmitUpdateField;
-import com.harvest.oms.service.order.handler.AbstractBizOrderUpdateHandler;
+import com.harvest.oms.service.order.handler.AbstractOrderUpdateHandler;
 import com.harvest.wms.domain.WarehouseDO;
 import org.springframework.stereotype.Component;
 
@@ -24,7 +24,7 @@ import java.util.Objects;
  * @Description: 订单更新仓库
  **/
 @Component
-public class OrderUpdateWarehouseHandler extends AbstractBizOrderUpdateHandler implements OrderUpdateHandler {
+public class OrderUpdateWarehouseHandler extends AbstractOrderUpdateHandler implements OrderUpdateHandler {
 
     @Override
     protected String update() {

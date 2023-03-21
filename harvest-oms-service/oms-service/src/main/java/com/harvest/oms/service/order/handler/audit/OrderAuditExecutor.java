@@ -15,7 +15,7 @@ import com.harvest.oms.repository.domain.order.base.OrderOperationLog;
 import com.harvest.oms.repository.enums.OperationPrefixEnum;
 import com.harvest.oms.request.order.audit.SubmitAuditRequest;
 import com.harvest.oms.request.order.warehouse.SubmitWmsOrderMessage;
-import com.harvest.oms.service.order.handler.AbstractBizOrderHandler;
+import com.harvest.oms.service.order.handler.AbstractOrderHandler;
 import com.harvest.oms.service.order.processor.OrderAuditProcessor;
 import org.apache.rocketmq.client.producer.SendResult;
 import org.slf4j.Logger;
@@ -29,7 +29,7 @@ import org.springframework.stereotype.Component;
  * @Description: 订单审核执行器
  **/
 @Component
-public class OrderAuditExecutor extends AbstractBizOrderHandler implements OrderAuditProcessor {
+public class OrderAuditExecutor extends AbstractOrderHandler implements OrderAuditProcessor {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderAuditExecutor.class);
 
