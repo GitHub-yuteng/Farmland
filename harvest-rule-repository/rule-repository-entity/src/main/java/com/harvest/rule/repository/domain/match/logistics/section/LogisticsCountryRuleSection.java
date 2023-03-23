@@ -12,7 +12,7 @@ import java.util.List;
  * @Description: TODO
  **/
 @Data
-public class CountryRuleSection implements RuleSection {
+public class LogisticsCountryRuleSection implements RuleSection {
 
     private static final long serialVersionUID = -4533437483822313257L;
 

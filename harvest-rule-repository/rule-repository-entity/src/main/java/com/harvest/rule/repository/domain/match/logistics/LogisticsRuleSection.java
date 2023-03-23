@@ -13,17 +13,17 @@ import lombok.Data;
 public class LogisticsRuleSection {
 
     @ApiModelProperty("国家规则")
-    private CountryRuleSection countryRuleSection;
+    private LogisticsCountryRuleSection countryRuleSection;
 
     @ApiModelProperty("商品尺寸规则")
-    private GoodsSizeRuleSection goodsSizeRuleSection;
+    private LogisticsGoodsSizeRuleSection goodsSizeRuleSection;
 
     @ApiModelProperty("订单金额规则")
-    private OrderAmountRuleSection orderAmountRuleSection;
+    private LogisticsOrderAmountRuleSection orderAmountRuleSection;
 
     @ApiModelProperty("包裹信息规则")
-    private PackageRuleSection packageRuleSection;
+    private LogisticsPackageRuleSection packageRuleSection;
 
     @ApiModelProperty("仓库信息规则")
-    private WarehouseRuleSection warehouseRuleSection;
+    private LogisticsWarehouseRuleSection warehouseRuleSection;
 }

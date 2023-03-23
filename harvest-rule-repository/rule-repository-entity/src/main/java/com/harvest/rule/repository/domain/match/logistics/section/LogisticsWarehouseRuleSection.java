@@ -12,7 +12,7 @@ import java.util.List;
  * @Description: TODO
  **/
 @Data
-public class WarehouseRuleSection implements RuleSection {
+public class LogisticsWarehouseRuleSection implements RuleSection {
 
     private static final long serialVersionUID = -8251492988866083094L;
 

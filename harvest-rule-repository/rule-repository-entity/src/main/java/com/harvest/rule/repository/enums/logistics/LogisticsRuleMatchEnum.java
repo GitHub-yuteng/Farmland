@@ -4,7 +4,7 @@ import com.harvest.core.enums.IEnum;
 import com.harvest.core.exception.ExceptionCodes;
 import com.harvest.core.exception.StandardRuntimeException;
 import com.harvest.core.rule.RuleSection;
-import com.harvest.rule.repository.domain.match.logistics.section.WarehouseRuleSection;
+import com.harvest.rule.repository.domain.match.logistics.section.LogisticsWarehouseRuleSection;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
@@ -22,7 +22,7 @@ public enum LogisticsRuleMatchEnum implements IEnum<Integer> {
     /**
      * 物流匹配细分规则
      */
-    WAREHOUSE_RULE(8, "仓库规则", WarehouseRuleSection.class),
+    WAREHOUSE_RULE(8, "仓库规则", LogisticsWarehouseRuleSection.class),
 
     ;
 

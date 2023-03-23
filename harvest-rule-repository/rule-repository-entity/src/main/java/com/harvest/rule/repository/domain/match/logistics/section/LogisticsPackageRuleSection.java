@@ -12,7 +12,7 @@ import lombok.Data;
  * @Description: TODO
  **/
 @Data
-public class PackageRuleSection implements RuleSection {
+public class LogisticsPackageRuleSection implements RuleSection {
 
     private static final long serialVersionUID = 784698785341275641L;
 
