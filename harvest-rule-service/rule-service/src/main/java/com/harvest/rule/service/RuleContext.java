@@ -4,6 +4,8 @@ import com.harvest.core.rule.RuleManager;
 import com.harvest.core.rule.confine.Rule;
 import com.harvest.core.rule.confine.RuleCondition;
 import com.harvest.core.rule.confine.RuleMatch;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.CollectionUtils;
 
@@ -15,6 +17,8 @@ import java.util.Collection;
  * @Description: TODO
  **/
 public abstract class RuleContext<RULE extends Rule, C extends RuleCondition, RM extends RuleMatch> {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RuleContext.class);
 
     @Autowired
     private RuleManager ruleManager;

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author: Alodi
@@ -23,7 +24,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @Component
 public class RateLimitAspect {
 
-    private static final Map<String, RateLimiter> RATE_LIMITER_MAP = new ConcurrentHashMap<>(20);
+    private static final Map<String, RateLimiter> RATE_LIMITER_MAP = new ConcurrentHashMap<>(8);
 
     @Around(value = "@annotation(com.harvest.core.service.annotation.RateLimit)")
     public Object execute(ProceedingJoinPoint joinPoint) throws Throwable {
@@ -42,16 +43,14 @@ public class RateLimitAspect {
             rateLimiter = RATE_LIMITER_MAP.get(realKey);
         } else {
             synchronized (realKey.intern()) {
-                if (RATE_LIMITER_MAP.containsKey(realKey)) {
-                    rateLimiter = RATE_LIMITER_MAP.get(realKey);
-                } else {
+                if (!RATE_LIMITER_MAP.containsKey(realKey)) {
                     RATE_LIMITER_MAP.put(realKey, RateLimiter.create(rateLimit.permits()));
-                    rateLimiter = RATE_LIMITER_MAP.get(realKey);
                 }
+                rateLimiter = RATE_LIMITER_MAP.get(realKey);
             }
         }
 
-        if (!rateLimiter.tryAcquire()) {
+        if (!rateLimiter.tryAcquire(1, 500, TimeUnit.MILLISECONDS)) {
             throw new RateLimitRuntimeException(ExceptionCodes.RATE_LIMIT_ERROR, "前方拥挤，亲请稍后再试～");
         }
 

@@ -12,6 +12,8 @@ import com.harvest.rule.repository.domain.match.logistics.LogisticsRule;
 import com.harvest.rule.repository.domain.match.logistics.LogisticsRuleCondition;
 import com.harvest.rule.service.logistics.LogisticsMatchProcessor;
 import org.apache.commons.collections4.CollectionUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.Collection;
@@ -24,6 +26,8 @@ import java.util.Collections;
  **/
 @HarvestService(path = HarvestRuleApplications.LogisticsPath.LOGISTICS_RULE)
 public class LogisticsRuleClientImpl implements LogisticsRuleClient {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(LogisticsRuleClientImpl.class);
 
     @Autowired
     private LogisticsRuleRepositoryClient logisticsRuleRepositoryClient;
