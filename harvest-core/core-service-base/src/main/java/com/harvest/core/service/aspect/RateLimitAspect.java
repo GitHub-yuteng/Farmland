@@ -42,7 +42,7 @@ public class RateLimitAspect {
         if (RATE_LIMITER_MAP.containsKey(realKey)) {
             rateLimiter = RATE_LIMITER_MAP.get(realKey);
         } else {
-            synchronized (realKey.intern()) {
+            synchronized (RateLimitAspect.class) {
                 if (!RATE_LIMITER_MAP.containsKey(realKey)) {
                     RATE_LIMITER_MAP.put(realKey, RateLimiter.create(rateLimit.permits()));
                 }
