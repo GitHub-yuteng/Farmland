@@ -2,7 +2,7 @@ package com.harvest.rule.service.logistics.match;
 
 import com.harvest.core.rule.RuleMatcher;
 import com.harvest.rule.repository.domain.match.logistics.LogisticsRuleCondition;
-import com.harvest.rule.repository.domain.match.logistics.section.CountryRuleSection;
+import com.harvest.rule.repository.domain.match.logistics.section.LogisticsCountryRuleSection;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
  * @Description: TODO
  **/
 @Component
-public class CountryRuleMatcher implements RuleMatcher<CountryRuleSection, LogisticsRuleCondition> {
+public class CountryRuleMatcher implements RuleMatcher<LogisticsCountryRuleSection, LogisticsRuleCondition> {
 
     @Override
-    public boolean match(CountryRuleSection ruleSection, LogisticsRuleCondition condition) {
+    public boolean match(LogisticsCountryRuleSection ruleSection, LogisticsRuleCondition condition) {
         if (StringUtils.isEmpty(condition.getCountryCode()) || CollectionUtils.isEmpty(ruleSection.getCountryCodes())) {
             return Boolean.FALSE;
         }
